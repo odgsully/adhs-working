@@ -1,0 +1,22 @@
+{
+  "prompts": {
+    "default": {
+      "role": "system",
+      "content": "Prefer creating deterministic, testable Python scripts. Keep column names exactly as in the Excel template."
+    }
+  },
+  "commands": [
+    {
+      "name": "batchdata:scaffold",
+      "prompt": "Create the /pipeline scaffold and empty modules io.py, normalize.py, batchdata.py, transform.py, run.py per the PRD."
+    },
+    {
+      "name": "batchdata:implement",
+      "prompt": "Implement all modules using requests, pandas, python-dotenv. Respect CONFIG toggles. Add a dry-run cost estimator and unit tests."
+    },
+    {
+      "name": "batchdata:tests",
+      "prompt": "Write pytest tests with fixtures that mock HTTP responses for async endpoints, validating exploding/aggregation and scrubs."
+    }
+  ]
+}

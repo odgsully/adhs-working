@@ -1,0 +1,552 @@
+[
+  {
+    "session_id": "365f21a1-14cc-402b-8405-6f2048f36a3e",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025/365f21a1-14cc-402b-8405-6f2048f36a3e.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025",
+    "permission_mode": "default",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Read",
+    "tool_input": {
+      "file_path": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025/ai_docs/anthropic_custom_slash_commands.md"
+    }
+  },
+  {
+    "session_id": "365f21a1-14cc-402b-8405-6f2048f36a3e",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025/365f21a1-14cc-402b-8405-6f2048f36a3e.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025",
+    "permission_mode": "default",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Read",
+    "tool_input": {
+      "file_path": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025/ai_docs/anthropic_docs_subagents.md"
+    }
+  },
+  {
+    "session_id": "365f21a1-14cc-402b-8405-6f2048f36a3e",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025/365f21a1-14cc-402b-8405-6f2048f36a3e.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025",
+    "permission_mode": "default",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Read",
+    "tool_input": {
+      "file_path": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025/CLAUDE.md"
+    }
+  },
+  {
+    "session_id": "365f21a1-14cc-402b-8405-6f2048f36a3e",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025/365f21a1-14cc-402b-8405-6f2048f36a3e.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025",
+    "permission_mode": "default",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Read",
+    "tool_input": {
+      "file_path": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025/ADHS-ETL-INDEX.md"
+    }
+  },
+  {
+    "session_id": "365f21a1-14cc-402b-8405-6f2048f36a3e",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025/365f21a1-14cc-402b-8405-6f2048f36a3e.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025",
+    "permission_mode": "default",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Read",
+    "tool_input": {
+      "file_path": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025/pyproject.toml"
+    }
+  },
+  {
+    "session_id": "365f21a1-14cc-402b-8405-6f2048f36a3e",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025/365f21a1-14cc-402b-8405-6f2048f36a3e.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025",
+    "permission_mode": "default",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "TodoWrite",
+    "tool_input": {
+      "todos": [
+        {
+          "content": "Execute git ls-files to understand project structure",
+          "status": "completed",
+          "activeForm": "Executing git ls-files to understand project structure"
+        },
+        {
+          "content": "Read and analyze key documentation files",
+          "status": "completed",
+          "activeForm": "Reading and analyzing key documentation files"
+        },
+        {
+          "content": "Provide comprehensive project summary",
+          "status": "in_progress",
+          "activeForm": "Providing comprehensive project summary"
+        }
+      ]
+    }
+  },
+  {
+    "session_id": "365f21a1-14cc-402b-8405-6f2048f36a3e",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025/365f21a1-14cc-402b-8405-6f2048f36a3e.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025",
+    "permission_mode": "default",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Write",
+    "tool_input": {
+      "file_path": "/tmp/cc_genui_adhs_project_summary_20250116_150300.html",
+      "content": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <title>ADHS ETL Pipeline - Project Analysis</title>\n    <style>\n        * {\n            margin: 0;\n            padding: 0;\n            box-sizing: border-box;\n        }\n\n        body {\n            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;\n            line-height: 1.6;\n            color: #333;\n            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);\n            padding: 20px;\n            min-height: 100vh;\n        }\n\n        article {\n            max-width: 900px;\n            margin: 0 auto;\n            background: white;\n            border-radius: 8px;\n            box-shadow: 0 10px 30px rgba(0,0,0,0.1);\n            overflow: hidden;\n        }\n\n        header {\n            background: #2c3e50;\n            color: white;\n            padding: 2rem;\n            border-bottom: 4px solid #3498db;\n        }\n\n        h1 {\n            font-size: 2.5rem;\n            margin-bottom: 0.5rem;\n        }\n\n        .subtitle {\n            font-size: 1.1rem;\n            opacity: 0.9;\n            margin-top: 0.5rem;\n        }\n\n        main {\n            padding: 2rem;\n        }\n\n        h2 {\n            color: #2c3e50;\n            font-size: 1.8rem;\n            margin: 2rem 0 1rem 0;\n            padding-bottom: 0.5rem;\n            border-bottom: 2px solid #3498db;\n        }\n\n        h3 {\n            color: #34495e;\n            font-size: 1.3rem;\n            margin: 1.5rem 0 0.75rem 0;\n        }\n\n        section {\n            margin-bottom: 2rem;\n        }\n\n        .info-section {\n            background: #e8f4f8;\n            border-left: 4px solid #3498db;\n            padding: 1rem;\n            margin: 1rem 0;\n            border-radius: 4px;\n        }\n\n        .success-section {\n            background: #e8f8f5;\n            border-left: 4px solid #27ae60;\n            padding: 1rem;\n            margin: 1rem 0;\n            border-radius: 4px;\n        }\n\n        .warning-section {\n            background: #fef3e2;\n            border-left: 4px solid #f39c12;\n            padding: 1rem;\n            margin: 1rem 0;\n            border-radius: 4px;\n        }\n\n        .grid {\n            display: grid;\n            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));\n            gap: 1rem;\n            margin: 1rem 0;\n        }\n\n        .card {\n            background: #f8f9fa;\n            padding: 1rem;\n            border-radius: 4px;\n            border: 1px solid #dee2e6;\n        }\n\n        .card h4 {\n            color: #2c3e50;\n            margin-bottom: 0.5rem;\n        }\n\n        code {\n            background: #f5f5f5;\n            padding: 2px 6px;\n            border-radius: 3px;\n            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', 'Courier New', monospace;\n            font-size: 0.9em;\n        }\n\n        pre {\n            background: #f8f9fa;\n            padding: 1rem;\n            border-radius: 4px;\n            overflow-x: auto;\n            border-left: 3px solid #007acc;\n            margin: 1rem 0;\n        }\n\n        pre code {\n            background: none;\n            padding: 0;\n            display: block;\n        }\n\n        ul, ol {\n            margin-left: 2rem;\n            margin-top: 0.5rem;\n        }\n\n        li {\n            margin-bottom: 0.5rem;\n        }\n\n        .file-tree {\n            background: #f8f9fa;\n            padding: 1rem;\n            border-radius: 4px;\n            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', 'Courier New', monospace;\n            font-size: 0.9em;\n        }\n\n        .pipeline-flow {\n            display: flex;\n            justify-content: space-between;\n            align-items: center;\n            padding: 1.5rem;\n            background: linear-gradient(to right, #e8f4f8, #f8f9fa);\n            border-radius: 4px;\n            margin: 1rem 0;\n        }\n\n        .pipeline-step {\n            flex: 1;\n            text-align: center;\n            padding: 1rem;\n            background: white;\n            border-radius: 4px;\n            margin: 0 0.5rem;\n            border: 2px solid #3498db;\n        }\n\n        .pipeline-arrow {\n            color: #3498db;\n            font-size: 2rem;\n        }\n\n        table {\n            width: 100%;\n            border-collapse: collapse;\n            margin: 1rem 0;\n        }\n\n        th, td {\n            padding: 0.75rem;\n            text-align: left;\n            border-bottom: 1px solid #dee2e6;\n        }\n\n        th {\n            background: #f8f9fa;\n            font-weight: 600;\n            color: #2c3e50;\n        }\n\n        tr:hover {\n            background: #f8f9fa;\n        }\n\n        footer {\n            background: #34495e;\n            color: white;\n            padding: 2rem;\n            text-align: center;\n        }\n\n        footer a {\n            color: #3498db;\n            text-decoration: none;\n        }\n\n        footer a:hover {\n            text-decoration: underline;\n        }\n    </style>\n</head>\n<body>\n    <article>\n        <header>\n            <h1>\ud83c\udfe5 ADHS ETL Pipeline</h1>\n            <div class=\"subtitle\">Arizona Department of Health Services Provider Data Processing System</div>\n        </header>\n\n        <main>\n            <section class=\"info-section\">\n                <h3>\u2139\ufe0f Project Overview</h3>\n                <p>A Python-based ETL (Extract, Transform, Load) pipeline for processing healthcare provider data from the Arizona Department of Health Services (ADHS). The system processes monthly provider roster Excel workbooks, performs data standardization, deduplication, and generates comprehensive business analysis reports.</p>\n            </section>\n\n            <h2>\ud83c\udfaf Core Purpose & Functionality</h2>\n            <section>\n                <p>This pipeline processes ADHS provider data across 11 different healthcare facility types, transforming raw Excel workbooks into standardized, deduplicated datasets with business intelligence analysis. It handles:</p>\n                <ul>\n                    <li>Monthly data ingestion from multiple provider types</li>\n                    <li>Field mapping and standardization</li>\n                    <li>Provider deduplication using fuzzy matching</li>\n                    <li>Historical tracking and change analysis</li>\n                    <li>Geocoding integration (planned via MCAO API)</li>\n                    <li>Comprehensive business analysis reporting</li>\n                </ul>\n            </section>\n\n            <h2>\ud83d\udd04 Data Processing Pipeline</h2>\n            <div class=\"pipeline-flow\">\n                <div class=\"pipeline-step\">\n                    <strong>Input</strong>\n                    <br>Excel Files\n                    <br>11 Provider Types\n                </div>\n                <span class=\"pipeline-arrow\">\u2192</span>\n                <div class=\"pipeline-step\">\n                    <strong>Transform</strong>\n                    <br>Field Mapping\n                    <br>Standardization\n                </div>\n                <span class=\"pipeline-arrow\">\u2192</span>\n                <div class=\"pipeline-step\">\n                    <strong>Analyze</strong>\n                    <br>Deduplication\n                    <br>Change Detection\n                </div>\n                <span class=\"pipeline-arrow\">\u2192</span>\n                <div class=\"pipeline-step\">\n                    <strong>Output</strong>\n                    <br>3 Excel Reports\n                    <br>Business Insights\n                </div>\n            </div>\n\n            <h2>\ud83d\udcc1 Project Structure</h2>\n            <div class=\"file-tree\">\n<pre>adhs-restore-28-Jul-2025/\n\u251c\u2500\u2500 src/\n\u2502   \u251c\u2500\u2500 adhs_etl/          # Main application code\n\u2502   \u2502   \u251c\u2500\u2500 cli.py          # Command-line interface\n\u2502   \u2502   \u251c\u2500\u2500 config.py       # Pydantic settings\n\u2502   \u2502   \u251c\u2500\u2500 transform.py    # Data transformation\n\u2502   \u2502   \u251c\u2500\u2500 analysis.py     # Business analysis\n\u2502   \u2502   \u2514\u2500\u2500 runner.py       # ETL orchestration\n\u2502   \u2514\u2500\u2500 tests/              # Test suite (\u226580% coverage)\n\u251c\u2500\u2500 scripts/                # Batch processing utilities\n\u251c\u2500\u2500 ALL-MONTHS/            # Historical data archive\n\u251c\u2500\u2500 Raw-New-Month/         # Current month input\n\u251c\u2500\u2500 Reformat/              # Standardized output\n\u251c\u2500\u2500 All-to-Date/           # Cumulative data\n\u251c\u2500\u2500 Analysis/              # Business analysis reports\n\u2514\u2500\u2500 field_map.yml          # Column mapping configuration</pre>\n            </div>\n\n            <h2>\ud83c\udfe5 Provider Types Processed</h2>\n            <div class=\"grid\">\n                <div class=\"card\">\n                    <h4>Assisted Living</h4>\n                    <p>Assisted Living Homes</p>\n                </div>\n                <div class=\"card\">\n                    <h4>Nursing Care</h4>\n                    <p>Nursing Homes</p>\n                </div>\n                <div class=\"card\">\n                    <h4>Behavioral Health</h4>\n                    <p>Outpatient Clinics & Residential</p>\n                </div>\n                <div class=\"card\">\n                    <h4>Adult Care</h4>\n                    <p>Adult Care Homes & Day Health</p>\n                </div>\n                <div class=\"card\">\n                    <h4>Child Services</h4>\n                    <p>Development Homes & Welfare</p>\n                </div>\n                <div class=\"card\">\n                    <h4>Substance Abuse</h4>\n                    <p>Treatment Transitional Facilities</p>\n                </div>\n            </div>\n\n            <h2>\ud83d\udcca Output Files Generated</h2>\n            <table>\n                <thead>\n                    <tr>\n                        <th>Output Type</th>\n                        <th>Format</th>\n                        <th>Description</th>\n                        <th>Key Features</th>\n                    </tr>\n                </thead>\n                <tbody>\n                    <tr>\n                        <td><strong>Reformat</strong></td>\n                        <td>M.YY Reformat.xlsx</td>\n                        <td>Standardized monthly data</td>\n                        <td>11 standard columns, provider grouping</td>\n                    </tr>\n                    <tr>\n                        <td><strong>All-to-Date</strong></td>\n                        <td>Reformat All to Date M.YY.xlsx</td>\n                        <td>Cumulative historical data</td>\n                        <td>All months combined, deduplicated</td>\n                    </tr>\n                    <tr>\n                        <td><strong>Analysis</strong></td>\n                        <td>M.YY Analysis.xlsx</td>\n                        <td>Business intelligence report</td>\n                        <td>77 columns, lost license detection, MCAO data</td>\n                    </tr>\n                </tbody>\n            </table>\n\n            <h2>\ud83d\udd27 Technical Implementation</h2>\n            <section>\n                <h3>Core Technologies</h3>\n                <ul>\n                    <li><strong>Python 3.11+</strong> - Primary language</li>\n                    <li><strong>Poetry</strong> - Dependency management</li>\n                    <li><strong>Pandas</strong> - Data processing</li>\n                    <li><strong>Pydantic</strong> - Configuration validation</li>\n                    <li><strong>RapidFuzz</strong> - Fuzzy string matching (85% threshold)</li>\n                    <li><strong>Typer</strong> - CLI framework</li>\n                </ul>\n\n                <h3>Key Features</h3>\n                <div class=\"grid\">\n                    <div class=\"card\">\n                        <h4>Smart Field Mapping</h4>\n                        <p>Automatic detection and tracking of unknown columns in <code>field_map.TODO.yml</code></p>\n                    </div>\n                    <div class=\"card\">\n                        <h4>Provider Deduplication</h4>\n                        <p>Address matching (first 20 chars) + name fuzzy matching (85% threshold)</p>\n                    </div>\n                    <div class=\"card\">\n                        <h4>Dry Run Mode</h4>\n                        <p>Safe testing without modifying files</p>\n                    </div>\n                    <div class=\"card\">\n                        <h4>Comprehensive Testing</h4>\n                        <p>\u226580% code coverage requirement</p>\n                    </div>\n                </div>\n            </section>\n\n            <h2>\ud83d\udcbb Usage Examples</h2>\n            <section>\n                <h3>CLI Commands</h3>\n                <pre><code># Process January 2025 data\npoetry run adhs-etl run --month 1.25 --raw-dir ./Raw-New-Month\n\n# Dry run mode for testing\npoetry run adhs-etl run --month 1.25 --raw-dir ./Raw-New-Month --dry-run\n\n# Batch processing multiple months\npoetry run python scripts/batch_process_months.py\n\n# Validate field mappings\npoetry run adhs-etl validate --field-map field_map.yml</code></pre>\n            </section>\n\n            <h2>\ud83d\ude80 Development Workflow</h2>\n            <section class=\"warning-section\">\n                <h3>\u26a0\ufe0f Important Development Rules</h3>\n                <ul>\n                    <li><strong>No direct commits to main</strong> - Always use PRs with review</li>\n                    <li><strong>Configuration access</strong> - Only via <code>from adhs_etl.config import Settings</code></li>\n                    <li><strong>Commit messages</strong> - Follow Conventional Commits (feat:, fix:, chore:)</li>\n                    <li><strong>File naming</strong> - Python: snake_case.py, Markdown: kebab-case.md</li>\n                    <li><strong>Large files</strong> - Place >5MB files in /data (git-ignored)</li>\n                </ul>\n            </section>\n\n            <h2>\ud83d\udd2e Future Enhancements</h2>\n            <section class=\"success-section\">\n                <h3>\u2705 Planned Features</h3>\n                <ul>\n                    <li><strong>MCAO API Integration</strong> - Real-time geocoding and property data</li>\n                    <li><strong>Enhanced Analytics</strong> - Trend analysis and predictive modeling</li>\n                    <li><strong>Performance Optimization</strong> - Parallel processing for large datasets</li>\n                    <li><strong>Web Dashboard</strong> - Interactive visualization of provider data</li>\n                </ul>\n            </section>\n\n            <h2>\ud83d\udccb Project Context</h2>\n            <section>\n                <p>This project appears to be part of a larger healthcare data management system for Arizona, specifically focused on tracking and analyzing various types of healthcare providers. The sophisticated deduplication and grouping logic suggests it's handling real-world data with potential duplicates and variations in provider information.</p>\n\n                <p>The pipeline's ability to track historical changes and identify lost licenses indicates it's used for compliance monitoring and regulatory oversight. The planned MCAO (Maricopa County Assessor's Office) integration suggests property ownership and location verification are important aspects of the analysis.</p>\n            </section>\n        </main>\n\n        <footer>\n            <p>Generated on January 16, 2025</p>\n            <p>\ud83e\udd16 Generated with <a href=\"https://claude.ai/code\">Claude Code</a></p>\n            <p>Co-Authored-By: Claude &lt;noreply@anthropic.com&gt;</p>\n        </footer>\n    </article>\n</body>\n</html>"
+    }
+  },
+  {
+    "session_id": "365f21a1-14cc-402b-8405-6f2048f36a3e",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025/365f21a1-14cc-402b-8405-6f2048f36a3e.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025",
+    "permission_mode": "default",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Bash",
+    "tool_input": {
+      "command": "open /tmp/cc_genui_adhs_project_summary_20250116_150300.html",
+      "description": "Open HTML file in browser"
+    }
+  },
+  {
+    "session_id": "365f21a1-14cc-402b-8405-6f2048f36a3e",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025/365f21a1-14cc-402b-8405-6f2048f36a3e.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025",
+    "permission_mode": "default",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "TodoWrite",
+    "tool_input": {
+      "todos": [
+        {
+          "content": "Execute git ls-files to understand project structure",
+          "status": "completed",
+          "activeForm": "Executing git ls-files to understand project structure"
+        },
+        {
+          "content": "Read and analyze key documentation files",
+          "status": "completed",
+          "activeForm": "Reading and analyzing key documentation files"
+        },
+        {
+          "content": "Provide comprehensive project summary",
+          "status": "completed",
+          "activeForm": "Providing comprehensive project summary"
+        }
+      ]
+    }
+  },
+  {
+    "session_id": "365f21a1-14cc-402b-8405-6f2048f36a3e",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025/365f21a1-14cc-402b-8405-6f2048f36a3e.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025",
+    "permission_mode": "default",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "TodoWrite",
+    "tool_input": {
+      "todos": [
+        {
+          "content": "Check if Poetry is already installed",
+          "status": "in_progress",
+          "activeForm": "Checking if Poetry is already installed"
+        },
+        {
+          "content": "Install Poetry using the official installer",
+          "status": "pending",
+          "activeForm": "Installing Poetry using the official installer"
+        },
+        {
+          "content": "Verify Poetry installation",
+          "status": "pending",
+          "activeForm": "Verifying Poetry installation"
+        },
+        {
+          "content": "Add Poetry to PATH if needed",
+          "status": "pending",
+          "activeForm": "Adding Poetry to PATH if needed"
+        }
+      ]
+    }
+  },
+  {
+    "session_id": "365f21a1-14cc-402b-8405-6f2048f36a3e",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025/365f21a1-14cc-402b-8405-6f2048f36a3e.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025",
+    "permission_mode": "default",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Bash",
+    "tool_input": {
+      "command": "poetry --version 2>/dev/null || echo \"Poetry not found\"",
+      "description": "Check if Poetry is installed"
+    }
+  },
+  {
+    "session_id": "365f21a1-14cc-402b-8405-6f2048f36a3e",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025/365f21a1-14cc-402b-8405-6f2048f36a3e.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025",
+    "permission_mode": "default",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "TodoWrite",
+    "tool_input": {
+      "todos": [
+        {
+          "content": "Check if Poetry is already installed",
+          "status": "completed",
+          "activeForm": "Checking if Poetry is already installed"
+        },
+        {
+          "content": "Install Poetry using the official installer",
+          "status": "in_progress",
+          "activeForm": "Installing Poetry using the official installer"
+        },
+        {
+          "content": "Verify Poetry installation",
+          "status": "pending",
+          "activeForm": "Verifying Poetry installation"
+        },
+        {
+          "content": "Add Poetry to PATH if needed",
+          "status": "pending",
+          "activeForm": "Adding Poetry to PATH if needed"
+        }
+      ]
+    }
+  },
+  {
+    "session_id": "365f21a1-14cc-402b-8405-6f2048f36a3e",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025/365f21a1-14cc-402b-8405-6f2048f36a3e.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025",
+    "permission_mode": "default",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Bash",
+    "tool_input": {
+      "command": "curl -sSL https://install.python-poetry.org | python3 -",
+      "timeout": 60000,
+      "description": "Install Poetry using official installer"
+    }
+  },
+  {
+    "session_id": "365f21a1-14cc-402b-8405-6f2048f36a3e",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025/365f21a1-14cc-402b-8405-6f2048f36a3e.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025",
+    "permission_mode": "default",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "TodoWrite",
+    "tool_input": {
+      "todos": [
+        {
+          "content": "Check if Poetry is already installed",
+          "status": "completed",
+          "activeForm": "Checking if Poetry is already installed"
+        },
+        {
+          "content": "Install Poetry using the official installer",
+          "status": "completed",
+          "activeForm": "Installing Poetry using the official installer"
+        },
+        {
+          "content": "Verify Poetry installation",
+          "status": "in_progress",
+          "activeForm": "Verifying Poetry installation"
+        },
+        {
+          "content": "Add Poetry to PATH if needed",
+          "status": "pending",
+          "activeForm": "Adding Poetry to PATH if needed"
+        }
+      ]
+    }
+  },
+  {
+    "session_id": "365f21a1-14cc-402b-8405-6f2048f36a3e",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025/365f21a1-14cc-402b-8405-6f2048f36a3e.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025",
+    "permission_mode": "default",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Bash",
+    "tool_input": {
+      "command": "/Users/garrettsullivan/.local/bin/poetry --version",
+      "description": "Verify Poetry installation"
+    }
+  },
+  {
+    "session_id": "365f21a1-14cc-402b-8405-6f2048f36a3e",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025/365f21a1-14cc-402b-8405-6f2048f36a3e.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025",
+    "permission_mode": "default",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "TodoWrite",
+    "tool_input": {
+      "todos": [
+        {
+          "content": "Check if Poetry is already installed",
+          "status": "completed",
+          "activeForm": "Checking if Poetry is already installed"
+        },
+        {
+          "content": "Install Poetry using the official installer",
+          "status": "completed",
+          "activeForm": "Installing Poetry using the official installer"
+        },
+        {
+          "content": "Verify Poetry installation",
+          "status": "completed",
+          "activeForm": "Verifying Poetry installation"
+        },
+        {
+          "content": "Add Poetry to PATH if needed",
+          "status": "in_progress",
+          "activeForm": "Adding Poetry to PATH if needed"
+        }
+      ]
+    }
+  },
+  {
+    "session_id": "365f21a1-14cc-402b-8405-6f2048f36a3e",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025/365f21a1-14cc-402b-8405-6f2048f36a3e.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025",
+    "permission_mode": "default",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Bash",
+    "tool_input": {
+      "command": "echo $SHELL",
+      "description": "Check default shell"
+    }
+  },
+  {
+    "session_id": "365f21a1-14cc-402b-8405-6f2048f36a3e",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025/365f21a1-14cc-402b-8405-6f2048f36a3e.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025",
+    "permission_mode": "default",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Bash",
+    "tool_input": {
+      "command": "echo 'export PATH=\"/Users/garrettsullivan/.local/bin:$PATH\"' >> ~/.zshrc && source ~/.zshrc && poetry --version",
+      "description": "Add Poetry to PATH in .zshrc"
+    }
+  },
+  {
+    "session_id": "365f21a1-14cc-402b-8405-6f2048f36a3e",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025/365f21a1-14cc-402b-8405-6f2048f36a3e.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025",
+    "permission_mode": "default",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "TodoWrite",
+    "tool_input": {
+      "todos": [
+        {
+          "content": "Check if Poetry is already installed",
+          "status": "completed",
+          "activeForm": "Checking if Poetry is already installed"
+        },
+        {
+          "content": "Install Poetry using the official installer",
+          "status": "completed",
+          "activeForm": "Installing Poetry using the official installer"
+        },
+        {
+          "content": "Verify Poetry installation",
+          "status": "completed",
+          "activeForm": "Verifying Poetry installation"
+        },
+        {
+          "content": "Add Poetry to PATH if needed",
+          "status": "completed",
+          "activeForm": "Adding Poetry to PATH if needed"
+        }
+      ]
+    }
+  },
+  {
+    "session_id": "365f21a1-14cc-402b-8405-6f2048f36a3e",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025/365f21a1-14cc-402b-8405-6f2048f36a3e.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025",
+    "permission_mode": "default",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "TodoWrite",
+    "tool_input": {
+      "todos": [
+        {
+          "content": "Install project dependencies with Poetry",
+          "status": "in_progress",
+          "activeForm": "Installing project dependencies with Poetry"
+        },
+        {
+          "content": "Verify all dependencies are installed",
+          "status": "pending",
+          "activeForm": "Verifying all dependencies are installed"
+        },
+        {
+          "content": "Test the ETL pipeline",
+          "status": "pending",
+          "activeForm": "Testing the ETL pipeline"
+        }
+      ]
+    }
+  },
+  {
+    "session_id": "365f21a1-14cc-402b-8405-6f2048f36a3e",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025/365f21a1-14cc-402b-8405-6f2048f36a3e.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025",
+    "permission_mode": "default",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Bash",
+    "tool_input": {
+      "command": "poetry install",
+      "timeout": 120000,
+      "description": "Install all project dependencies"
+    }
+  },
+  {
+    "session_id": "365f21a1-14cc-402b-8405-6f2048f36a3e",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025/365f21a1-14cc-402b-8405-6f2048f36a3e.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025",
+    "permission_mode": "default",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Bash",
+    "tool_input": {
+      "command": "source ~/.zshrc && poetry install",
+      "timeout": 120000,
+      "description": "Source zshrc and install dependencies"
+    }
+  },
+  {
+    "session_id": "365f21a1-14cc-402b-8405-6f2048f36a3e",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025/365f21a1-14cc-402b-8405-6f2048f36a3e.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025",
+    "permission_mode": "default",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "TodoWrite",
+    "tool_input": {
+      "todos": [
+        {
+          "content": "Install project dependencies with Poetry",
+          "status": "completed",
+          "activeForm": "Installing project dependencies with Poetry"
+        },
+        {
+          "content": "Verify all dependencies are installed",
+          "status": "in_progress",
+          "activeForm": "Verifying all dependencies are installed"
+        },
+        {
+          "content": "Test the ETL pipeline",
+          "status": "pending",
+          "activeForm": "Testing the ETL pipeline"
+        }
+      ]
+    }
+  },
+  {
+    "session_id": "365f21a1-14cc-402b-8405-6f2048f36a3e",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025/365f21a1-14cc-402b-8405-6f2048f36a3e.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025",
+    "permission_mode": "default",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Bash",
+    "tool_input": {
+      "command": "source ~/.zshrc && poetry show",
+      "description": "List installed packages"
+    }
+  },
+  {
+    "session_id": "365f21a1-14cc-402b-8405-6f2048f36a3e",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025/365f21a1-14cc-402b-8405-6f2048f36a3e.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025",
+    "permission_mode": "default",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "TodoWrite",
+    "tool_input": {
+      "todos": [
+        {
+          "content": "Install project dependencies with Poetry",
+          "status": "completed",
+          "activeForm": "Installing project dependencies with Poetry"
+        },
+        {
+          "content": "Verify all dependencies are installed",
+          "status": "completed",
+          "activeForm": "Verifying all dependencies are installed"
+        },
+        {
+          "content": "Test the ETL pipeline",
+          "status": "in_progress",
+          "activeForm": "Testing the ETL pipeline"
+        }
+      ]
+    }
+  },
+  {
+    "session_id": "365f21a1-14cc-402b-8405-6f2048f36a3e",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025/365f21a1-14cc-402b-8405-6f2048f36a3e.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025",
+    "permission_mode": "default",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Bash",
+    "tool_input": {
+      "command": "source ~/.zshrc && poetry run adhs-etl --help",
+      "description": "Test ETL CLI help command"
+    }
+  },
+  {
+    "session_id": "365f21a1-14cc-402b-8405-6f2048f36a3e",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025/365f21a1-14cc-402b-8405-6f2048f36a3e.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025",
+    "permission_mode": "default",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Bash",
+    "tool_input": {
+      "command": "source ~/.zshrc && poetry add pyyaml",
+      "timeout": 60000,
+      "description": "Add PyYAML dependency"
+    }
+  },
+  {
+    "session_id": "365f21a1-14cc-402b-8405-6f2048f36a3e",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025/365f21a1-14cc-402b-8405-6f2048f36a3e.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025",
+    "permission_mode": "default",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Bash",
+    "tool_input": {
+      "command": "source ~/.zshrc && poetry run adhs-etl --help",
+      "description": "Test ETL CLI help"
+    }
+  },
+  {
+    "session_id": "365f21a1-14cc-402b-8405-6f2048f36a3e",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025/365f21a1-14cc-402b-8405-6f2048f36a3e.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025",
+    "permission_mode": "default",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Bash",
+    "tool_input": {
+      "command": "source ~/.zshrc && poetry update typer click",
+      "timeout": 60000,
+      "description": "Update typer and click"
+    }
+  },
+  {
+    "session_id": "365f21a1-14cc-402b-8405-6f2048f36a3e",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025/365f21a1-14cc-402b-8405-6f2048f36a3e.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025",
+    "permission_mode": "default",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "TodoWrite",
+    "tool_input": {
+      "todos": [
+        {
+          "content": "Install project dependencies with Poetry",
+          "status": "completed",
+          "activeForm": "Installing project dependencies with Poetry"
+        },
+        {
+          "content": "Verify all dependencies are installed",
+          "status": "completed",
+          "activeForm": "Verifying all dependencies are installed"
+        },
+        {
+          "content": "Test the ETL pipeline",
+          "status": "completed",
+          "activeForm": "Testing the ETL pipeline"
+        }
+      ]
+    }
+  }
+]

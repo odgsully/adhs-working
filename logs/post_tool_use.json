@@ -1,0 +1,1210 @@
+[
+  {
+    "session_id": "365f21a1-14cc-402b-8405-6f2048f36a3e",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025/365f21a1-14cc-402b-8405-6f2048f36a3e.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025",
+    "permission_mode": "default",
+    "hook_event_name": "PostToolUse",
+    "tool_name": "TodoWrite",
+    "tool_input": {
+      "todos": [
+        {
+          "content": "Execute git ls-files to understand project structure",
+          "status": "in_progress",
+          "activeForm": "Executing git ls-files to understand project structure"
+        },
+        {
+          "content": "Read and analyze key documentation files",
+          "status": "pending",
+          "activeForm": "Reading and analyzing key documentation files"
+        },
+        {
+          "content": "Provide comprehensive project summary",
+          "status": "pending",
+          "activeForm": "Providing comprehensive project summary"
+        }
+      ]
+    },
+    "tool_response": {
+      "oldTodos": [],
+      "newTodos": [
+        {
+          "content": "Execute git ls-files to understand project structure",
+          "status": "in_progress",
+          "activeForm": "Executing git ls-files to understand project structure"
+        },
+        {
+          "content": "Read and analyze key documentation files",
+          "status": "pending",
+          "activeForm": "Reading and analyzing key documentation files"
+        },
+        {
+          "content": "Provide comprehensive project summary",
+          "status": "pending",
+          "activeForm": "Providing comprehensive project summary"
+        }
+      ]
+    }
+  },
+  {
+    "session_id": "365f21a1-14cc-402b-8405-6f2048f36a3e",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025/365f21a1-14cc-402b-8405-6f2048f36a3e.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025",
+    "permission_mode": "default",
+    "hook_event_name": "PostToolUse",
+    "tool_name": "Bash",
+    "tool_input": {
+      "command": "ls -la",
+      "description": "List all files in current directory"
+    },
+    "tool_response": {
+      "stdout": "total 176\ndrwxr-xr-x@ 29 garrettsullivan  staff    928 Sep 16 15:02 .\ndrwx------@ 39 garrettsullivan  staff   1248 Sep 16 15:02 ..\n-rw-r--r--@  1 garrettsullivan  staff   8196 Sep 16 14:47 .DS_Store\ndrwxr-xr-x@ 11 garrettsullivan  staff    352 Sep 16 15:02 .claude\n-rwxr-xr-x@  1 garrettsullivan  staff    297 Jul 22 14:05 .env.example\n-rwxr-xr-x@  1 garrettsullivan  staff    152 Aug 21 09:32 .env.sample\ndrwxr-xr-x@  3 garrettsullivan  staff     96 Sep 16 14:30 .github\n-rwxr-xr-x@  1 garrettsullivan  staff    892 Jul 22 14:05 .gitignore\n-rwxr-xr-x@  1 garrettsullivan  staff    198 Aug 21 09:32 .mcp.json.sample\n-rwxr-xr-x@  1 garrettsullivan  staff   4241 Jul 22 14:05 ADHS-ETL-INDEX.md\ndrwx------@ 16 garrettsullivan  staff    512 Sep 16 15:01 ALL-MONTHS\ndrwxr-xr-x   2 garrettsullivan  staff     64 Sep 16 14:40 All-to-Date\ndrwxr-xr-x   2 garrettsullivan  staff     64 Sep 16 14:41 Analysis\n-rwxr-xr-x@  1 garrettsullivan  staff   1474 Jul 22 14:05 README.md\ndrwxr-xr-x   2 garrettsullivan  staff     64 Sep 16 14:41 Reformat\ndrwxr-xr-x@ 11 garrettsullivan  staff    352 Sep 16 14:42 ai_docs\ndrwxr-xr-x@  4 garrettsullivan  staff    128 Sep 16 14:42 apps\n-rwxr-xr-x@  1 garrettsullivan  staff    644 Jul 22 14:05 ci.yml\n-rwxr-xr-x@  1 garrettsullivan  staff   2004 Jul 22 14:05 claude.md\ndrwxr-xr-x@  3 garrettsullivan  staff     96 Sep 16 14:30 docs\n-rwxr-xr-x@  1 garrettsullivan  staff    344 Jul 22 14:05 env.example\n-rwxr-xr-x@  1 garrettsullivan  staff   2014 Jul 22 14:05 field_map.yml\n-rwxr-xr-x@  1 garrettsullivan  staff      3 Jul 22 14:05 git_test.txt\ndrwxr-xr-x@  6 garrettsullivan  staff    192 Sep 16 15:02 logs\n-rwxr-xr-x@  1 garrettsullivan  staff    686 Jul 22 14:05 pyproject.toml\n-rwxr-xr-x@  1 garrettsullivan  staff   5272 Jul 22 14:05 sample_adhs_2025-05.xlsx\ndrwxr-xr-x@ 13 garrettsullivan  staff    416 Sep 16 14:30 scripts\ndrwxr-xr-x@  6 garrettsullivan  staff    192 Sep 16 14:30 src\n-rwxr-xr-x@  1 garrettsullivan  staff  13193 Jul 22 14:05 v100Track_this_shit.xlsx",
+      "stderr": "",
+      "interrupted": false,
+      "isImage": false
+    }
+  },
+  {
+    "session_id": "365f21a1-14cc-402b-8405-6f2048f36a3e",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025/365f21a1-14cc-402b-8405-6f2048f36a3e.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025",
+    "permission_mode": "default",
+    "hook_event_name": "PostToolUse",
+    "tool_name": "TodoWrite",
+    "tool_input": {
+      "todos": [
+        {
+          "content": "Execute git ls-files to understand project structure",
+          "status": "completed",
+          "activeForm": "Executing git ls-files to understand project structure"
+        },
+        {
+          "content": "Read and analyze key documentation files",
+          "status": "in_progress",
+          "activeForm": "Reading and analyzing key documentation files"
+        },
+        {
+          "content": "Provide comprehensive project summary",
+          "status": "pending",
+          "activeForm": "Providing comprehensive project summary"
+        }
+      ]
+    },
+    "tool_response": {
+      "oldTodos": [
+        {
+          "content": "Execute git ls-files to understand project structure",
+          "status": "in_progress",
+          "activeForm": "Executing git ls-files to understand project structure"
+        },
+        {
+          "content": "Read and analyze key documentation files",
+          "status": "pending",
+          "activeForm": "Reading and analyzing key documentation files"
+        },
+        {
+          "content": "Provide comprehensive project summary",
+          "status": "pending",
+          "activeForm": "Providing comprehensive project summary"
+        }
+      ],
+      "newTodos": [
+        {
+          "content": "Execute git ls-files to understand project structure",
+          "status": "completed",
+          "activeForm": "Executing git ls-files to understand project structure"
+        },
+        {
+          "content": "Read and analyze key documentation files",
+          "status": "in_progress",
+          "activeForm": "Reading and analyzing key documentation files"
+        },
+        {
+          "content": "Provide comprehensive project summary",
+          "status": "pending",
+          "activeForm": "Providing comprehensive project summary"
+        }
+      ]
+    }
+  },
+  {
+    "session_id": "365f21a1-14cc-402b-8405-6f2048f36a3e",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025/365f21a1-14cc-402b-8405-6f2048f36a3e.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025",
+    "permission_mode": "default",
+    "hook_event_name": "PostToolUse",
+    "tool_name": "Read",
+    "tool_input": {
+      "file_path": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025/ai_docs/cc_hooks_docs.md"
+    },
+    "tool_response": {
+      "type": "text",
+      "file": {
+        "filePath": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025/ai_docs/cc_hooks_docs.md",
+        "content": "# Get started with Claude Code hooks\n\n> Learn how to customize and extend Claude Code's behavior by registering shell commands\n\nClaude Code hooks are user-defined shell commands that execute at various points\nin Claude Code's lifecycle. Hooks provide deterministic control over Claude\nCode's behavior, ensuring certain actions always happen rather than relying on\nthe LLM to choose to run them.\n\n<Tip>\n  For reference documentation on hooks, see [Hooks reference](/en/docs/claude-code/hooks).\n</Tip>\n\nExample use cases for hooks include:\n\n* **Notifications**: Customize how you get notified when Claude Code is awaiting\n  your input or permission to run something.\n* **Automatic formatting**: Run `prettier` on .ts files, `gofmt` on .go files,\n  etc. after every file edit.\n* **Logging**: Track and count all executed commands for compliance or\n  debugging.\n* **Feedback**: Provide automated feedback when Claude Code produces code that\n  does not follow your codebase conventions.\n* **Custom permissions**: Block modifications to production files or sensitive\n  directories.\n\nBy encoding these rules as hooks rather than prompting instructions, you turn\nsuggestions into app-level code that executes every time it is expected to run.\n\n<Warning>\n  You must consider the security implication of hooks as you add them, because hooks run automatically during the agent loop with your current environment's credentials.\n  For example, malicious hooks code can exfiltrate your data. Always review your hooks implementation before registering them.\n\n  For full security best practices, see [Security Considerations](/en/docs/claude-code/hooks#security-considerations) in the hooks reference documentation.\n</Warning>\n\n## Hook Events Overview\n\nClaude Code provides several hook events that run at different points in the\nworkflow:\n\n* **PreToolUse**: Runs before tool calls (can block them)\n* **PostToolUse**: Runs after tool calls complete\n* **UserPromptSubmit**: Runs when the user submits a prompt, before Claude processes it\n* **Notification**: Runs when Claude Code sends notifications\n* **Stop**: Runs when Claude Code finishes responding\n* **Subagent Stop**: Runs when subagent tasks complete\n* **PreCompact**: Runs before Claude Code is about to run a compact operation\n* **SessionStart**: Runs when Claude Code starts a new session or resumes an existing session\n\nEach event receives different data and can control Claude's behavior in\ndifferent ways.\n\n## Quickstart\n\nIn this quickstart, you'll add a hook that logs the shell commands that Claude\nCode runs.\n\n### Prerequisites\n\nInstall `jq` for JSON processing in the command line.\n\n### Step 1: Open hooks configuration\n\nRun the `/hooks` [slash command](/en/docs/claude-code/slash-commands) and select\nthe `PreToolUse` hook event.\n\n`PreToolUse` hooks run before tool calls and can block them while providing\nClaude feedback on what to do differently.\n\n### Step 2: Add a matcher\n\nSelect `+ Add new matcher\u2026` to run your hook only on Bash tool calls.\n\nType `Bash` for the matcher.\n\n<Note>You can use `*` to match all tools.</Note>\n\n### Step 3: Add the hook\n\nSelect `+ Add new hook\u2026` and enter this command:\n\n```bash\njq -r '\"\\(.tool_input.command) - \\(.tool_input.description // \"No description\")\"' >> ~/.claude/bash-command-log.txt\n```\n\n### Step 4: Save your configuration\n\nFor storage location, select `User settings` since you're logging to your home\ndirectory. This hook will then apply to all projects, not just your current\nproject.\n\nThen press Esc until you return to the REPL. Your hook is now registered!\n\n### Step 5: Verify your hook\n\nRun `/hooks` again or check `~/.claude/settings.json` to see your configuration:\n\n```json\n{\n  \"hooks\": {\n    \"PreToolUse\": [\n      {\n        \"matcher\": \"Bash\",\n        \"hooks\": [\n          {\n            \"type\": \"command\",\n            \"command\": \"jq -r '\\\"\\\\(.tool_input.command) - \\\\(.tool_input.description // \\\"No description\\\")\\\"' >> ~/.claude/bash-command-log.txt\"\n          }\n        ]\n      }\n    ]\n  }\n}\n```\n\n### Step 6: Test your hook\n\nAsk Claude to run a simple command like `ls` and check your log file:\n\n```bash\ncat ~/.claude/bash-command-log.txt\n```\n\nYou should see entries like:\n\n```\nls - Lists files and directories\n```\n\n## More Examples\n\n<Note>\n  For a complete example implementation, see the [bash command validator example](https://github.com/anthropics/claude-code/blob/main/examples/hooks/bash_command_validator_example.py) in our public codebase.\n</Note>\n\n### Code Formatting Hook\n\nAutomatically format TypeScript files after editing:\n\n```json\n{\n  \"hooks\": {\n    \"PostToolUse\": [\n      {\n        \"matcher\": \"Edit|MultiEdit|Write\",\n        \"hooks\": [\n          {\n            \"type\": \"command\",\n            \"command\": \"jq -r '.tool_input.file_path' | { read file_path; if echo \\\"$file_path\\\" | grep -q '\\\\.ts$'; then npx prettier --write \\\"$file_path\\\"; fi; }\"\n          }\n        ]\n      }\n    ]\n  }\n}\n```\n\n### Markdown Formatting Hook\n\nAutomatically fix missing language tags and formatting issues in markdown files:\n\n```json\n{\n  \"hooks\": {\n    \"PostToolUse\": [\n      {\n        \"matcher\": \"Edit|MultiEdit|Write\",\n        \"hooks\": [\n          {\n            \"type\": \"command\",\n            \"command\": \"$CLAUDE_PROJECT_DIR/.claude/hooks/markdown_formatter.py\"\n          }\n        ]\n      }\n    ]\n  }\n}\n```\n\nCreate `.claude/hooks/markdown_formatter.py` with this content:\n\n````python\n#!/usr/bin/env python3\n\"\"\"\nMarkdown formatter for Claude Code output.\nFixes missing language tags and spacing issues while preserving code content.\n\"\"\"\nimport json\nimport sys\nimport re\nimport os\n\ndef detect_language(code):\n    \"\"\"Best-effort language detection from code content.\"\"\"\n    s = code.strip()\n    \n    # JSON detection\n    if re.search(r'^\\s*[{\\[]', s):\n        try:\n            json.loads(s)\n            return 'json'\n        except:\n            pass\n    \n    # Python detection\n    if re.search(r'^\\s*def\\s+\\w+\\s*\\(', s, re.M) or \\\n       re.search(r'^\\s*(import|from)\\s+\\w+', s, re.M):\n        return 'python'\n    \n    # JavaScript detection  \n    if re.search(r'\\b(function\\s+\\w+\\s*\\(|const\\s+\\w+\\s*=)', s) or \\\n       re.search(r'=>|console\\.(log|error)', s):\n        return 'javascript'\n    \n    # Bash detection\n    if re.search(r'^#!.*\\b(bash|sh)\\b', s, re.M) or \\\n       re.search(r'\\b(if|then|fi|for|in|do|done)\\b', s):\n        return 'bash'\n    \n    # SQL detection\n    if re.search(r'\\b(SELECT|INSERT|UPDATE|DELETE|CREATE)\\s+', s, re.I):\n        return 'sql'\n        \n    return 'text'\n\ndef format_markdown(content):\n    \"\"\"Format markdown content with language detection.\"\"\"\n    # Fix unlabeled code fences\n    def add_lang_to_fence(match):\n        indent, info, body, closing = match.groups()\n        if not info.strip():\n            lang = detect_language(body)\n            return f\"{indent}```{lang}\\n{body}{closing}\\n\"\n        return match.group(0)\n    \n    fence_pattern = r'(?ms)^([ \\t]{0,3})```([^\\n]*)\\n(.*?)(\\n\\1```)\\s*$'\n    content = re.sub(fence_pattern, add_lang_to_fence, content)\n    \n    # Fix excessive blank lines (only outside code fences)\n    content = re.sub(r'\\n{3,}', '\\n\\n', content)\n    \n    return content.rstrip() + '\\n'\n\n# Main execution\ntry:\n    input_data = json.load(sys.stdin)\n    file_path = input_data.get('tool_input', {}).get('file_path', '')\n    \n    if not file_path.endswith(('.md', '.mdx')):\n        sys.exit(0)  # Not a markdown file\n    \n    if os.path.exists(file_path):\n        with open(file_path, 'r', encoding='utf-8') as f:\n            content = f.read()\n        \n        formatted = format_markdown(content)\n        \n        if formatted != content:\n            with open(file_path, 'w', encoding='utf-8') as f:\n                f.write(formatted)\n            print(f\"\u2713 Fixed markdown formatting in {file_path}\")\n    \nexcept Exception as e:\n    print(f\"Error formatting markdown: {e}\", file=sys.stderr)\n    sys.exit(1)\n````\n\nMake the script executable:\n\n```bash\nchmod +x .claude/hooks/markdown_formatter.py\n```\n\nThis hook automatically:\n\n* Detects programming languages in unlabeled code blocks\n* Adds appropriate language tags for syntax highlighting\n* Fixes excessive blank lines while preserving code content\n* Only processes markdown files (`.md`, `.mdx`)\n\n### Custom Notification Hook\n\nGet desktop notifications when Claude needs input:\n\n```json\n{\n  \"hooks\": {\n    \"Notification\": [\n      {\n        \"matcher\": \"\",\n        \"hooks\": [\n          {\n            \"type\": \"command\",\n            \"command\": \"notify-send 'Claude Code' 'Awaiting your input'\"\n          }\n        ]\n      }\n    ]\n  }\n}\n```\n\n### File Protection Hook\n\nBlock edits to sensitive files:\n\n```json\n{\n  \"hooks\": {\n    \"PreToolUse\": [\n      {\n        \"matcher\": \"Edit|MultiEdit|Write\",\n        \"hooks\": [\n          {\n            \"type\": \"command\",\n            \"command\": \"python3 -c \\\"import json, sys; data=json.load(sys.stdin); path=data.get('tool_input',{}).get('file_path',''); sys.exit(2 if any(p in path for p in ['.env', 'package-lock.json', '.git/']) else 0)\\\"\"\n          }\n        ]\n      }\n    ]\n  }\n}\n```\n\n## Learn more\n\n* For reference documentation on hooks, see [Hooks reference](/en/docs/claude-code/hooks).\n* For comprehensive security best practices and safety guidelines, see [Security Considerations](/en/docs/claude-code/hooks#security-considerations) in the hooks reference documentation.\n* For troubleshooting steps and debugging techniques, see [Debugging](/en/docs/claude-code/hooks#debugging) in the hooks reference\n  documentation.\n",
+        "numLines": 332,
+        "startLine": 1,
+        "totalLines": 332
+      }
+    }
+  },
+  {
+    "session_id": "365f21a1-14cc-402b-8405-6f2048f36a3e",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025/365f21a1-14cc-402b-8405-6f2048f36a3e.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025",
+    "permission_mode": "default",
+    "hook_event_name": "PostToolUse",
+    "tool_name": "Read",
+    "tool_input": {
+      "file_path": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025/README.md"
+    },
+    "tool_response": {
+      "type": "text",
+      "file": {
+        "filePath": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025/README.md",
+        "content": "# ADHS ETL Pipeline\n\nPython ETL pipeline for processing Arizona Department of Health Services (ADHS) provider data.\n\n## Features\n\n- Processes raw ADHS Excel workbooks\n- Field mapping with automatic unknown column detection\n- Fuzzy matching for provider deduplication\n- MCAO geocoding integration (stub)\n- Dry-run mode for testing\n- Comprehensive test coverage (\u226580%)\n\n## Installation\n\n```bash\n# Install Poetry if not already installed\ncurl -sSL https://install.python-poetry.org | python3 -\n\n# Install dependencies\npoetry install\n```\n\n## Usage\n\n### Basic ETL Run\n\n```bash\npoetry run adhs-etl run --month 2025-05 --raw-dir ./raw\n```\n\n### Dry Run Mode\n\n```bash\npoetry run adhs-etl run --month 2025-05 --raw-dir ./raw --dry-run\n```\n\n### Validate Field Mapping\n\n```bash\npoetry run adhs-etl validate --field-map field_map.yml\n```\n\n## Configuration\n\n### Environment Variables\n\nCopy `.env.example` to `.env` and configure:\n\n```bash\nMCAO_API_KEY=your-api-key\nFUZZY_THRESHOLD=80.0\nLOG_LEVEL=INFO\n```\n\n### Field Mapping\n\nEdit `field_map.yml` to configure column mappings:\n\n```yaml\n\"Provider Name\": \"name\"\n\"Provider Address\": \"address\"\n\"License Number\": \"license_number\"\n```\n\nUnknown columns are automatically added to `field_map.TODO.yml`.\n\n## Development\n\n### Running Tests\n\n```bash\npoetry run pytest\n```\n\n### With Coverage\n\n```bash\npoetry run pytest --cov=adhs_etl --cov-fail-under=80\n```\n\n### Linting\n\n```bash\npoetry run ruff check src/\npoetry run black src/\n```\n\n## License\n\nMIT",
+        "numLines": 91,
+        "startLine": 1,
+        "totalLines": 91
+      }
+    }
+  },
+  {
+    "session_id": "365f21a1-14cc-402b-8405-6f2048f36a3e",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025/365f21a1-14cc-402b-8405-6f2048f36a3e.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025",
+    "permission_mode": "default",
+    "hook_event_name": "PostToolUse",
+    "tool_name": "Read",
+    "tool_input": {
+      "file_path": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025/ai_docs/anthropic_docs_subagents.md"
+    },
+    "tool_response": {
+      "type": "text",
+      "file": {
+        "filePath": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025/ai_docs/anthropic_docs_subagents.md",
+        "content": "# Subagents\n\n> Create and use specialized AI subagents in Claude Code for task-specific workflows and improved context management.\n\nCustom subagents in Claude Code are specialized AI assistants that can be invoked to handle specific types of tasks. They enable more efficient problem-solving by providing task-specific configurations with customized system prompts, tools and a separate context window.\n\n## What are subagents?\n\nSubagents are pre-configured AI personalities that Claude Code can delegate tasks to. Each subagent:\n\n* Has a specific purpose and expertise area\n* Uses its own context window separate from the main conversation\n* Can be configured with specific tools it's allowed to use\n* Includes a custom system prompt that guides its behavior\n\nWhen Claude Code encounters a task that matches a subagent's expertise, it can delegate that task to the specialized subagent, which works independently and returns results.\n\n## Key benefits\n\n<CardGroup cols={2}>\n  <Card title=\"Context preservation\" icon=\"layer-group\">\n    Each subagent operates in its own context, preventing pollution of the main conversation and keeping it focused on high-level objectives.\n  </Card>\n\n  <Card title=\"Specialized expertise\" icon=\"brain\">\n    Subagents can be fine-tuned with detailed instructions for specific domains, leading to higher success rates on designated tasks.\n  </Card>\n\n  <Card title=\"Reusability\" icon=\"rotate\">\n    Once created, subagents can be used across different projects and shared with your team for consistent workflows.\n  </Card>\n\n  <Card title=\"Flexible permissions\" icon=\"shield-check\">\n    Each subagent can have different tool access levels, allowing you to limit powerful tools to specific subagent types.\n  </Card>\n</CardGroup>\n\n## Quick start\n\nTo create your first subagent:\n\n<Steps>\n  <Step title=\"Open the subagents interface\">\n    Run the following command:\n\n    ```\n    /agents\n    ```\n  </Step>\n\n  <Step title=\"Select 'Create New Agent'\">\n    Choose whether to create a project-level or user-level subagent\n  </Step>\n\n  <Step title=\"Define the subagent\">\n    * **Recommended**: Generate with Claude first, then customize to make it yours\n    * Describe your subagent in detail and when it should be used\n    * Select the tools you want to grant access to (or leave blank to inherit all tools)\n    * The interface shows all available tools, making selection easy\n    * If you're generating with Claude, you can also edit the system prompt in your own editor by pressing `e`\n  </Step>\n\n  <Step title=\"Save and use\">\n    Your subagent is now available! Claude will use it automatically when appropriate, or you can invoke it explicitly:\n\n    ```\n    > Use the code-reviewer subagent to check my recent changes\n    ```\n  </Step>\n</Steps>\n\n## Subagent configuration\n\n### File locations\n\nSubagents are stored as Markdown files with YAML frontmatter in two possible locations:\n\n| Type                  | Location            | Scope                         | Priority |\n| :-------------------- | :------------------ | :---------------------------- | :------- |\n| **Project subagents** | `.claude/agents/`   | Available in current project  | Highest  |\n| **User subagents**    | `~/.claude/agents/` | Available across all projects | Lower    |\n\nWhen subagent names conflict, project-level subagents take precedence over user-level subagents.\n\n### File format\n\nEach subagent is defined in a Markdown file with this structure:\n\n```markdown\n---\nname: your-sub-agent-name\ndescription: Description of when this subagent should be invoked\ntools: tool1, tool2, tool3  # Optional - inherits all tools if omitted\n---\n\nYour subagent's system prompt goes here. This can be multiple paragraphs\nand should clearly define the subagent's role, capabilities, and approach\nto solving problems.\n\nInclude specific instructions, best practices, and any constraints\nthe subagent should follow.\n```\n\n#### Configuration fields\n\n| Field         | Required | Description                                                                                 |\n| :------------ | :------- | :------------------------------------------------------------------------------------------ |\n| `name`        | Yes      | Unique identifier using lowercase letters and hyphens                                       |\n| `description` | Yes      | Natural language description of the subagent's purpose                                      |\n| `tools`       | No       | Comma-separated list of specific tools. If omitted, inherits all tools from the main thread |\n\n### Available tools\n\nSubagents can be granted access to any of Claude Code's internal tools. See the [tools documentation](/en/docs/claude-code/settings#tools-available-to-claude) for a complete list of available tools.\n\n<Tip>\n  **Recommended:** Use the `/agents` command to modify tool access - it provides an interactive interface that lists all available tools, including any connected MCP server tools, making it easier to select the ones you need.\n</Tip>\n\nYou have two options for configuring tools:\n\n* **Omit the `tools` field** to inherit all tools from the main thread (default), including MCP tools\n* **Specify individual tools** as a comma-separated list for more granular control (can be edited manually or via `/agents`)\n\n**MCP Tools**: Subagents can access MCP tools from configured MCP servers. When the `tools` field is omitted, subagents inherit all MCP tools available to the main thread.\n\n## Managing subagents\n\n### Using the /agents command (Recommended)\n\nThe `/agents` command provides a comprehensive interface for subagent management:\n\n```\n/agents\n```\n\nThis opens an interactive menu where you can:\n\n* View all available subagents (built-in, user, and project)\n* Create new subagents with guided setup\n* Edit existing custom subagents, including their tool access\n* Delete custom subagents\n* See which subagents are active when duplicates exist\n* **Easily manage tool permissions** with a complete list of available tools\n\n### Direct file management\n\nYou can also manage subagents by working directly with their files:\n\n```bash\n# Create a project subagent\nmkdir -p .claude/agents\necho '---\nname: test-runner\ndescription: Use proactively to run tests and fix failures\n---\n\nYou are a test automation expert. When you see code changes, proactively run the appropriate tests. If tests fail, analyze the failures and fix them while preserving the original test intent.' > .claude/agents/test-runner.md\n\n# Create a user subagent\nmkdir -p ~/.claude/agents\n# ... create subagent file\n```\n\n## Using subagents effectively\n\n### Automatic delegation\n\nClaude Code proactively delegates tasks based on:\n\n* The task description in your request\n* The `description` field in subagent configurations\n* Current context and available tools\n\n<Tip>\n  To encourage more proactive subagent use, include phrases like \"use PROACTIVELY\" or \"MUST BE USED\" in your `description` field.\n</Tip>\n\n### Explicit invocation\n\nRequest a specific subagent by mentioning it in your command:\n\n```\n> Use the test-runner subagent to fix failing tests\n> Have the code-reviewer subagent look at my recent changes\n> Ask the debugger subagent to investigate this error\n```\n\n## Example subagents\n\n### Code reviewer\n\n```markdown\n---\nname: code-reviewer\ndescription: Expert code review specialist. Proactively reviews code for quality, security, and maintainability. Use immediately after writing or modifying code.\ntools: Read, Grep, Glob, Bash\n---\n\nYou are a senior code reviewer ensuring high standards of code quality and security.\n\nWhen invoked:\n1. Run git diff to see recent changes\n2. Focus on modified files\n3. Begin review immediately\n\nReview checklist:\n- Code is simple and readable\n- Functions and variables are well-named\n- No duplicated code\n- Proper error handling\n- No exposed secrets or API keys\n- Input validation implemented\n- Good test coverage\n- Performance considerations addressed\n\nProvide feedback organized by priority:\n- Critical issues (must fix)\n- Warnings (should fix)\n- Suggestions (consider improving)\n\nInclude specific examples of how to fix issues.\n```\n\n### Debugger\n\n```markdown\n---\nname: debugger\ndescription: Debugging specialist for errors, test failures, and unexpected behavior. Use proactively when encountering any issues.\ntools: Read, Edit, Bash, Grep, Glob\n---\n\nYou are an expert debugger specializing in root cause analysis.\n\nWhen invoked:\n1. Capture error message and stack trace\n2. Identify reproduction steps\n3. Isolate the failure location\n4. Implement minimal fix\n5. Verify solution works\n\nDebugging process:\n- Analyze error messages and logs\n- Check recent code changes\n- Form and test hypotheses\n- Add strategic debug logging\n- Inspect variable states\n\nFor each issue, provide:\n- Root cause explanation\n- Evidence supporting the diagnosis\n- Specific code fix\n- Testing approach\n- Prevention recommendations\n\nFocus on fixing the underlying issue, not just symptoms.\n```\n\n### Data scientist\n\n```markdown\n---\nname: data-scientist\ndescription: Data analysis expert for SQL queries, BigQuery operations, and data insights. Use proactively for data analysis tasks and queries.\ntools: Bash, Read, Write\n---\n\nYou are a data scientist specializing in SQL and BigQuery analysis.\n\nWhen invoked:\n1. Understand the data analysis requirement\n2. Write efficient SQL queries\n3. Use BigQuery command line tools (bq) when appropriate\n4. Analyze and summarize results\n5. Present findings clearly\n\nKey practices:\n- Write optimized SQL queries with proper filters\n- Use appropriate aggregations and joins\n- Include comments explaining complex logic\n- Format results for readability\n- Provide data-driven recommendations\n\nFor each analysis:\n- Explain the query approach\n- Document any assumptions\n- Highlight key findings\n- Suggest next steps based on data\n\nAlways ensure queries are efficient and cost-effective.\n```\n\n## Best practices\n\n* **Start with Claude-generated agents**: We highly recommend generating your initial subagent with Claude and then iterating on it to make it personally yours. This approach gives you the best results - a solid foundation that you can customize to your specific needs.\n\n* **Design focused subagents**: Create subagents with single, clear responsibilities rather than trying to make one subagent do everything. This improves performance and makes subagents more predictable.\n\n* **Write detailed prompts**: Include specific instructions, examples, and constraints in your system prompts. The more guidance you provide, the better the subagent will perform.\n\n* **Limit tool access**: Only grant tools that are necessary for the subagent's purpose. This improves security and helps the subagent focus on relevant actions.\n\n* **Version control**: Check project subagents into version control so your team can benefit from and improve them collaboratively.\n\n## Advanced usage\n\n### Chaining subagents\n\nFor complex workflows, you can chain multiple subagents:\n\n```\n> First use the code-analyzer subagent to find performance issues, then use the optimizer subagent to fix them\n```\n\n### Dynamic subagent selection\n\nClaude Code intelligently selects subagents based on context. Make your `description` fields specific and action-oriented for best results.\n\n## Performance considerations\n\n* **Context efficiency**: Agents help preserve main context, enabling longer overall sessions\n* **Latency**: Subagents start off with a clean slate each time they are invoked and may add latency as they gather context that they require to do their job effectively.\n\n## Related documentation\n\n* [Slash commands](/en/docs/claude-code/slash-commands) - Learn about other built-in commands\n* [Settings](/en/docs/claude-code/settings) - Configure Claude Code behavior\n* [Hooks](/en/docs/claude-code/hooks) - Automate workflows with event handlers\n",
+        "numLines": 330,
+        "startLine": 1,
+        "totalLines": 330
+      }
+    }
+  },
+  {
+    "session_id": "365f21a1-14cc-402b-8405-6f2048f36a3e",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025/365f21a1-14cc-402b-8405-6f2048f36a3e.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025",
+    "permission_mode": "default",
+    "hook_event_name": "PostToolUse",
+    "tool_name": "Read",
+    "tool_input": {
+      "file_path": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025/ai_docs/anthropic_custom_slash_commands.md"
+    },
+    "tool_response": {
+      "type": "text",
+      "file": {
+        "filePath": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025/ai_docs/anthropic_custom_slash_commands.md",
+        "content": "# Slash commands\n\n> Control Claude's behavior during an interactive session with slash commands.\n\n## Built-in slash commands\n\n| Command                   | Purpose                                                                        |\n| :------------------------ | :----------------------------------------------------------------------------- |\n| `/add-dir`                | Add additional working directories                                             |\n| `/agents`                 | Manage custom AI subagents for specialized tasks                               |\n| `/bug`                    | Report bugs (sends conversation to Anthropic)                                  |\n| `/clear`                  | Clear conversation history                                                     |\n| `/compact [instructions]` | Compact conversation with optional focus instructions                          |\n| `/config`                 | View/modify configuration                                                      |\n| `/cost`                   | Show token usage statistics                                                    |\n| `/doctor`                 | Checks the health of your Claude Code installation                             |\n| `/help`                   | Get usage help                                                                 |\n| `/init`                   | Initialize project with CLAUDE.md guide                                        |\n| `/login`                  | Switch Anthropic accounts                                                      |\n| `/logout`                 | Sign out from your Anthropic account                                           |\n| `/mcp`                    | Manage MCP server connections and OAuth authentication                         |\n| `/memory`                 | Edit CLAUDE.md memory files                                                    |\n| `/model`                  | Select or change the AI model                                                  |\n| `/permissions`            | View or update [permissions](/en/docs/claude-code/iam#configuring-permissions) |\n| `/pr_comments`            | View pull request comments                                                     |\n| `/review`                 | Request code review                                                            |\n| `/status`                 | View account and system statuses                                               |\n| `/terminal-setup`         | Install Shift+Enter key binding for newlines (iTerm2 and VSCode only)          |\n| `/vim`                    | Enter vim mode for alternating insert and command modes                        |\n\n## Custom slash commands\n\nCustom slash commands allow you to define frequently-used prompts as Markdown files that Claude Code can execute. Commands are organized by scope (project-specific or personal) and support namespacing through directory structures.\n\n### Syntax\n\n```\n/<command-name> [arguments]\n```\n\n#### Parameters\n\n| Parameter        | Description                                                       |\n| :--------------- | :---------------------------------------------------------------- |\n| `<command-name>` | Name derived from the Markdown filename (without `.md` extension) |\n| `[arguments]`    | Optional arguments passed to the command                          |\n\n### Command types\n\n#### Project commands\n\nCommands stored in your repository and shared with your team. When listed in `/help`, these commands show \"(project)\" after their description.\n\n**Location**: `.claude/commands/`\n\nIn the following example, we create the `/optimize` command:\n\n```bash\n# Create a project command\nmkdir -p .claude/commands\necho \"Analyze this code for performance issues and suggest optimizations:\" > .claude/commands/optimize.md\n```\n\n#### Personal commands\n\nCommands available across all your projects. When listed in `/help`, these commands show \"(user)\" after their description.\n\n**Location**: `~/.claude/commands/`\n\nIn the following example, we create the `/security-review` command:\n\n```bash\n# Create a personal command\nmkdir -p ~/.claude/commands\necho \"Review this code for security vulnerabilities:\" > ~/.claude/commands/security-review.md\n```\n\n### Features\n\n#### Namespacing\n\nOrganize commands in subdirectories. The subdirectories are used for organization and appear in the command description, but they do not affect the command name itself. The description will show whether the command comes from the project directory (`.claude/commands`) or the user-level directory (`~/.claude/commands`), along with the subdirectory name.\n\nConflicts between user and project level commands are not supported. Otherwise, multiple commands with the same base file name can coexist.\n\nFor example, a file at `.claude/commands/frontend/component.md` creates the command `/component` with description showing \"(project:frontend)\".\nMeanwhile, a file at `~/.claude/commands/component.md` creates the command `/component` with description showing \"(user)\".\n\n#### Arguments\n\nPass dynamic values to commands using the `$ARGUMENTS` placeholder.\n\nFor example:\n\n```bash\n# Command definition\necho 'Fix issue #$ARGUMENTS following our coding standards' > .claude/commands/fix-issue.md\n\n# Usage\n> /fix-issue 123\n```\n\n#### Bash command execution\n\nExecute bash commands before the slash command runs using the `!` prefix. The output is included in the command context. You *must* include `allowed-tools` with the `Bash` tool, but you can choose the specific bash commands to allow.\n\nFor example:\n\n```markdown\n---\nallowed-tools: Bash(git add:*), Bash(git status:*), Bash(git commit:*)\ndescription: Create a git commit\n---\n\n## Context\n\n- Current git status: !`git status`\n- Current git diff (staged and unstaged changes): !`git diff HEAD`\n- Current branch: !`git branch --show-current`\n- Recent commits: !`git log --oneline -10`\n\n## Your task\n\nBased on the above changes, create a single git commit.\n```\n\n#### File references\n\nInclude file contents in commands using the `@` prefix to [reference files](/en/docs/claude-code/common-workflows#reference-files-and-directories).\n\nFor example:\n\n```markdown\n# Reference a specific file\n\nReview the implementation in @src/utils/helpers.js\n\n# Reference multiple files\n\nCompare @src/old-version.js with @src/new-version.js\n```\n\n#### Thinking mode\n\nSlash commands can trigger extended thinking by including [extended thinking keywords](/en/docs/claude-code/common-workflows#use-extended-thinking).\n\n### Frontmatter\n\nCommand files support frontmatter, useful for specifying metadata about the command:\n\n| Frontmatter     | Purpose                                                                                                                                                                               | Default                             |\n| :-------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | :---------------------------------- |\n| `allowed-tools` | List of tools the command can use                                                                                                                                                     | Inherits from the conversation      |\n| `argument-hint` | The arguments expected for the slash command. Example: `argument-hint: add [tagId] \\| remove [tagId] \\| list`. This hint is shown to the user when auto-completing the slash command. | None                                |\n| `description`   | Brief description of the command                                                                                                                                                      | Uses the first line from the prompt |\n| `model`         | Specific model string (see [Models overview](/en/docs/about-claude/models/overview))                                                                                                  | Inherits from the conversation      |\n\nFor example:\n\n```markdown\n---\nallowed-tools: Bash(git add:*), Bash(git status:*), Bash(git commit:*)\nargument-hint: [message]\ndescription: Create a git commit\nmodel: claude-3-5-haiku-20241022\n---\n\nAn example command\n```\n\n## MCP slash commands\n\nMCP servers can expose prompts as slash commands that become available in Claude Code. These commands are dynamically discovered from connected MCP servers.\n\n### Command format\n\nMCP commands follow the pattern:\n\n```\n/mcp__<server-name>__<prompt-name> [arguments]\n```\n\n### Features\n\n#### Dynamic discovery\n\nMCP commands are automatically available when:\n\n* An MCP server is connected and active\n* The server exposes prompts through the MCP protocol\n* The prompts are successfully retrieved during connection\n\n#### Arguments\n\nMCP prompts can accept arguments defined by the server:\n\n```\n# Without arguments\n> /mcp__github__list_prs\n\n# With arguments\n> /mcp__github__pr_review 456\n> /mcp__jira__create_issue \"Bug title\" high\n```\n\n#### Naming conventions\n\n* Server and prompt names are normalized\n* Spaces and special characters become underscores\n* Names are lowercased for consistency\n\n### Managing MCP connections\n\nUse the `/mcp` command to:\n\n* View all configured MCP servers\n* Check connection status\n* Authenticate with OAuth-enabled servers\n* Clear authentication tokens\n* View available tools and prompts from each server\n\n## See also\n\n* [Interactive mode](/en/docs/claude-code/interactive-mode) - Shortcuts, input modes, and interactive features\n* [CLI reference](/en/docs/claude-code/cli-reference) - Command-line flags and options\n* [Settings](/en/docs/claude-code/settings) - Configuration options\n* [Memory management](/en/docs/claude-code/memory) - Managing Claude's memory across sessions\n",
+        "numLines": 228,
+        "startLine": 1,
+        "totalLines": 228
+      }
+    }
+  },
+  {
+    "session_id": "365f21a1-14cc-402b-8405-6f2048f36a3e",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025/365f21a1-14cc-402b-8405-6f2048f36a3e.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025",
+    "permission_mode": "default",
+    "hook_event_name": "PostToolUse",
+    "tool_name": "Read",
+    "tool_input": {
+      "file_path": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025/CLAUDE.md"
+    },
+    "tool_response": {
+      "type": "text",
+      "file": {
+        "filePath": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025/CLAUDE.md",
+        "content": "# Claude\u2011Code operating rules for **adhs\u2011etl**\n\n1. **Branch hygiene** \u2014 No direct commits to `main`; open a PR, request review.  \n2. **Config & secrets** \u2014 Always access through `from adhs_etl.config import Settings`.  \n   *Never* import `os.environ` directly inside business logic.  \n3. **CLI entry point** \u2014 Use the Poetry script alias:  \n   ```bash\n   poetry run adhs-etl run --month 1.25 --raw-dir ./Raw-New-Month --dry-run\n   ```  \n   * `--dry-run` must be honoured in all write operations.*  \n   * Month format is `M.YY` or `MM.YY` (e.g., `1.25` for January 2025)  \n4. **Unknown columns workflow** \u2014 The first time an unseen header appears, add it (with null mapping) to `field_map.TODO.yml`, log a `WARNING`, and keep the run going.  \n5. **Testing & lint** \u2014 `pytest -q` + `pytest-cov` for coverage; `ruff` & `black` via `pre\u2011commit`.  \n   * Keep tests in `src/tests/`; aim for \u2265\u202f80\u202f% coverage.\n6. **Commit messages** \u2014 Conventional Commits (`feat:`, `fix:`, `chore:`\u00a0\u2026).  \n7. **File naming** \u2014 Python in `snake_case.py`, Markdown in `kebab-case.md`.  \n8. **Large artefacts** \u2014 Place any file >\u202f5\u202fMB in `/data`, git\u2011ignored; DVC if history needed.  \n9. **Folder structure** \u2014 Updated to use hyphens:\n   * `Raw-New-Month/` \u2014 Input files for current month processing\n   * `ALL-MONTHS/` \u2014 Historical data organized by month folders\n   * `Reformat/` \u2014 M.YY Reformat.xlsx output files\n   * `All-to-Date/` \u2014 Reformat All to Date M.YY.xlsx cumulative files\n   * `Analysis/` \u2014 M.YY Analysis.xlsx files with full business analysis\n10. **Output Files** \u2014 Pipeline generates three types:\n    * **Reformat**: Standardized data with MONTH, YEAR, PROVIDER TYPE, PROVIDER, ADDRESS, CITY, ZIP, CAPACITY, LONGITUDE, LATITUDE, PROVIDER GROUP INDEX #\n    * **All-to-Date**: Cumulative data across all months processed\n    * **Analysis**: Full business analysis with 3 sheets (Summary, Blanks Count, Analysis) including lost license detection and MCAO property data\n",
+        "numLines": 28,
+        "startLine": 1,
+        "totalLines": 28
+      }
+    }
+  },
+  {
+    "session_id": "365f21a1-14cc-402b-8405-6f2048f36a3e",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025/365f21a1-14cc-402b-8405-6f2048f36a3e.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025",
+    "permission_mode": "default",
+    "hook_event_name": "PostToolUse",
+    "tool_name": "Read",
+    "tool_input": {
+      "file_path": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025/ADHS-ETL-INDEX.md"
+    },
+    "tool_response": {
+      "type": "text",
+      "file": {
+        "filePath": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025/ADHS-ETL-INDEX.md",
+        "content": "# ADHS-ETL Pipeline Index\n\n## Core Entry Points\n- **CLI**: `src/adhs_etl/cli.py:7` \u2192 redirects to `cli_enhanced.py`\n- **Enhanced CLI**: `src/adhs_etl/cli_enhanced.py:57` \u2192 main command handler\n- **Poetry Script**: Defined in `pyproject.toml:18`\n\n## Configuration & Settings\n- **Settings Class**: `src/adhs_etl/config.py:8` \u2192 Pydantic-based configuration\n- **Environment Variables**: `.env` file support via pydantic-settings\n\n## Data Transformation Pipeline\n\n### Field Mapping\n- **Base Mapper**: `src/adhs_etl/transform.py:31` \u2192 FieldMapper class\n- **Enhanced Mapper**: `src/adhs_etl/transform_enhanced.py:49` \u2192 EnhancedFieldMapper\n- **Field Map YAML**: `src/adhs_etl/field_map.yml` \u2192 column mappings\n- **TODO Tracking**: `src/adhs_etl/field_map.TODO.yml` \u2192 unknown columns\n\n### Provider Grouping\n- **Grouper Class**: `src/adhs_etl/transform_enhanced.py:77` \u2192 ProviderGrouper\n- **Address Matching**: Exact match on first 20 chars\n- **Name Matching**: Fuzzy match at 85% threshold using rapidfuzz\n\n### Analysis Engine\n- **Analyzer**: `src/adhs_etl/analysis.py:77` \u2192 ProviderAnalyzer class\n- **Lead Detection**: `src/adhs_etl/analysis.py:228` \u2192 identify_leads method\n- **Summary Generation**: `src/adhs_etl/analysis.py:283` \u2192 create_summary method\n\n## Data Processing Functions\n- **Main Runner**: `src/adhs_etl/runner.py:208` \u2192 run_etl_pipeline\n- **Process Month**: `src/adhs_etl/runner.py:23` \u2192 process_month_data\n- **Output Generation**: `src/adhs_etl/runner.py:127` \u2192 generate_outputs\n\n## API Integration\n- **MCAO Geocoder**: `src/adhs_etl/mca_api.py:11` \u2192 MCAPGeocoder (stub)\n- **Property Data**: Planned integration for APN, owner info, etc.\n\n## Batch Processing Scripts\n- **Interactive**: `scripts/batch_process_months.py` \u2192 user-guided processing\n- **Automated**: `scripts/batch_auto.py` \u2192 unattended batch runs\n- **Fast Batch**: `scripts/fast_batch.py` \u2192 optimized for speed\n\n## Testing Infrastructure\n- **Config Tests**: `src/tests/test_config.py`\n- **Transform Tests**: `src/tests/test_transform.py`\n- **Analysis Tests**: `src/tests/test_analysis.py`\n- **Runner Tests**: `src/tests/test_runner.py`\n- **Fixtures**: `src/tests/fixtures/` \u2192 sample data files\n\n## Output File Handlers\n- **Reformat Files**: `runner.py:127` \u2192 standardized monthly data\n- **All-to-Date Files**: `runner.py:156` \u2192 cumulative historical data\n- **Analysis Files**: `runner.py:184` \u2192 business intelligence output\n\n## Key Data Models\n\n### Input Files (by Provider Type)\n- ASSISTED_LIVING_HOME.xlsx\n- NURSING_HOME.xlsx\n- BEHAVIORAL_HEALTH_OUTPATIENT_CLINIC.xlsx\n- ADULT_BEHAVIORAL_HEALTH_HOME.xlsx\n- BEHAVIORAL_HEALTH_RESIDENTIAL_FACILITY.xlsx\n- ADULT_CARE_HOME.xlsx\n- ADULT_DAY_HEALTH_CARE.xlsx\n- HOME_AND_COMMUNITY_BASED_SERVICE.xlsx\n- CHILD_DEVELOPMENT_HOME.xlsx\n- CHILD_WELFARE_RESIDENTIAL_GROUP_CARE_FACILITY.xlsx\n- SUBSTANCE_ABUSE_TREATMENT_TRANSITIONAL_FACILITY.xlsx\n\n### Standard Output Columns\n1. MONTH\n2. YEAR\n3. PROVIDER TYPE\n4. PROVIDER\n5. ADDRESS\n6. CITY\n7. ZIP\n8. CAPACITY\n9. LONGITUDE\n10. LATITUDE\n11. PROVIDER GROUP INDEX #\n\n### Analysis Output (77 columns)\n- Provider info (cols 1-11)\n- MCAO data (cols 12-21) - placeholder\n- Historical tracking (cols 22-37)\n- Change analysis (cols 38-77)\n\n## Utility Functions\n- **File Utils**: `src/adhs_etl/utils/file_utils.py`\n- **Month Parsing**: `cli_enhanced.py:18` \u2192 parse_month function\n- **Logger Setup**: Throughout modules using Python logging\n\n## Configuration Files\n- **Poetry**: `pyproject.toml` \u2192 dependencies & scripts\n- **Pre-commit**: `.pre-commit-config.yaml` \u2192 code quality hooks\n- **Ruff**: `pyproject.toml:33` \u2192 linting configuration\n- **Black**: `pyproject.toml:44` \u2192 formatting configuration\n\n## Data Flow Summary\n1. **Input**: Excel files from Raw-New-Month/ or ALL-MONTHS/Raw M.YY/\n2. **Transform**: Field mapping \u2192 uppercase \u2192 provider grouping\n3. **Analyze**: Historical comparison \u2192 lead identification\n4. **Output**: Three Excel files (Reformat, All-to-Date, Analysis)\n\n## Command Examples\n```bash\n# Process single month\npoetry run adhs-etl run --month 1.25 --raw-dir ./Raw-New-Month\n\n# Dry run mode\npoetry run adhs-etl run --month 1.25 --dry-run\n\n# Batch processing\npoetry run python scripts/batch_process_months.py\n```",
+        "numLines": 117,
+        "startLine": 1,
+        "totalLines": 117
+      }
+    }
+  },
+  {
+    "session_id": "365f21a1-14cc-402b-8405-6f2048f36a3e",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025/365f21a1-14cc-402b-8405-6f2048f36a3e.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025",
+    "permission_mode": "default",
+    "hook_event_name": "PostToolUse",
+    "tool_name": "Read",
+    "tool_input": {
+      "file_path": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025/pyproject.toml"
+    },
+    "tool_response": {
+      "type": "text",
+      "file": {
+        "filePath": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025/pyproject.toml",
+        "content": "[tool.poetry]\nname = \"adhs-etl\"\nversion = \"0.1.0\"\ndescription = \"ETL pipeline for ADHS provider rosters\"\nauthors = [\"Garrett Sullivan <gbsullivan@mac.com>\"]\nreadme = \"README.md\"\npackages = [{ include = \"adhs_etl\", from = \"src\" }]\n\n[tool.poetry.dependencies]\npython = \"^3.11\"\npandas = \"^2.2.2\"\nopenpyxl = \"^3.1\"\nrapidfuzz = \"^3.6\"\ntyper = { extras = [\"all\"], version = \"^0.12\" }\npydantic-settings = \"^2.2\"\npython-dotenv = \"^1.0\"\npsutil = \"^5.9\"\n\n[tool.poetry.group.dev.dependencies]\npytest = \"^8.2\"\npytest-cov = \"^5.0\"\nruff = \"^0.4\"\nblack = \"^24.4\"\n\n[build-system]\nrequires = [\"poetry-core\"]\nbuild-backend = \"poetry.core.masonry.api\"\n\n[tool.poetry.scripts]\nadhs-etl = \"adhs_etl.cli:app\"\n",
+        "numLines": 31,
+        "startLine": 1,
+        "totalLines": 31
+      }
+    }
+  },
+  {
+    "session_id": "365f21a1-14cc-402b-8405-6f2048f36a3e",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025/365f21a1-14cc-402b-8405-6f2048f36a3e.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025",
+    "permission_mode": "default",
+    "hook_event_name": "PostToolUse",
+    "tool_name": "TodoWrite",
+    "tool_input": {
+      "todos": [
+        {
+          "content": "Execute git ls-files to understand project structure",
+          "status": "completed",
+          "activeForm": "Executing git ls-files to understand project structure"
+        },
+        {
+          "content": "Read and analyze key documentation files",
+          "status": "completed",
+          "activeForm": "Reading and analyzing key documentation files"
+        },
+        {
+          "content": "Provide comprehensive project summary",
+          "status": "in_progress",
+          "activeForm": "Providing comprehensive project summary"
+        }
+      ]
+    },
+    "tool_response": {
+      "oldTodos": [
+        {
+          "content": "Execute git ls-files to understand project structure",
+          "status": "completed",
+          "activeForm": "Executing git ls-files to understand project structure"
+        },
+        {
+          "content": "Read and analyze key documentation files",
+          "status": "in_progress",
+          "activeForm": "Reading and analyzing key documentation files"
+        },
+        {
+          "content": "Provide comprehensive project summary",
+          "status": "pending",
+          "activeForm": "Providing comprehensive project summary"
+        }
+      ],
+      "newTodos": [
+        {
+          "content": "Execute git ls-files to understand project structure",
+          "status": "completed",
+          "activeForm": "Executing git ls-files to understand project structure"
+        },
+        {
+          "content": "Read and analyze key documentation files",
+          "status": "completed",
+          "activeForm": "Reading and analyzing key documentation files"
+        },
+        {
+          "content": "Provide comprehensive project summary",
+          "status": "in_progress",
+          "activeForm": "Providing comprehensive project summary"
+        }
+      ]
+    }
+  },
+  {
+    "session_id": "365f21a1-14cc-402b-8405-6f2048f36a3e",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025/365f21a1-14cc-402b-8405-6f2048f36a3e.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025",
+    "permission_mode": "default",
+    "hook_event_name": "PostToolUse",
+    "tool_name": "Write",
+    "tool_input": {
+      "file_path": "/tmp/cc_genui_adhs_project_summary_20250116_150300.html",
+      "content": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <title>ADHS ETL Pipeline - Project Analysis</title>\n    <style>\n        * {\n            margin: 0;\n            padding: 0;\n            box-sizing: border-box;\n        }\n\n        body {\n            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;\n            line-height: 1.6;\n            color: #333;\n            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);\n            padding: 20px;\n            min-height: 100vh;\n        }\n\n        article {\n            max-width: 900px;\n            margin: 0 auto;\n            background: white;\n            border-radius: 8px;\n            box-shadow: 0 10px 30px rgba(0,0,0,0.1);\n            overflow: hidden;\n        }\n\n        header {\n            background: #2c3e50;\n            color: white;\n            padding: 2rem;\n            border-bottom: 4px solid #3498db;\n        }\n\n        h1 {\n            font-size: 2.5rem;\n            margin-bottom: 0.5rem;\n        }\n\n        .subtitle {\n            font-size: 1.1rem;\n            opacity: 0.9;\n            margin-top: 0.5rem;\n        }\n\n        main {\n            padding: 2rem;\n        }\n\n        h2 {\n            color: #2c3e50;\n            font-size: 1.8rem;\n            margin: 2rem 0 1rem 0;\n            padding-bottom: 0.5rem;\n            border-bottom: 2px solid #3498db;\n        }\n\n        h3 {\n            color: #34495e;\n            font-size: 1.3rem;\n            margin: 1.5rem 0 0.75rem 0;\n        }\n\n        section {\n            margin-bottom: 2rem;\n        }\n\n        .info-section {\n            background: #e8f4f8;\n            border-left: 4px solid #3498db;\n            padding: 1rem;\n            margin: 1rem 0;\n            border-radius: 4px;\n        }\n\n        .success-section {\n            background: #e8f8f5;\n            border-left: 4px solid #27ae60;\n            padding: 1rem;\n            margin: 1rem 0;\n            border-radius: 4px;\n        }\n\n        .warning-section {\n            background: #fef3e2;\n            border-left: 4px solid #f39c12;\n            padding: 1rem;\n            margin: 1rem 0;\n            border-radius: 4px;\n        }\n\n        .grid {\n            display: grid;\n            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));\n            gap: 1rem;\n            margin: 1rem 0;\n        }\n\n        .card {\n            background: #f8f9fa;\n            padding: 1rem;\n            border-radius: 4px;\n            border: 1px solid #dee2e6;\n        }\n\n        .card h4 {\n            color: #2c3e50;\n            margin-bottom: 0.5rem;\n        }\n\n        code {\n            background: #f5f5f5;\n            padding: 2px 6px;\n            border-radius: 3px;\n            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', 'Courier New', monospace;\n            font-size: 0.9em;\n        }\n\n        pre {\n            background: #f8f9fa;\n            padding: 1rem;\n            border-radius: 4px;\n            overflow-x: auto;\n            border-left: 3px solid #007acc;\n            margin: 1rem 0;\n        }\n\n        pre code {\n            background: none;\n            padding: 0;\n            display: block;\n        }\n\n        ul, ol {\n            margin-left: 2rem;\n            margin-top: 0.5rem;\n        }\n\n        li {\n            margin-bottom: 0.5rem;\n        }\n\n        .file-tree {\n            background: #f8f9fa;\n            padding: 1rem;\n            border-radius: 4px;\n            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', 'Courier New', monospace;\n            font-size: 0.9em;\n        }\n\n        .pipeline-flow {\n            display: flex;\n            justify-content: space-between;\n            align-items: center;\n            padding: 1.5rem;\n            background: linear-gradient(to right, #e8f4f8, #f8f9fa);\n            border-radius: 4px;\n            margin: 1rem 0;\n        }\n\n        .pipeline-step {\n            flex: 1;\n            text-align: center;\n            padding: 1rem;\n            background: white;\n            border-radius: 4px;\n            margin: 0 0.5rem;\n            border: 2px solid #3498db;\n        }\n\n        .pipeline-arrow {\n            color: #3498db;\n            font-size: 2rem;\n        }\n\n        table {\n            width: 100%;\n            border-collapse: collapse;\n            margin: 1rem 0;\n        }\n\n        th, td {\n            padding: 0.75rem;\n            text-align: left;\n            border-bottom: 1px solid #dee2e6;\n        }\n\n        th {\n            background: #f8f9fa;\n            font-weight: 600;\n            color: #2c3e50;\n        }\n\n        tr:hover {\n            background: #f8f9fa;\n        }\n\n        footer {\n            background: #34495e;\n            color: white;\n            padding: 2rem;\n            text-align: center;\n        }\n\n        footer a {\n            color: #3498db;\n            text-decoration: none;\n        }\n\n        footer a:hover {\n            text-decoration: underline;\n        }\n    </style>\n</head>\n<body>\n    <article>\n        <header>\n            <h1>\ud83c\udfe5 ADHS ETL Pipeline</h1>\n            <div class=\"subtitle\">Arizona Department of Health Services Provider Data Processing System</div>\n        </header>\n\n        <main>\n            <section class=\"info-section\">\n                <h3>\u2139\ufe0f Project Overview</h3>\n                <p>A Python-based ETL (Extract, Transform, Load) pipeline for processing healthcare provider data from the Arizona Department of Health Services (ADHS). The system processes monthly provider roster Excel workbooks, performs data standardization, deduplication, and generates comprehensive business analysis reports.</p>\n            </section>\n\n            <h2>\ud83c\udfaf Core Purpose & Functionality</h2>\n            <section>\n                <p>This pipeline processes ADHS provider data across 11 different healthcare facility types, transforming raw Excel workbooks into standardized, deduplicated datasets with business intelligence analysis. It handles:</p>\n                <ul>\n                    <li>Monthly data ingestion from multiple provider types</li>\n                    <li>Field mapping and standardization</li>\n                    <li>Provider deduplication using fuzzy matching</li>\n                    <li>Historical tracking and change analysis</li>\n                    <li>Geocoding integration (planned via MCAO API)</li>\n                    <li>Comprehensive business analysis reporting</li>\n                </ul>\n            </section>\n\n            <h2>\ud83d\udd04 Data Processing Pipeline</h2>\n            <div class=\"pipeline-flow\">\n                <div class=\"pipeline-step\">\n                    <strong>Input</strong>\n                    <br>Excel Files\n                    <br>11 Provider Types\n                </div>\n                <span class=\"pipeline-arrow\">\u2192</span>\n                <div class=\"pipeline-step\">\n                    <strong>Transform</strong>\n                    <br>Field Mapping\n                    <br>Standardization\n                </div>\n                <span class=\"pipeline-arrow\">\u2192</span>\n                <div class=\"pipeline-step\">\n                    <strong>Analyze</strong>\n                    <br>Deduplication\n                    <br>Change Detection\n                </div>\n                <span class=\"pipeline-arrow\">\u2192</span>\n                <div class=\"pipeline-step\">\n                    <strong>Output</strong>\n                    <br>3 Excel Reports\n                    <br>Business Insights\n                </div>\n            </div>\n\n            <h2>\ud83d\udcc1 Project Structure</h2>\n            <div class=\"file-tree\">\n<pre>adhs-restore-28-Jul-2025/\n\u251c\u2500\u2500 src/\n\u2502   \u251c\u2500\u2500 adhs_etl/          # Main application code\n\u2502   \u2502   \u251c\u2500\u2500 cli.py          # Command-line interface\n\u2502   \u2502   \u251c\u2500\u2500 config.py       # Pydantic settings\n\u2502   \u2502   \u251c\u2500\u2500 transform.py    # Data transformation\n\u2502   \u2502   \u251c\u2500\u2500 analysis.py     # Business analysis\n\u2502   \u2502   \u2514\u2500\u2500 runner.py       # ETL orchestration\n\u2502   \u2514\u2500\u2500 tests/              # Test suite (\u226580% coverage)\n\u251c\u2500\u2500 scripts/                # Batch processing utilities\n\u251c\u2500\u2500 ALL-MONTHS/            # Historical data archive\n\u251c\u2500\u2500 Raw-New-Month/         # Current month input\n\u251c\u2500\u2500 Reformat/              # Standardized output\n\u251c\u2500\u2500 All-to-Date/           # Cumulative data\n\u251c\u2500\u2500 Analysis/              # Business analysis reports\n\u2514\u2500\u2500 field_map.yml          # Column mapping configuration</pre>\n            </div>\n\n            <h2>\ud83c\udfe5 Provider Types Processed</h2>\n            <div class=\"grid\">\n                <div class=\"card\">\n                    <h4>Assisted Living</h4>\n                    <p>Assisted Living Homes</p>\n                </div>\n                <div class=\"card\">\n                    <h4>Nursing Care</h4>\n                    <p>Nursing Homes</p>\n                </div>\n                <div class=\"card\">\n                    <h4>Behavioral Health</h4>\n                    <p>Outpatient Clinics & Residential</p>\n                </div>\n                <div class=\"card\">\n                    <h4>Adult Care</h4>\n                    <p>Adult Care Homes & Day Health</p>\n                </div>\n                <div class=\"card\">\n                    <h4>Child Services</h4>\n                    <p>Development Homes & Welfare</p>\n                </div>\n                <div class=\"card\">\n                    <h4>Substance Abuse</h4>\n                    <p>Treatment Transitional Facilities</p>\n                </div>\n            </div>\n\n            <h2>\ud83d\udcca Output Files Generated</h2>\n            <table>\n                <thead>\n                    <tr>\n                        <th>Output Type</th>\n                        <th>Format</th>\n                        <th>Description</th>\n                        <th>Key Features</th>\n                    </tr>\n                </thead>\n                <tbody>\n                    <tr>\n                        <td><strong>Reformat</strong></td>\n                        <td>M.YY Reformat.xlsx</td>\n                        <td>Standardized monthly data</td>\n                        <td>11 standard columns, provider grouping</td>\n                    </tr>\n                    <tr>\n                        <td><strong>All-to-Date</strong></td>\n                        <td>Reformat All to Date M.YY.xlsx</td>\n                        <td>Cumulative historical data</td>\n                        <td>All months combined, deduplicated</td>\n                    </tr>\n                    <tr>\n                        <td><strong>Analysis</strong></td>\n                        <td>M.YY Analysis.xlsx</td>\n                        <td>Business intelligence report</td>\n                        <td>77 columns, lost license detection, MCAO data</td>\n                    </tr>\n                </tbody>\n            </table>\n\n            <h2>\ud83d\udd27 Technical Implementation</h2>\n            <section>\n                <h3>Core Technologies</h3>\n                <ul>\n                    <li><strong>Python 3.11+</strong> - Primary language</li>\n                    <li><strong>Poetry</strong> - Dependency management</li>\n                    <li><strong>Pandas</strong> - Data processing</li>\n                    <li><strong>Pydantic</strong> - Configuration validation</li>\n                    <li><strong>RapidFuzz</strong> - Fuzzy string matching (85% threshold)</li>\n                    <li><strong>Typer</strong> - CLI framework</li>\n                </ul>\n\n                <h3>Key Features</h3>\n                <div class=\"grid\">\n                    <div class=\"card\">\n                        <h4>Smart Field Mapping</h4>\n                        <p>Automatic detection and tracking of unknown columns in <code>field_map.TODO.yml</code></p>\n                    </div>\n                    <div class=\"card\">\n                        <h4>Provider Deduplication</h4>\n                        <p>Address matching (first 20 chars) + name fuzzy matching (85% threshold)</p>\n                    </div>\n                    <div class=\"card\">\n                        <h4>Dry Run Mode</h4>\n                        <p>Safe testing without modifying files</p>\n                    </div>\n                    <div class=\"card\">\n                        <h4>Comprehensive Testing</h4>\n                        <p>\u226580% code coverage requirement</p>\n                    </div>\n                </div>\n            </section>\n\n            <h2>\ud83d\udcbb Usage Examples</h2>\n            <section>\n                <h3>CLI Commands</h3>\n                <pre><code># Process January 2025 data\npoetry run adhs-etl run --month 1.25 --raw-dir ./Raw-New-Month\n\n# Dry run mode for testing\npoetry run adhs-etl run --month 1.25 --raw-dir ./Raw-New-Month --dry-run\n\n# Batch processing multiple months\npoetry run python scripts/batch_process_months.py\n\n# Validate field mappings\npoetry run adhs-etl validate --field-map field_map.yml</code></pre>\n            </section>\n\n            <h2>\ud83d\ude80 Development Workflow</h2>\n            <section class=\"warning-section\">\n                <h3>\u26a0\ufe0f Important Development Rules</h3>\n                <ul>\n                    <li><strong>No direct commits to main</strong> - Always use PRs with review</li>\n                    <li><strong>Configuration access</strong> - Only via <code>from adhs_etl.config import Settings</code></li>\n                    <li><strong>Commit messages</strong> - Follow Conventional Commits (feat:, fix:, chore:)</li>\n                    <li><strong>File naming</strong> - Python: snake_case.py, Markdown: kebab-case.md</li>\n                    <li><strong>Large files</strong> - Place >5MB files in /data (git-ignored)</li>\n                </ul>\n            </section>\n\n            <h2>\ud83d\udd2e Future Enhancements</h2>\n            <section class=\"success-section\">\n                <h3>\u2705 Planned Features</h3>\n                <ul>\n                    <li><strong>MCAO API Integration</strong> - Real-time geocoding and property data</li>\n                    <li><strong>Enhanced Analytics</strong> - Trend analysis and predictive modeling</li>\n                    <li><strong>Performance Optimization</strong> - Parallel processing for large datasets</li>\n                    <li><strong>Web Dashboard</strong> - Interactive visualization of provider data</li>\n                </ul>\n            </section>\n\n            <h2>\ud83d\udccb Project Context</h2>\n            <section>\n                <p>This project appears to be part of a larger healthcare data management system for Arizona, specifically focused on tracking and analyzing various types of healthcare providers. The sophisticated deduplication and grouping logic suggests it's handling real-world data with potential duplicates and variations in provider information.</p>\n\n                <p>The pipeline's ability to track historical changes and identify lost licenses indicates it's used for compliance monitoring and regulatory oversight. The planned MCAO (Maricopa County Assessor's Office) integration suggests property ownership and location verification are important aspects of the analysis.</p>\n            </section>\n        </main>\n\n        <footer>\n            <p>Generated on January 16, 2025</p>\n            <p>\ud83e\udd16 Generated with <a href=\"https://claude.ai/code\">Claude Code</a></p>\n            <p>Co-Authored-By: Claude &lt;noreply@anthropic.com&gt;</p>\n        </footer>\n    </article>\n</body>\n</html>"
+    },
+    "tool_response": {
+      "type": "create",
+      "filePath": "/tmp/cc_genui_adhs_project_summary_20250116_150300.html",
+      "content": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <title>ADHS ETL Pipeline - Project Analysis</title>\n    <style>\n        * {\n            margin: 0;\n            padding: 0;\n            box-sizing: border-box;\n        }\n\n        body {\n            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;\n            line-height: 1.6;\n            color: #333;\n            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);\n            padding: 20px;\n            min-height: 100vh;\n        }\n\n        article {\n            max-width: 900px;\n            margin: 0 auto;\n            background: white;\n            border-radius: 8px;\n            box-shadow: 0 10px 30px rgba(0,0,0,0.1);\n            overflow: hidden;\n        }\n\n        header {\n            background: #2c3e50;\n            color: white;\n            padding: 2rem;\n            border-bottom: 4px solid #3498db;\n        }\n\n        h1 {\n            font-size: 2.5rem;\n            margin-bottom: 0.5rem;\n        }\n\n        .subtitle {\n            font-size: 1.1rem;\n            opacity: 0.9;\n            margin-top: 0.5rem;\n        }\n\n        main {\n            padding: 2rem;\n        }\n\n        h2 {\n            color: #2c3e50;\n            font-size: 1.8rem;\n            margin: 2rem 0 1rem 0;\n            padding-bottom: 0.5rem;\n            border-bottom: 2px solid #3498db;\n        }\n\n        h3 {\n            color: #34495e;\n            font-size: 1.3rem;\n            margin: 1.5rem 0 0.75rem 0;\n        }\n\n        section {\n            margin-bottom: 2rem;\n        }\n\n        .info-section {\n            background: #e8f4f8;\n            border-left: 4px solid #3498db;\n            padding: 1rem;\n            margin: 1rem 0;\n            border-radius: 4px;\n        }\n\n        .success-section {\n            background: #e8f8f5;\n            border-left: 4px solid #27ae60;\n            padding: 1rem;\n            margin: 1rem 0;\n            border-radius: 4px;\n        }\n\n        .warning-section {\n            background: #fef3e2;\n            border-left: 4px solid #f39c12;\n            padding: 1rem;\n            margin: 1rem 0;\n            border-radius: 4px;\n        }\n\n        .grid {\n            display: grid;\n            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));\n            gap: 1rem;\n            margin: 1rem 0;\n        }\n\n        .card {\n            background: #f8f9fa;\n            padding: 1rem;\n            border-radius: 4px;\n            border: 1px solid #dee2e6;\n        }\n\n        .card h4 {\n            color: #2c3e50;\n            margin-bottom: 0.5rem;\n        }\n\n        code {\n            background: #f5f5f5;\n            padding: 2px 6px;\n            border-radius: 3px;\n            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', 'Courier New', monospace;\n            font-size: 0.9em;\n        }\n\n        pre {\n            background: #f8f9fa;\n            padding: 1rem;\n            border-radius: 4px;\n            overflow-x: auto;\n            border-left: 3px solid #007acc;\n            margin: 1rem 0;\n        }\n\n        pre code {\n            background: none;\n            padding: 0;\n            display: block;\n        }\n\n        ul, ol {\n            margin-left: 2rem;\n            margin-top: 0.5rem;\n        }\n\n        li {\n            margin-bottom: 0.5rem;\n        }\n\n        .file-tree {\n            background: #f8f9fa;\n            padding: 1rem;\n            border-radius: 4px;\n            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', 'Courier New', monospace;\n            font-size: 0.9em;\n        }\n\n        .pipeline-flow {\n            display: flex;\n            justify-content: space-between;\n            align-items: center;\n            padding: 1.5rem;\n            background: linear-gradient(to right, #e8f4f8, #f8f9fa);\n            border-radius: 4px;\n            margin: 1rem 0;\n        }\n\n        .pipeline-step {\n            flex: 1;\n            text-align: center;\n            padding: 1rem;\n            background: white;\n            border-radius: 4px;\n            margin: 0 0.5rem;\n            border: 2px solid #3498db;\n        }\n\n        .pipeline-arrow {\n            color: #3498db;\n            font-size: 2rem;\n        }\n\n        table {\n            width: 100%;\n            border-collapse: collapse;\n            margin: 1rem 0;\n        }\n\n        th, td {\n            padding: 0.75rem;\n            text-align: left;\n            border-bottom: 1px solid #dee2e6;\n        }\n\n        th {\n            background: #f8f9fa;\n            font-weight: 600;\n            color: #2c3e50;\n        }\n\n        tr:hover {\n            background: #f8f9fa;\n        }\n\n        footer {\n            background: #34495e;\n            color: white;\n            padding: 2rem;\n            text-align: center;\n        }\n\n        footer a {\n            color: #3498db;\n            text-decoration: none;\n        }\n\n        footer a:hover {\n            text-decoration: underline;\n        }\n    </style>\n</head>\n<body>\n    <article>\n        <header>\n            <h1>\ud83c\udfe5 ADHS ETL Pipeline</h1>\n            <div class=\"subtitle\">Arizona Department of Health Services Provider Data Processing System</div>\n        </header>\n\n        <main>\n            <section class=\"info-section\">\n                <h3>\u2139\ufe0f Project Overview</h3>\n                <p>A Python-based ETL (Extract, Transform, Load) pipeline for processing healthcare provider data from the Arizona Department of Health Services (ADHS). The system processes monthly provider roster Excel workbooks, performs data standardization, deduplication, and generates comprehensive business analysis reports.</p>\n            </section>\n\n            <h2>\ud83c\udfaf Core Purpose & Functionality</h2>\n            <section>\n                <p>This pipeline processes ADHS provider data across 11 different healthcare facility types, transforming raw Excel workbooks into standardized, deduplicated datasets with business intelligence analysis. It handles:</p>\n                <ul>\n                    <li>Monthly data ingestion from multiple provider types</li>\n                    <li>Field mapping and standardization</li>\n                    <li>Provider deduplication using fuzzy matching</li>\n                    <li>Historical tracking and change analysis</li>\n                    <li>Geocoding integration (planned via MCAO API)</li>\n                    <li>Comprehensive business analysis reporting</li>\n                </ul>\n            </section>\n\n            <h2>\ud83d\udd04 Data Processing Pipeline</h2>\n            <div class=\"pipeline-flow\">\n                <div class=\"pipeline-step\">\n                    <strong>Input</strong>\n                    <br>Excel Files\n                    <br>11 Provider Types\n                </div>\n                <span class=\"pipeline-arrow\">\u2192</span>\n                <div class=\"pipeline-step\">\n                    <strong>Transform</strong>\n                    <br>Field Mapping\n                    <br>Standardization\n                </div>\n                <span class=\"pipeline-arrow\">\u2192</span>\n                <div class=\"pipeline-step\">\n                    <strong>Analyze</strong>\n                    <br>Deduplication\n                    <br>Change Detection\n                </div>\n                <span class=\"pipeline-arrow\">\u2192</span>\n                <div class=\"pipeline-step\">\n                    <strong>Output</strong>\n                    <br>3 Excel Reports\n                    <br>Business Insights\n                </div>\n            </div>\n\n            <h2>\ud83d\udcc1 Project Structure</h2>\n            <div class=\"file-tree\">\n<pre>adhs-restore-28-Jul-2025/\n\u251c\u2500\u2500 src/\n\u2502   \u251c\u2500\u2500 adhs_etl/          # Main application code\n\u2502   \u2502   \u251c\u2500\u2500 cli.py          # Command-line interface\n\u2502   \u2502   \u251c\u2500\u2500 config.py       # Pydantic settings\n\u2502   \u2502   \u251c\u2500\u2500 transform.py    # Data transformation\n\u2502   \u2502   \u251c\u2500\u2500 analysis.py     # Business analysis\n\u2502   \u2502   \u2514\u2500\u2500 runner.py       # ETL orchestration\n\u2502   \u2514\u2500\u2500 tests/              # Test suite (\u226580% coverage)\n\u251c\u2500\u2500 scripts/                # Batch processing utilities\n\u251c\u2500\u2500 ALL-MONTHS/            # Historical data archive\n\u251c\u2500\u2500 Raw-New-Month/         # Current month input\n\u251c\u2500\u2500 Reformat/              # Standardized output\n\u251c\u2500\u2500 All-to-Date/           # Cumulative data\n\u251c\u2500\u2500 Analysis/              # Business analysis reports\n\u2514\u2500\u2500 field_map.yml          # Column mapping configuration</pre>\n            </div>\n\n            <h2>\ud83c\udfe5 Provider Types Processed</h2>\n            <div class=\"grid\">\n                <div class=\"card\">\n                    <h4>Assisted Living</h4>\n                    <p>Assisted Living Homes</p>\n                </div>\n                <div class=\"card\">\n                    <h4>Nursing Care</h4>\n                    <p>Nursing Homes</p>\n                </div>\n                <div class=\"card\">\n                    <h4>Behavioral Health</h4>\n                    <p>Outpatient Clinics & Residential</p>\n                </div>\n                <div class=\"card\">\n                    <h4>Adult Care</h4>\n                    <p>Adult Care Homes & Day Health</p>\n                </div>\n                <div class=\"card\">\n                    <h4>Child Services</h4>\n                    <p>Development Homes & Welfare</p>\n                </div>\n                <div class=\"card\">\n                    <h4>Substance Abuse</h4>\n                    <p>Treatment Transitional Facilities</p>\n                </div>\n            </div>\n\n            <h2>\ud83d\udcca Output Files Generated</h2>\n            <table>\n                <thead>\n                    <tr>\n                        <th>Output Type</th>\n                        <th>Format</th>\n                        <th>Description</th>\n                        <th>Key Features</th>\n                    </tr>\n                </thead>\n                <tbody>\n                    <tr>\n                        <td><strong>Reformat</strong></td>\n                        <td>M.YY Reformat.xlsx</td>\n                        <td>Standardized monthly data</td>\n                        <td>11 standard columns, provider grouping</td>\n                    </tr>\n                    <tr>\n                        <td><strong>All-to-Date</strong></td>\n                        <td>Reformat All to Date M.YY.xlsx</td>\n                        <td>Cumulative historical data</td>\n                        <td>All months combined, deduplicated</td>\n                    </tr>\n                    <tr>\n                        <td><strong>Analysis</strong></td>\n                        <td>M.YY Analysis.xlsx</td>\n                        <td>Business intelligence report</td>\n                        <td>77 columns, lost license detection, MCAO data</td>\n                    </tr>\n                </tbody>\n            </table>\n\n            <h2>\ud83d\udd27 Technical Implementation</h2>\n            <section>\n                <h3>Core Technologies</h3>\n                <ul>\n                    <li><strong>Python 3.11+</strong> - Primary language</li>\n                    <li><strong>Poetry</strong> - Dependency management</li>\n                    <li><strong>Pandas</strong> - Data processing</li>\n                    <li><strong>Pydantic</strong> - Configuration validation</li>\n                    <li><strong>RapidFuzz</strong> - Fuzzy string matching (85% threshold)</li>\n                    <li><strong>Typer</strong> - CLI framework</li>\n                </ul>\n\n                <h3>Key Features</h3>\n                <div class=\"grid\">\n                    <div class=\"card\">\n                        <h4>Smart Field Mapping</h4>\n                        <p>Automatic detection and tracking of unknown columns in <code>field_map.TODO.yml</code></p>\n                    </div>\n                    <div class=\"card\">\n                        <h4>Provider Deduplication</h4>\n                        <p>Address matching (first 20 chars) + name fuzzy matching (85% threshold)</p>\n                    </div>\n                    <div class=\"card\">\n                        <h4>Dry Run Mode</h4>\n                        <p>Safe testing without modifying files</p>\n                    </div>\n                    <div class=\"card\">\n                        <h4>Comprehensive Testing</h4>\n                        <p>\u226580% code coverage requirement</p>\n                    </div>\n                </div>\n            </section>\n\n            <h2>\ud83d\udcbb Usage Examples</h2>\n            <section>\n                <h3>CLI Commands</h3>\n                <pre><code># Process January 2025 data\npoetry run adhs-etl run --month 1.25 --raw-dir ./Raw-New-Month\n\n# Dry run mode for testing\npoetry run adhs-etl run --month 1.25 --raw-dir ./Raw-New-Month --dry-run\n\n# Batch processing multiple months\npoetry run python scripts/batch_process_months.py\n\n# Validate field mappings\npoetry run adhs-etl validate --field-map field_map.yml</code></pre>\n            </section>\n\n            <h2>\ud83d\ude80 Development Workflow</h2>\n            <section class=\"warning-section\">\n                <h3>\u26a0\ufe0f Important Development Rules</h3>\n                <ul>\n                    <li><strong>No direct commits to main</strong> - Always use PRs with review</li>\n                    <li><strong>Configuration access</strong> - Only via <code>from adhs_etl.config import Settings</code></li>\n                    <li><strong>Commit messages</strong> - Follow Conventional Commits (feat:, fix:, chore:)</li>\n                    <li><strong>File naming</strong> - Python: snake_case.py, Markdown: kebab-case.md</li>\n                    <li><strong>Large files</strong> - Place >5MB files in /data (git-ignored)</li>\n                </ul>\n            </section>\n\n            <h2>\ud83d\udd2e Future Enhancements</h2>\n            <section class=\"success-section\">\n                <h3>\u2705 Planned Features</h3>\n                <ul>\n                    <li><strong>MCAO API Integration</strong> - Real-time geocoding and property data</li>\n                    <li><strong>Enhanced Analytics</strong> - Trend analysis and predictive modeling</li>\n                    <li><strong>Performance Optimization</strong> - Parallel processing for large datasets</li>\n                    <li><strong>Web Dashboard</strong> - Interactive visualization of provider data</li>\n                </ul>\n            </section>\n\n            <h2>\ud83d\udccb Project Context</h2>\n            <section>\n                <p>This project appears to be part of a larger healthcare data management system for Arizona, specifically focused on tracking and analyzing various types of healthcare providers. The sophisticated deduplication and grouping logic suggests it's handling real-world data with potential duplicates and variations in provider information.</p>\n\n                <p>The pipeline's ability to track historical changes and identify lost licenses indicates it's used for compliance monitoring and regulatory oversight. The planned MCAO (Maricopa County Assessor's Office) integration suggests property ownership and location verification are important aspects of the analysis.</p>\n            </section>\n        </main>\n\n        <footer>\n            <p>Generated on January 16, 2025</p>\n            <p>\ud83e\udd16 Generated with <a href=\"https://claude.ai/code\">Claude Code</a></p>\n            <p>Co-Authored-By: Claude &lt;noreply@anthropic.com&gt;</p>\n        </footer>\n    </article>\n</body>\n</html>",
+      "structuredPatch": []
+    }
+  },
+  {
+    "session_id": "365f21a1-14cc-402b-8405-6f2048f36a3e",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025/365f21a1-14cc-402b-8405-6f2048f36a3e.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025",
+    "permission_mode": "default",
+    "hook_event_name": "PostToolUse",
+    "tool_name": "Bash",
+    "tool_input": {
+      "command": "open /tmp/cc_genui_adhs_project_summary_20250116_150300.html",
+      "description": "Open HTML file in browser"
+    },
+    "tool_response": {
+      "stdout": "",
+      "stderr": "",
+      "interrupted": false,
+      "isImage": false
+    }
+  },
+  {
+    "session_id": "365f21a1-14cc-402b-8405-6f2048f36a3e",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025/365f21a1-14cc-402b-8405-6f2048f36a3e.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025",
+    "permission_mode": "default",
+    "hook_event_name": "PostToolUse",
+    "tool_name": "TodoWrite",
+    "tool_input": {
+      "todos": [
+        {
+          "content": "Execute git ls-files to understand project structure",
+          "status": "completed",
+          "activeForm": "Executing git ls-files to understand project structure"
+        },
+        {
+          "content": "Read and analyze key documentation files",
+          "status": "completed",
+          "activeForm": "Reading and analyzing key documentation files"
+        },
+        {
+          "content": "Provide comprehensive project summary",
+          "status": "completed",
+          "activeForm": "Providing comprehensive project summary"
+        }
+      ]
+    },
+    "tool_response": {
+      "oldTodos": [
+        {
+          "content": "Execute git ls-files to understand project structure",
+          "status": "completed",
+          "activeForm": "Executing git ls-files to understand project structure"
+        },
+        {
+          "content": "Read and analyze key documentation files",
+          "status": "completed",
+          "activeForm": "Reading and analyzing key documentation files"
+        },
+        {
+          "content": "Provide comprehensive project summary",
+          "status": "in_progress",
+          "activeForm": "Providing comprehensive project summary"
+        }
+      ],
+      "newTodos": [
+        {
+          "content": "Execute git ls-files to understand project structure",
+          "status": "completed",
+          "activeForm": "Executing git ls-files to understand project structure"
+        },
+        {
+          "content": "Read and analyze key documentation files",
+          "status": "completed",
+          "activeForm": "Reading and analyzing key documentation files"
+        },
+        {
+          "content": "Provide comprehensive project summary",
+          "status": "completed",
+          "activeForm": "Providing comprehensive project summary"
+        }
+      ]
+    }
+  },
+  {
+    "session_id": "365f21a1-14cc-402b-8405-6f2048f36a3e",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025/365f21a1-14cc-402b-8405-6f2048f36a3e.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025",
+    "permission_mode": "default",
+    "hook_event_name": "PostToolUse",
+    "tool_name": "TodoWrite",
+    "tool_input": {
+      "todos": [
+        {
+          "content": "Check if Poetry is already installed",
+          "status": "in_progress",
+          "activeForm": "Checking if Poetry is already installed"
+        },
+        {
+          "content": "Install Poetry using the official installer",
+          "status": "pending",
+          "activeForm": "Installing Poetry using the official installer"
+        },
+        {
+          "content": "Verify Poetry installation",
+          "status": "pending",
+          "activeForm": "Verifying Poetry installation"
+        },
+        {
+          "content": "Add Poetry to PATH if needed",
+          "status": "pending",
+          "activeForm": "Adding Poetry to PATH if needed"
+        }
+      ]
+    },
+    "tool_response": {
+      "oldTodos": [],
+      "newTodos": [
+        {
+          "content": "Check if Poetry is already installed",
+          "status": "in_progress",
+          "activeForm": "Checking if Poetry is already installed"
+        },
+        {
+          "content": "Install Poetry using the official installer",
+          "status": "pending",
+          "activeForm": "Installing Poetry using the official installer"
+        },
+        {
+          "content": "Verify Poetry installation",
+          "status": "pending",
+          "activeForm": "Verifying Poetry installation"
+        },
+        {
+          "content": "Add Poetry to PATH if needed",
+          "status": "pending",
+          "activeForm": "Adding Poetry to PATH if needed"
+        }
+      ]
+    }
+  },
+  {
+    "session_id": "365f21a1-14cc-402b-8405-6f2048f36a3e",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025/365f21a1-14cc-402b-8405-6f2048f36a3e.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025",
+    "permission_mode": "default",
+    "hook_event_name": "PostToolUse",
+    "tool_name": "Bash",
+    "tool_input": {
+      "command": "poetry --version 2>/dev/null || echo \"Poetry not found\"",
+      "description": "Check if Poetry is installed"
+    },
+    "tool_response": {
+      "stdout": "Poetry not found",
+      "stderr": "",
+      "interrupted": false,
+      "isImage": false
+    }
+  },
+  {
+    "session_id": "365f21a1-14cc-402b-8405-6f2048f36a3e",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025/365f21a1-14cc-402b-8405-6f2048f36a3e.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025",
+    "permission_mode": "default",
+    "hook_event_name": "PostToolUse",
+    "tool_name": "TodoWrite",
+    "tool_input": {
+      "todos": [
+        {
+          "content": "Check if Poetry is already installed",
+          "status": "completed",
+          "activeForm": "Checking if Poetry is already installed"
+        },
+        {
+          "content": "Install Poetry using the official installer",
+          "status": "in_progress",
+          "activeForm": "Installing Poetry using the official installer"
+        },
+        {
+          "content": "Verify Poetry installation",
+          "status": "pending",
+          "activeForm": "Verifying Poetry installation"
+        },
+        {
+          "content": "Add Poetry to PATH if needed",
+          "status": "pending",
+          "activeForm": "Adding Poetry to PATH if needed"
+        }
+      ]
+    },
+    "tool_response": {
+      "oldTodos": [
+        {
+          "content": "Check if Poetry is already installed",
+          "status": "in_progress",
+          "activeForm": "Checking if Poetry is already installed"
+        },
+        {
+          "content": "Install Poetry using the official installer",
+          "status": "pending",
+          "activeForm": "Installing Poetry using the official installer"
+        },
+        {
+          "content": "Verify Poetry installation",
+          "status": "pending",
+          "activeForm": "Verifying Poetry installation"
+        },
+        {
+          "content": "Add Poetry to PATH if needed",
+          "status": "pending",
+          "activeForm": "Adding Poetry to PATH if needed"
+        }
+      ],
+      "newTodos": [
+        {
+          "content": "Check if Poetry is already installed",
+          "status": "completed",
+          "activeForm": "Checking if Poetry is already installed"
+        },
+        {
+          "content": "Install Poetry using the official installer",
+          "status": "in_progress",
+          "activeForm": "Installing Poetry using the official installer"
+        },
+        {
+          "content": "Verify Poetry installation",
+          "status": "pending",
+          "activeForm": "Verifying Poetry installation"
+        },
+        {
+          "content": "Add Poetry to PATH if needed",
+          "status": "pending",
+          "activeForm": "Adding Poetry to PATH if needed"
+        }
+      ]
+    }
+  },
+  {
+    "session_id": "365f21a1-14cc-402b-8405-6f2048f36a3e",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025/365f21a1-14cc-402b-8405-6f2048f36a3e.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025",
+    "permission_mode": "default",
+    "hook_event_name": "PostToolUse",
+    "tool_name": "Bash",
+    "tool_input": {
+      "command": "curl -sSL https://install.python-poetry.org | python3 -",
+      "timeout": 60000,
+      "description": "Install Poetry using official installer"
+    },
+    "tool_response": {
+      "stdout": "Retrieving Poetry metadata\n\n# Welcome to Poetry!\n\nThis will download and install the latest version of Poetry,\na dependency and package manager for Python.\n\nIt will add the `poetry` command to Poetry's bin directory, located at:\n\n/Users/garrettsullivan/.local/bin\n\nYou can uninstall at any time by executing this script with the --uninstall option,\nand these changes will be reverted.\n\nInstalling Poetry (2.2.0)\nInstalling Poetry (2.2.0): Creating environment\nInstalling Poetry (2.2.0): Installing Poetry\nInstalling Poetry (2.2.0): Creating script\nInstalling Poetry (2.2.0): Done\n\nPoetry (2.2.0) is installed now. Great!\n\nTo get started you need Poetry's bin directory (/Users/garrettsullivan/.local/bin) in your `PATH`\nenvironment variable.\n\nAdd `export PATH=\"/Users/garrettsullivan/.local/bin:$PATH\"` to your shell configuration file.\n\nAlternatively, you can call Poetry explicitly with `/Users/garrettsullivan/.local/bin/poetry`.\n\nYou can test that everything is set up by executing:\n\n`poetry --version`",
+      "stderr": "",
+      "interrupted": false,
+      "isImage": false
+    }
+  },
+  {
+    "session_id": "365f21a1-14cc-402b-8405-6f2048f36a3e",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025/365f21a1-14cc-402b-8405-6f2048f36a3e.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025",
+    "permission_mode": "default",
+    "hook_event_name": "PostToolUse",
+    "tool_name": "TodoWrite",
+    "tool_input": {
+      "todos": [
+        {
+          "content": "Check if Poetry is already installed",
+          "status": "completed",
+          "activeForm": "Checking if Poetry is already installed"
+        },
+        {
+          "content": "Install Poetry using the official installer",
+          "status": "completed",
+          "activeForm": "Installing Poetry using the official installer"
+        },
+        {
+          "content": "Verify Poetry installation",
+          "status": "in_progress",
+          "activeForm": "Verifying Poetry installation"
+        },
+        {
+          "content": "Add Poetry to PATH if needed",
+          "status": "pending",
+          "activeForm": "Adding Poetry to PATH if needed"
+        }
+      ]
+    },
+    "tool_response": {
+      "oldTodos": [
+        {
+          "content": "Check if Poetry is already installed",
+          "status": "completed",
+          "activeForm": "Checking if Poetry is already installed"
+        },
+        {
+          "content": "Install Poetry using the official installer",
+          "status": "in_progress",
+          "activeForm": "Installing Poetry using the official installer"
+        },
+        {
+          "content": "Verify Poetry installation",
+          "status": "pending",
+          "activeForm": "Verifying Poetry installation"
+        },
+        {
+          "content": "Add Poetry to PATH if needed",
+          "status": "pending",
+          "activeForm": "Adding Poetry to PATH if needed"
+        }
+      ],
+      "newTodos": [
+        {
+          "content": "Check if Poetry is already installed",
+          "status": "completed",
+          "activeForm": "Checking if Poetry is already installed"
+        },
+        {
+          "content": "Install Poetry using the official installer",
+          "status": "completed",
+          "activeForm": "Installing Poetry using the official installer"
+        },
+        {
+          "content": "Verify Poetry installation",
+          "status": "in_progress",
+          "activeForm": "Verifying Poetry installation"
+        },
+        {
+          "content": "Add Poetry to PATH if needed",
+          "status": "pending",
+          "activeForm": "Adding Poetry to PATH if needed"
+        }
+      ]
+    }
+  },
+  {
+    "session_id": "365f21a1-14cc-402b-8405-6f2048f36a3e",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025/365f21a1-14cc-402b-8405-6f2048f36a3e.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025",
+    "permission_mode": "default",
+    "hook_event_name": "PostToolUse",
+    "tool_name": "Bash",
+    "tool_input": {
+      "command": "/Users/garrettsullivan/.local/bin/poetry --version",
+      "description": "Verify Poetry installation"
+    },
+    "tool_response": {
+      "stdout": "Poetry (version 2.2.0)",
+      "stderr": "",
+      "interrupted": false,
+      "isImage": false
+    }
+  },
+  {
+    "session_id": "365f21a1-14cc-402b-8405-6f2048f36a3e",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025/365f21a1-14cc-402b-8405-6f2048f36a3e.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025",
+    "permission_mode": "default",
+    "hook_event_name": "PostToolUse",
+    "tool_name": "TodoWrite",
+    "tool_input": {
+      "todos": [
+        {
+          "content": "Check if Poetry is already installed",
+          "status": "completed",
+          "activeForm": "Checking if Poetry is already installed"
+        },
+        {
+          "content": "Install Poetry using the official installer",
+          "status": "completed",
+          "activeForm": "Installing Poetry using the official installer"
+        },
+        {
+          "content": "Verify Poetry installation",
+          "status": "completed",
+          "activeForm": "Verifying Poetry installation"
+        },
+        {
+          "content": "Add Poetry to PATH if needed",
+          "status": "in_progress",
+          "activeForm": "Adding Poetry to PATH if needed"
+        }
+      ]
+    },
+    "tool_response": {
+      "oldTodos": [
+        {
+          "content": "Check if Poetry is already installed",
+          "status": "completed",
+          "activeForm": "Checking if Poetry is already installed"
+        },
+        {
+          "content": "Install Poetry using the official installer",
+          "status": "completed",
+          "activeForm": "Installing Poetry using the official installer"
+        },
+        {
+          "content": "Verify Poetry installation",
+          "status": "in_progress",
+          "activeForm": "Verifying Poetry installation"
+        },
+        {
+          "content": "Add Poetry to PATH if needed",
+          "status": "pending",
+          "activeForm": "Adding Poetry to PATH if needed"
+        }
+      ],
+      "newTodos": [
+        {
+          "content": "Check if Poetry is already installed",
+          "status": "completed",
+          "activeForm": "Checking if Poetry is already installed"
+        },
+        {
+          "content": "Install Poetry using the official installer",
+          "status": "completed",
+          "activeForm": "Installing Poetry using the official installer"
+        },
+        {
+          "content": "Verify Poetry installation",
+          "status": "completed",
+          "activeForm": "Verifying Poetry installation"
+        },
+        {
+          "content": "Add Poetry to PATH if needed",
+          "status": "in_progress",
+          "activeForm": "Adding Poetry to PATH if needed"
+        }
+      ]
+    }
+  },
+  {
+    "session_id": "365f21a1-14cc-402b-8405-6f2048f36a3e",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025/365f21a1-14cc-402b-8405-6f2048f36a3e.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025",
+    "permission_mode": "default",
+    "hook_event_name": "PostToolUse",
+    "tool_name": "Bash",
+    "tool_input": {
+      "command": "echo $SHELL",
+      "description": "Check default shell"
+    },
+    "tool_response": {
+      "stdout": "/bin/zsh",
+      "stderr": "",
+      "interrupted": false,
+      "isImage": false
+    }
+  },
+  {
+    "session_id": "365f21a1-14cc-402b-8405-6f2048f36a3e",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025/365f21a1-14cc-402b-8405-6f2048f36a3e.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025",
+    "permission_mode": "default",
+    "hook_event_name": "PostToolUse",
+    "tool_name": "Bash",
+    "tool_input": {
+      "command": "echo 'export PATH=\"/Users/garrettsullivan/.local/bin:$PATH\"' >> ~/.zshrc && source ~/.zshrc && poetry --version",
+      "description": "Add Poetry to PATH in .zshrc"
+    },
+    "tool_response": {
+      "stdout": "Poetry (version 2.2.0)",
+      "stderr": "",
+      "interrupted": false,
+      "isImage": false
+    }
+  },
+  {
+    "session_id": "365f21a1-14cc-402b-8405-6f2048f36a3e",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025/365f21a1-14cc-402b-8405-6f2048f36a3e.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025",
+    "permission_mode": "default",
+    "hook_event_name": "PostToolUse",
+    "tool_name": "TodoWrite",
+    "tool_input": {
+      "todos": [
+        {
+          "content": "Check if Poetry is already installed",
+          "status": "completed",
+          "activeForm": "Checking if Poetry is already installed"
+        },
+        {
+          "content": "Install Poetry using the official installer",
+          "status": "completed",
+          "activeForm": "Installing Poetry using the official installer"
+        },
+        {
+          "content": "Verify Poetry installation",
+          "status": "completed",
+          "activeForm": "Verifying Poetry installation"
+        },
+        {
+          "content": "Add Poetry to PATH if needed",
+          "status": "completed",
+          "activeForm": "Adding Poetry to PATH if needed"
+        }
+      ]
+    },
+    "tool_response": {
+      "oldTodos": [
+        {
+          "content": "Check if Poetry is already installed",
+          "status": "completed",
+          "activeForm": "Checking if Poetry is already installed"
+        },
+        {
+          "content": "Install Poetry using the official installer",
+          "status": "completed",
+          "activeForm": "Installing Poetry using the official installer"
+        },
+        {
+          "content": "Verify Poetry installation",
+          "status": "completed",
+          "activeForm": "Verifying Poetry installation"
+        },
+        {
+          "content": "Add Poetry to PATH if needed",
+          "status": "in_progress",
+          "activeForm": "Adding Poetry to PATH if needed"
+        }
+      ],
+      "newTodos": [
+        {
+          "content": "Check if Poetry is already installed",
+          "status": "completed",
+          "activeForm": "Checking if Poetry is already installed"
+        },
+        {
+          "content": "Install Poetry using the official installer",
+          "status": "completed",
+          "activeForm": "Installing Poetry using the official installer"
+        },
+        {
+          "content": "Verify Poetry installation",
+          "status": "completed",
+          "activeForm": "Verifying Poetry installation"
+        },
+        {
+          "content": "Add Poetry to PATH if needed",
+          "status": "completed",
+          "activeForm": "Adding Poetry to PATH if needed"
+        }
+      ]
+    }
+  },
+  {
+    "session_id": "365f21a1-14cc-402b-8405-6f2048f36a3e",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025/365f21a1-14cc-402b-8405-6f2048f36a3e.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025",
+    "permission_mode": "default",
+    "hook_event_name": "PostToolUse",
+    "tool_name": "TodoWrite",
+    "tool_input": {
+      "todos": [
+        {
+          "content": "Install project dependencies with Poetry",
+          "status": "in_progress",
+          "activeForm": "Installing project dependencies with Poetry"
+        },
+        {
+          "content": "Verify all dependencies are installed",
+          "status": "pending",
+          "activeForm": "Verifying all dependencies are installed"
+        },
+        {
+          "content": "Test the ETL pipeline",
+          "status": "pending",
+          "activeForm": "Testing the ETL pipeline"
+        }
+      ]
+    },
+    "tool_response": {
+      "oldTodos": [],
+      "newTodos": [
+        {
+          "content": "Install project dependencies with Poetry",
+          "status": "in_progress",
+          "activeForm": "Installing project dependencies with Poetry"
+        },
+        {
+          "content": "Verify all dependencies are installed",
+          "status": "pending",
+          "activeForm": "Verifying all dependencies are installed"
+        },
+        {
+          "content": "Test the ETL pipeline",
+          "status": "pending",
+          "activeForm": "Testing the ETL pipeline"
+        }
+      ]
+    }
+  },
+  {
+    "session_id": "365f21a1-14cc-402b-8405-6f2048f36a3e",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025/365f21a1-14cc-402b-8405-6f2048f36a3e.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025",
+    "permission_mode": "default",
+    "hook_event_name": "PostToolUse",
+    "tool_name": "Bash",
+    "tool_input": {
+      "command": "source ~/.zshrc && poetry install",
+      "timeout": 120000,
+      "description": "Source zshrc and install dependencies"
+    },
+    "tool_response": {
+      "stdout": "Updating dependencies\nResolving dependencies...\n\nPackage operations: 35 installs, 0 updates, 0 removals\n\n  - Installing mdurl (0.1.2)\n  - Installing typing-extensions (4.15.0)\n  - Installing annotated-types (0.7.0)\n  - Installing iniconfig (2.1.0)\n  - Installing markdown-it-py (4.0.0)\n  - Installing pluggy (1.6.0)\n  - Installing packaging (25.0)\n  - Installing six (1.17.0)\n  - Installing pydantic-core (2.33.2)\n  - Installing pygments (2.19.2)\n  - Installing typing-inspection (0.4.1)\n  - Installing click (8.2.1)\n  - Installing coverage (7.10.6)\n  - Installing et-xmlfile (2.0.0)\n  - Installing mypy-extensions (1.1.0)\n  - Installing numpy (2.3.3)\n  - Installing pathspec (0.12.1)\n  - Installing platformdirs (4.4.0)\n  - Installing pydantic (2.11.9)\n  - Installing pytest (8.4.2)\n  - Installing python-dotenv (1.1.1)\n  - Installing pytz (2025.2)\n  - Installing shellingham (1.5.4)\n  - Installing rich (14.1.0)\n  - Installing tzdata (2025.2)\n  - Installing python-dateutil (2.9.0.post0)\n  - Installing black (24.10.0)\n  - Installing openpyxl (3.1.5)\n  - Installing pandas (2.3.2)\n  - Installing psutil (5.9.8)\n  - Installing pydantic-settings (2.10.1)\n  - Installing pytest-cov (5.0.0)\n  - Installing rapidfuzz (3.14.1)\n  - Installing ruff (0.4.10)\n  - Installing typer (0.12.5)\n\nWriting lock file\n\nInstalling the current project: adhs-etl (0.1.0)",
+      "stderr": "",
+      "interrupted": false,
+      "isImage": false
+    }
+  },
+  {
+    "session_id": "365f21a1-14cc-402b-8405-6f2048f36a3e",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025/365f21a1-14cc-402b-8405-6f2048f36a3e.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025",
+    "permission_mode": "default",
+    "hook_event_name": "PostToolUse",
+    "tool_name": "TodoWrite",
+    "tool_input": {
+      "todos": [
+        {
+          "content": "Install project dependencies with Poetry",
+          "status": "completed",
+          "activeForm": "Installing project dependencies with Poetry"
+        },
+        {
+          "content": "Verify all dependencies are installed",
+          "status": "in_progress",
+          "activeForm": "Verifying all dependencies are installed"
+        },
+        {
+          "content": "Test the ETL pipeline",
+          "status": "pending",
+          "activeForm": "Testing the ETL pipeline"
+        }
+      ]
+    },
+    "tool_response": {
+      "oldTodos": [
+        {
+          "content": "Install project dependencies with Poetry",
+          "status": "in_progress",
+          "activeForm": "Installing project dependencies with Poetry"
+        },
+        {
+          "content": "Verify all dependencies are installed",
+          "status": "pending",
+          "activeForm": "Verifying all dependencies are installed"
+        },
+        {
+          "content": "Test the ETL pipeline",
+          "status": "pending",
+          "activeForm": "Testing the ETL pipeline"
+        }
+      ],
+      "newTodos": [
+        {
+          "content": "Install project dependencies with Poetry",
+          "status": "completed",
+          "activeForm": "Installing project dependencies with Poetry"
+        },
+        {
+          "content": "Verify all dependencies are installed",
+          "status": "in_progress",
+          "activeForm": "Verifying all dependencies are installed"
+        },
+        {
+          "content": "Test the ETL pipeline",
+          "status": "pending",
+          "activeForm": "Testing the ETL pipeline"
+        }
+      ]
+    }
+  },
+  {
+    "session_id": "365f21a1-14cc-402b-8405-6f2048f36a3e",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025/365f21a1-14cc-402b-8405-6f2048f36a3e.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025",
+    "permission_mode": "default",
+    "hook_event_name": "PostToolUse",
+    "tool_name": "Bash",
+    "tool_input": {
+      "command": "source ~/.zshrc && poetry show",
+      "description": "List installed packages"
+    },
+    "tool_response": {
+      "stdout": "annotated-types   0.7.0       Reusable constraint types to use with typing....\nblack             24.10.0     The uncompromising code formatter.\nclick             8.2.1       Composable command line interface toolkit\ncoverage          7.10.6      Code coverage measurement for Python\net-xmlfile        2.0.0       An implementation of lxml.xmlfile for the sta...\niniconfig         2.1.0       brain-dead simple config-ini parsing\nmarkdown-it-py    4.0.0       Python port of markdown-it. Markdown parsing,...\nmdurl             0.1.2       Markdown URL utilities\nmypy-extensions   1.1.0       Type system extensions for programs checked w...\nnumpy             2.3.3       Fundamental package for array computing in Py...\nopenpyxl          3.1.5       A Python library to read/write Excel 2010 xls...\npackaging         25.0        Core utilities for Python packages\npandas            2.3.2       Powerful data structures for data analysis, t...\npathspec          0.12.1      Utility library for gitignore style pattern m...\nplatformdirs      4.4.0       A small Python package for determining approp...\npluggy            1.6.0       plugin and hook calling mechanisms for python\npsutil            5.9.8       Cross-platform lib for process and system mon...\npydantic          2.11.9      Data validation using Python type hints\npydantic-core     2.33.2      Core functionality for Pydantic validation an...\npydantic-settings 2.10.1      Settings management using Pydantic\npygments          2.19.2      Pygments is a syntax highlighting package wri...\npytest            8.4.2       pytest: simple powerful testing with Python\npytest-cov        5.0.0       Pytest plugin for measuring coverage.\npython-dateutil   2.9.0.post0 Extensions to the standard Python datetime mo...\npython-dotenv     1.1.1       Read key-value pairs from a .env file and set...\npytz              2025.2      World timezone definitions, modern and histor...\nrapidfuzz         3.14.1      rapid fuzzy string matching\nrich              14.1.0      Render rich text, tables, progress bars, synt...\nruff              0.4.10      An extremely fast Python linter and code form...\nshellingham       1.5.4       Tool to Detect Surrounding Shell\nsix               1.17.0      Python 2 and 3 compatibility utilities\ntyper             0.12.5      Typer, build great CLIs. Easy to code. Based ...\ntyping-extensions 4.15.0      Backported and Experimental Type Hints for Py...\ntyping-inspection 0.4.1       Runtime typing introspection tools\ntzdata            2025.2      Provider of IANA time zone data",
+      "stderr": "",
+      "interrupted": false,
+      "isImage": false
+    }
+  },
+  {
+    "session_id": "365f21a1-14cc-402b-8405-6f2048f36a3e",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025/365f21a1-14cc-402b-8405-6f2048f36a3e.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025",
+    "permission_mode": "default",
+    "hook_event_name": "PostToolUse",
+    "tool_name": "TodoWrite",
+    "tool_input": {
+      "todos": [
+        {
+          "content": "Install project dependencies with Poetry",
+          "status": "completed",
+          "activeForm": "Installing project dependencies with Poetry"
+        },
+        {
+          "content": "Verify all dependencies are installed",
+          "status": "completed",
+          "activeForm": "Verifying all dependencies are installed"
+        },
+        {
+          "content": "Test the ETL pipeline",
+          "status": "in_progress",
+          "activeForm": "Testing the ETL pipeline"
+        }
+      ]
+    },
+    "tool_response": {
+      "oldTodos": [
+        {
+          "content": "Install project dependencies with Poetry",
+          "status": "completed",
+          "activeForm": "Installing project dependencies with Poetry"
+        },
+        {
+          "content": "Verify all dependencies are installed",
+          "status": "in_progress",
+          "activeForm": "Verifying all dependencies are installed"
+        },
+        {
+          "content": "Test the ETL pipeline",
+          "status": "pending",
+          "activeForm": "Testing the ETL pipeline"
+        }
+      ],
+      "newTodos": [
+        {
+          "content": "Install project dependencies with Poetry",
+          "status": "completed",
+          "activeForm": "Installing project dependencies with Poetry"
+        },
+        {
+          "content": "Verify all dependencies are installed",
+          "status": "completed",
+          "activeForm": "Verifying all dependencies are installed"
+        },
+        {
+          "content": "Test the ETL pipeline",
+          "status": "in_progress",
+          "activeForm": "Testing the ETL pipeline"
+        }
+      ]
+    }
+  },
+  {
+    "session_id": "365f21a1-14cc-402b-8405-6f2048f36a3e",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025/365f21a1-14cc-402b-8405-6f2048f36a3e.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025",
+    "permission_mode": "default",
+    "hook_event_name": "PostToolUse",
+    "tool_name": "Bash",
+    "tool_input": {
+      "command": "source ~/.zshrc && poetry add pyyaml",
+      "timeout": 60000,
+      "description": "Add PyYAML dependency"
+    },
+    "tool_response": {
+      "stdout": "Using version ^6.0.2 for pyyaml\n\nUpdating dependencies\nResolving dependencies...\n\nPackage operations: 1 install, 0 updates, 0 removals\n\n  - Installing pyyaml (6.0.2)\n\nWriting lock file",
+      "stderr": "",
+      "interrupted": false,
+      "isImage": false
+    }
+  },
+  {
+    "session_id": "365f21a1-14cc-402b-8405-6f2048f36a3e",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025/365f21a1-14cc-402b-8405-6f2048f36a3e.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025",
+    "permission_mode": "default",
+    "hook_event_name": "PostToolUse",
+    "tool_name": "Bash",
+    "tool_input": {
+      "command": "source ~/.zshrc && poetry update typer click",
+      "timeout": 60000,
+      "description": "Update typer and click"
+    },
+    "tool_response": {
+      "stdout": "Updating dependencies\nResolving dependencies...\n\nNo dependencies to install or update",
+      "stderr": "",
+      "interrupted": false,
+      "isImage": false
+    }
+  },
+  {
+    "session_id": "365f21a1-14cc-402b-8405-6f2048f36a3e",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025/365f21a1-14cc-402b-8405-6f2048f36a3e.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025",
+    "permission_mode": "default",
+    "hook_event_name": "PostToolUse",
+    "tool_name": "TodoWrite",
+    "tool_input": {
+      "todos": [
+        {
+          "content": "Install project dependencies with Poetry",
+          "status": "completed",
+          "activeForm": "Installing project dependencies with Poetry"
+        },
+        {
+          "content": "Verify all dependencies are installed",
+          "status": "completed",
+          "activeForm": "Verifying all dependencies are installed"
+        },
+        {
+          "content": "Test the ETL pipeline",
+          "status": "completed",
+          "activeForm": "Testing the ETL pipeline"
+        }
+      ]
+    },
+    "tool_response": {
+      "oldTodos": [
+        {
+          "content": "Install project dependencies with Poetry",
+          "status": "completed",
+          "activeForm": "Installing project dependencies with Poetry"
+        },
+        {
+          "content": "Verify all dependencies are installed",
+          "status": "completed",
+          "activeForm": "Verifying all dependencies are installed"
+        },
+        {
+          "content": "Test the ETL pipeline",
+          "status": "in_progress",
+          "activeForm": "Testing the ETL pipeline"
+        }
+      ],
+      "newTodos": [
+        {
+          "content": "Install project dependencies with Poetry",
+          "status": "completed",
+          "activeForm": "Installing project dependencies with Poetry"
+        },
+        {
+          "content": "Verify all dependencies are installed",
+          "status": "completed",
+          "activeForm": "Verifying all dependencies are installed"
+        },
+        {
+          "content": "Test the ETL pipeline",
+          "status": "completed",
+          "activeForm": "Testing the ETL pipeline"
+        }
+      ]
+    }
+  }
+]

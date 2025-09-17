@@ -1,0 +1,26 @@
+[
+  {
+    "session_id": "365f21a1-14cc-402b-8405-6f2048f36a3e",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025/365f21a1-14cc-402b-8405-6f2048f36a3e.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025",
+    "permission_mode": "default",
+    "hook_event_name": "UserPromptSubmit",
+    "prompt": "/prime "
+  },
+  {
+    "session_id": "365f21a1-14cc-402b-8405-6f2048f36a3e",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025/365f21a1-14cc-402b-8405-6f2048f36a3e.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025",
+    "permission_mode": "default",
+    "hook_event_name": "UserPromptSubmit",
+    "prompt": "Install poetry"
+  },
+  {
+    "session_id": "365f21a1-14cc-402b-8405-6f2048f36a3e",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025/365f21a1-14cc-402b-8405-6f2048f36a3e.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025",
+    "permission_mode": "default",
+    "hook_event_name": "UserPromptSubmit",
+    "prompt": "garrettsullivan@MacBook-Pro adhs-restore-28-Jul-2025 % poetry run python scripts/batch_process_months.py\nCreating virtualenv adhs-etl-ema-wiMq-py3.11 in /Users/garrettsullivan/Library/Caches/pypoetry/virtualenvs\n\n============================================================\n              ADHS ETL Batch Processing Script              \n============================================================\nThis script will process multiple months of ADHS data in chronological order.\nPress Ctrl+C at any time to stop, or type 'q' to quit.\n\n\ud83d\udccb Step 1: Checking prerequisites\n\u2705 Python is available\n\u2705 Created Raw-New-Month directory\n\n\ud83d\udccb Step 2: Scanning for available months\n\u2705 Found 13 available months\n\n\ud83d\udcc5 Available Months:\n----------------------------------------\n 1.   9.24 - September 2024 (Raw 9.24)\n 2.  10.24 - October 2024 (Raw 10.24)\n 3.  11.24 - November 2024 (Raw 11.24)\n 4.  12.24 - December 2024 (Raw 12.24)\n 5.   1.25 - January 2025 (Raw 1.25)\n 6.   2.25 - February 2025 (Raw 2.25)\n 7.   3.25 - March 2025 (Raw 3.25)\n 8.   4.25 - April 2025 (Raw 4.25)\n 9.   5.25 - May 2025 (Raw 5.25)\n10.   6.25 - June 2025 (Raw 6.25)\n11.   7.25 - July 2025 (Raw 7.25)\n12.   8.25 - August 2025 (Raw 8.25)\n13.   9.25 - September 2025 (Raw 9.25)\n\n\ud83d\udccb Step 3: Selecting month range\n\nSelect START month (1-13): 1\n\nSelect END month (1-13): 2\n\n\ud83d\udccb Selected months to process:\n  \u2022 9.24 (Raw 9.24)\n  \u2022 10.24 (Raw 10.24)\n\nRun in dry-run mode? (y/N): y\n\u26a0\ufe0f  Running in DRY RUN mode - no files will be written\n\n\ud83d\ude80 Ready to process 2 months\nContinue? (y/N): y\n\n\ud83d\udccb Step 4: Processing months\n\n\ud83d\udcca Processing month 1/2: 9.24\n\u2705 Copied 9 Excel files\nRunning: python -m adhs_etl.cli_enhanced run --month 9.24 --raw-dir ./Raw-New-Month --dry-run\n\u274c ETL pipeline failed for 9.24\n\u274c Error output: Traceback (most recent call last):\n  File \"<frozen runpy>\", line 198, in _run_module_as_main\n  File \"<frozen runpy>\", line 88, in _run_code\n  File \"/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025/src/adhs_etl/cli_enhanced.py\", line 9, in <module>\n    import pandas as pd\nModuleNotFoundError: No module named 'pandas'\n\n\u2705 Cleaned up temporary files\n\u23f3 Pausing briefly before next month...\n\n\ud83d\udcca Processing month 2/2: 10.24\n\u2705 Copied 12 Excel files\nRunning: python -m adhs_etl.cli_enhanced run --month 10.24 --raw-dir ./Raw-New-Month --dry-run\n\u274c ETL pipeline failed for 10.24\n\u274c Error output: Traceback (most recent call last):\n  File \"<frozen runpy>\", line 198, in _run_module_as_main\n  File \"<frozen runpy>\", line 88, in _run_code\n  File \"/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025/src/adhs_etl/cli_enhanced.py\", line 9, in <module>\n    import pandas as pd\nModuleNotFoundError: No module named 'pandas'\n\n\u2705 Cleaned up temporary files\n\n============================================================\n                 BATCH PROCESSING COMPLETE                  \n============================================================\n\u274c Failed to process 2 months:\n  \u2022 9.24\n  \u2022 10.24\n\n\ud83c\udf89 Batch processing completed!\ngarrettsullivan@MacBook-Pro adhs-restore-28-Jul-2025 %  Any other dependecies needed?"
+  }
+]

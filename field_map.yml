@@ -1,0 +1,81 @@
+# Field mapping configuration for ADHS ETL pipeline
+# Based on track_files_ii.py mappings
+
+# Month mappings
+"Month": "MONTH"
+"MONTH": "MONTH"
+
+# Year mappings
+"Year": "YEAR"
+"YEAR": "YEAR"
+
+# Provider type mappings
+"Provider Type": "PROVIDER TYPE"
+"PROVIDER TYPE": "PROVIDER TYPE"
+"ProviderType": "PROVIDER TYPE"
+"Provider_Type": "PROVIDER TYPE"
+
+# Provider group index mappings
+"Provider Group Index": "PROVIDER GROUP INDEX #"
+"PROVIDER GROUP INDEX #": "PROVIDER GROUP INDEX #"
+"ProviderGroupIndex": "PROVIDER GROUP INDEX #"
+"Group Index": "PROVIDER GROUP INDEX #"
+
+# Provider name mappings
+"FACILITY_NAME": "PROVIDER"
+"Account__r.Name": "PROVIDER"
+"Account Name": "PROVIDER"
+"AccountName": "PROVIDER"
+"Name": "PROVIDER"
+
+# Address mappings
+"ADDRESS": "ADDRESS"
+"Physical_Address__c": "ADDRESS"
+"Physical Street": "ADDRESS"
+"BillingStreet": "ADDRESS"
+"Street": "ADDRESS"
+
+# City mappings
+"CITY": "CITY"
+"Physical_City__c": "CITY"
+"City": "CITY"
+"Physical City": "CITY"
+"BillingCity": "CITY"
+
+# ZIP code mappings
+"ZIP": "ZIP"
+"Physical_Zip_Code__c": "ZIP"
+"Zip": "ZIP"
+"Physical Zip Code": "ZIP"
+"BillingPostalCode": "ZIP"
+"Physical Zip/Postal Code": "ZIP"
+
+# Capacity mappings
+"CAPACITY": "CAPACITY"
+"TotalCapacity__c": "CAPACITY"
+"TotalCapacity": "CAPACITY"
+"Total Capacity": "CAPACITY"
+"Capacity": "CAPACITY"
+"Capacity-Total Licensed": "CAPACITY"
+"CapacityTotalLicensed__c": "CAPACITY"
+
+# Longitude mappings
+"N_LON": "LONGITUDE"
+"Account__r.BillingLongitude": "LONGITUDE"
+"PhysicalLongitude": "LONGITUDE"
+"Physical Longitude": "LONGITUDE"
+"Longitude": "LONGITUDE"
+
+# Latitude mappings
+"N_LAT": "LATITUDE"
+"Account__r.BillingLatitude": "LATITUDE"
+"PhysicalLatitude": "LATITUDE"
+"Physical Latitude": "LATITUDE"
+"Latitude": "LATITUDE"
+
+# Additional mappings from field_map.TODO.yml that should be mapped
+"Certificate Number": "LICENSE_NUMBER"
+"Certificate Effective Date": "LICENSE_EFFECTIVE_DATE"
+"Certificate Expiration Date": "LICENSE_EXPIRE_DATE"
+"Physical County": "COUNTY"
+"Physical State/Province": "STATE"
