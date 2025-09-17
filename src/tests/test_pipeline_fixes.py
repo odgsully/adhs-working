@@ -15,17 +15,14 @@ import pytest
 import pandas as pd
 from pathlib import Path
 from datetime import datetime
-from unittest.mock import Mock, patch
+from unittest.mock import Mock
 
 import sys
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
 from adhs_etl.transform_enhanced import (
-    process_month_data,
     EnhancedFieldMapper,
-    ProviderGrouper,
-    create_all_to_date_output,
-    rebuild_all_to_date_from_monthly_files
+    ProviderGrouper
 )
 from adhs_etl.analysis import ProviderAnalyzer
 
@@ -59,15 +56,7 @@ class TestCapacityMapping:
     def test_capacity_numeric_default(self):
         """Test that CAPACITY gets pd.NA when no data is found."""
         # This tests the fix where CAPACITY is treated as a numeric column
-        test_data = {
-            'PROVIDER': ['Test Provider'],
-            'ADDRESS': ['123 Main St']
-        }
-        
-        df = pd.DataFrame(test_data)
-        
         # When CAPACITY is missing, it should get pd.NA (not empty string)
-        expected_default = pd.NA
         assert True  # This would be tested in actual transform logic
 
 

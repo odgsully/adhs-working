@@ -1,12 +1,9 @@
 """Analysis module for ADHS ETL pipeline - identifies lost licenses and generates lead reports."""
 
 import logging
-from pathlib import Path
-from typing import Dict, List, Optional, Tuple, Set
-from collections import defaultdict
+from typing import Dict
 
 import pandas as pd
-import numpy as np
 
 logger = logging.getLogger(__name__)
 
@@ -386,7 +383,7 @@ class ProviderAnalyzer:
                             df[col] = 0
                         else:
                             df[col] = 'N/A'
-                    except:
+                    except Exception:
                         df[col] = 'N/A'
                         
                 elif col.endswith(' TO PREV'):
@@ -403,7 +400,7 @@ class ProviderAnalyzer:
                             df[col] = ''
                         else:
                             df[col] = 'N/A'
-                    except:
+                    except Exception:
                         df[col] = 'N/A'
                         
                 elif col.endswith(' SUMMARY'):
@@ -420,7 +417,7 @@ class ProviderAnalyzer:
                             df[col] = ''
                         else:
                             df[col] = 'N/A'
-                    except:
+                    except Exception:
                         df[col] = 'N/A'
                         
                 else:

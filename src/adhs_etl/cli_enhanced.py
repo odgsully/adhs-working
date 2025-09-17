@@ -3,8 +3,6 @@
 import logging
 from pathlib import Path
 from typing import Optional
-from datetime import datetime
-import gc
 
 import pandas as pd
 import typer
@@ -161,7 +159,7 @@ def run(
         parts = month.split('.')
         month_num = int(parts[0])
         year_num = 2000 + int(parts[1])
-    except:
+    except Exception:
         logger.error(f"Invalid month format: {month}. Use MM.YY or M.YY")
         raise typer.Exit(code=1)
     
@@ -356,7 +354,7 @@ def run(
                         try:
                             if len(str(cell.value)) > max_length:
                                 max_length = len(str(cell.value))
-                        except:
+                        except Exception:
                             pass
                     
                     adjusted_width = min(max_length + 2, 50)

@@ -1,10 +1,10 @@
 """Provider grouping using fuzzy matching (stub implementation)."""
 
 import logging
-from typing import Dict, List, Optional, Tuple
+from typing import List, Optional, Tuple
 
 import pandas as pd
-from rapidfuzz import fuzz, process
+from rapidfuzz import fuzz
 
 logger = logging.getLogger(__name__)
 

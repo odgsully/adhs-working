@@ -2,7 +2,7 @@
 
 import logging
 from pathlib import Path
-from typing import Dict, List, Optional, Set, Tuple
+from typing import Optional, Tuple
 from datetime import datetime
 import re
 import gc
@@ -16,7 +16,6 @@ except ImportError:
     PSUTIL_AVAILABLE = False
 
 import pandas as pd
-import yaml
 from rapidfuzz import fuzz
 
 from .transform import FieldMapper, normalize_provider_data
@@ -31,7 +30,7 @@ def log_memory_usage(context: str = ""):
             process = psutil.Process(os.getpid())
             memory_mb = process.memory_info().rss / 1024 / 1024
             logger.info(f"Memory usage {context}: {memory_mb:.1f} MB")
-        except:
+        except Exception:
             pass  # Don't fail if psutil has issues
     # If psutil not available, just skip memory logging silently
 
@@ -46,7 +45,6 @@ def validate_data_completeness(df: pd.DataFrame, file_name: str) -> str:
     if df.empty:
         return "No data"
     
-    total_rows = len(df)
     issues = []
     
     # Check critical fields
@@ -136,7 +134,6 @@ class ProviderGrouper:
         batch_size = 100
         for start_idx in range(0, n_unique, batch_size):
             end_idx = min(start_idx + batch_size, n_unique)
-            batch = unique_providers.iloc[start_idx:end_idx]
             
             for idx in range(start_idx, end_idx):
                 if idx in group_assignments:
