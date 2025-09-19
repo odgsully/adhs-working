@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Generate proper Analysis file matching v100Track_this_shit.xlsx template.
+Generate proper Analysis file matching v300Track_this.xlsx template as defined in v300Track_this.md.
 """
 
 import sys
@@ -20,7 +20,7 @@ from adhs_etl.transform_enhanced import (
 )
 
 def create_proper_summary_sheet(df: pd.DataFrame) -> pd.DataFrame:
-    """Create proper summary sheet matching v100Track_this_shit.xlsx template."""
+    """Create proper summary sheet matching v300Track_this.xlsx template."""
     
     # Follow exact structure from template
     summary_data = []
@@ -62,20 +62,26 @@ def create_proper_summary_sheet(df: pd.DataFrame) -> pd.DataFrame:
     
     # Row 14: Lost PROVIDER TYPE, Lost ADDRESS (1+ remain)
     summary_data.append({"Metric": "Lost PROVIDER TYPE, Lost ADDRESS (1+ remain)", "Count": 0})
-    
-    # Row 15: Empty row
+
+    # Row 15: Reinstated PROVIDER TYPE, Existing ADDRESS (new in v300)
+    summary_data.append({"Metric": "Reinstated PROVIDER TYPE, Existing ADDRESS", "Count": 0})
+
+    # Row 16: Empty row
     summary_data.append({"Metric": "", "Count": ""})
-    
-    # Row 16: Seller Leads (B16 i.e. 'Seller Lead', or 'Seller/Survey Lead')
+
+    # Row 17: Seller Leads (B17 i.e. 'Seller Lead', or 'Seller/Survey Lead')
     summary_data.append({"Metric": "Seller Leads", "Count": 0})
     
     # Row 17: Survey Leads (B17 i.e. 'Survey Lead', or 'Seller/Survey Lead')
     summary_data.append({"Metric": "Survey Leads", "Count": len(df)})  # First month = all survey leads
     
-    # Row 18: Empty row
+    # Row 19: Empty row
     summary_data.append({"Metric": "", "Count": ""})
-    
-    # Rows 19-30: Provider type counts (B19-B31 Total records for each PROVIDER TYPE)
+
+    # Row 20: Total Record Count (TRC) - new in v300
+    summary_data.append({"Metric": "Total Record Count (TRC)", "Count": len(df)})
+
+    # Rows 21-32: Provider type counts with (TRC) suffix - Total records for each PROVIDER TYPE
     provider_types = [
         'ADULT_BEHAVIORAL_HEALTH_THERAPEUTIC_HOME',
         'ASSISTED_LIVING_CENTER',
@@ -93,7 +99,7 @@ def create_proper_summary_sheet(df: pd.DataFrame) -> pd.DataFrame:
     
     for provider_type in provider_types:
         count = len(df[df['PROVIDER TYPE'] == provider_type])
-        summary_data.append({"Metric": provider_type, "Count": count})
+        summary_data.append({"Metric": f"{provider_type} (TRC)", "Count": count})
     
     return pd.DataFrame(summary_data)
 
@@ -153,11 +159,11 @@ def create_proper_blanks_count_sheet(df: pd.DataFrame) -> pd.DataFrame:
     return pd.DataFrame(blanks_data)
 
 def create_proper_analysis_sheet(df: pd.DataFrame) -> pd.DataFrame:
-    """Create proper analysis sheet with all required columns."""
-    
+    """Create proper analysis sheet with all required columns from v300Track_this.xlsx."""
+
     analysis_df = df.copy()
-    
-    # Add all required columns from v100Track_this_shit.xlsx
+
+    # Add all required columns from v300Track_this.xlsx as defined in v300Track_this.md
     required_columns = [
         'SOLO PROVIDER TYPE PROVIDER [Y, #]',
         'PROVIDER TYPE', 'PROVIDER', 'ADDRESS', 'CITY', 'ZIP', 'CAPACITY',

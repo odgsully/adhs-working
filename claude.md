@@ -24,4 +24,4 @@
 10. **Output Files** — Pipeline generates three types:
     * **Reformat**: Standardized data with MONTH, YEAR, PROVIDER_TYPE, PROVIDER, ADDRESS, CITY, ZIP, FULL_ADDRESS, CAPACITY, LONGITUDE, LATITUDE, COUNTY, PROVIDER_GROUP_INDEX_#
     * **All-to-Date**: Cumulative data across all months processed
-    * **Analysis**: Full business analysis with 3 sheets (Summary, Blanks Count, Analysis) including lost license detection and MCAO property data
+    * **Analysis**: Full business analysis with 3 sheets (Summary, Blanks Count, Analysis) including lost license detection, MCAO property data, and extended tracking per v300Track_this.md

@@ -3637,5 +3637,2581 @@
       "command": "cd \"/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy\" && rm test_new_columns.py",
       "description": "Remove temporary test file"
     }
+  },
+  {
+    "session_id": "03b36817-ed29-4577-ac8a-070a0e13a21f",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/03b36817-ed29-4577-ac8a-070a0e13a21f.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "plan",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Read",
+    "tool_input": {
+      "file_path": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy/v300Track_this.md"
+    }
+  },
+  {
+    "session_id": "03b36817-ed29-4577-ac8a-070a0e13a21f",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/03b36817-ed29-4577-ac8a-070a0e13a21f.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "plan",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Grep",
+    "tool_input": {
+      "pattern": "v100Track_this_shit",
+      "path": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+      "output_mode": "content",
+      "-n": true
+    }
+  },
+  {
+    "session_id": "03b36817-ed29-4577-ac8a-070a0e13a21f",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/03b36817-ed29-4577-ac8a-070a0e13a21f.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "plan",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Grep",
+    "tool_input": {
+      "pattern": "63 columns",
+      "path": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+      "output_mode": "content",
+      "-n": true
+    }
+  },
+  {
+    "session_id": "03b36817-ed29-4577-ac8a-070a0e13a21f",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/03b36817-ed29-4577-ac8a-070a0e13a21f.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "plan",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Read",
+    "tool_input": {
+      "file_path": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy/src/adhs_etl/analysis.py",
+      "offset": 315,
+      "limit": 150
+    }
+  },
+  {
+    "session_id": "03b36817-ed29-4577-ac8a-070a0e13a21f",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/03b36817-ed29-4577-ac8a-070a0e13a21f.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "plan",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Read",
+    "tool_input": {
+      "file_path": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy/scripts/generate_proper_analysis.py",
+      "offset": 0,
+      "limit": 100
+    }
+  },
+  {
+    "session_id": "03b36817-ed29-4577-ac8a-070a0e13a21f",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/03b36817-ed29-4577-ac8a-070a0e13a21f.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "plan",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Bash",
+    "tool_input": {
+      "command": "ls -la \"/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy/docs\"",
+      "description": "List files in docs directory"
+    }
+  },
+  {
+    "session_id": "03b36817-ed29-4577-ac8a-070a0e13a21f",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/03b36817-ed29-4577-ac8a-070a0e13a21f.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "plan",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "ExitPlanMode",
+    "tool_input": {
+      "plan": "## Plan to Update from v100Track_this_shit to v300Track_this Template\n\n### Files Requiring Updates:\n\n1. **src/adhs_etl/analysis.py** (Lines 318, 321)\n   - Update comment from \"all 63 columns from v100Track_this_shit.xlsx\" to \"all columns from v300Track_this.xlsx\"\n   - Update expected_columns list from 63 columns to include all v300 columns (approximately 150+ columns including extended historical tracking EH-EY)\n   - Add new column definitions for v300:\n     - Extended historical months (40+ months vs 16 months) \n     - New tracking columns (EH-EY): PREVIOUS_MONTH_STATUS, STATUS_CONFIDENCE, PROVIDER_TYPES_GAINED, PROVIDER_TYPES_LOST, NET_TYPE_CHANGE, MONTHS_SINCE_LOST, REINSTATED_FLAG, REINSTATED_DATE, DATA_QUALITY_SCORE, MANUAL_REVIEW_FLAG, REVIEW_NOTES, LAST_ACTIVE_MONTH, REGIONAL_MARKET, HISTORICAL_STABILITY_SCORE, EXPANSION_VELOCITY, CONTRACTION_RISK, MULTI_CITY_OPERATOR, RELOCATION_FLAG\n\n2. **src/adhs_etl/cli_enhanced.py** (Line 270)\n   - Update comment from \"Ensure all 63 columns from v100Track_this_shit.xlsx\" to \"Ensure all columns from v300Track_this.xlsx as defined in v300Track_this.md\"\n\n3. **scripts/generate_proper_analysis.py** (Lines 3, 23, 160)\n   - Update docstring and comments to reference v300Track_this.xlsx\n   - Update column generation logic to match v300 extended structure\n   - Add logic for enhanced tracking fields EH-EY\n   - Update Summary sheet logic to include new status types like \"Reinstated PROVIDER TYPE, Existing ADDRESS\"\n\n### Key Logic Updates Required:\n\n#### 1. **Extended Historical Tracking**\n- **FROM**: 16 months (9.24 to 12.25)\n- **TO**: 40+ months of historical data\n- Generate columns Q-BD for M.YY_COUNT (was 16 columns, now 40+)\n- Generate columns BE-CQ for M.YY TO PREV (was 15 columns, now 40+)\n- Generate columns CR-EE for M.YY SUMMARY (was 16 columns, now 40+)\n\n#### 2. **New Column Positioning**\n- MONTH and YEAR moved to columns EF and EG (after extended historical columns)\n- New enhanced tracking columns EH-EY (18 additional analysis columns)\n\n#### 3. **Updated Analysis Logic**\n- **Column A** (SOLO PROVIDER TYPE PROVIDER): Updated logic to check if all addresses in group have same provider type (not just counting types)\n- **Column O** (THIS MONTH STATUS): Add \"REINSTATED PROVIDER TYPE, EXISTING ADDRESS\" status for providers returning within 4 months\n- **Column P** (LEAD TYPE): Updated mapping with new lead categories\n\n#### 4. **New Summary Sheet Metrics**\n- Add \"Reinstated PROVIDER TYPE, Existing ADDRESS\" status count (Row 15)\n- Update lead type calculations for expanded lead categories\n- Add \"Total Record Count (TRC)\" metric (Row 20)\n\n#### 5. **Enhanced Blanks Count Sheet**\n- Maintain existing structure but ensure it covers all provider types\n- Add COUNTY to tracked fields\n\n### Implementation Approach:\n1. Update column definitions in analysis.py to match v300 structure\n2. Modify column generation logic to create extended historical range\n3. Add new enhanced tracking columns (EH-EY) with their calculation logic\n4. Update Summary sheet to include reinstated status and TRC metrics\n5. Ensure all references use v300Track_this.xlsx and mention v300Track_this.md for logic definitions\n6. Preserve all existing functionality while adding v300 enhancements\n\n### Conservative Approach:\n- Keep all existing data processing logic intact\n- Add new columns as extensions rather than replacements\n- Maintain backward compatibility where possible\n- Test thoroughly with existing data to ensure no regression\n\nThis update will transform the analysis output to match the v300 template structure with 150+ columns (vs. 63 in v100), supporting 40+ months of historical tracking and enhanced business intelligence metrics."
+    }
+  },
+  {
+    "session_id": "03b36817-ed29-4577-ac8a-070a0e13a21f",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/03b36817-ed29-4577-ac8a-070a0e13a21f.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "plan",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Grep",
+    "tool_input": {
+      "pattern": "ADHS_PRD_v1.0_cli",
+      "path": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+      "output_mode": "content",
+      "-n": true
+    }
+  },
+  {
+    "session_id": "03b36817-ed29-4577-ac8a-070a0e13a21f",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/03b36817-ed29-4577-ac8a-070a0e13a21f.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "plan",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Grep",
+    "tool_input": {
+      "pattern": "template|Template",
+      "path": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+      "glob": "*.md",
+      "output_mode": "files_with_matches"
+    }
+  },
+  {
+    "session_id": "03b36817-ed29-4577-ac8a-070a0e13a21f",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/03b36817-ed29-4577-ac8a-070a0e13a21f.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "plan",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Grep",
+    "tool_input": {
+      "pattern": "analysis|Analysis",
+      "path": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+      "glob": "*.md",
+      "output_mode": "content",
+      "-n": true
+    }
+  },
+  {
+    "session_id": "03b36817-ed29-4577-ac8a-070a0e13a21f",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/03b36817-ed29-4577-ac8a-070a0e13a21f.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "plan",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Read",
+    "tool_input": {
+      "file_path": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy/CLAUDE.md"
+    }
+  },
+  {
+    "session_id": "03b36817-ed29-4577-ac8a-070a0e13a21f",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/03b36817-ed29-4577-ac8a-070a0e13a21f.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "plan",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "ExitPlanMode",
+    "tool_input": {
+      "plan": "## Comprehensive Migration Plan: v100Track_this_shit to v300Track_this Template\n\n### Summary\nMigrate the ADHS ETL pipeline from the v100Track_this_shit.xlsx template (63 columns) to the v300Track_this.xlsx template (150+ columns), updating all references and implementing extended historical tracking and enhanced analytics.\n\n### Files to Update\n\n#### 1. **src/adhs_etl/analysis.py**\n- Line 318: Change docstring from \"Ensure all 63 columns from v100Track_this_shit.xlsx\" to \"Ensure all columns from v300Track_this.xlsx as defined in v300Track_this.md\"\n- Line 321: Update comment to reference v300Track_this.xlsx\n- Lines 322-364: Replace expected_columns list with v300 structure:\n  - Expand from 63 to ~150 columns\n  - Add columns Q-BD: Extended M.YY_COUNT (40+ months vs 16)\n  - Add columns BE-CQ: Extended M.YY TO PREV (40+ months)\n  - Add columns CR-EE: Extended M.YY SUMMARY (40+ months)\n  - Move MONTH, YEAR to columns EF, EG\n  - Add columns EH-EY: 18 new enhanced tracking fields\n\n#### 2. **src/adhs_etl/cli_enhanced.py**\n- Line 270: Update comment from \"Ensure all 63 columns from v100Track_this_shit.xlsx\" to \"Ensure all columns from v300Track_this.xlsx as defined in v300Track_this.md\"\n\n#### 3. **scripts/generate_proper_analysis.py**\n- Line 3: Update docstring to \"Generate proper Analysis file matching v300Track_this.xlsx template\"\n- Line 23: Update function docstring to reference v300Track_this.xlsx\n- Line 160: Update comment to reference v300Track_this.xlsx\n- Update create_proper_summary_sheet() to include:\n  - Row 15: \"Reinstated PROVIDER TYPE, Existing ADDRESS\" status\n  - Row 20: \"Total Record Count (TRC)\" metric\n- Update create_proper_analysis_sheet() to generate all v300 columns\n\n#### 4. **CLAUDE.md**\n- Line 27: Update to: \"Analysis: Full business analysis with 3 sheets (Summary, Blanks Count, Analysis) including lost license detection, MCAO property data, and extended tracking per v300Track_this.md\"\n\n#### 5. **Create Missing Documentation**\n- Since ADHS_PRD_v1.0_cli.md was referenced but doesn't exist, ensure v300Track_this.md serves as the authoritative documentation\n\n### New Column Logic Implementation\n\n#### Extended Historical Tracking (Columns Q-EE)\n```python\n# Generate extended month columns (40+ months)\nmonths_list = []\nfor year in range(22, 26):  # 2022-2025\n    for month in range(1, 13):\n        if (year == 22 and month < 1) or (year == 25 and month > 12):\n            continue\n        months_list.append(f\"{month}.{year}\")\n\n# Generate COUNT, TO PREV, and SUMMARY columns\ncount_cols = [f\"{m} COUNT\" for m in months_list]\nto_prev_cols = [f\"{m} TO PREV\" for m in months_list[1:]]  # Skip first month\nsummary_cols = [f\"{m} SUMMARY\" for m in months_list]\n```\n\n#### Enhanced Tracking Fields (Columns EH-EY)\n- PREVIOUS_MONTH_STATUS: Lookup from previous month's analysis\n- STATUS_CONFIDENCE: Calculate based on data completeness\n- PROVIDER_TYPES_GAINED/LOST: Compare current vs previous month\n- NET_TYPE_CHANGE: Difference between gained and lost\n- MONTHS_SINCE_LOST: Track duration since lost status\n- REINSTATED_FLAG: Detect providers returning within 4 months\n- REINSTATED_DATE: Timestamp of reinstatement\n- DATA_QUALITY_SCORE: Percentage of non-blank required fields\n- MANUAL_REVIEW_FLAG: Flag records needing attention\n- REVIEW_NOTES: Manual input field\n- LAST_ACTIVE_MONTH: Most recent month with COUNT >= 1\n- REGIONAL_MARKET: Derive from COUNTY field\n- HISTORICAL_STABILITY_SCORE: Calculate from active month ratio\n- EXPANSION_VELOCITY: Rate of address additions\n- CONTRACTION_RISK: Based on recent losses\n- MULTI_CITY_OPERATOR: Flag providers in multiple cities\n- RELOCATION_FLAG: Detect address changes within same city\n\n### Testing Strategy\n\n#### Phase 1: Create Validation Script\nCreate `test_v300_migration.py` to:\n- Validate all 150+ columns are generated\n- Test new field calculations\n- Ensure backward compatibility\n- Verify data integrity\n\n#### Phase 2: Incremental Testing\n1. Test column generation with sample data\n2. Verify historical tracking spans correct range\n3. Validate enhanced field calculations\n4. Test Summary and BlanksCount sheets\n\n#### Phase 3: Integration Testing\n```bash\n# Test with real data\npoetry run adhs-etl run --month 9.24 --raw-dir ./ALL-MONTHS/Raw\\ 9.24 --dry-run\n\n# Validate output structure\npython -c \"import pandas as pd; df = pd.read_excel('Analysis/9.24 Analysis.xlsx', sheet_name='Analysis'); print(f'Columns: {len(df.columns)}')\"\n```\n\n### Risk Mitigation\n1. Create backup before changes: `git checkout -b v300-migration`\n2. Keep v100Track_this_shit.xlsx file for reference (don't delete)\n3. Test thoroughly with --dry-run before production\n4. Document all calculation changes in comments\n5. Create rollback plan if issues arise\n\n### Implementation Order\n1. Update column definitions in analysis.py\n2. Test column generation with existing data\n3. Update scripts/generate_proper_analysis.py\n4. Update CLI and documentation\n5. Run comprehensive tests\n6. Deploy to production\n\nThis migration will transform the analysis output from 63 columns to 150+ columns, adding:\n- 24+ additional months of historical tracking\n- 18 new analytical fields for enhanced business intelligence\n- Improved status tracking including reinstatement detection\n- Regional market analysis capabilities\n- Stability and risk scoring metrics"
+    }
+  },
+  {
+    "session_id": "03b36817-ed29-4577-ac8a-070a0e13a21f",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/03b36817-ed29-4577-ac8a-070a0e13a21f.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "acceptEdits",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "TodoWrite",
+    "tool_input": {
+      "todos": [
+        {
+          "content": "Update analysis.py to reference v300Track_this.xlsx",
+          "status": "pending",
+          "activeForm": "Updating analysis.py to reference v300Track_this.xlsx"
+        },
+        {
+          "content": "Expand expected_columns in analysis.py from 63 to 150+ columns",
+          "status": "pending",
+          "activeForm": "Expanding expected_columns in analysis.py"
+        },
+        {
+          "content": "Update cli_enhanced.py comment to reference v300",
+          "status": "pending",
+          "activeForm": "Updating cli_enhanced.py comment"
+        },
+        {
+          "content": "Update generate_proper_analysis.py to v300 template",
+          "status": "pending",
+          "activeForm": "Updating generate_proper_analysis.py"
+        },
+        {
+          "content": "Update CLAUDE.md documentation",
+          "status": "pending",
+          "activeForm": "Updating CLAUDE.md documentation"
+        },
+        {
+          "content": "Create test_v300_migration.py validation script",
+          "status": "pending",
+          "activeForm": "Creating test_v300_migration.py validation script"
+        },
+        {
+          "content": "Test migration with sample data",
+          "status": "pending",
+          "activeForm": "Testing migration with sample data"
+        }
+      ]
+    }
+  },
+  {
+    "session_id": "03b36817-ed29-4577-ac8a-070a0e13a21f",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/03b36817-ed29-4577-ac8a-070a0e13a21f.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "acceptEdits",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "TodoWrite",
+    "tool_input": {
+      "todos": [
+        {
+          "content": "Update analysis.py to reference v300Track_this.xlsx",
+          "status": "in_progress",
+          "activeForm": "Updating analysis.py to reference v300Track_this.xlsx"
+        },
+        {
+          "content": "Expand expected_columns in analysis.py from 63 to 150+ columns",
+          "status": "pending",
+          "activeForm": "Expanding expected_columns in analysis.py"
+        },
+        {
+          "content": "Update cli_enhanced.py comment to reference v300",
+          "status": "pending",
+          "activeForm": "Updating cli_enhanced.py comment"
+        },
+        {
+          "content": "Update generate_proper_analysis.py to v300 template",
+          "status": "pending",
+          "activeForm": "Updating generate_proper_analysis.py"
+        },
+        {
+          "content": "Update CLAUDE.md documentation",
+          "status": "pending",
+          "activeForm": "Updating CLAUDE.md documentation"
+        },
+        {
+          "content": "Create test_v300_migration.py validation script",
+          "status": "pending",
+          "activeForm": "Creating test_v300_migration.py validation script"
+        },
+        {
+          "content": "Test migration with sample data",
+          "status": "pending",
+          "activeForm": "Testing migration with sample data"
+        }
+      ]
+    }
+  },
+  {
+    "session_id": "03b36817-ed29-4577-ac8a-070a0e13a21f",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/03b36817-ed29-4577-ac8a-070a0e13a21f.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "acceptEdits",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Edit",
+    "tool_input": {
+      "file_path": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy/src/adhs_etl/analysis.py",
+      "old_string": "    def ensure_all_analysis_columns(self, df: pd.DataFrame, processing_month: int = None, processing_year: int = None) -> pd.DataFrame:\n        \"\"\"Ensure all 63 columns from v100Track_this_shit.xlsx are present in the analysis output.\"\"\"\n        df = df.copy()\n        \n        # Define the complete set of columns expected in analysis output (exactly 63 columns to match v100Track_this_shit.xlsx)",
+      "new_string": "    def ensure_all_analysis_columns(self, df: pd.DataFrame, processing_month: int = None, processing_year: int = None) -> pd.DataFrame:\n        \"\"\"Ensure all columns from v300Track_this.xlsx as defined in v300Track_this.md are present in the analysis output.\"\"\"\n        df = df.copy()\n\n        # Define the complete set of columns expected in analysis output (150+ columns to match v300Track_this.xlsx)"
+    }
+  },
+  {
+    "session_id": "03b36817-ed29-4577-ac8a-070a0e13a21f",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/03b36817-ed29-4577-ac8a-070a0e13a21f.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "acceptEdits",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "TodoWrite",
+    "tool_input": {
+      "todos": [
+        {
+          "content": "Update analysis.py to reference v300Track_this.xlsx",
+          "status": "completed",
+          "activeForm": "Updating analysis.py to reference v300Track_this.xlsx"
+        },
+        {
+          "content": "Expand expected_columns in analysis.py from 63 to 150+ columns",
+          "status": "in_progress",
+          "activeForm": "Expanding expected_columns in analysis.py"
+        },
+        {
+          "content": "Update cli_enhanced.py comment to reference v300",
+          "status": "pending",
+          "activeForm": "Updating cli_enhanced.py comment"
+        },
+        {
+          "content": "Update generate_proper_analysis.py to v300 template",
+          "status": "pending",
+          "activeForm": "Updating generate_proper_analysis.py"
+        },
+        {
+          "content": "Update CLAUDE.md documentation",
+          "status": "pending",
+          "activeForm": "Updating CLAUDE.md documentation"
+        },
+        {
+          "content": "Create test_v300_migration.py validation script",
+          "status": "pending",
+          "activeForm": "Creating test_v300_migration.py validation script"
+        },
+        {
+          "content": "Test migration with sample data",
+          "status": "pending",
+          "activeForm": "Testing migration with sample data"
+        }
+      ]
+    }
+  },
+  {
+    "session_id": "03b36817-ed29-4577-ac8a-070a0e13a21f",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/03b36817-ed29-4577-ac8a-070a0e13a21f.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "acceptEdits",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Edit",
+    "tool_input": {
+      "file_path": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy/src/adhs_etl/analysis.py",
+      "old_string": "        expected_columns = [\n            # Core provider data\n            'SOLO PROVIDER_TYPE PROVIDER [Y, #]',\n            'PROVIDER_TYPE',\n            'PROVIDER',\n            'ADDRESS',\n            'CITY',\n            'ZIP',\n            'FULL_ADDRESS',\n            'CAPACITY',\n            'LONGITUDE',\n            'LATITUDE',\n            'COUNTY',\n            'PROVIDER_GROUP_INDEX_#',\n            \n            # Provider grouping\n            'PROVIDER GROUP (DBA CONCAT)',\n            'PROVIDER GROUP, ADDRESS COUNT',\n            'THIS MONTH STATUS',\n            'LEAD TYPE',\n            \n            # Monthly counts (9.24 through 12.25)\n            '9.24 COUNT', '10.24 COUNT', '11.24 COUNT', '12.24 COUNT',\n            '1.25 COUNT', '2.25 COUNT', '3.25 COUNT', '4.25 COUNT',\n            '5.25 COUNT', '6.25 COUNT', '7.25 COUNT', '8.25 COUNT',\n            '9.25 COUNT', '10.25 COUNT', '11.25 COUNT', '12.25 COUNT',\n            \n            # Monthly movements (10.24 through 12.25)\n            '10.24 TO PREV', '11.24 TO PREV', '12.24 TO PREV',\n            '1.25 TO PREV', '2.25 TO PREV', '3.25 TO PREV', '4.25 TO PREV',\n            '5.25 TO PREV', '6.25 TO PREV', '7.25 TO PREV', '8.25 TO PREV',\n            '9.25 TO PREV', '10.25 TO PREV', '11.25 TO PREV', '12.25 TO PREV',\n            \n            # Monthly summaries (9.24 through 12.25)\n            '9.24 SUMMARY', '10.24 SUMMARY', '11.24 SUMMARY', '12.24 SUMMARY',\n            '1.25 SUMMARY', '2.25 SUMMARY', '3.25 SUMMARY', '4.25 SUMMARY',\n            '5.25 SUMMARY', '6.25 SUMMARY', '7.25 SUMMARY', '8.25 SUMMARY',\n            '9.25 SUMMARY', '10.25 SUMMARY', '11.25 SUMMARY', '12.25 SUMMARY',\n            \n            # Metadata\n            'MONTH',\n            'YEAR'\n        ]",
+      "new_string": "        expected_columns = [\n            # Core provider data (Columns A-P)\n            'SOLO PROVIDER_TYPE PROVIDER [Y, #]',\n            'PROVIDER_TYPE',\n            'PROVIDER',\n            'ADDRESS',\n            'CITY',\n            'ZIP',\n            'FULL_ADDRESS',\n            'CAPACITY',\n            'LONGITUDE',\n            'LATITUDE',\n            'COUNTY',\n            'PROVIDER_GROUP_INDEX_#',\n\n            # Provider grouping\n            'PROVIDER GROUP (DBA CONCAT)',\n            'PROVIDER GROUP, ADDRESS COUNT',\n            'THIS MONTH STATUS',\n            'LEAD TYPE',\n\n            # Extended Monthly counts (Columns Q-BD) - 40+ months from 1.22 through 12.25\n            '1.22 COUNT', '2.22 COUNT', '3.22 COUNT', '4.22 COUNT',\n            '5.22 COUNT', '6.22 COUNT', '7.22 COUNT', '8.22 COUNT',\n            '9.22 COUNT', '10.22 COUNT', '11.22 COUNT', '12.22 COUNT',\n            '1.23 COUNT', '2.23 COUNT', '3.23 COUNT', '4.23 COUNT',\n            '5.23 COUNT', '6.23 COUNT', '7.23 COUNT', '8.23 COUNT',\n            '9.23 COUNT', '10.23 COUNT', '11.23 COUNT', '12.23 COUNT',\n            '1.24 COUNT', '2.24 COUNT', '3.24 COUNT', '4.24 COUNT',\n            '5.24 COUNT', '6.24 COUNT', '7.24 COUNT', '8.24 COUNT',\n            '9.24 COUNT', '10.24 COUNT', '11.24 COUNT', '12.24 COUNT',\n            '1.25 COUNT', '2.25 COUNT', '3.25 COUNT', '4.25 COUNT',\n            '5.25 COUNT', '6.25 COUNT', '7.25 COUNT', '8.25 COUNT',\n            '9.25 COUNT', '10.25 COUNT', '11.25 COUNT', '12.25 COUNT',\n\n            # Extended Monthly movements (Columns BE-CQ) - TO PREV for 40+ months\n            '2.22 TO PREV', '3.22 TO PREV', '4.22 TO PREV',\n            '5.22 TO PREV', '6.22 TO PREV', '7.22 TO PREV', '8.22 TO PREV',\n            '9.22 TO PREV', '10.22 TO PREV', '11.22 TO PREV', '12.22 TO PREV',\n            '1.23 TO PREV', '2.23 TO PREV', '3.23 TO PREV', '4.23 TO PREV',\n            '5.23 TO PREV', '6.23 TO PREV', '7.23 TO PREV', '8.23 TO PREV',\n            '9.23 TO PREV', '10.23 TO PREV', '11.23 TO PREV', '12.23 TO PREV',\n            '1.24 TO PREV', '2.24 TO PREV', '3.24 TO PREV', '4.24 TO PREV',\n            '5.24 TO PREV', '6.24 TO PREV', '7.24 TO PREV', '8.24 TO PREV',\n            '9.24 TO PREV', '10.24 TO PREV', '11.24 TO PREV', '12.24 TO PREV',\n            '1.25 TO PREV', '2.25 TO PREV', '3.25 TO PREV', '4.25 TO PREV',\n            '5.25 TO PREV', '6.25 TO PREV', '7.25 TO PREV', '8.25 TO PREV',\n            '9.25 TO PREV', '10.25 TO PREV', '11.25 TO PREV', '12.25 TO PREV',\n\n            # Extended Monthly summaries (Columns CR-EE) - SUMMARY for 40+ months\n            '1.22 SUMMARY', '2.22 SUMMARY', '3.22 SUMMARY', '4.22 SUMMARY',\n            '5.22 SUMMARY', '6.22 SUMMARY', '7.22 SUMMARY', '8.22 SUMMARY',\n            '9.22 SUMMARY', '10.22 SUMMARY', '11.22 SUMMARY', '12.22 SUMMARY',\n            '1.23 SUMMARY', '2.23 SUMMARY', '3.23 SUMMARY', '4.23 SUMMARY',\n            '5.23 SUMMARY', '6.23 SUMMARY', '7.23 SUMMARY', '8.23 SUMMARY',\n            '9.23 SUMMARY', '10.23 SUMMARY', '11.23 SUMMARY', '12.23 SUMMARY',\n            '1.24 SUMMARY', '2.24 SUMMARY', '3.24 SUMMARY', '4.24 SUMMARY',\n            '5.24 SUMMARY', '6.24 SUMMARY', '7.24 SUMMARY', '8.24 SUMMARY',\n            '9.24 SUMMARY', '10.24 SUMMARY', '11.24 SUMMARY', '12.24 SUMMARY',\n            '1.25 SUMMARY', '2.25 SUMMARY', '3.25 SUMMARY', '4.25 SUMMARY',\n            '5.25 SUMMARY', '6.25 SUMMARY', '7.25 SUMMARY', '8.25 SUMMARY',\n            '9.25 SUMMARY', '10.25 SUMMARY', '11.25 SUMMARY', '12.25 SUMMARY',\n\n            # Metadata (Columns EF-EG) - repositioned after extended historical columns\n            'MONTH',\n            'YEAR',\n\n            # Enhanced Tracking Fields (Columns EH-EY) - 18 new v300 fields\n            'PREVIOUS_MONTH_STATUS',\n            'STATUS_CONFIDENCE',\n            'PROVIDER_TYPES_GAINED',\n            'PROVIDER_TYPES_LOST',\n            'NET_TYPE_CHANGE',\n            'MONTHS_SINCE_LOST',\n            'REINSTATED_FLAG',\n            'REINSTATED_DATE',\n            'DATA_QUALITY_SCORE',\n            'MANUAL_REVIEW_FLAG',\n            'REVIEW_NOTES',\n            'LAST_ACTIVE_MONTH',\n            'REGIONAL_MARKET',\n            'HISTORICAL_STABILITY_SCORE',\n            'EXPANSION_VELOCITY',\n            'CONTRACTION_RISK',\n            'MULTI_CITY_OPERATOR',\n            'RELOCATION_FLAG'\n        ]"
+    }
+  },
+  {
+    "session_id": "03b36817-ed29-4577-ac8a-070a0e13a21f",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/03b36817-ed29-4577-ac8a-070a0e13a21f.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "acceptEdits",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "TodoWrite",
+    "tool_input": {
+      "todos": [
+        {
+          "content": "Update analysis.py to reference v300Track_this.xlsx",
+          "status": "completed",
+          "activeForm": "Updating analysis.py to reference v300Track_this.xlsx"
+        },
+        {
+          "content": "Expand expected_columns in analysis.py from 63 to 150+ columns",
+          "status": "completed",
+          "activeForm": "Expanding expected_columns in analysis.py"
+        },
+        {
+          "content": "Update cli_enhanced.py comment to reference v300",
+          "status": "in_progress",
+          "activeForm": "Updating cli_enhanced.py comment"
+        },
+        {
+          "content": "Update generate_proper_analysis.py to v300 template",
+          "status": "pending",
+          "activeForm": "Updating generate_proper_analysis.py"
+        },
+        {
+          "content": "Update CLAUDE.md documentation",
+          "status": "pending",
+          "activeForm": "Updating CLAUDE.md documentation"
+        },
+        {
+          "content": "Create test_v300_migration.py validation script",
+          "status": "pending",
+          "activeForm": "Creating test_v300_migration.py validation script"
+        },
+        {
+          "content": "Test migration with sample data",
+          "status": "pending",
+          "activeForm": "Testing migration with sample data"
+        }
+      ]
+    }
+  },
+  {
+    "session_id": "03b36817-ed29-4577-ac8a-070a0e13a21f",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/03b36817-ed29-4577-ac8a-070a0e13a21f.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "acceptEdits",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Edit",
+    "tool_input": {
+      "file_path": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy/src/adhs_etl/cli_enhanced.py",
+      "old_string": "    # Ensure all 63 columns from v100Track_this_shit.xlsx are present",
+      "new_string": "    # Ensure all columns from v300Track_this.xlsx as defined in v300Track_this.md are present"
+    }
+  },
+  {
+    "session_id": "03b36817-ed29-4577-ac8a-070a0e13a21f",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/03b36817-ed29-4577-ac8a-070a0e13a21f.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "acceptEdits",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "TodoWrite",
+    "tool_input": {
+      "todos": [
+        {
+          "content": "Update analysis.py to reference v300Track_this.xlsx",
+          "status": "completed",
+          "activeForm": "Updating analysis.py to reference v300Track_this.xlsx"
+        },
+        {
+          "content": "Expand expected_columns in analysis.py from 63 to 150+ columns",
+          "status": "completed",
+          "activeForm": "Expanding expected_columns in analysis.py"
+        },
+        {
+          "content": "Update cli_enhanced.py comment to reference v300",
+          "status": "completed",
+          "activeForm": "Updating cli_enhanced.py comment"
+        },
+        {
+          "content": "Update generate_proper_analysis.py to v300 template",
+          "status": "in_progress",
+          "activeForm": "Updating generate_proper_analysis.py"
+        },
+        {
+          "content": "Update CLAUDE.md documentation",
+          "status": "pending",
+          "activeForm": "Updating CLAUDE.md documentation"
+        },
+        {
+          "content": "Create test_v300_migration.py validation script",
+          "status": "pending",
+          "activeForm": "Creating test_v300_migration.py validation script"
+        },
+        {
+          "content": "Test migration with sample data",
+          "status": "pending",
+          "activeForm": "Testing migration with sample data"
+        }
+      ]
+    }
+  },
+  {
+    "session_id": "03b36817-ed29-4577-ac8a-070a0e13a21f",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/03b36817-ed29-4577-ac8a-070a0e13a21f.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "acceptEdits",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Edit",
+    "tool_input": {
+      "file_path": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy/scripts/generate_proper_analysis.py",
+      "old_string": "#!/usr/bin/env python3\n\"\"\"\nGenerate proper Analysis file matching v100Track_this_shit.xlsx template.\n\"\"\"",
+      "new_string": "#!/usr/bin/env python3\n\"\"\"\nGenerate proper Analysis file matching v300Track_this.xlsx template as defined in v300Track_this.md.\n\"\"\""
+    }
+  },
+  {
+    "session_id": "03b36817-ed29-4577-ac8a-070a0e13a21f",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/03b36817-ed29-4577-ac8a-070a0e13a21f.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "acceptEdits",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Edit",
+    "tool_input": {
+      "file_path": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy/scripts/generate_proper_analysis.py",
+      "old_string": "def create_proper_summary_sheet(df: pd.DataFrame) -> pd.DataFrame:\n    \"\"\"Create proper summary sheet matching v100Track_this_shit.xlsx template.\"\"\"",
+      "new_string": "def create_proper_summary_sheet(df: pd.DataFrame) -> pd.DataFrame:\n    \"\"\"Create proper summary sheet matching v300Track_this.xlsx template.\"\"\""
+    }
+  },
+  {
+    "session_id": "03b36817-ed29-4577-ac8a-070a0e13a21f",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/03b36817-ed29-4577-ac8a-070a0e13a21f.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "acceptEdits",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Edit",
+    "tool_input": {
+      "file_path": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy/scripts/generate_proper_analysis.py",
+      "old_string": "    # Row 14: Lost PROVIDER TYPE, Lost ADDRESS (1+ remain)\n    summary_data.append({\"Metric\": \"Lost PROVIDER TYPE, Lost ADDRESS (1+ remain)\", \"Count\": 0})\n    \n    # Row 15: Empty row\n    summary_data.append({\"Metric\": \"\", \"Count\": \"\"})\n    \n    # Row 16: Seller Leads (B16 i.e. 'Seller Lead', or 'Seller/Survey Lead')",
+      "new_string": "    # Row 14: Lost PROVIDER TYPE, Lost ADDRESS (1+ remain)\n    summary_data.append({\"Metric\": \"Lost PROVIDER TYPE, Lost ADDRESS (1+ remain)\", \"Count\": 0})\n\n    # Row 15: Reinstated PROVIDER TYPE, Existing ADDRESS (new in v300)\n    summary_data.append({\"Metric\": \"Reinstated PROVIDER TYPE, Existing ADDRESS\", \"Count\": 0})\n\n    # Row 16: Empty row\n    summary_data.append({\"Metric\": \"\", \"Count\": \"\"})\n\n    # Row 17: Seller Leads (B17 i.e. 'Seller Lead', or 'Seller/Survey Lead')"
+    }
+  },
+  {
+    "session_id": "03b36817-ed29-4577-ac8a-070a0e13a21f",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/03b36817-ed29-4577-ac8a-070a0e13a21f.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "acceptEdits",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Edit",
+    "tool_input": {
+      "file_path": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy/scripts/generate_proper_analysis.py",
+      "old_string": "    # Row 18: Empty row\n    summary_data.append({\"Metric\": \"\", \"Count\": \"\"})\n    \n    # Rows 19-30: Provider type counts (B19-B31 Total records for each PROVIDER TYPE)",
+      "new_string": "    # Row 19: Empty row\n    summary_data.append({\"Metric\": \"\", \"Count\": \"\"})\n\n    # Row 20: Total Record Count (TRC) - new in v300\n    summary_data.append({\"Metric\": \"Total Record Count (TRC)\", \"Count\": len(df)})\n\n    # Rows 21-32: Provider type counts with (TRC) suffix - Total records for each PROVIDER TYPE"
+    }
+  },
+  {
+    "session_id": "03b36817-ed29-4577-ac8a-070a0e13a21f",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/03b36817-ed29-4577-ac8a-070a0e13a21f.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "acceptEdits",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Edit",
+    "tool_input": {
+      "file_path": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy/scripts/generate_proper_analysis.py",
+      "old_string": "    for provider_type in provider_types:\n        count = len(df[df['PROVIDER TYPE'] == provider_type])\n        summary_data.append({\"Metric\": provider_type, \"Count\": count})",
+      "new_string": "    for provider_type in provider_types:\n        count = len(df[df['PROVIDER TYPE'] == provider_type])\n        summary_data.append({\"Metric\": f\"{provider_type} (TRC)\", \"Count\": count})"
+    }
+  },
+  {
+    "session_id": "03b36817-ed29-4577-ac8a-070a0e13a21f",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/03b36817-ed29-4577-ac8a-070a0e13a21f.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "acceptEdits",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Edit",
+    "tool_input": {
+      "file_path": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy/scripts/generate_proper_analysis.py",
+      "old_string": "def create_proper_analysis_sheet(df: pd.DataFrame) -> pd.DataFrame:\n    \"\"\"Create proper analysis sheet with all required columns.\"\"\"\n    \n    analysis_df = df.copy()\n    \n    # Add all required columns from v100Track_this_shit.xlsx",
+      "new_string": "def create_proper_analysis_sheet(df: pd.DataFrame) -> pd.DataFrame:\n    \"\"\"Create proper analysis sheet with all required columns from v300Track_this.xlsx.\"\"\"\n\n    analysis_df = df.copy()\n\n    # Add all required columns from v300Track_this.xlsx as defined in v300Track_this.md"
+    }
+  },
+  {
+    "session_id": "03b36817-ed29-4577-ac8a-070a0e13a21f",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/03b36817-ed29-4577-ac8a-070a0e13a21f.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "acceptEdits",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "TodoWrite",
+    "tool_input": {
+      "todos": [
+        {
+          "content": "Update analysis.py to reference v300Track_this.xlsx",
+          "status": "completed",
+          "activeForm": "Updating analysis.py to reference v300Track_this.xlsx"
+        },
+        {
+          "content": "Expand expected_columns in analysis.py from 63 to 150+ columns",
+          "status": "completed",
+          "activeForm": "Expanding expected_columns in analysis.py"
+        },
+        {
+          "content": "Update cli_enhanced.py comment to reference v300",
+          "status": "completed",
+          "activeForm": "Updating cli_enhanced.py comment"
+        },
+        {
+          "content": "Update generate_proper_analysis.py to v300 template",
+          "status": "completed",
+          "activeForm": "Updating generate_proper_analysis.py"
+        },
+        {
+          "content": "Update CLAUDE.md documentation",
+          "status": "in_progress",
+          "activeForm": "Updating CLAUDE.md documentation"
+        },
+        {
+          "content": "Create test_v300_migration.py validation script",
+          "status": "pending",
+          "activeForm": "Creating test_v300_migration.py validation script"
+        },
+        {
+          "content": "Test migration with sample data",
+          "status": "pending",
+          "activeForm": "Testing migration with sample data"
+        }
+      ]
+    }
+  },
+  {
+    "session_id": "03b36817-ed29-4577-ac8a-070a0e13a21f",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/03b36817-ed29-4577-ac8a-070a0e13a21f.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "acceptEdits",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Edit",
+    "tool_input": {
+      "file_path": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy/CLAUDE.md",
+      "old_string": "    * **Analysis**: Full business analysis with 3 sheets (Summary, Blanks Count, Analysis) including lost license detection and MCAO property data",
+      "new_string": "    * **Analysis**: Full business analysis with 3 sheets (Summary, Blanks Count, Analysis) including lost license detection, MCAO property data, and extended tracking per v300Track_this.md"
+    }
+  },
+  {
+    "session_id": "03b36817-ed29-4577-ac8a-070a0e13a21f",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/03b36817-ed29-4577-ac8a-070a0e13a21f.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "acceptEdits",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "TodoWrite",
+    "tool_input": {
+      "todos": [
+        {
+          "content": "Update analysis.py to reference v300Track_this.xlsx",
+          "status": "completed",
+          "activeForm": "Updating analysis.py to reference v300Track_this.xlsx"
+        },
+        {
+          "content": "Expand expected_columns in analysis.py from 63 to 150+ columns",
+          "status": "completed",
+          "activeForm": "Expanding expected_columns in analysis.py"
+        },
+        {
+          "content": "Update cli_enhanced.py comment to reference v300",
+          "status": "completed",
+          "activeForm": "Updating cli_enhanced.py comment"
+        },
+        {
+          "content": "Update generate_proper_analysis.py to v300 template",
+          "status": "completed",
+          "activeForm": "Updating generate_proper_analysis.py"
+        },
+        {
+          "content": "Update CLAUDE.md documentation",
+          "status": "completed",
+          "activeForm": "Updating CLAUDE.md documentation"
+        },
+        {
+          "content": "Create test_v300_migration.py validation script",
+          "status": "in_progress",
+          "activeForm": "Creating test_v300_migration.py validation script"
+        },
+        {
+          "content": "Test migration with sample data",
+          "status": "pending",
+          "activeForm": "Testing migration with sample data"
+        }
+      ]
+    }
+  },
+  {
+    "session_id": "03b36817-ed29-4577-ac8a-070a0e13a21f",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/03b36817-ed29-4577-ac8a-070a0e13a21f.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "acceptEdits",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Write",
+    "tool_input": {
+      "file_path": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy/test_v300_migration.py",
+      "content": "#!/usr/bin/env python3\n\"\"\"\nTest script to validate v300Track_this.xlsx template migration.\nEnsures all 150+ columns are properly generated and data integrity is maintained.\n\"\"\"\n\nimport sys\nimport pandas as pd\nfrom pathlib import Path\n\n# Add src to path\nsys.path.insert(0, 'src')\n\nfrom adhs_etl.analysis import ProviderAnalyzer\n\ndef validate_v300_columns():\n    \"\"\"Validate that all v300 columns are properly defined.\"\"\"\n\n    # Expected v300 columns (150+ total) as defined in v300Track_this.md\n    v300_columns = [\n        # Core fields (Columns A-P)\n        'SOLO PROVIDER_TYPE PROVIDER [Y, #]',\n        'PROVIDER_TYPE',\n        'PROVIDER',\n        'ADDRESS',\n        'CITY',\n        'ZIP',\n        'FULL_ADDRESS',\n        'CAPACITY',\n        'LONGITUDE',\n        'LATITUDE',\n        'COUNTY',\n        'PROVIDER_GROUP_INDEX_#',\n\n        # Provider grouping\n        'PROVIDER GROUP (DBA CONCAT)',\n        'PROVIDER GROUP, ADDRESS COUNT',\n        'THIS MONTH STATUS',\n        'LEAD TYPE',\n    ]\n\n    # Extended historical columns (Q-BD) - 48 COUNT columns for 1.22 through 12.25\n    for year in range(22, 26):  # 2022-2025\n        for month in range(1, 13):\n            v300_columns.append(f'{month}.{year} COUNT')\n\n    # Extended monthly movements (BE-CQ) - 47 TO PREV columns (excludes first month)\n    for year in range(22, 26):\n        for month in range(1, 13):\n            if not (year == 22 and month == 1):  # Skip 1.22 TO PREV (first month)\n                v300_columns.append(f'{month}.{year} TO PREV')\n\n    # Extended monthly summaries (CR-EE) - 48 SUMMARY columns\n    for year in range(22, 26):\n        for month in range(1, 13):\n            v300_columns.append(f'{month}.{year} SUMMARY')\n\n    # Repositioned metadata (EF-EG)\n    v300_columns.extend(['MONTH', 'YEAR'])\n\n    # New enhanced tracking fields (EH-EY) - 18 fields\n    v300_columns.extend([\n        'PREVIOUS_MONTH_STATUS',\n        'STATUS_CONFIDENCE',\n        'PROVIDER_TYPES_GAINED',\n        'PROVIDER_TYPES_LOST',\n        'NET_TYPE_CHANGE',\n        'MONTHS_SINCE_LOST',\n        'REINSTATED_FLAG',\n        'REINSTATED_DATE',\n        'DATA_QUALITY_SCORE',\n        'MANUAL_REVIEW_FLAG',\n        'REVIEW_NOTES',\n        'LAST_ACTIVE_MONTH',\n        'REGIONAL_MARKET',\n        'HISTORICAL_STABILITY_SCORE',\n        'EXPANSION_VELOCITY',\n        'CONTRACTION_RISK',\n        'MULTI_CITY_OPERATOR',\n        'RELOCATION_FLAG'\n    ])\n\n    return v300_columns\n\ndef test_column_generation():\n    \"\"\"Test that column generation produces correct v300 structure.\"\"\"\n    print(\"\ud83d\udd0d Testing v300 column generation...\")\n\n    analyzer = ProviderAnalyzer()\n\n    # Create minimal test dataframe\n    test_df = pd.DataFrame({\n        'PROVIDER': ['Test Provider A', 'Test Provider B'],\n        'PROVIDER_TYPE': ['NURSING_HOME', 'ASSISTED_LIVING_CENTER'],\n        'ADDRESS': ['123 Main St', '456 Oak Ave'],\n        'CITY': ['Phoenix', 'Tucson'],\n        'ZIP': ['85001', '85701'],\n        'FULL_ADDRESS': ['123 Main St, Phoenix, AZ 85001', '456 Oak Ave, Tucson, AZ 85701'],\n        'CAPACITY': [50, 75],\n        'LONGITUDE': [-112.074, -110.926],\n        'LATITUDE': [33.448, 32.222],\n        'COUNTY': ['MARICOPA', 'PIMA'],\n        'PROVIDER_GROUP_INDEX_#': [1, 2]\n    })\n\n    # Process through analyzer\n    result = analyzer.ensure_all_analysis_columns(test_df, 9, 2024)\n\n    # Get expected columns\n    v300_cols = validate_v300_columns()\n\n    # Check for missing columns\n    missing = [col for col in v300_cols if col not in result.columns]\n    extra = [col for col in result.columns if col not in v300_cols]\n\n    print(f\"  Expected columns: {len(v300_cols)}\")\n    print(f\"  Generated columns: {len(result.columns)}\")\n\n    if missing:\n        print(f\"  \u274c Missing columns ({len(missing)}): {missing[:5]}...\")\n        if len(missing) > 5:\n            print(f\"     ... and {len(missing) - 5} more\")\n    else:\n        print(f\"  \u2705 All expected columns present\")\n\n    if extra:\n        print(f\"  \u26a0\ufe0f  Extra columns ({len(extra)}): {extra[:5]}...\")\n\n    return len(missing) == 0 and len(extra) == 0\n\ndef test_historical_range():\n    \"\"\"Verify 40+ month historical tracking spans correct date range.\"\"\"\n    print(\"\\n\ud83d\udcc5 Testing extended historical range...\")\n\n    analyzer = ProviderAnalyzer()\n    test_df = pd.DataFrame({\n        'PROVIDER': ['Test'],\n        'PROVIDER_TYPE': ['NURSING_HOME'],\n        'ADDRESS': ['123 Main St']\n    })\n\n    result = analyzer.ensure_all_analysis_columns(test_df, 9, 2024)\n\n    # Check COUNT columns\n    count_cols = [col for col in result.columns if col.endswith(' COUNT')]\n    expected_count = 48  # 12 months x 4 years (2022-2025)\n\n    print(f\"  COUNT columns: {len(count_cols)} (expected: {expected_count})\")\n\n    # Verify first and last COUNT columns\n    if '1.22 COUNT' in result.columns and '12.25 COUNT' in result.columns:\n        print(f\"  \u2705 Historical range spans 1.22 through 12.25\")\n    else:\n        print(f\"  \u274c Historical range incorrect\")\n\n    # Check TO PREV columns (should be 47 - excluding 1.22)\n    to_prev_cols = [col for col in result.columns if col.endswith(' TO PREV')]\n    expected_to_prev = 47  # All months except first (1.22)\n\n    print(f\"  TO PREV columns: {len(to_prev_cols)} (expected: {expected_to_prev})\")\n\n    # Check SUMMARY columns\n    summary_cols = [col for col in result.columns if col.endswith(' SUMMARY')]\n    expected_summary = 48  # Same as COUNT\n\n    print(f\"  SUMMARY columns: {len(summary_cols)} (expected: {expected_summary})\")\n\n    return (len(count_cols) == expected_count and\n            len(to_prev_cols) == expected_to_prev and\n            len(summary_cols) == expected_summary)\n\ndef test_enhanced_fields():\n    \"\"\"Test that new EH-EY tracking fields are present.\"\"\"\n    print(\"\\n\ud83d\udd2c Testing enhanced tracking fields (EH-EY)...\")\n\n    analyzer = ProviderAnalyzer()\n    test_df = pd.DataFrame({\n        'PROVIDER': ['Test'],\n        'PROVIDER_TYPE': ['NURSING_HOME'],\n        'ADDRESS': ['123 Main St']\n    })\n\n    result = analyzer.ensure_all_analysis_columns(test_df, 9, 2024)\n\n    enhanced_fields = [\n        'PREVIOUS_MONTH_STATUS',\n        'STATUS_CONFIDENCE',\n        'PROVIDER_TYPES_GAINED',\n        'PROVIDER_TYPES_LOST',\n        'NET_TYPE_CHANGE',\n        'MONTHS_SINCE_LOST',\n        'REINSTATED_FLAG',\n        'REINSTATED_DATE',\n        'DATA_QUALITY_SCORE',\n        'MANUAL_REVIEW_FLAG',\n        'REVIEW_NOTES',\n        'LAST_ACTIVE_MONTH',\n        'REGIONAL_MARKET',\n        'HISTORICAL_STABILITY_SCORE',\n        'EXPANSION_VELOCITY',\n        'CONTRACTION_RISK',\n        'MULTI_CITY_OPERATOR',\n        'RELOCATION_FLAG'\n    ]\n\n    missing_enhanced = [field for field in enhanced_fields if field not in result.columns]\n\n    if missing_enhanced:\n        print(f\"  \u274c Missing enhanced fields: {missing_enhanced}\")\n    else:\n        print(f\"  \u2705 All 18 enhanced tracking fields present\")\n\n    # Check that MONTH and YEAR are positioned after historical columns\n    col_list = list(result.columns)\n    month_idx = col_list.index('MONTH') if 'MONTH' in col_list else -1\n    year_idx = col_list.index('YEAR') if 'YEAR' in col_list else -1\n\n    # Should be after all SUMMARY columns\n    last_summary_idx = max([col_list.index(col) for col in col_list if col.endswith(' SUMMARY')], default=0)\n\n    if month_idx > last_summary_idx and year_idx > last_summary_idx:\n        print(f\"  \u2705 MONTH/YEAR correctly positioned after historical columns\")\n    else:\n        print(f\"  \u274c MONTH/YEAR positioning incorrect\")\n\n    return len(missing_enhanced) == 0\n\ndef test_summary_sheet_metrics():\n    \"\"\"Ensure Summary sheet has all v300 metrics.\"\"\"\n    print(\"\\n\ud83d\udcca Testing Summary sheet metrics...\")\n\n    from scripts.generate_proper_analysis import create_proper_summary_sheet\n\n    test_df = pd.DataFrame({\n        'PROVIDER': ['Test A', 'Test B'],\n        'PROVIDER TYPE': ['NURSING_HOME', 'ASSISTED_LIVING_CENTER'],\n        'ADDRESS': ['123 Main', '456 Oak'],\n        'PROVIDER_GROUP_INDEX_#': [1, 2]\n    })\n\n    summary_df = create_proper_summary_sheet(test_df)\n\n    # Check for v300-specific metrics\n    metrics = summary_df['Metric'].tolist()\n\n    v300_metrics = [\n        'Reinstated PROVIDER TYPE, Existing ADDRESS',  # New in v300\n        'Total Record Count (TRC)',  # New in v300\n    ]\n\n    found_metrics = [m for m in v300_metrics if m in metrics]\n\n    if len(found_metrics) == len(v300_metrics):\n        print(f\"  \u2705 All v300-specific summary metrics present\")\n    else:\n        missing = [m for m in v300_metrics if m not in metrics]\n        print(f\"  \u274c Missing v300 metrics: {missing}\")\n\n    # Check that provider types have (TRC) suffix\n    provider_types_with_trc = [m for m in metrics if '(TRC)' in m]\n\n    if len(provider_types_with_trc) >= 12:  # Should have at least 12 provider types\n        print(f\"  \u2705 Provider types have (TRC) suffix\")\n    else:\n        print(f\"  \u274c Provider types missing (TRC) suffix\")\n\n    return len(found_metrics) == len(v300_metrics)\n\ndef test_data_integrity():\n    \"\"\"Test that data processing maintains integrity with v300 structure.\"\"\"\n    print(\"\\n\ud83d\udd12 Testing data integrity...\")\n\n    analyzer = ProviderAnalyzer()\n\n    # Create test data with known values\n    test_df = pd.DataFrame({\n        'PROVIDER': ['Provider X'],\n        'PROVIDER_TYPE': ['NURSING_HOME'],\n        'ADDRESS': ['789 Pine Rd'],\n        'CITY': ['Mesa'],\n        'ZIP': ['85201'],\n        'FULL_ADDRESS': ['789 Pine Rd, Mesa, AZ 85201'],\n        'CAPACITY': [100],\n        'LONGITUDE': [-111.831],\n        'LATITUDE': [33.415],\n        'COUNTY': ['MARICOPA'],\n        'PROVIDER_GROUP_INDEX_#': [1]\n    })\n\n    result = analyzer.ensure_all_analysis_columns(test_df, 9, 2024)\n\n    # Verify core data is preserved\n    if (result['PROVIDER'].iloc[0] == 'Provider X' and\n        result['PROVIDER_TYPE'].iloc[0] == 'NURSING_HOME' and\n        result['COUNTY'].iloc[0] == 'MARICOPA'):\n        print(f\"  \u2705 Core data preserved correctly\")\n    else:\n        print(f\"  \u274c Core data not preserved\")\n\n    # Check default values for new columns\n    if result['REGIONAL_MARKET'].iloc[0] == 'N/A':  # Should be default N/A\n        print(f\"  \u2705 New columns have appropriate defaults\")\n    else:\n        print(f\"  \u274c New column defaults incorrect\")\n\n    return True\n\ndef main():\n    \"\"\"Run all v300 migration tests.\"\"\"\n    print(\"=\" * 60)\n    print(\"\ud83d\ude80 v300 Track Migration Validation Tests\")\n    print(\"=\" * 60)\n\n    tests = [\n        (\"Column Generation\", test_column_generation),\n        (\"Historical Range\", test_historical_range),\n        (\"Enhanced Fields\", test_enhanced_fields),\n        (\"Summary Metrics\", test_summary_sheet_metrics),\n        (\"Data Integrity\", test_data_integrity)\n    ]\n\n    results = []\n\n    for test_name, test_func in tests:\n        try:\n            result = test_func()\n            results.append((test_name, result))\n        except Exception as e:\n            print(f\"\\n\u274c {test_name} failed with error: {e}\")\n            results.append((test_name, False))\n\n    # Summary\n    print(\"\\n\" + \"=\" * 60)\n    print(\"\ud83d\udcc8 Test Results Summary\")\n    print(\"=\" * 60)\n\n    passed = sum(1 for _, result in results if result)\n    total = len(results)\n\n    for test_name, result in results:\n        status = \"\u2705 PASSED\" if result else \"\u274c FAILED\"\n        print(f\"  {test_name}: {status}\")\n\n    print(f\"\\nOverall: {passed}/{total} tests passed\")\n\n    if passed == total:\n        print(\"\\n\ud83c\udf89 All v300 migration tests passed! Ready for deployment.\")\n    else:\n        print(\"\\n\u26a0\ufe0f  Some tests failed. Please review and fix issues before deployment.\")\n\n    return passed == total\n\nif __name__ == \"__main__\":\n    success = main()\n    sys.exit(0 if success else 1)"
+    }
+  },
+  {
+    "session_id": "03b36817-ed29-4577-ac8a-070a0e13a21f",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/03b36817-ed29-4577-ac8a-070a0e13a21f.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "acceptEdits",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "TodoWrite",
+    "tool_input": {
+      "todos": [
+        {
+          "content": "Update analysis.py to reference v300Track_this.xlsx",
+          "status": "completed",
+          "activeForm": "Updating analysis.py to reference v300Track_this.xlsx"
+        },
+        {
+          "content": "Expand expected_columns in analysis.py from 63 to 150+ columns",
+          "status": "completed",
+          "activeForm": "Expanding expected_columns in analysis.py"
+        },
+        {
+          "content": "Update cli_enhanced.py comment to reference v300",
+          "status": "completed",
+          "activeForm": "Updating cli_enhanced.py comment"
+        },
+        {
+          "content": "Update generate_proper_analysis.py to v300 template",
+          "status": "completed",
+          "activeForm": "Updating generate_proper_analysis.py"
+        },
+        {
+          "content": "Update CLAUDE.md documentation",
+          "status": "completed",
+          "activeForm": "Updating CLAUDE.md documentation"
+        },
+        {
+          "content": "Create test_v300_migration.py validation script",
+          "status": "completed",
+          "activeForm": "Creating test_v300_migration.py validation script"
+        },
+        {
+          "content": "Test migration with sample data",
+          "status": "in_progress",
+          "activeForm": "Testing migration with sample data"
+        }
+      ]
+    }
+  },
+  {
+    "session_id": "03b36817-ed29-4577-ac8a-070a0e13a21f",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/03b36817-ed29-4577-ac8a-070a0e13a21f.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "acceptEdits",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Bash",
+    "tool_input": {
+      "command": "cd \"/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy\" && python3 test_v300_migration.py",
+      "description": "Run v300 migration validation tests"
+    }
+  },
+  {
+    "session_id": "03b36817-ed29-4577-ac8a-070a0e13a21f",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/03b36817-ed29-4577-ac8a-070a0e13a21f.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "acceptEdits",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Bash",
+    "tool_input": {
+      "command": "cd \"/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy\" && python3 -c \"\nimport sys\nsys.path.insert(0, 'src')\nfrom adhs_etl.analysis import ProviderAnalyzer\nimport pandas as pd\n\nanalyzer = ProviderAnalyzer()\ntest_df = pd.DataFrame({'PROVIDER': ['Test'], 'PROVIDER_TYPE': ['NURSING_HOME'], 'ADDRESS': ['123 Main St']})\nresult = analyzer.ensure_all_analysis_columns(test_df, 9, 2024)\n\ncount_cols = sorted([col for col in result.columns if col.endswith(' COUNT')])\nprint(f'Total COUNT columns: {len(count_cols)}')\nprint('First few:', count_cols[:5])\nprint('Last few:', count_cols[-5:])\n\n# Check for duplicates\nduplicates = [col for col in count_cols if count_cols.count(col) > 1]\nif duplicates:\n    print('Duplicates found:', duplicates)\n\"",
+      "description": "Debug COUNT columns to find the issue"
+    }
+  },
+  {
+    "session_id": "03b36817-ed29-4577-ac8a-070a0e13a21f",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/03b36817-ed29-4577-ac8a-070a0e13a21f.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "acceptEdits",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "TodoWrite",
+    "tool_input": {
+      "todos": [
+        {
+          "content": "Update analysis.py to reference v300Track_this.xlsx",
+          "status": "completed",
+          "activeForm": "Updating analysis.py to reference v300Track_this.xlsx"
+        },
+        {
+          "content": "Expand expected_columns in analysis.py from 63 to 150+ columns",
+          "status": "completed",
+          "activeForm": "Expanding expected_columns in analysis.py"
+        },
+        {
+          "content": "Update cli_enhanced.py comment to reference v300",
+          "status": "completed",
+          "activeForm": "Updating cli_enhanced.py comment"
+        },
+        {
+          "content": "Update generate_proper_analysis.py to v300 template",
+          "status": "completed",
+          "activeForm": "Updating generate_proper_analysis.py"
+        },
+        {
+          "content": "Update CLAUDE.md documentation",
+          "status": "completed",
+          "activeForm": "Updating CLAUDE.md documentation"
+        },
+        {
+          "content": "Create test_v300_migration.py validation script",
+          "status": "completed",
+          "activeForm": "Creating test_v300_migration.py validation script"
+        },
+        {
+          "content": "Test migration with sample data",
+          "status": "completed",
+          "activeForm": "Testing migration with sample data"
+        }
+      ]
+    }
+  },
+  {
+    "session_id": "03b36817-ed29-4577-ac8a-070a0e13a21f",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/03b36817-ed29-4577-ac8a-070a0e13a21f.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "acceptEdits",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Bash",
+    "tool_input": {
+      "command": "cd /Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025\\ copy && python test_v300_migration.py",
+      "description": "Run v300 migration validation tests"
+    }
+  },
+  {
+    "session_id": "03b36817-ed29-4577-ac8a-070a0e13a21f",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/03b36817-ed29-4577-ac8a-070a0e13a21f.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "acceptEdits",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Bash",
+    "tool_input": {
+      "command": "cd /Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025\\ copy && python3 test_v300_migration.py",
+      "description": "Run v300 migration validation tests with python3"
+    }
+  },
+  {
+    "session_id": "03b36817-ed29-4577-ac8a-070a0e13a21f",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/03b36817-ed29-4577-ac8a-070a0e13a21f.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "acceptEdits",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Bash",
+    "tool_input": {
+      "command": "cd /Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025\\ copy && python3 -c \"\nimport sys\nsys.path.insert(0, 'src')\nfrom adhs_etl.analysis import ProviderAnalyzer\nimport pandas as pd\n\nanalyzer = ProviderAnalyzer()\ntest_df = pd.DataFrame({'PROVIDER': ['Test'], 'PROVIDER_TYPE': ['NH'], 'ADDRESS': ['123 Main']})\nresult = analyzer.ensure_all_analysis_columns(test_df, 9, 2024)\n\n# Check COUNT columns\ncount_cols = [col for col in result.columns if col.endswith(' COUNT')]\nprint(f'Total COUNT columns: {len(count_cols)}')\nprint(f'First 5: {count_cols[:5]}')\nprint(f'Last 5: {count_cols[-5:]}')\n\n# Check if PROVIDER GROUP, ADDRESS COUNT is in there\nif 'PROVIDER GROUP, ADDRESS COUNT' in count_cols:\n    print('Found PROVIDER GROUP, ADDRESS COUNT in COUNT columns')\n\"",
+      "description": "Debug COUNT column issue"
+    }
+  },
+  {
+    "session_id": "03b36817-ed29-4577-ac8a-070a0e13a21f",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/03b36817-ed29-4577-ac8a-070a0e13a21f.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "acceptEdits",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Edit",
+    "tool_input": {
+      "file_path": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy/test_v300_migration.py",
+      "old_string": "    # Check COUNT columns\n    count_cols = [col for col in result.columns if col.endswith(' COUNT')]\n    expected_count = 48  # 12 months x 4 years (2022-2025)",
+      "new_string": "    # Check COUNT columns (exclude 'PROVIDER GROUP, ADDRESS COUNT')\n    count_cols = [col for col in result.columns if col.endswith(' COUNT') and not col.startswith('PROVIDER GROUP')]\n    expected_count = 48  # 12 months x 4 years (2022-2025)"
+    }
+  },
+  {
+    "session_id": "03b36817-ed29-4577-ac8a-070a0e13a21f",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/03b36817-ed29-4577-ac8a-070a0e13a21f.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "acceptEdits",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Bash",
+    "tool_input": {
+      "command": "cd /Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025\\ copy && python3 test_v300_migration.py 2>/dev/null",
+      "description": "Run v300 tests without performance warnings"
+    }
+  },
+  {
+    "session_id": "cb1b70bd-a9bb-47e5-82e5-d283c966ae4c",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/cb1b70bd-a9bb-47e5-82e5-d283c966ae4c.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "default",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Bash",
+    "tool_input": {
+      "command": "which python3",
+      "description": "Check if python3 is available"
+    }
+  },
+  {
+    "session_id": "cb1b70bd-a9bb-47e5-82e5-d283c966ae4c",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/cb1b70bd-a9bb-47e5-82e5-d283c966ae4c.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "default",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Bash",
+    "tool_input": {
+      "command": "python3 --version",
+      "description": "Check Python 3 version"
+    }
+  },
+  {
+    "session_id": "cb1b70bd-a9bb-47e5-82e5-d283c966ae4c",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/cb1b70bd-a9bb-47e5-82e5-d283c966ae4c.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "default",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Read",
+    "tool_input": {
+      "file_path": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy/scripts/batch_process_months.py"
+    }
+  },
+  {
+    "session_id": "cb1b70bd-a9bb-47e5-82e5-d283c966ae4c",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/cb1b70bd-a9bb-47e5-82e5-d283c966ae4c.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "default",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Edit",
+    "tool_input": {
+      "file_path": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy/scripts/batch_process_months.py",
+      "old_string": "def run_etl_pipeline(month_code: str, dry_run: bool = False) -> bool:\n    \"\"\"Run the ETL pipeline for a specific month.\"\"\"\n    try:\n        # Use direct Python execution instead of Poetry\n        cmd = [\n            \"python\", \"-m\", \"adhs_etl.cli_enhanced\", \"run\",\n            \"--month\", month_code,\n            \"--raw-dir\", \"./Raw-New-Month\"\n        ]",
+      "new_string": "def run_etl_pipeline(month_code: str, dry_run: bool = False) -> bool:\n    \"\"\"Run the ETL pipeline for a specific month.\"\"\"\n    try:\n        # Use direct Python execution instead of Poetry\n        cmd = [\n            \"python3\", \"-m\", \"adhs_etl.cli_enhanced\", \"run\",\n            \"--month\", month_code,\n            \"--raw-dir\", \"./Raw-New-Month\"\n        ]"
+    }
+  },
+  {
+    "session_id": "cb1b70bd-a9bb-47e5-82e5-d283c966ae4c",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/cb1b70bd-a9bb-47e5-82e5-d283c966ae4c.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "default",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Edit",
+    "tool_input": {
+      "file_path": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy/scripts/batch_process_months.py",
+      "old_string": "    # Check if Python is available\n    try:\n        result = subprocess.run([\"python\", \"--version\"], capture_output=True)\n        if result.returncode == 0:\n            print_success(\"Python is available\")\n        else:\n            print_error(\"Python is not available. Please install Python first.\")\n            return False\n    except:\n        print_error(\"Python is not available. Please install Python first.\")\n        return False",
+      "new_string": "    # Check if Python is available\n    try:\n        result = subprocess.run([\"python3\", \"--version\"], capture_output=True)\n        if result.returncode == 0:\n            print_success(\"Python 3 is available\")\n        else:\n            print_error(\"Python 3 is not available. Please install Python 3 first.\")\n            return False\n    except:\n        print_error(\"Python 3 is not available. Please install Python 3 first.\")\n        return False"
+    }
+  },
+  {
+    "session_id": "cb1b70bd-a9bb-47e5-82e5-d283c966ae4c",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/cb1b70bd-a9bb-47e5-82e5-d283c966ae4c.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "default",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Bash",
+    "tool_input": {
+      "command": "python3 scripts/batch_process_months.py",
+      "description": "Run the batch processing script with python3"
+    }
+  },
+  {
+    "session_id": "cb1b70bd-a9bb-47e5-82e5-d283c966ae4c",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/cb1b70bd-a9bb-47e5-82e5-d283c966ae4c.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "default",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Bash",
+    "tool_input": {
+      "command": "echo -e \"1\\n13\\nn\\ny\" | python3 scripts/batch_process_months.py",
+      "timeout": 300000,
+      "description": "Run batch processing with input: start month 1, end month 13, no dry-run, confirm yes"
+    }
+  },
+  {
+    "session_id": "cb1b70bd-a9bb-47e5-82e5-d283c966ae4c",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/cb1b70bd-a9bb-47e5-82e5-d283c966ae4c.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "default",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Bash",
+    "tool_input": {
+      "command": "pip3 install typer pandas openpyxl python-dotenv pyyaml loguru",
+      "timeout": 120000,
+      "description": "Install Python dependencies"
+    }
+  },
+  {
+    "session_id": "cb1b70bd-a9bb-47e5-82e5-d283c966ae4c",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/cb1b70bd-a9bb-47e5-82e5-d283c966ae4c.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "default",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Bash",
+    "tool_input": {
+      "command": "echo -e \"1\\n13\\nn\\ny\" | python3 scripts/batch_process_months.py",
+      "timeout": 600000,
+      "description": "Run batch processing for all 13 months"
+    }
+  },
+  {
+    "session_id": "cb1b70bd-a9bb-47e5-82e5-d283c966ae4c",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/cb1b70bd-a9bb-47e5-82e5-d283c966ae4c.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "default",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Bash",
+    "tool_input": {
+      "command": "pip3 install pydantic pydantic-settings",
+      "description": "Install pydantic dependencies"
+    }
+  },
+  {
+    "session_id": "cb1b70bd-a9bb-47e5-82e5-d283c966ae4c",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/cb1b70bd-a9bb-47e5-82e5-d283c966ae4c.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "default",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Bash",
+    "tool_input": {
+      "command": "echo -e \"1\\n1\\nn\\ny\" | python3 scripts/batch_process_months.py",
+      "timeout": 60000,
+      "description": "Test with first month only (9.24)"
+    }
+  },
+  {
+    "session_id": "cb1b70bd-a9bb-47e5-82e5-d283c966ae4c",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/cb1b70bd-a9bb-47e5-82e5-d283c966ae4c.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "default",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Bash",
+    "tool_input": {
+      "command": "echo -e \"1\\n13\\nn\\ny\" | python3 scripts/batch_process_months.py",
+      "timeout": 600000,
+      "description": "Process all 13 months from 9.24 to 9.25",
+      "run_in_background": true
+    }
+  },
+  {
+    "session_id": "cb1b70bd-a9bb-47e5-82e5-d283c966ae4c",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/cb1b70bd-a9bb-47e5-82e5-d283c966ae4c.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "default",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "BashOutput",
+    "tool_input": {
+      "bash_id": "3bea24"
+    }
+  },
+  {
+    "session_id": "cb1b70bd-a9bb-47e5-82e5-d283c966ae4c",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/cb1b70bd-a9bb-47e5-82e5-d283c966ae4c.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "default",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "BashOutput",
+    "tool_input": {
+      "bash_id": "3bea24"
+    }
+  },
+  {
+    "session_id": "cb1b70bd-a9bb-47e5-82e5-d283c966ae4c",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/cb1b70bd-a9bb-47e5-82e5-d283c966ae4c.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "default",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "BashOutput",
+    "tool_input": {
+      "bash_id": "3bea24"
+    }
+  },
+  {
+    "session_id": "cb1b70bd-a9bb-47e5-82e5-d283c966ae4c",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/cb1b70bd-a9bb-47e5-82e5-d283c966ae4c.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "default",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "BashOutput",
+    "tool_input": {
+      "bash_id": "3bea24"
+    }
+  },
+  {
+    "session_id": "cb1b70bd-a9bb-47e5-82e5-d283c966ae4c",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/cb1b70bd-a9bb-47e5-82e5-d283c966ae4c.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "default",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "BashOutput",
+    "tool_input": {
+      "bash_id": "3bea24"
+    }
+  },
+  {
+    "session_id": "cb1b70bd-a9bb-47e5-82e5-d283c966ae4c",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/cb1b70bd-a9bb-47e5-82e5-d283c966ae4c.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "default",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "BashOutput",
+    "tool_input": {
+      "bash_id": "3bea24"
+    }
+  },
+  {
+    "session_id": "cb1b70bd-a9bb-47e5-82e5-d283c966ae4c",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/cb1b70bd-a9bb-47e5-82e5-d283c966ae4c.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "default",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "BashOutput",
+    "tool_input": {
+      "bash_id": "3bea24"
+    }
+  },
+  {
+    "session_id": "cb1b70bd-a9bb-47e5-82e5-d283c966ae4c",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/cb1b70bd-a9bb-47e5-82e5-d283c966ae4c.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "default",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "BashOutput",
+    "tool_input": {
+      "bash_id": "3bea24"
+    }
+  },
+  {
+    "session_id": "cb1b70bd-a9bb-47e5-82e5-d283c966ae4c",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/cb1b70bd-a9bb-47e5-82e5-d283c966ae4c.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "default",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "BashOutput",
+    "tool_input": {
+      "bash_id": "3bea24"
+    }
+  },
+  {
+    "session_id": "cb1b70bd-a9bb-47e5-82e5-d283c966ae4c",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/cb1b70bd-a9bb-47e5-82e5-d283c966ae4c.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "default",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "BashOutput",
+    "tool_input": {
+      "bash_id": "3bea24"
+    }
+  },
+  {
+    "session_id": "cb1b70bd-a9bb-47e5-82e5-d283c966ae4c",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/cb1b70bd-a9bb-47e5-82e5-d283c966ae4c.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "default",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "BashOutput",
+    "tool_input": {
+      "bash_id": "3bea24"
+    }
+  },
+  {
+    "session_id": "cb1b70bd-a9bb-47e5-82e5-d283c966ae4c",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/cb1b70bd-a9bb-47e5-82e5-d283c966ae4c.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "default",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "KillShell",
+    "tool_input": {
+      "shell_id": "3bea24"
+    }
+  },
+  {
+    "session_id": "cb1b70bd-a9bb-47e5-82e5-d283c966ae4c",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/cb1b70bd-a9bb-47e5-82e5-d283c966ae4c.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "default",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Bash",
+    "tool_input": {
+      "command": "printf \"1\\n13\\nn\\ny\\n\" | python3 scripts/batch_process_months.py",
+      "timeout": 600000,
+      "description": "Try with printf for better input control",
+      "run_in_background": true
+    }
+  },
+  {
+    "session_id": "cb1b70bd-a9bb-47e5-82e5-d283c966ae4c",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/cb1b70bd-a9bb-47e5-82e5-d283c966ae4c.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "default",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "BashOutput",
+    "tool_input": {
+      "bash_id": "93cad4"
+    }
+  },
+  {
+    "session_id": "cb1b70bd-a9bb-47e5-82e5-d283c966ae4c",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/cb1b70bd-a9bb-47e5-82e5-d283c966ae4c.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "default",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "BashOutput",
+    "tool_input": {
+      "bash_id": "93cad4"
+    }
+  },
+  {
+    "session_id": "cb1b70bd-a9bb-47e5-82e5-d283c966ae4c",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/cb1b70bd-a9bb-47e5-82e5-d283c966ae4c.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "default",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "BashOutput",
+    "tool_input": {
+      "bash_id": "93cad4"
+    }
+  },
+  {
+    "session_id": "cb1b70bd-a9bb-47e5-82e5-d283c966ae4c",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/cb1b70bd-a9bb-47e5-82e5-d283c966ae4c.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "default",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "KillShell",
+    "tool_input": {
+      "shell_id": "93cad4"
+    }
+  },
+  {
+    "session_id": "cb1b70bd-a9bb-47e5-82e5-d283c966ae4c",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/cb1b70bd-a9bb-47e5-82e5-d283c966ae4c.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "default",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Write",
+    "tool_input": {
+      "file_path": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy/scripts/batch_process_all.py",
+      "content": "#!/usr/bin/env python3\n\"\"\"\nNon-interactive batch processing script for all months\n\"\"\"\nimport os\nimport shutil\nimport subprocess\nimport sys\nfrom pathlib import Path\n\ndef main():\n    print(\"\\n\ud83d\ude80 Starting batch processing of all months...\")\n\n    # Get all months\n    all_months_dir = Path(\"ALL-MONTHS\")\n    months = []\n\n    for folder in all_months_dir.iterdir():\n        if folder.is_dir() and folder.name.startswith(\"Raw \"):\n            month_code = folder.name.replace(\"Raw \", \"\")\n            parts = month_code.split('.')\n            if len(parts) == 2:\n                month_num = int(parts[0])\n                year_num = int(parts[1])\n                months.append((folder.name, month_code, year_num * 100 + month_num))\n\n    # Sort chronologically\n    months.sort(key=lambda x: x[2])\n\n    print(f\"Found {len(months)} months to process\")\n\n    successful = []\n    failed = []\n\n    for i, (folder_name, month_code, _) in enumerate(months, 1):\n        print(f\"\\n\ud83d\udcca Processing {i}/{len(months)}: {month_code}\")\n\n        # Copy files\n        source = all_months_dir / folder_name\n        dest = Path(\"Raw-New-Month\")\n        dest.mkdir(exist_ok=True)\n\n        # Clear destination\n        for file in dest.glob(\"*.xlsx\"):\n            file.unlink()\n\n        # Copy Excel files\n        excel_files = list(source.glob(\"*.xlsx\"))\n        for file in excel_files:\n            shutil.copy2(file, dest)\n        print(f\"  \u2705 Copied {len(excel_files)} files\")\n\n        # Run ETL\n        cmd = [\n            \"python3\", \"-m\", \"adhs_etl.cli_enhanced\", \"run\",\n            \"--month\", month_code,\n            \"--raw-dir\", \"./Raw-New-Month\"\n        ]\n\n        env = os.environ.copy()\n        env['PYTHONPATH'] = 'src'\n\n        result = subprocess.run(cmd, capture_output=True, text=True, env=env)\n\n        if result.returncode == 0:\n            print(f\"  \u2705 ETL completed successfully\")\n            successful.append(month_code)\n        else:\n            print(f\"  \u274c ETL failed\")\n            print(f\"  Error: {result.stderr[:200]}\")\n            failed.append(month_code)\n\n        # Cleanup\n        for file in dest.glob(\"*.xlsx\"):\n            file.unlink()\n\n    # Summary\n    print(\"\\n\" + \"=\"*60)\n    print(\"BATCH PROCESSING COMPLETE\")\n    print(\"=\"*60)\n    print(f\"\u2705 Successful: {len(successful)} months\")\n    if successful:\n        print(\"  \" + \", \".join(successful))\n    print(f\"\u274c Failed: {len(failed)} months\")\n    if failed:\n        print(\"  \" + \", \".join(failed))\n\nif __name__ == \"__main__\":\n    main()"
+    }
+  },
+  {
+    "session_id": "cb1b70bd-a9bb-47e5-82e5-d283c966ae4c",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/cb1b70bd-a9bb-47e5-82e5-d283c966ae4c.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "default",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Bash",
+    "tool_input": {
+      "command": "chmod +x scripts/batch_process_all.py",
+      "description": "Make script executable"
+    }
+  },
+  {
+    "session_id": "cb1b70bd-a9bb-47e5-82e5-d283c966ae4c",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/cb1b70bd-a9bb-47e5-82e5-d283c966ae4c.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "default",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Bash",
+    "tool_input": {
+      "command": "python3 scripts/batch_process_all.py",
+      "timeout": 600000,
+      "description": "Run non-interactive batch processing for all months",
+      "run_in_background": true
+    }
+  },
+  {
+    "session_id": "cb1b70bd-a9bb-47e5-82e5-d283c966ae4c",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/cb1b70bd-a9bb-47e5-82e5-d283c966ae4c.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "default",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "BashOutput",
+    "tool_input": {
+      "bash_id": "85a125"
+    }
+  },
+  {
+    "session_id": "cb1b70bd-a9bb-47e5-82e5-d283c966ae4c",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/cb1b70bd-a9bb-47e5-82e5-d283c966ae4c.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "default",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "BashOutput",
+    "tool_input": {
+      "bash_id": "85a125"
+    }
+  },
+  {
+    "session_id": "cb1b70bd-a9bb-47e5-82e5-d283c966ae4c",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/cb1b70bd-a9bb-47e5-82e5-d283c966ae4c.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "default",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "BashOutput",
+    "tool_input": {
+      "bash_id": "85a125"
+    }
+  },
+  {
+    "session_id": "cb1b70bd-a9bb-47e5-82e5-d283c966ae4c",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/cb1b70bd-a9bb-47e5-82e5-d283c966ae4c.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "default",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "BashOutput",
+    "tool_input": {
+      "bash_id": "85a125"
+    }
+  },
+  {
+    "session_id": "cb1b70bd-a9bb-47e5-82e5-d283c966ae4c",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/cb1b70bd-a9bb-47e5-82e5-d283c966ae4c.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "default",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "BashOutput",
+    "tool_input": {
+      "bash_id": "85a125"
+    }
+  },
+  {
+    "session_id": "cb1b70bd-a9bb-47e5-82e5-d283c966ae4c",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/cb1b70bd-a9bb-47e5-82e5-d283c966ae4c.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "default",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "BashOutput",
+    "tool_input": {
+      "bash_id": "85a125"
+    }
+  },
+  {
+    "session_id": "cb1b70bd-a9bb-47e5-82e5-d283c966ae4c",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/cb1b70bd-a9bb-47e5-82e5-d283c966ae4c.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "default",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "BashOutput",
+    "tool_input": {
+      "bash_id": "85a125"
+    }
+  },
+  {
+    "session_id": "cb1b70bd-a9bb-47e5-82e5-d283c966ae4c",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/cb1b70bd-a9bb-47e5-82e5-d283c966ae4c.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "default",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "BashOutput",
+    "tool_input": {
+      "bash_id": "85a125"
+    }
+  },
+  {
+    "session_id": "cb1b70bd-a9bb-47e5-82e5-d283c966ae4c",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/cb1b70bd-a9bb-47e5-82e5-d283c966ae4c.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "default",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "BashOutput",
+    "tool_input": {
+      "bash_id": "85a125"
+    }
+  },
+  {
+    "session_id": "cb1b70bd-a9bb-47e5-82e5-d283c966ae4c",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/cb1b70bd-a9bb-47e5-82e5-d283c966ae4c.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "default",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "BashOutput",
+    "tool_input": {
+      "bash_id": "85a125"
+    }
+  },
+  {
+    "session_id": "cb1b70bd-a9bb-47e5-82e5-d283c966ae4c",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/cb1b70bd-a9bb-47e5-82e5-d283c966ae4c.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "default",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "BashOutput",
+    "tool_input": {
+      "bash_id": "85a125"
+    }
+  },
+  {
+    "session_id": "cb1b70bd-a9bb-47e5-82e5-d283c966ae4c",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/cb1b70bd-a9bb-47e5-82e5-d283c966ae4c.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "default",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "BashOutput",
+    "tool_input": {
+      "bash_id": "85a125"
+    }
+  },
+  {
+    "session_id": "cb1b70bd-a9bb-47e5-82e5-d283c966ae4c",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/cb1b70bd-a9bb-47e5-82e5-d283c966ae4c.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "default",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "BashOutput",
+    "tool_input": {
+      "bash_id": "85a125"
+    }
+  },
+  {
+    "session_id": "cb1b70bd-a9bb-47e5-82e5-d283c966ae4c",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/cb1b70bd-a9bb-47e5-82e5-d283c966ae4c.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "default",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "BashOutput",
+    "tool_input": {
+      "bash_id": "85a125"
+    }
+  },
+  {
+    "session_id": "cb1b70bd-a9bb-47e5-82e5-d283c966ae4c",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/cb1b70bd-a9bb-47e5-82e5-d283c966ae4c.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "default",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "BashOutput",
+    "tool_input": {
+      "bash_id": "85a125"
+    }
+  },
+  {
+    "session_id": "cb1b70bd-a9bb-47e5-82e5-d283c966ae4c",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/cb1b70bd-a9bb-47e5-82e5-d283c966ae4c.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "default",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "BashOutput",
+    "tool_input": {
+      "bash_id": "85a125"
+    }
+  },
+  {
+    "session_id": "cb1b70bd-a9bb-47e5-82e5-d283c966ae4c",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/cb1b70bd-a9bb-47e5-82e5-d283c966ae4c.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "default",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "BashOutput",
+    "tool_input": {
+      "bash_id": "85a125"
+    }
+  },
+  {
+    "session_id": "cb1b70bd-a9bb-47e5-82e5-d283c966ae4c",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/cb1b70bd-a9bb-47e5-82e5-d283c966ae4c.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "default",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "BashOutput",
+    "tool_input": {
+      "bash_id": "85a125"
+    }
+  },
+  {
+    "session_id": "cb1b70bd-a9bb-47e5-82e5-d283c966ae4c",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/cb1b70bd-a9bb-47e5-82e5-d283c966ae4c.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "default",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "BashOutput",
+    "tool_input": {
+      "bash_id": "85a125"
+    }
+  },
+  {
+    "session_id": "cb1b70bd-a9bb-47e5-82e5-d283c966ae4c",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/cb1b70bd-a9bb-47e5-82e5-d283c966ae4c.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "default",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "BashOutput",
+    "tool_input": {
+      "bash_id": "85a125"
+    }
+  },
+  {
+    "session_id": "cb1b70bd-a9bb-47e5-82e5-d283c966ae4c",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/cb1b70bd-a9bb-47e5-82e5-d283c966ae4c.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "default",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "BashOutput",
+    "tool_input": {
+      "bash_id": "85a125"
+    }
+  },
+  {
+    "session_id": "cb1b70bd-a9bb-47e5-82e5-d283c966ae4c",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/cb1b70bd-a9bb-47e5-82e5-d283c966ae4c.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "default",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "BashOutput",
+    "tool_input": {
+      "bash_id": "85a125"
+    }
+  },
+  {
+    "session_id": "cb1b70bd-a9bb-47e5-82e5-d283c966ae4c",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/cb1b70bd-a9bb-47e5-82e5-d283c966ae4c.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "default",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "BashOutput",
+    "tool_input": {
+      "bash_id": "85a125"
+    }
+  },
+  {
+    "session_id": "cb1b70bd-a9bb-47e5-82e5-d283c966ae4c",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/cb1b70bd-a9bb-47e5-82e5-d283c966ae4c.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "default",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "BashOutput",
+    "tool_input": {
+      "bash_id": "85a125"
+    }
+  },
+  {
+    "session_id": "cb1b70bd-a9bb-47e5-82e5-d283c966ae4c",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/cb1b70bd-a9bb-47e5-82e5-d283c966ae4c.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "default",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "BashOutput",
+    "tool_input": {
+      "bash_id": "85a125"
+    }
+  },
+  {
+    "session_id": "cb1b70bd-a9bb-47e5-82e5-d283c966ae4c",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/cb1b70bd-a9bb-47e5-82e5-d283c966ae4c.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "default",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "BashOutput",
+    "tool_input": {
+      "bash_id": "85a125"
+    }
+  },
+  {
+    "session_id": "cb1b70bd-a9bb-47e5-82e5-d283c966ae4c",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/cb1b70bd-a9bb-47e5-82e5-d283c966ae4c.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "default",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "BashOutput",
+    "tool_input": {
+      "bash_id": "85a125"
+    }
+  },
+  {
+    "session_id": "cb1b70bd-a9bb-47e5-82e5-d283c966ae4c",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/cb1b70bd-a9bb-47e5-82e5-d283c966ae4c.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "default",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "BashOutput",
+    "tool_input": {
+      "bash_id": "85a125"
+    }
+  },
+  {
+    "session_id": "cb1b70bd-a9bb-47e5-82e5-d283c966ae4c",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/cb1b70bd-a9bb-47e5-82e5-d283c966ae4c.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "default",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "BashOutput",
+    "tool_input": {
+      "bash_id": "85a125"
+    }
+  },
+  {
+    "session_id": "cb1b70bd-a9bb-47e5-82e5-d283c966ae4c",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/cb1b70bd-a9bb-47e5-82e5-d283c966ae4c.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "default",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "BashOutput",
+    "tool_input": {
+      "bash_id": "85a125"
+    }
+  },
+  {
+    "session_id": "cb1b70bd-a9bb-47e5-82e5-d283c966ae4c",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/cb1b70bd-a9bb-47e5-82e5-d283c966ae4c.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "default",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "BashOutput",
+    "tool_input": {
+      "bash_id": "85a125"
+    }
+  },
+  {
+    "session_id": "cb1b70bd-a9bb-47e5-82e5-d283c966ae4c",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/cb1b70bd-a9bb-47e5-82e5-d283c966ae4c.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "default",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "BashOutput",
+    "tool_input": {
+      "bash_id": "85a125"
+    }
+  },
+  {
+    "session_id": "cb1b70bd-a9bb-47e5-82e5-d283c966ae4c",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/cb1b70bd-a9bb-47e5-82e5-d283c966ae4c.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "default",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "BashOutput",
+    "tool_input": {
+      "bash_id": "85a125"
+    }
+  },
+  {
+    "session_id": "cb1b70bd-a9bb-47e5-82e5-d283c966ae4c",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/cb1b70bd-a9bb-47e5-82e5-d283c966ae4c.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "default",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "BashOutput",
+    "tool_input": {
+      "bash_id": "85a125"
+    }
+  },
+  {
+    "session_id": "cb1b70bd-a9bb-47e5-82e5-d283c966ae4c",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/cb1b70bd-a9bb-47e5-82e5-d283c966ae4c.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "default",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "BashOutput",
+    "tool_input": {
+      "bash_id": "85a125"
+    }
+  },
+  {
+    "session_id": "cb1b70bd-a9bb-47e5-82e5-d283c966ae4c",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/cb1b70bd-a9bb-47e5-82e5-d283c966ae4c.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "default",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "BashOutput",
+    "tool_input": {
+      "bash_id": "85a125"
+    }
+  },
+  {
+    "session_id": "cb1b70bd-a9bb-47e5-82e5-d283c966ae4c",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/cb1b70bd-a9bb-47e5-82e5-d283c966ae4c.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "default",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "BashOutput",
+    "tool_input": {
+      "bash_id": "85a125"
+    }
+  },
+  {
+    "session_id": "cb1b70bd-a9bb-47e5-82e5-d283c966ae4c",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/cb1b70bd-a9bb-47e5-82e5-d283c966ae4c.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "default",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "BashOutput",
+    "tool_input": {
+      "bash_id": "85a125"
+    }
+  },
+  {
+    "session_id": "cb1b70bd-a9bb-47e5-82e5-d283c966ae4c",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/cb1b70bd-a9bb-47e5-82e5-d283c966ae4c.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "default",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "BashOutput",
+    "tool_input": {
+      "bash_id": "85a125"
+    }
+  },
+  {
+    "session_id": "cb1b70bd-a9bb-47e5-82e5-d283c966ae4c",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/cb1b70bd-a9bb-47e5-82e5-d283c966ae4c.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "default",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "BashOutput",
+    "tool_input": {
+      "bash_id": "85a125"
+    }
+  },
+  {
+    "session_id": "cb1b70bd-a9bb-47e5-82e5-d283c966ae4c",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/cb1b70bd-a9bb-47e5-82e5-d283c966ae4c.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "default",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "BashOutput",
+    "tool_input": {
+      "bash_id": "85a125"
+    }
+  },
+  {
+    "session_id": "cb1b70bd-a9bb-47e5-82e5-d283c966ae4c",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/cb1b70bd-a9bb-47e5-82e5-d283c966ae4c.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "default",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "BashOutput",
+    "tool_input": {
+      "bash_id": "85a125"
+    }
+  },
+  {
+    "session_id": "cb1b70bd-a9bb-47e5-82e5-d283c966ae4c",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/cb1b70bd-a9bb-47e5-82e5-d283c966ae4c.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "default",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "BashOutput",
+    "tool_input": {
+      "bash_id": "85a125"
+    }
+  },
+  {
+    "session_id": "cb1b70bd-a9bb-47e5-82e5-d283c966ae4c",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/cb1b70bd-a9bb-47e5-82e5-d283c966ae4c.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "default",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "BashOutput",
+    "tool_input": {
+      "bash_id": "85a125"
+    }
+  },
+  {
+    "session_id": "cb1b70bd-a9bb-47e5-82e5-d283c966ae4c",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/cb1b70bd-a9bb-47e5-82e5-d283c966ae4c.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "default",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "BashOutput",
+    "tool_input": {
+      "bash_id": "85a125"
+    }
+  },
+  {
+    "session_id": "cb1b70bd-a9bb-47e5-82e5-d283c966ae4c",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/cb1b70bd-a9bb-47e5-82e5-d283c966ae4c.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "default",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "BashOutput",
+    "tool_input": {
+      "bash_id": "85a125"
+    }
+  },
+  {
+    "session_id": "cb1b70bd-a9bb-47e5-82e5-d283c966ae4c",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/cb1b70bd-a9bb-47e5-82e5-d283c966ae4c.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "default",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "BashOutput",
+    "tool_input": {
+      "bash_id": "85a125"
+    }
+  },
+  {
+    "session_id": "cb1b70bd-a9bb-47e5-82e5-d283c966ae4c",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/cb1b70bd-a9bb-47e5-82e5-d283c966ae4c.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "default",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "BashOutput",
+    "tool_input": {
+      "bash_id": "85a125"
+    }
+  },
+  {
+    "session_id": "cb1b70bd-a9bb-47e5-82e5-d283c966ae4c",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/cb1b70bd-a9bb-47e5-82e5-d283c966ae4c.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "default",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "BashOutput",
+    "tool_input": {
+      "bash_id": "85a125"
+    }
+  },
+  {
+    "session_id": "cb1b70bd-a9bb-47e5-82e5-d283c966ae4c",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/cb1b70bd-a9bb-47e5-82e5-d283c966ae4c.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "default",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "BashOutput",
+    "tool_input": {
+      "bash_id": "85a125"
+    }
+  },
+  {
+    "session_id": "cb1b70bd-a9bb-47e5-82e5-d283c966ae4c",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/cb1b70bd-a9bb-47e5-82e5-d283c966ae4c.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "default",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "BashOutput",
+    "tool_input": {
+      "bash_id": "85a125"
+    }
+  },
+  {
+    "session_id": "cb1b70bd-a9bb-47e5-82e5-d283c966ae4c",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/cb1b70bd-a9bb-47e5-82e5-d283c966ae4c.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "default",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "BashOutput",
+    "tool_input": {
+      "bash_id": "85a125"
+    }
+  },
+  {
+    "session_id": "cb1b70bd-a9bb-47e5-82e5-d283c966ae4c",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/cb1b70bd-a9bb-47e5-82e5-d283c966ae4c.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "default",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "BashOutput",
+    "tool_input": {
+      "bash_id": "85a125"
+    }
+  },
+  {
+    "session_id": "cb1b70bd-a9bb-47e5-82e5-d283c966ae4c",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/cb1b70bd-a9bb-47e5-82e5-d283c966ae4c.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "default",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "BashOutput",
+    "tool_input": {
+      "bash_id": "85a125"
+    }
+  },
+  {
+    "session_id": "cb1b70bd-a9bb-47e5-82e5-d283c966ae4c",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/cb1b70bd-a9bb-47e5-82e5-d283c966ae4c.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "default",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "BashOutput",
+    "tool_input": {
+      "bash_id": "85a125"
+    }
+  },
+  {
+    "session_id": "cb1b70bd-a9bb-47e5-82e5-d283c966ae4c",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/cb1b70bd-a9bb-47e5-82e5-d283c966ae4c.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "default",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "BashOutput",
+    "tool_input": {
+      "bash_id": "85a125"
+    }
+  },
+  {
+    "session_id": "cb1b70bd-a9bb-47e5-82e5-d283c966ae4c",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/cb1b70bd-a9bb-47e5-82e5-d283c966ae4c.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "default",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "BashOutput",
+    "tool_input": {
+      "bash_id": "85a125"
+    }
+  },
+  {
+    "session_id": "cb1b70bd-a9bb-47e5-82e5-d283c966ae4c",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/cb1b70bd-a9bb-47e5-82e5-d283c966ae4c.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "default",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "BashOutput",
+    "tool_input": {
+      "bash_id": "85a125"
+    }
+  },
+  {
+    "session_id": "cb1b70bd-a9bb-47e5-82e5-d283c966ae4c",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/cb1b70bd-a9bb-47e5-82e5-d283c966ae4c.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "default",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "BashOutput",
+    "tool_input": {
+      "bash_id": "85a125"
+    }
+  },
+  {
+    "session_id": "cb1b70bd-a9bb-47e5-82e5-d283c966ae4c",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/cb1b70bd-a9bb-47e5-82e5-d283c966ae4c.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "default",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "BashOutput",
+    "tool_input": {
+      "bash_id": "85a125"
+    }
+  },
+  {
+    "session_id": "cb1b70bd-a9bb-47e5-82e5-d283c966ae4c",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/cb1b70bd-a9bb-47e5-82e5-d283c966ae4c.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "default",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "BashOutput",
+    "tool_input": {
+      "bash_id": "85a125"
+    }
+  },
+  {
+    "session_id": "cb1b70bd-a9bb-47e5-82e5-d283c966ae4c",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/cb1b70bd-a9bb-47e5-82e5-d283c966ae4c.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "default",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "BashOutput",
+    "tool_input": {
+      "bash_id": "85a125"
+    }
+  },
+  {
+    "session_id": "cb1b70bd-a9bb-47e5-82e5-d283c966ae4c",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/cb1b70bd-a9bb-47e5-82e5-d283c966ae4c.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "default",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "BashOutput",
+    "tool_input": {
+      "bash_id": "85a125"
+    }
+  },
+  {
+    "session_id": "cb1b70bd-a9bb-47e5-82e5-d283c966ae4c",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/cb1b70bd-a9bb-47e5-82e5-d283c966ae4c.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "default",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "BashOutput",
+    "tool_input": {
+      "bash_id": "85a125"
+    }
+  },
+  {
+    "session_id": "cb1b70bd-a9bb-47e5-82e5-d283c966ae4c",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/cb1b70bd-a9bb-47e5-82e5-d283c966ae4c.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "default",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "BashOutput",
+    "tool_input": {
+      "bash_id": "85a125"
+    }
+  },
+  {
+    "session_id": "cb1b70bd-a9bb-47e5-82e5-d283c966ae4c",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/cb1b70bd-a9bb-47e5-82e5-d283c966ae4c.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "default",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "BashOutput",
+    "tool_input": {
+      "bash_id": "85a125"
+    }
+  },
+  {
+    "session_id": "cb1b70bd-a9bb-47e5-82e5-d283c966ae4c",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/cb1b70bd-a9bb-47e5-82e5-d283c966ae4c.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "default",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "BashOutput",
+    "tool_input": {
+      "bash_id": "85a125"
+    }
+  },
+  {
+    "session_id": "cb1b70bd-a9bb-47e5-82e5-d283c966ae4c",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/cb1b70bd-a9bb-47e5-82e5-d283c966ae4c.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "default",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "BashOutput",
+    "tool_input": {
+      "bash_id": "85a125"
+    }
+  },
+  {
+    "session_id": "cb1b70bd-a9bb-47e5-82e5-d283c966ae4c",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/cb1b70bd-a9bb-47e5-82e5-d283c966ae4c.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "default",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "BashOutput",
+    "tool_input": {
+      "bash_id": "85a125"
+    }
+  },
+  {
+    "session_id": "cb1b70bd-a9bb-47e5-82e5-d283c966ae4c",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/cb1b70bd-a9bb-47e5-82e5-d283c966ae4c.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "default",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "BashOutput",
+    "tool_input": {
+      "bash_id": "85a125"
+    }
+  },
+  {
+    "session_id": "cb1b70bd-a9bb-47e5-82e5-d283c966ae4c",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/cb1b70bd-a9bb-47e5-82e5-d283c966ae4c.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "default",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "BashOutput",
+    "tool_input": {
+      "bash_id": "85a125"
+    }
+  },
+  {
+    "session_id": "cb1b70bd-a9bb-47e5-82e5-d283c966ae4c",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/cb1b70bd-a9bb-47e5-82e5-d283c966ae4c.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "default",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "BashOutput",
+    "tool_input": {
+      "bash_id": "85a125"
+    }
+  },
+  {
+    "session_id": "cb1b70bd-a9bb-47e5-82e5-d283c966ae4c",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/cb1b70bd-a9bb-47e5-82e5-d283c966ae4c.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "default",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "BashOutput",
+    "tool_input": {
+      "bash_id": "85a125"
+    }
+  },
+  {
+    "session_id": "cb1b70bd-a9bb-47e5-82e5-d283c966ae4c",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/cb1b70bd-a9bb-47e5-82e5-d283c966ae4c.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "default",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "BashOutput",
+    "tool_input": {
+      "bash_id": "85a125"
+    }
+  },
+  {
+    "session_id": "cb1b70bd-a9bb-47e5-82e5-d283c966ae4c",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/cb1b70bd-a9bb-47e5-82e5-d283c966ae4c.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "default",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "BashOutput",
+    "tool_input": {
+      "bash_id": "85a125"
+    }
+  },
+  {
+    "session_id": "cb1b70bd-a9bb-47e5-82e5-d283c966ae4c",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/cb1b70bd-a9bb-47e5-82e5-d283c966ae4c.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "default",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "BashOutput",
+    "tool_input": {
+      "bash_id": "85a125"
+    }
+  },
+  {
+    "session_id": "cb1b70bd-a9bb-47e5-82e5-d283c966ae4c",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/cb1b70bd-a9bb-47e5-82e5-d283c966ae4c.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "default",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "BashOutput",
+    "tool_input": {
+      "bash_id": "85a125"
+    }
+  },
+  {
+    "session_id": "cb1b70bd-a9bb-47e5-82e5-d283c966ae4c",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/cb1b70bd-a9bb-47e5-82e5-d283c966ae4c.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "default",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "BashOutput",
+    "tool_input": {
+      "bash_id": "85a125"
+    }
+  },
+  {
+    "session_id": "cb1b70bd-a9bb-47e5-82e5-d283c966ae4c",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/cb1b70bd-a9bb-47e5-82e5-d283c966ae4c.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "default",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "BashOutput",
+    "tool_input": {
+      "bash_id": "85a125"
+    }
+  },
+  {
+    "session_id": "cb1b70bd-a9bb-47e5-82e5-d283c966ae4c",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/cb1b70bd-a9bb-47e5-82e5-d283c966ae4c.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "default",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "BashOutput",
+    "tool_input": {
+      "bash_id": "85a125"
+    }
+  },
+  {
+    "session_id": "cb1b70bd-a9bb-47e5-82e5-d283c966ae4c",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/cb1b70bd-a9bb-47e5-82e5-d283c966ae4c.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "default",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "BashOutput",
+    "tool_input": {
+      "bash_id": "85a125"
+    }
+  },
+  {
+    "session_id": "cb1b70bd-a9bb-47e5-82e5-d283c966ae4c",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/cb1b70bd-a9bb-47e5-82e5-d283c966ae4c.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "default",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "BashOutput",
+    "tool_input": {
+      "bash_id": "85a125"
+    }
+  },
+  {
+    "session_id": "cb1b70bd-a9bb-47e5-82e5-d283c966ae4c",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/cb1b70bd-a9bb-47e5-82e5-d283c966ae4c.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "default",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "BashOutput",
+    "tool_input": {
+      "bash_id": "85a125"
+    }
+  },
+  {
+    "session_id": "cb1b70bd-a9bb-47e5-82e5-d283c966ae4c",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/cb1b70bd-a9bb-47e5-82e5-d283c966ae4c.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "default",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "BashOutput",
+    "tool_input": {
+      "bash_id": "85a125"
+    }
+  },
+  {
+    "session_id": "cb1b70bd-a9bb-47e5-82e5-d283c966ae4c",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/cb1b70bd-a9bb-47e5-82e5-d283c966ae4c.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "default",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "BashOutput",
+    "tool_input": {
+      "bash_id": "85a125"
+    }
+  },
+  {
+    "session_id": "cb1b70bd-a9bb-47e5-82e5-d283c966ae4c",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/cb1b70bd-a9bb-47e5-82e5-d283c966ae4c.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "default",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "BashOutput",
+    "tool_input": {
+      "bash_id": "85a125"
+    }
+  },
+  {
+    "session_id": "cb1b70bd-a9bb-47e5-82e5-d283c966ae4c",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/cb1b70bd-a9bb-47e5-82e5-d283c966ae4c.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "default",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "BashOutput",
+    "tool_input": {
+      "bash_id": "85a125"
+    }
+  },
+  {
+    "session_id": "cb1b70bd-a9bb-47e5-82e5-d283c966ae4c",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/cb1b70bd-a9bb-47e5-82e5-d283c966ae4c.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "default",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "BashOutput",
+    "tool_input": {
+      "bash_id": "85a125"
+    }
+  },
+  {
+    "session_id": "cb1b70bd-a9bb-47e5-82e5-d283c966ae4c",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/cb1b70bd-a9bb-47e5-82e5-d283c966ae4c.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "default",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "BashOutput",
+    "tool_input": {
+      "bash_id": "85a125"
+    }
+  },
+  {
+    "session_id": "cb1b70bd-a9bb-47e5-82e5-d283c966ae4c",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/cb1b70bd-a9bb-47e5-82e5-d283c966ae4c.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "default",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "BashOutput",
+    "tool_input": {
+      "bash_id": "85a125"
+    }
+  },
+  {
+    "session_id": "cb1b70bd-a9bb-47e5-82e5-d283c966ae4c",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/cb1b70bd-a9bb-47e5-82e5-d283c966ae4c.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "default",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "BashOutput",
+    "tool_input": {
+      "bash_id": "85a125"
+    }
+  },
+  {
+    "session_id": "cb1b70bd-a9bb-47e5-82e5-d283c966ae4c",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/cb1b70bd-a9bb-47e5-82e5-d283c966ae4c.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "default",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "BashOutput",
+    "tool_input": {
+      "bash_id": "85a125"
+    }
+  },
+  {
+    "session_id": "cb1b70bd-a9bb-47e5-82e5-d283c966ae4c",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/cb1b70bd-a9bb-47e5-82e5-d283c966ae4c.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "default",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "BashOutput",
+    "tool_input": {
+      "bash_id": "85a125"
+    }
+  },
+  {
+    "session_id": "cb1b70bd-a9bb-47e5-82e5-d283c966ae4c",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/cb1b70bd-a9bb-47e5-82e5-d283c966ae4c.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "default",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "BashOutput",
+    "tool_input": {
+      "bash_id": "85a125"
+    }
+  },
+  {
+    "session_id": "e0b87b21-9166-4d37-a2f3-d3590da2c79d",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/e0b87b21-9166-4d37-a2f3-d3590da2c79d.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "default",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Bash",
+    "tool_input": {
+      "command": "git ls-files",
+      "description": "List all tracked files in repository"
+    }
+  },
+  {
+    "session_id": "e0b87b21-9166-4d37-a2f3-d3590da2c79d",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/e0b87b21-9166-4d37-a2f3-d3590da2c79d.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "default",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Read",
+    "tool_input": {
+      "file_path": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy/README.md"
+    }
+  },
+  {
+    "session_id": "e0b87b21-9166-4d37-a2f3-d3590da2c79d",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/e0b87b21-9166-4d37-a2f3-d3590da2c79d.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "default",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Read",
+    "tool_input": {
+      "file_path": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy/ai_docs/cc_hooks_docs.md"
+    }
+  },
+  {
+    "session_id": "e0b87b21-9166-4d37-a2f3-d3590da2c79d",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/e0b87b21-9166-4d37-a2f3-d3590da2c79d.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "default",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Read",
+    "tool_input": {
+      "file_path": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy/ai_docs/uv-single-file-scripts.md"
+    }
+  },
+  {
+    "session_id": "e0b87b21-9166-4d37-a2f3-d3590da2c79d",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/e0b87b21-9166-4d37-a2f3-d3590da2c79d.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "default",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Read",
+    "tool_input": {
+      "file_path": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy/ai_docs/anthropic_custom_slash_commands.md"
+    }
+  },
+  {
+    "session_id": "e0b87b21-9166-4d37-a2f3-d3590da2c79d",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/e0b87b21-9166-4d37-a2f3-d3590da2c79d.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "default",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Read",
+    "tool_input": {
+      "file_path": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy/ai_docs/anthropic_docs_subagents.md"
+    }
+  },
+  {
+    "session_id": "e0b87b21-9166-4d37-a2f3-d3590da2c79d",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/e0b87b21-9166-4d37-a2f3-d3590da2c79d.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "default",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Read",
+    "tool_input": {
+      "file_path": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy/scripts/batch_process_months.py"
+    }
+  },
+  {
+    "session_id": "e0b87b21-9166-4d37-a2f3-d3590da2c79d",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/e0b87b21-9166-4d37-a2f3-d3590da2c79d.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "default",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Bash",
+    "tool_input": {
+      "command": "ls -la Analysis/",
+      "description": "List Analysis directory contents"
+    }
+  },
+  {
+    "session_id": "e0b87b21-9166-4d37-a2f3-d3590da2c79d",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/e0b87b21-9166-4d37-a2f3-d3590da2c79d.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "default",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Bash",
+    "tool_input": {
+      "command": "touch scripts/batch_process_all.py && chmod +x scripts/batch_process_all.py",
+      "description": "Create and make executable batch_process_all.py"
+    }
+  },
+  {
+    "session_id": "e0b87b21-9166-4d37-a2f3-d3590da2c79d",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/e0b87b21-9166-4d37-a2f3-d3590da2c79d.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "default",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Write",
+    "tool_input": {
+      "file_path": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy/scripts/batch_process_all.py",
+      "content": "#!/usr/bin/env python3\n\"\"\"\nEnhanced Batch Processing Script with Better Error Handling\n===========================================================\n\nThis version includes:\n- Better timeout handling for large Excel files\n- Option to skip Analysis generation if it's causing issues\n- Retry logic for failed operations\n- More detailed error reporting\n\"\"\"\n\nimport os\nimport shutil\nimport subprocess\nimport sys\nimport time\nfrom datetime import datetime\nfrom pathlib import Path\nfrom typing import List, Tuple, Optional\n\n# Color codes for better output formatting\nclass Colors:\n    GREEN = '\\033[92m'\n    RED = '\\033[91m'\n    YELLOW = '\\033[93m'\n    BLUE = '\\033[94m'\n    PURPLE = '\\033[95m'\n    CYAN = '\\033[96m'\n    WHITE = '\\033[97m'\n    BOLD = '\\033[1m'\n    END = '\\033[0m'\n\ndef print_colored(text: str, color: str = Colors.WHITE) -> None:\n    \"\"\"Print colored text to console.\"\"\"\n    print(f\"{color}{text}{Colors.END}\")\n\ndef print_header(text: str) -> None:\n    \"\"\"Print a formatted header.\"\"\"\n    print_colored(f\"\\n{'='*60}\", Colors.BLUE)\n    print_colored(f\"{text:^60}\", Colors.BOLD + Colors.BLUE)\n    print_colored(f\"{'='*60}\", Colors.BLUE)\n\ndef print_step(step: int, text: str) -> None:\n    \"\"\"Print a formatted step.\"\"\"\n    print_colored(f\"\\n\ud83d\udccb Step {step}: {text}\", Colors.CYAN)\n\ndef print_success(text: str) -> None:\n    \"\"\"Print success message.\"\"\"\n    print_colored(f\"\u2705 {text}\", Colors.GREEN)\n\ndef print_error(text: str) -> None:\n    \"\"\"Print error message.\"\"\"\n    print_colored(f\"\u274c {text}\", Colors.RED)\n\ndef print_warning(text: str) -> None:\n    \"\"\"Print warning message.\"\"\"\n    print_colored(f\"\u26a0\ufe0f  {text}\", Colors.YELLOW)\n\ndef get_available_months() -> List[Tuple[str, str]]:\n    \"\"\"\n    Scan ALL-MONTHS directory for available month folders.\n    Returns list of (folder_name, month_code) tuples sorted chronologically.\n    \"\"\"\n    all_months_dir = Path(\"ALL-MONTHS\")\n\n    if not all_months_dir.exists():\n        print_error(\"ALL-MONTHS directory not found!\")\n        return []\n\n    months = []\n\n    # Look for Raw M.YY folders\n    for folder in all_months_dir.iterdir():\n        if folder.is_dir() and folder.name.startswith(\"Raw \"):\n            try:\n                # Extract month code from folder name (e.g., \"Raw 1.25\" -> \"1.25\")\n                month_code = folder.name.replace(\"Raw \", \"\")\n\n                # Validate format\n                parts = month_code.split('.')\n                if len(parts) == 2 and parts[0].isdigit() and parts[1].isdigit():\n                    month_num = int(parts[0])\n                    year_num = int(parts[1])\n\n                    if 1 <= month_num <= 12 and 20 <= year_num <= 99:\n                        months.append((folder_name, month_code))\n            except:\n                continue\n\n    # Sort chronologically\n    def sort_key(item):\n        month_code = item[1]\n        parts = month_code.split('.')\n        month_num = int(parts[0])\n        year_num = int(parts[1])\n        return (year_num, month_num)\n\n    months.sort(key=sort_key)\n    return months\n\ndef display_available_months(months: List[Tuple[str, str]]) -> None:\n    \"\"\"Display available months in a formatted table.\"\"\"\n    print_colored(\"\\n\ud83d\udcc5 Available Months:\", Colors.BOLD)\n    print_colored(\"-\" * 40, Colors.BLUE)\n\n    for i, (folder_name, month_code) in enumerate(months):\n        parts = month_code.split('.')\n        month_num = int(parts[0])\n        year_num = 2000 + int(parts[1])\n\n        month_names = [\"\", \"January\", \"February\", \"March\", \"April\", \"May\", \"June\",\n                      \"July\", \"August\", \"September\", \"October\", \"November\", \"December\"]\n\n        month_name = month_names[month_num]\n        print_colored(f\"{i+1:2d}. {month_code:>6} - {month_name} {year_num} ({folder_name})\", Colors.WHITE)\n\ndef get_user_selection(prompt: str, max_value: int) -> int:\n    \"\"\"Get user selection with validation.\"\"\"\n    while True:\n        try:\n            choice = input(f\"\\n{prompt} (1-{max_value}): \").strip()\n            if choice.lower() in ['q', 'quit', 'exit']:\n                print_colored(\"Goodbye! \ud83d\udc4b\", Colors.YELLOW)\n                sys.exit(0)\n\n            choice_num = int(choice)\n            if 1 <= choice_num <= max_value:\n                return choice_num - 1  # Convert to 0-based index\n            else:\n                print_error(f\"Please enter a number between 1 and {max_value}\")\n        except ValueError:\n            print_error(\"Please enter a valid number\")\n\ndef copy_month_files(source_folder: Path, dest_folder: Path) -> bool:\n    \"\"\"Copy Excel files from source to destination folder.\"\"\"\n    try:\n        # Clear destination folder\n        if dest_folder.exists():\n            for file in dest_folder.glob(\"*.xlsx\"):\n                file.unlink()\n        else:\n            dest_folder.mkdir(parents=True, exist_ok=True)\n\n        # Copy Excel files\n        excel_files = list(source_folder.glob(\"*.xlsx\"))\n\n        if not excel_files:\n            print_warning(f\"No Excel files found in {source_folder}\")\n            return False\n\n        for file in excel_files:\n            shutil.copy2(file, dest_folder)\n\n        print_success(f\"Copied {len(excel_files)} Excel files\")\n        return True\n\n    except Exception as e:\n        print_error(f\"Error copying files: {e}\")\n        return False\n\ndef run_etl_pipeline_with_retry(month_code: str, dry_run: bool = False, skip_analysis: bool = False, max_retries: int = 3) -> bool:\n    \"\"\"Run the ETL pipeline with retry logic.\"\"\"\n    for attempt in range(max_retries):\n        if attempt > 0:\n            print_warning(f\"Retry attempt {attempt}/{max_retries - 1}\")\n            time.sleep(2)  # Brief pause before retry\n\n        if run_etl_pipeline(month_code, dry_run, skip_analysis):\n            return True\n\n    return False\n\ndef run_etl_pipeline(month_code: str, dry_run: bool = False, skip_analysis: bool = False) -> bool:\n    \"\"\"Run the ETL pipeline for a specific month.\"\"\"\n    try:\n        # Use direct Python execution\n        cmd = [\n            \"python3\", \"-m\", \"adhs_etl.cli_enhanced\", \"run\",\n            \"--month\", month_code,\n            \"--raw-dir\", \"./Raw-New-Month\"\n        ]\n\n        if dry_run:\n            cmd.append(\"--dry-run\")\n\n        if skip_analysis:\n            cmd.extend([\"--skip-analysis\"])\n\n        # Set PYTHONPATH and increase timeout for large files\n        env = os.environ.copy()\n        env['PYTHONPATH'] = 'src'\n\n        # Add timeout handling for large Excel files\n        env['OPENPYXL_WRITE_TIMEOUT'] = '300'  # 5 minutes\n\n        print_colored(f\"Running: {' '.join(cmd)}\", Colors.BLUE)\n\n        # Increase timeout for subprocess\n        result = subprocess.run(\n            cmd,\n            capture_output=True,\n            text=True,\n            env=env,\n            timeout=600  # 10 minute timeout\n        )\n\n        if result.returncode == 0:\n            print_success(f\"ETL pipeline completed successfully for {month_code}\")\n            return True\n        else:\n            print_error(f\"ETL pipeline failed for {month_code}\")\n            if result.stderr:\n                print_error(f\"Error output: {result.stderr[:500]}\")  # Limit error output\n            return False\n\n    except subprocess.TimeoutExpired:\n        print_error(f\"ETL pipeline timed out for {month_code} (exceeded 10 minutes)\")\n        return False\n    except Exception as e:\n        print_error(f\"Error running ETL pipeline: {e}\")\n        return False\n\ndef cleanup_temp_files() -> None:\n    \"\"\"Clean up temporary files in Raw-New-Month directory.\"\"\"\n    try:\n        temp_dir = Path(\"Raw-New-Month\")\n        if temp_dir.exists():\n            for file in temp_dir.glob(\"*.xlsx\"):\n                file.unlink()\n            print_success(\"Cleaned up temporary files\")\n    except Exception as e:\n        print_warning(f\"Error cleaning up: {e}\")\n\ndef check_prerequisites() -> bool:\n    \"\"\"Check if all required directories and tools are available.\"\"\"\n    print_step(1, \"Checking prerequisites\")\n\n    # Check required directories\n    required_dirs = [\"ALL-MONTHS\", \"Reformat\", \"All-to-Date\", \"Analysis\"]\n    missing_dirs = []\n\n    for dir_name in required_dirs:\n        if not Path(dir_name).exists():\n            missing_dirs.append(dir_name)\n\n    if missing_dirs:\n        print_error(f\"Missing required directories: {', '.join(missing_dirs)}\")\n        print_colored(\"Creating missing directories...\", Colors.YELLOW)\n\n        for dir_name in missing_dirs:\n            Path(dir_name).mkdir(exist_ok=True)\n            print_success(f\"Created {dir_name}/\")\n\n    # Check if Python is available\n    try:\n        result = subprocess.run([\"python3\", \"--version\"], capture_output=True)\n        if result.returncode == 0:\n            print_success(\"Python 3 is available\")\n        else:\n            print_error(\"Python 3 is not available. Please install Python 3 first.\")\n            return False\n    except:\n        print_error(\"Python 3 is not available. Please install Python 3 first.\")\n        return False\n\n    # Check if Raw-New-Month directory exists\n    raw_new_month = Path(\"Raw-New-Month\")\n    if not raw_new_month.exists():\n        raw_new_month.mkdir()\n        print_success(\"Created Raw-New-Month directory\")\n\n    # Check available disk space\n    import shutil\n    stat = shutil.disk_usage(\".\")\n    free_gb = stat.free / (1024 ** 3)\n    if free_gb < 1:\n        print_warning(f\"Low disk space: {free_gb:.2f} GB free\")\n    else:\n        print_success(f\"Disk space available: {free_gb:.1f} GB\")\n\n    return True\n\ndef main():\n    \"\"\"Main function to run the batch processing script.\"\"\"\n    print_header(\"ADHS ETL Batch Processing Script (Enhanced)\")\n    print_colored(\"This script will process multiple months of ADHS data in chronological order.\", Colors.WHITE)\n    print_colored(\"Press Ctrl+C at any time to stop, or type 'q' to quit.\", Colors.YELLOW)\n\n    try:\n        # Check prerequisites\n        if not check_prerequisites():\n            sys.exit(1)\n\n        # Get available months\n        print_step(2, \"Scanning for available months\")\n        months = get_available_months()\n\n        if not months:\n            print_error(\"No valid month folders found in ALL-MONTHS directory!\")\n            print_colored(\"Expected format: 'Raw M.YY' (e.g., 'Raw 1.25' for January 2025)\", Colors.YELLOW)\n            sys.exit(1)\n\n        print_success(f\"Found {len(months)} available months\")\n\n        # Display available months\n        display_available_months(months)\n\n        # Get user selection for start and end months\n        print_step(3, \"Selecting month range\")\n\n        start_idx = get_user_selection(\"Select START month\", len(months))\n        end_idx = get_user_selection(\"Select END month\", len(months))\n\n        if start_idx > end_idx:\n            print_error(\"End month must be the same as or after start month!\")\n            sys.exit(1)\n\n        # Confirm selection\n        selected_months = months[start_idx:end_idx + 1]\n        print_colored(f\"\\n\ud83d\udccb Selected months to process:\", Colors.BOLD)\n        for folder_name, month_code in selected_months:\n            print_colored(f\"  \u2022 {month_code} ({folder_name})\", Colors.WHITE)\n\n        # Processing options\n        print_step(4, \"Processing options\")\n\n        # Ask for dry run\n        dry_run_choice = input(f\"Run in dry-run mode? (y/N): \").strip().lower()\n        dry_run = dry_run_choice in ['y', 'yes']\n\n        if dry_run:\n            print_warning(\"Running in DRY RUN mode - no files will be written\")\n\n        # Ask about Analysis generation (since it's causing timeouts)\n        print_colored(\"\\n\u26a0\ufe0f  Note: Analysis file generation can be slow for large datasets\", Colors.YELLOW)\n        skip_analysis_choice = input(\"Skip Analysis file generation? (y/N): \").strip().lower()\n        skip_analysis = skip_analysis_choice in ['y', 'yes']\n\n        if skip_analysis:\n            print_warning(\"Analysis file generation will be skipped\")\n\n        # Ask about retry logic\n        enable_retry_choice = input(\"Enable automatic retry on failure? (Y/n): \").strip().lower()\n        enable_retry = enable_retry_choice not in ['n', 'no']\n\n        # Confirm before processing\n        print_colored(f\"\\n\ud83d\ude80 Ready to process {len(selected_months)} months\", Colors.BOLD)\n        confirm = input(\"Continue? (y/N): \").strip().lower()\n\n        if confirm not in ['y', 'yes']:\n            print_colored(\"Operation cancelled.\", Colors.YELLOW)\n            sys.exit(0)\n\n        # Process each month\n        print_step(5, \"Processing months\")\n\n        successful_months = []\n        failed_months = []\n\n        for i, (folder_name, month_code) in enumerate(selected_months, 1):\n            print_colored(f\"\\n\ud83d\udcca Processing month {i}/{len(selected_months)}: {month_code}\", Colors.PURPLE)\n            print_colored(f\"{'='*40}\", Colors.PURPLE)\n\n            # Copy files\n            source_folder = Path(\"ALL-MONTHS\") / folder_name\n            dest_folder = Path(\"Raw-New-Month\")\n\n            if copy_month_files(source_folder, dest_folder):\n                # Run ETL pipeline with or without retry\n                success = False\n                if enable_retry:\n                    success = run_etl_pipeline_with_retry(month_code, dry_run, skip_analysis)\n                else:\n                    success = run_etl_pipeline(month_code, dry_run, skip_analysis)\n\n                if success:\n                    successful_months.append(month_code)\n                else:\n                    failed_months.append(month_code)\n            else:\n                failed_months.append(month_code)\n\n            # Clean up temp files\n            cleanup_temp_files()\n\n            # Brief pause between months\n            if i < len(selected_months):\n                print_colored(\"\u23f3 Pausing briefly before next month...\", Colors.BLUE)\n                time.sleep(2)\n\n        # Final summary\n        print_header(\"BATCH PROCESSING COMPLETE\")\n\n        if successful_months:\n            print_colored(f\"\u2705 Successfully processed {len(successful_months)} months:\", Colors.GREEN)\n            for month in successful_months:\n                print_colored(f\"  \u2022 {month}\", Colors.WHITE)\n\n        if failed_months:\n            print_colored(f\"\u274c Failed to process {len(failed_months)} months:\", Colors.RED)\n            for month in failed_months:\n                print_colored(f\"  \u2022 {month}\", Colors.WHITE)\n\n            # Provide troubleshooting tips\n            print_colored(f\"\\n\ud83d\udca1 Troubleshooting tips for failed months:\", Colors.YELLOW)\n            print_colored(\"  1. Check if you have enough disk space\", Colors.WHITE)\n            print_colored(\"  2. Try running with --skip-analysis flag\", Colors.WHITE)\n            print_colored(\"  3. Close other Excel files that might be open\", Colors.WHITE)\n            print_colored(\"  4. Check if files are on a network drive (can cause timeouts)\", Colors.WHITE)\n\n        if not dry_run:\n            print_colored(f\"\\n\ud83d\udcc1 Output files are available in:\", Colors.BOLD)\n            print_colored(f\"  \u2022 Reformat/ - Individual month files\", Colors.WHITE)\n            print_colored(f\"  \u2022 All-to-Date/ - Cumulative data files\", Colors.WHITE)\n            if not skip_analysis:\n                print_colored(f\"  \u2022 Analysis/ - Analysis files with lost license detection\", Colors.WHITE)\n\n        print_colored(f\"\\n\ud83c\udf89 Batch processing completed!\", Colors.GREEN)\n\n    except KeyboardInterrupt:\n        print_colored(f\"\\n\\n\u23f9\ufe0f  Operation cancelled by user\", Colors.YELLOW)\n        cleanup_temp_files()\n        sys.exit(0)\n    except Exception as e:\n        print_error(f\"Unexpected error: {e}\")\n        import traceback\n        traceback.print_exc()\n        cleanup_temp_files()\n        sys.exit(1)\n\nif __name__ == \"__main__\":\n    main()"
+    }
+  },
+  {
+    "session_id": "e0b87b21-9166-4d37-a2f3-d3590da2c79d",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/e0b87b21-9166-4d37-a2f3-d3590da2c79d.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "plan",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "TodoWrite",
+    "tool_input": {
+      "todos": [
+        {
+          "content": "Examine current analysis.py to understand column generation logic",
+          "status": "in_progress",
+          "activeForm": "Examining analysis.py column generation"
+        },
+        {
+          "content": "Identify where future month columns are being created with N/A values",
+          "status": "pending",
+          "activeForm": "Identifying future month column creation"
+        },
+        {
+          "content": "Modify logic to only generate columns for months up to current processing month",
+          "status": "pending",
+          "activeForm": "Modifying column generation logic"
+        },
+        {
+          "content": "Test the optimized version with a single month",
+          "status": "pending",
+          "activeForm": "Testing optimized analysis generation"
+        },
+        {
+          "content": "Run batch processing for failed months (9.24, 10.24, 11.24)",
+          "status": "pending",
+          "activeForm": "Running batch processing for failed months"
+        }
+      ]
+    }
+  },
+  {
+    "session_id": "e0b87b21-9166-4d37-a2f3-d3590da2c79d",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/e0b87b21-9166-4d37-a2f3-d3590da2c79d.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "plan",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Read",
+    "tool_input": {
+      "file_path": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy/src/adhs_etl/analysis.py",
+      "limit": 100
+    }
+  },
+  {
+    "session_id": "e0b87b21-9166-4d37-a2f3-d3590da2c79d",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/e0b87b21-9166-4d37-a2f3-d3590da2c79d.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "plan",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Read",
+    "tool_input": {
+      "file_path": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy/src/adhs_etl/analysis.py",
+      "offset": 100,
+      "limit": 150
+    }
+  },
+  {
+    "session_id": "e0b87b21-9166-4d37-a2f3-d3590da2c79d",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/e0b87b21-9166-4d37-a2f3-d3590da2c79d.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "plan",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Read",
+    "tool_input": {
+      "file_path": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy/scripts/generate_proper_analysis.py",
+      "limit": 150
+    }
+  },
+  {
+    "session_id": "e0b87b21-9166-4d37-a2f3-d3590da2c79d",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/e0b87b21-9166-4d37-a2f3-d3590da2c79d.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "plan",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Read",
+    "tool_input": {
+      "file_path": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy/scripts/generate_proper_analysis.py",
+      "offset": 200,
+      "limit": 200
+    }
+  },
+  {
+    "session_id": "e0b87b21-9166-4d37-a2f3-d3590da2c79d",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/e0b87b21-9166-4d37-a2f3-d3590da2c79d.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "plan",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "TodoWrite",
+    "tool_input": {
+      "todos": [
+        {
+          "content": "Examine current analysis.py to understand column generation logic",
+          "status": "completed",
+          "activeForm": "Examining analysis.py column generation"
+        },
+        {
+          "content": "Identify where future month columns are being created with N/A values",
+          "status": "completed",
+          "activeForm": "Identifying future month column creation"
+        },
+        {
+          "content": "Check cli_enhanced.py to see how Analysis is generated during batch processing",
+          "status": "in_progress",
+          "activeForm": "Checking cli_enhanced.py Analysis generation"
+        },
+        {
+          "content": "Create optimized version that only generates columns for processed months",
+          "status": "pending",
+          "activeForm": "Creating optimized column generation"
+        },
+        {
+          "content": "Test the optimized version with a single month",
+          "status": "pending",
+          "activeForm": "Testing optimized analysis generation"
+        },
+        {
+          "content": "Run batch processing for failed months (9.24, 10.24, 11.24)",
+          "status": "pending",
+          "activeForm": "Running batch processing for failed months"
+        }
+      ]
+    }
+  },
+  {
+    "session_id": "e0b87b21-9166-4d37-a2f3-d3590da2c79d",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/e0b87b21-9166-4d37-a2f3-d3590da2c79d.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "plan",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Grep",
+    "tool_input": {
+      "pattern": "def.*analysis|create.*analysis|Analysis",
+      "path": "src/adhs_etl/cli_enhanced.py",
+      "output_mode": "content",
+      "-B": 2,
+      "-A": 5,
+      "-n": true
+    }
+  },
+  {
+    "session_id": "e0b87b21-9166-4d37-a2f3-d3590da2c79d",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/e0b87b21-9166-4d37-a2f3-d3590da2c79d.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "plan",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Grep",
+    "tool_input": {
+      "pattern": "def ensure_all_analysis_columns",
+      "path": "src/adhs_etl",
+      "output_mode": "content",
+      "-B": 2,
+      "-A": 50,
+      "-n": true
+    }
+  },
+  {
+    "session_id": "e0b87b21-9166-4d37-a2f3-d3590da2c79d",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/e0b87b21-9166-4d37-a2f3-d3590da2c79d.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "plan",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Grep",
+    "tool_input": {
+      "pattern": "all_historical_df|load_all_historical_data",
+      "path": "src/adhs_etl/cli_enhanced.py",
+      "output_mode": "content",
+      "-B": 2,
+      "-A": 5,
+      "-n": true
+    }
+  },
+  {
+    "session_id": "e0b87b21-9166-4d37-a2f3-d3590da2c79d",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/e0b87b21-9166-4d37-a2f3-d3590da2c79d.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "plan",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Grep",
+    "tool_input": {
+      "pattern": "def get_all_historical_data",
+      "path": "src/adhs_etl/cli_enhanced.py",
+      "output_mode": "content",
+      "-B": 2,
+      "-A": 15,
+      "-n": true
+    }
+  },
+  {
+    "session_id": "e0b87b21-9166-4d37-a2f3-d3590da2c79d",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/e0b87b21-9166-4d37-a2f3-d3590da2c79d.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "plan",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "TodoWrite",
+    "tool_input": {
+      "todos": [
+        {
+          "content": "Examine current analysis.py to understand column generation logic",
+          "status": "completed",
+          "activeForm": "Examining analysis.py column generation"
+        },
+        {
+          "content": "Identify where future month columns are being created with N/A values",
+          "status": "completed",
+          "activeForm": "Identifying future month column creation"
+        },
+        {
+          "content": "Check cli_enhanced.py to see how Analysis is generated during batch processing",
+          "status": "completed",
+          "activeForm": "Checking cli_enhanced.py Analysis generation"
+        },
+        {
+          "content": "Create optimized version that only generates columns for processed months",
+          "status": "pending",
+          "activeForm": "Creating optimized column generation"
+        },
+        {
+          "content": "Test the optimized version with a single month",
+          "status": "pending",
+          "activeForm": "Testing optimized analysis generation"
+        },
+        {
+          "content": "Run batch processing for failed months (9.24, 10.24, 11.24)",
+          "status": "pending",
+          "activeForm": "Running batch processing for failed months"
+        }
+      ]
+    }
+  },
+  {
+    "session_id": "e0b87b21-9166-4d37-a2f3-d3590da2c79d",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/e0b87b21-9166-4d37-a2f3-d3590da2c79d.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "plan",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "ExitPlanMode",
+    "tool_input": {
+      "plan": "## \ud83c\udfaf Plan to Fix Analysis File Generation Timeout Issue\n\n### Problem Identified\nThe Analysis file generation is timing out because it's creating **200+ unnecessary columns** filled with N/A values for months that haven't been processed yet:\n\n1. **`ensure_all_analysis_columns` method** in `analysis.py` hardcodes columns for ALL months from 1.22 through 12.25 (4 years!)\n2. For each month, it creates 3 columns: COUNT, TO PREV, and SUMMARY  \n3. This results in **144+ monthly columns** plus **40+ property tracking columns**\n4. When processing month 9.24, it creates columns for 10.24-12.25 with millions of N/A values\n5. This creates 7MB+ Excel files that timeout when saving\n\n### Solution Strategy\n\n#### 1. **Optimize `ensure_all_analysis_columns` method** (src/adhs_etl/analysis.py)\n- Dynamically build column list based on ONLY processed months\n- Extract months from `all_historical_df` to determine which months have data\n- Only create columns for months up to and including the current processing month\n- Skip future months entirely (no N/A columns)\n\n#### 2. **Create helper method to determine processed months**\n```python\ndef get_processed_months(all_historical_df, current_month, current_year):\n    \"\"\"Get list of months that have been processed up to current month.\"\"\"\n    # Extract unique month/year combinations from historical data\n    # Include current processing month\n    # Return sorted list of (month, year) tuples\n```\n\n#### 3. **Update column generation logic**\n- Replace hardcoded month lists with dynamic generation\n- Only include COUNT, TO PREV, SUMMARY columns for processed months\n- Property columns (BE-CQ, CR-EE) only for months with actual data\n\n#### 4. **Optimize file writing**\n- Remove unnecessary formatting that may slow down writing\n- Consider chunked writing if needed\n\n### Files to Modify\n1. **src/adhs_etl/analysis.py**\n   - `ensure_all_analysis_columns()` - Dynamic column generation\n   - Add `get_processed_months()` helper method\n   - Update column lists to be dynamic\n\n2. **scripts/generate_proper_analysis.py** \n   - Update `create_proper_analysis_sheet()` to use dynamic columns\n   - Remove hardcoded month columns\n\n### Expected Results\n- **Reduced file size**: From 7MB to ~2-3MB for early months\n- **Faster processing**: No timeout errors\n- **Cleaner data**: Only relevant columns, no unnecessary N/A values\n- **Scalable**: Works efficiently regardless of which month is being processed\n\n### Testing Plan\n1. Test with month 9.24 (first month with issues)\n2. Verify file size reduction\n3. Run batch processing for 9.24, 10.24, 11.24\n4. Confirm all three months process successfully"
+    }
   }
 ]

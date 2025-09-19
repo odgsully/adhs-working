@@ -267,7 +267,7 @@ def run(
         analysis_df = analyzer.create_movement_columns(analysis_df, months_data)
         analysis_df = analyzer.create_summary_columns(analysis_df)
     
-    # Ensure all 63 columns from v100Track_this_shit.xlsx are present
+    # Ensure all columns from v300Track_this.xlsx as defined in v300Track_this.md are present
     analysis_df = analyzer.ensure_all_analysis_columns(analysis_df, month_num, year_num)
     
     # Fix MONTH and YEAR columns to only show the processing month/year

@@ -315,12 +315,12 @@ class ProviderAnalyzer:
         return df
     
     def ensure_all_analysis_columns(self, df: pd.DataFrame, processing_month: int = None, processing_year: int = None) -> pd.DataFrame:
-        """Ensure all 63 columns from v100Track_this_shit.xlsx are present in the analysis output."""
+        """Ensure all columns from v300Track_this.xlsx as defined in v300Track_this.md are present in the analysis output."""
         df = df.copy()
-        
-        # Define the complete set of columns expected in analysis output (exactly 63 columns to match v100Track_this_shit.xlsx)
+
+        # Define the complete set of columns expected in analysis output (150+ columns to match v300Track_this.xlsx)
         expected_columns = [
-            # Core provider data
+            # Core provider data (Columns A-P)
             'SOLO PROVIDER_TYPE PROVIDER [Y, #]',
             'PROVIDER_TYPE',
             'PROVIDER',
@@ -333,34 +333,78 @@ class ProviderAnalyzer:
             'LATITUDE',
             'COUNTY',
             'PROVIDER_GROUP_INDEX_#',
-            
+
             # Provider grouping
             'PROVIDER GROUP (DBA CONCAT)',
             'PROVIDER GROUP, ADDRESS COUNT',
             'THIS MONTH STATUS',
             'LEAD TYPE',
-            
-            # Monthly counts (9.24 through 12.25)
+
+            # Extended Monthly counts (Columns Q-BD) - 40+ months from 1.22 through 12.25
+            '1.22 COUNT', '2.22 COUNT', '3.22 COUNT', '4.22 COUNT',
+            '5.22 COUNT', '6.22 COUNT', '7.22 COUNT', '8.22 COUNT',
+            '9.22 COUNT', '10.22 COUNT', '11.22 COUNT', '12.22 COUNT',
+            '1.23 COUNT', '2.23 COUNT', '3.23 COUNT', '4.23 COUNT',
+            '5.23 COUNT', '6.23 COUNT', '7.23 COUNT', '8.23 COUNT',
+            '9.23 COUNT', '10.23 COUNT', '11.23 COUNT', '12.23 COUNT',
+            '1.24 COUNT', '2.24 COUNT', '3.24 COUNT', '4.24 COUNT',
+            '5.24 COUNT', '6.24 COUNT', '7.24 COUNT', '8.24 COUNT',
             '9.24 COUNT', '10.24 COUNT', '11.24 COUNT', '12.24 COUNT',
             '1.25 COUNT', '2.25 COUNT', '3.25 COUNT', '4.25 COUNT',
             '5.25 COUNT', '6.25 COUNT', '7.25 COUNT', '8.25 COUNT',
             '9.25 COUNT', '10.25 COUNT', '11.25 COUNT', '12.25 COUNT',
-            
-            # Monthly movements (10.24 through 12.25)
-            '10.24 TO PREV', '11.24 TO PREV', '12.24 TO PREV',
+
+            # Extended Monthly movements (Columns BE-CQ) - TO PREV for 40+ months
+            '2.22 TO PREV', '3.22 TO PREV', '4.22 TO PREV',
+            '5.22 TO PREV', '6.22 TO PREV', '7.22 TO PREV', '8.22 TO PREV',
+            '9.22 TO PREV', '10.22 TO PREV', '11.22 TO PREV', '12.22 TO PREV',
+            '1.23 TO PREV', '2.23 TO PREV', '3.23 TO PREV', '4.23 TO PREV',
+            '5.23 TO PREV', '6.23 TO PREV', '7.23 TO PREV', '8.23 TO PREV',
+            '9.23 TO PREV', '10.23 TO PREV', '11.23 TO PREV', '12.23 TO PREV',
+            '1.24 TO PREV', '2.24 TO PREV', '3.24 TO PREV', '4.24 TO PREV',
+            '5.24 TO PREV', '6.24 TO PREV', '7.24 TO PREV', '8.24 TO PREV',
+            '9.24 TO PREV', '10.24 TO PREV', '11.24 TO PREV', '12.24 TO PREV',
             '1.25 TO PREV', '2.25 TO PREV', '3.25 TO PREV', '4.25 TO PREV',
             '5.25 TO PREV', '6.25 TO PREV', '7.25 TO PREV', '8.25 TO PREV',
             '9.25 TO PREV', '10.25 TO PREV', '11.25 TO PREV', '12.25 TO PREV',
-            
-            # Monthly summaries (9.24 through 12.25)
+
+            # Extended Monthly summaries (Columns CR-EE) - SUMMARY for 40+ months
+            '1.22 SUMMARY', '2.22 SUMMARY', '3.22 SUMMARY', '4.22 SUMMARY',
+            '5.22 SUMMARY', '6.22 SUMMARY', '7.22 SUMMARY', '8.22 SUMMARY',
+            '9.22 SUMMARY', '10.22 SUMMARY', '11.22 SUMMARY', '12.22 SUMMARY',
+            '1.23 SUMMARY', '2.23 SUMMARY', '3.23 SUMMARY', '4.23 SUMMARY',
+            '5.23 SUMMARY', '6.23 SUMMARY', '7.23 SUMMARY', '8.23 SUMMARY',
+            '9.23 SUMMARY', '10.23 SUMMARY', '11.23 SUMMARY', '12.23 SUMMARY',
+            '1.24 SUMMARY', '2.24 SUMMARY', '3.24 SUMMARY', '4.24 SUMMARY',
+            '5.24 SUMMARY', '6.24 SUMMARY', '7.24 SUMMARY', '8.24 SUMMARY',
             '9.24 SUMMARY', '10.24 SUMMARY', '11.24 SUMMARY', '12.24 SUMMARY',
             '1.25 SUMMARY', '2.25 SUMMARY', '3.25 SUMMARY', '4.25 SUMMARY',
             '5.25 SUMMARY', '6.25 SUMMARY', '7.25 SUMMARY', '8.25 SUMMARY',
             '9.25 SUMMARY', '10.25 SUMMARY', '11.25 SUMMARY', '12.25 SUMMARY',
-            
-            # Metadata
+
+            # Metadata (Columns EF-EG) - repositioned after extended historical columns
             'MONTH',
-            'YEAR'
+            'YEAR',
+
+            # Enhanced Tracking Fields (Columns EH-EY) - 18 new v300 fields
+            'PREVIOUS_MONTH_STATUS',
+            'STATUS_CONFIDENCE',
+            'PROVIDER_TYPES_GAINED',
+            'PROVIDER_TYPES_LOST',
+            'NET_TYPE_CHANGE',
+            'MONTHS_SINCE_LOST',
+            'REINSTATED_FLAG',
+            'REINSTATED_DATE',
+            'DATA_QUALITY_SCORE',
+            'MANUAL_REVIEW_FLAG',
+            'REVIEW_NOTES',
+            'LAST_ACTIVE_MONTH',
+            'REGIONAL_MARKET',
+            'HISTORICAL_STABILITY_SCORE',
+            'EXPANSION_VELOCITY',
+            'CONTRACTION_RISK',
+            'MULTI_CITY_OPERATOR',
+            'RELOCATION_FLAG'
         ]
         
         # Add any missing columns with appropriate default values

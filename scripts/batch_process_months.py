@@ -170,7 +170,7 @@ def run_etl_pipeline(month_code: str, dry_run: bool = False) -> bool:
     try:
         # Use direct Python execution instead of Poetry
         cmd = [
-            "python", "-m", "adhs_etl.cli_enhanced", "run",
+            "python3", "-m", "adhs_etl.cli_enhanced", "run",
             "--month", month_code,
             "--raw-dir", "./Raw-New-Month"
         ]
@@ -231,14 +231,14 @@ def check_prerequisites() -> bool:
     
     # Check if Python is available
     try:
-        result = subprocess.run(["python", "--version"], capture_output=True)
+        result = subprocess.run(["python3", "--version"], capture_output=True)
         if result.returncode == 0:
-            print_success("Python is available")
+            print_success("Python 3 is available")
         else:
-            print_error("Python is not available. Please install Python first.")
+            print_error("Python 3 is not available. Please install Python 3 first.")
             return False
     except:
-        print_error("Python is not available. Please install Python first.")
+        print_error("Python 3 is not available. Please install Python 3 first.")
         return False
     
     # Check if Raw-New-Month directory exists
