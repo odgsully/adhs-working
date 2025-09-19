@@ -1,13 +1,14 @@
 # v300Track Analysis Sheet - Complete Field Definitions
 
-## Version Overview
-**v300Track** represents a major enhancement with:
-- Extended historical tracking (Q:EE for monthly data spanning longer periods)
-- Full address consolidation in Column G
-- County data addition in Column K
-- Enhanced tracking fields now starting at Column EH
+## Project Overview and Goal
 
----
+**Objective**: Have a simple clean functioning database with exceptional mapping & attention to detail. I have a monthly recurring number of datasets to download. The goal is to have a singular script that gives Reformatting capabilities and Analysis with perfect data execution.
+
+**Data Source**: References a local folder called 'ALL-MONTHS', located: `/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy/ALL-MONTHS`. These separate excel files are a straight raw download from Arizona Department of Health Services where it lists active licenses each month.
+
+**Business Value**: There is a lot of value to be able to see who is no longer licensed as it could be a Lead opportunity for an owner looking to sell the location which is beneficial for me as a investor. Then lead opportunities in surveying the steady licensees for my research business. Both great lead generation and we need to create great and sound analysis to differentiate & diagnose where every provider is on a individual and PROVIDER_GROUP_INDEX_# basis.
+
+**Ultimate Goal**: Besides documentation output files, this is a large part of the ultimate goal to populate the 'M.YY Analysis.xlsx' output file with perfect accuracy.
 
 ## Core Identification Fields (Columns A-P)
 
@@ -70,7 +71,7 @@ CONCATENATE(Column D, ", ", Column E, ", AZ ", Column F)
 **Note**: Shifted one column right due to FULL_ADDRESS addition
 
 ### Column K: COUNTY
-**Source**: Direct from Raw file
+**Source**: Direct from Reformat file
 **Values**: County names (e.g., "MARICOPA", "PIMA", "COCONINO")
 **Purpose**: Enables county-level analysis and regional tracking
 **Note**: This shifts PROVIDER GROUP INDEX # to Column L
@@ -87,8 +88,6 @@ Groups assigned unique index based on:
 2. Sequential numbering starting from 1
 3. Solo providers get unique index
 4. Group members share same index number
-5. Merger: lowest index number wins
-6. Split: original keeps index, new gets next available
 ```
 
 ### Column M: PROVIDER GROUP (DBA CONCAT)
@@ -117,7 +116,7 @@ FOR each PROVIDER GROUP INDEX #:
 **Source**: Calculated by comparing current month to previous month
 **Logic**:
 ```
-IF no record in previous month AND Column A = "Y"
+IF no record in previous months AND Column A = "Y"
   THEN "NEW PROVIDER TYPE, NEW ADDRESS"
 
 ELSE IF provider+type exists in previous month at same FULL_ADDRESS
@@ -143,36 +142,52 @@ ELSE IF provider+type+FULL_ADDRESS existed last month but not this month
 
 ### Column P: LEAD TYPE
 **Source**: Derived from THIS MONTH STATUS
+**Logic**:
+```
+'New PROVIDER TYPE, New ADDRESS' = 'Survey Lead'
+'New PROVIDER TYPE, Existing ADDRESS' = 'Survey Lead'
+'Existing PROVIDER TYPE, New ADDRESS' = 'Survey Lead'
+'Existing PROVIDER TYPE, Existing ADDRESS' = 'Survey Lead'
+'Lost PROVIDER TYPE, Existing ADDRESS' = 'Seller/Survey Lead'
+'Lost PROVIDER TYPE, Lost ADDRESS (0 remain)' = 'Seller Lead'
+'Lost PROVIDER TYPE, Lost ADDRESS (1+ remain)' = 'Seller Lead'
+```
 
 
 
-### Columns Q-BD: [Month.Year] COUNT
+### Columns Q-BD: M.YY_COUNT
 **Coverage**: Extended historical range spanning 40+ months
 **Logic**:
 ```
 FOR each month column:
+  COUNT the number of FULL ADDRESS records for the corresponding PROVIDER
+  in the M.YY Reformat file
+
   IF provider+type+FULL ADDRESS exists in that month's Reformat file
     THEN 1
   ELSE 0
 ```
+**Note**: This is a COUNT of the number of FULL ADDRESS records for the corresponding PROVIDER record in each M.YY Reformat file. For processing a single month M.YY Analysis, copy values from the previous month's workbook for all previous months.
 **Span**: Now covers 40+ months of historical data
 **Example Columns**:
-- Q: "1.22 COUNT"
-- R: "2.22 COUNT"
+- Q: "1.22_COUNT"
+- R: "2.22_COUNT"
 - ...continuing through...
-- BD: "12.25 COUNT"
+- BD: "12.25_COUNT"
 
 
 
-### Columns BE-CQ: [Month.Year] TO PREV
+### Columns BE-CQ: M.YY TO PREV
 **Coverage**: Matches extended count range
 **Logic**:
 ```
+Comparing the subject month COUNT to the previous month COUNT in Q-BD columns
+
 Current month COUNT - Previous month COUNT
 Results:
-  1 = Added this month
-  0 = No change
-  -1 = Lost this month
+  'Decreased' = Count went down
+  'Increased' = Count went up
+  'No movement' = Count stayed the same
 ```
 **Span**: Covers same 40+ month range as COUNT section
 

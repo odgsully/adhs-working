@@ -548,5 +548,239 @@
         }
       ]
     }
+  },
+  {
+    "session_id": "03b36817-ed29-4577-ac8a-070a0e13a21f",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/03b36817-ed29-4577-ac8a-070a0e13a21f.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "default",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Glob",
+    "tool_input": {
+      "pattern": "**/*300*Track*.md"
+    }
+  },
+  {
+    "session_id": "03b36817-ed29-4577-ac8a-070a0e13a21f",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/03b36817-ed29-4577-ac8a-070a0e13a21f.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "default",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Read",
+    "tool_input": {
+      "file_path": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy/v300Track_this.md"
+    }
+  },
+  {
+    "session_id": "03b36817-ed29-4577-ac8a-070a0e13a21f",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/03b36817-ed29-4577-ac8a-070a0e13a21f.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "default",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "TodoWrite",
+    "tool_input": {
+      "todos": [
+        {
+          "content": "Update Column K documentation to show it pulls from Reformat not Raw",
+          "status": "in_progress",
+          "activeForm": "Updating Column K documentation"
+        },
+        {
+          "content": "Remove merger and split logic from Column L",
+          "status": "pending",
+          "activeForm": "Removing merger and split logic from Column L"
+        },
+        {
+          "content": "Update Column P with specific lead type logic",
+          "status": "pending",
+          "activeForm": "Updating Column P with lead type logic"
+        },
+        {
+          "content": "Update Columns Q-BD documentation to specify M.YY_COUNT details",
+          "status": "pending",
+          "activeForm": "Updating Columns Q-BD documentation"
+        },
+        {
+          "content": "Update Column O logic for 'previous months' plural",
+          "status": "pending",
+          "activeForm": "Updating Column O logic"
+        },
+        {
+          "content": "Update BE-CQ documentation with comparison results logic",
+          "status": "pending",
+          "activeForm": "Updating BE-CQ documentation"
+        }
+      ]
+    }
+  },
+  {
+    "session_id": "03b36817-ed29-4577-ac8a-070a0e13a21f",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/03b36817-ed29-4577-ac8a-070a0e13a21f.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "default",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "MultiEdit",
+    "tool_input": {
+      "file_path": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy/v300Track_this.md",
+      "edits": [
+        {
+          "old_string": "### Column K: COUNTY\n**Source**: Direct from Raw file\n**Values**: County names (e.g., \"MARICOPA\", \"PIMA\", \"COCONINO\")\n**Purpose**: Enables county-level analysis and regional tracking\n**Note**: This shifts PROVIDER GROUP INDEX # to Column L",
+          "new_string": "### Column K: COUNTY\n**Source**: Direct from Reformat file\n**Values**: County names (e.g., \"MARICOPA\", \"PIMA\", \"COCONINO\")\n**Purpose**: Enables county-level analysis and regional tracking\n**Note**: This shifts PROVIDER GROUP INDEX # to Column L"
+        },
+        {
+          "old_string": "### Column L: PROVIDER GROUP INDEX #\n**Source**: Calculated during Reformat process\n**Note**: Positioned after COUNTY field\n**Logic**:\n```\nGroups assigned unique index based on:\n1. Provider name matching:\n   - 85%+ fuzzy match (Levenshtein distance) OR\n   - 20+ consecutive matching characters\n2. Sequential numbering starting from 1\n3. Solo providers get unique index\n4. Group members share same index number\n5. Merger: lowest index number wins\n6. Split: original keeps index, new gets next available\n```",
+          "new_string": "### Column L: PROVIDER GROUP INDEX #\n**Source**: Calculated during Reformat process\n**Note**: Positioned after COUNTY field\n**Logic**:\n```\nGroups assigned unique index based on:\n1. Provider name matching:\n   - 85%+ fuzzy match (Levenshtein distance) OR\n   - 20+ consecutive matching characters\n2. Sequential numbering starting from 1\n3. Solo providers get unique index\n4. Group members share same index number\n```"
+        },
+        {
+          "old_string": "### Column O: THIS MONTH STATUS\n**Source**: Calculated by comparing current month to previous month\n**Logic**:\n```\nIF no record in previous month AND Column A = \"Y\"\n  THEN \"NEW PROVIDER TYPE, NEW ADDRESS\"",
+          "new_string": "### Column O: THIS MONTH STATUS\n**Source**: Calculated by comparing current month to previous month\n**Logic**:\n```\nIF no record in previous months AND Column A = \"Y\"\n  THEN \"NEW PROVIDER TYPE, NEW ADDRESS\""
+        },
+        {
+          "old_string": "### Column P: LEAD TYPE\n**Source**: Derived from THIS MONTH STATUS",
+          "new_string": "### Column P: LEAD TYPE\n**Source**: Derived from THIS MONTH STATUS\n**Logic**:\n```\n'New PROVIDER TYPE, New ADDRESS' = 'Survey Lead'\n'New PROVIDER TYPE, Existing ADDRESS' = 'Survey Lead'\n'Existing PROVIDER TYPE, New ADDRESS' = 'Survey Lead'\n'Existing PROVIDER TYPE, Existing ADDRESS' = 'Survey Lead'\n'Lost PROVIDER TYPE, Existing ADDRESS' = 'Seller/Survey Lead'\n'Lost PROVIDER TYPE, Lost ADDRESS (0 remain)' = 'Seller Lead'\n'Lost PROVIDER TYPE, Lost ADDRESS (1+ remain)' = 'Seller Lead'\n```"
+        },
+        {
+          "old_string": "### Columns Q-BD: [Month.Year] COUNT\n**Coverage**: Extended historical range spanning 40+ months\n**Logic**:\n```\nFOR each month column:\n  IF provider+type+FULL ADDRESS exists in that month's Reformat file\n    THEN 1\n  ELSE 0\n```\n**Span**: Now covers 40+ months of historical data\n**Example Columns**:\n- Q: \"1.22 COUNT\"\n- R: \"2.22 COUNT\"\n- ...continuing through...\n- BD: \"12.25 COUNT\"",
+          "new_string": "### Columns Q-BD: M.YY_COUNT\n**Coverage**: Extended historical range spanning 40+ months\n**Logic**:\n```\nFOR each month column:\n  COUNT the number of FULL ADDRESS records for the corresponding PROVIDER\n  in the M.YY Reformat file\n\n  IF provider+type+FULL ADDRESS exists in that month's Reformat file\n    THEN 1\n  ELSE 0\n```\n**Note**: This is a COUNT of the number of FULL ADDRESS records for the corresponding PROVIDER record in each M.YY Reformat file. For processing a single month M.YY Analysis, copy values from the previous month's workbook for all previous months.\n**Span**: Now covers 40+ months of historical data\n**Example Columns**:\n- Q: \"1.22_COUNT\"\n- R: \"2.22_COUNT\"\n- ...continuing through...\n- BD: \"12.25_COUNT\""
+        },
+        {
+          "old_string": "### Columns BE-CQ: [Month.Year] TO PREV\n**Coverage**: Matches extended count range\n**Logic**:\n```\nCurrent month COUNT - Previous month COUNT\nResults:\n  1 = Added this month\n  0 = No change\n  -1 = Lost this month\n```\n**Span**: Covers same 40+ month range as COUNT section",
+          "new_string": "### Columns BE-CQ: M.YY TO PREV\n**Coverage**: Matches extended count range\n**Logic**:\n```\nComparing the subject month COUNT to the previous month COUNT in Q-BD columns\n\nCurrent month COUNT - Previous month COUNT\nResults:\n  'Decreased' = Count went down\n  'Increased' = Count went up\n  'No movement' = Count stayed the same\n```\n**Span**: Covers same 40+ month range as COUNT section"
+        }
+      ]
+    }
+  },
+  {
+    "session_id": "03b36817-ed29-4577-ac8a-070a0e13a21f",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/03b36817-ed29-4577-ac8a-070a0e13a21f.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "default",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "TodoWrite",
+    "tool_input": {
+      "todos": [
+        {
+          "content": "Update Column K documentation to show it pulls from Reformat not Raw",
+          "status": "completed",
+          "activeForm": "Updating Column K documentation"
+        },
+        {
+          "content": "Remove merger and split logic from Column L",
+          "status": "completed",
+          "activeForm": "Removing merger and split logic from Column L"
+        },
+        {
+          "content": "Update Column P with specific lead type logic",
+          "status": "completed",
+          "activeForm": "Updating Column P with lead type logic"
+        },
+        {
+          "content": "Update Columns Q-BD documentation to specify M.YY_COUNT details",
+          "status": "completed",
+          "activeForm": "Updating Columns Q-BD documentation"
+        },
+        {
+          "content": "Update Column O logic for 'previous months' plural",
+          "status": "completed",
+          "activeForm": "Updating Column O logic"
+        },
+        {
+          "content": "Update BE-CQ documentation with comparison results logic",
+          "status": "completed",
+          "activeForm": "Updating BE-CQ documentation"
+        }
+      ]
+    }
+  },
+  {
+    "session_id": "03b36817-ed29-4577-ac8a-070a0e13a21f",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/03b36817-ed29-4577-ac8a-070a0e13a21f.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "default",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "TodoWrite",
+    "tool_input": {
+      "todos": [
+        {
+          "content": "Read and understand the new rows 10-22 content that needs to be incorporated",
+          "status": "in_progress",
+          "activeForm": "Reading new rows 10-22 content"
+        },
+        {
+          "content": "Update v300Track_this.md with the new rows 10-22 in matching format",
+          "status": "pending",
+          "activeForm": "Updating v300Track_this.md with new rows content"
+        }
+      ]
+    }
+  },
+  {
+    "session_id": "03b36817-ed29-4577-ac8a-070a0e13a21f",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/03b36817-ed29-4577-ac8a-070a0e13a21f.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "default",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Read",
+    "tool_input": {
+      "file_path": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy/v300Track_this.md",
+      "limit": 30
+    }
+  },
+  {
+    "session_id": "03b36817-ed29-4577-ac8a-070a0e13a21f",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/03b36817-ed29-4577-ac8a-070a0e13a21f.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "default",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "TodoWrite",
+    "tool_input": {
+      "todos": [
+        {
+          "content": "Read and understand the new rows 10-22 content that needs to be incorporated",
+          "status": "completed",
+          "activeForm": "Reading new rows 10-22 content"
+        },
+        {
+          "content": "Update v300Track_this.md with the new rows 10-22 in matching format",
+          "status": "in_progress",
+          "activeForm": "Updating v300Track_this.md with new rows content"
+        }
+      ]
+    }
+  },
+  {
+    "session_id": "03b36817-ed29-4577-ac8a-070a0e13a21f",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/03b36817-ed29-4577-ac8a-070a0e13a21f.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "default",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Edit",
+    "tool_input": {
+      "file_path": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy/v300Track_this.md",
+      "old_string": "## Version Overview\n**v300Track** represents a major enhancement with:\n- Extended historical tracking (Q:EE for monthly data spanning longer periods)\n- Full address consolidation in Column G\n- County data addition in Column K\n- Enhanced tracking fields now starting at Column EH\n\n\nProject overview and Goal ' Have a simple clean functioning database with\nexceptional mapping & attention to detail. I have a monthly recurring number of\ndatasets to download. The goal is to have a singular script that gives\nReformatting capabilities and Analysis with perfect data execution. References a\nlocal folder called 'ALL-MONTHS', located: /Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy/ALL-MONTHS. These separate excel files are a straight raw download from Arizona\nDepartment of Health Services where it lists active licenses each month. There\nis a lot of value to be able to see who is no longer licensed as it could be a\nLead opportunity for an owner looking to sell the location which is beneficial for me as a investor. Then lead opportunities in surveying the steady licensees for my research business. Both great lead generation and we need to create great and sound analysis to differentiate & diagnose where every provider is on a individual and PROVIDER_GROUP_INDEX_# basis. \n\nBesides documentation output files, this is a large part of the ultimate goal to\npopulate the 'M.YY Analysis.xlsx' output file with perfect accuracy.",
+      "new_string": "## Project Overview and Goal\n\n**Objective**: Have a simple clean functioning database with exceptional mapping & attention to detail. I have a monthly recurring number of datasets to download. The goal is to have a singular script that gives Reformatting capabilities and Analysis with perfect data execution.\n\n**Data Source**: References a local folder called 'ALL-MONTHS', located: `/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy/ALL-MONTHS`. These separate excel files are a straight raw download from Arizona Department of Health Services where it lists active licenses each month.\n\n**Business Value**: There is a lot of value to be able to see who is no longer licensed as it could be a Lead opportunity for an owner looking to sell the location which is beneficial for me as a investor. Then lead opportunities in surveying the steady licensees for my research business. Both great lead generation and we need to create great and sound analysis to differentiate & diagnose where every provider is on a individual and PROVIDER_GROUP_INDEX_# basis.\n\n**Ultimate Goal**: Besides documentation output files, this is a large part of the ultimate goal to populate the 'M.YY Analysis.xlsx' output file with perfect accuracy.\n\n## Version Overview\n**v300Track** represents a major enhancement with:\n- Extended historical tracking (Q:EE for monthly data spanning longer periods)\n- Full address consolidation in Column G\n- County data addition in Column K\n- Enhanced tracking fields now starting at Column EH"
+    }
+  },
+  {
+    "session_id": "03b36817-ed29-4577-ac8a-070a0e13a21f",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/03b36817-ed29-4577-ac8a-070a0e13a21f.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "default",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "TodoWrite",
+    "tool_input": {
+      "todos": [
+        {
+          "content": "Read and understand the new rows 10-22 content that needs to be incorporated",
+          "status": "completed",
+          "activeForm": "Reading new rows 10-22 content"
+        },
+        {
+          "content": "Update v300Track_this.md with the new rows 10-22 in matching format",
+          "status": "completed",
+          "activeForm": "Updating v300Track_this.md with new rows content"
+        }
+      ]
+    }
   }
 ]
