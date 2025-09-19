@@ -90,7 +90,7 @@ class TestAllToDateCompilation:
         month1_data = pd.DataFrame({
             'MONTH': [1, 1],
             'YEAR': [2025, 2025],
-            'PROVIDER TYPE': ['NURSING_HOME', 'NURSING_HOME'],
+            'PROVIDER_TYPE': ['NURSING_HOME', 'NURSING_HOME'],
             'PROVIDER': ['Provider A', 'Provider B'],
             'ADDRESS': ['123 Main St', '456 Oak Ave'],
             'CITY': ['Phoenix', 'Tucson'],
@@ -98,13 +98,13 @@ class TestAllToDateCompilation:
             'CAPACITY': [50, 75],
             'LONGITUDE': [-112.0, -111.0],
             'LATITUDE': [33.5, 32.5],
-            'PROVIDER GROUP INDEX #': [1, 2]
+            'PROVIDER_GROUP_INDEX_#': [1, 2]
         })
         
         month2_data = pd.DataFrame({
             'MONTH': [2, 2],
             'YEAR': [2025, 2025],
-            'PROVIDER TYPE': ['NURSING_HOME', 'ASSISTED_LIVING_CENTER'],
+            'PROVIDER_TYPE': ['NURSING_HOME', 'ASSISTED_LIVING_CENTER'],
             'PROVIDER': ['Provider A', 'Provider C'],
             'ADDRESS': ['123 Main St', '789 Pine Rd'],
             'CITY': ['Phoenix', 'Mesa'],
@@ -112,7 +112,7 @@ class TestAllToDateCompilation:
             'CAPACITY': [50, 100],
             'LONGITUDE': [-112.0, -111.5],
             'LATITUDE': [33.5, 33.0],
-            'PROVIDER GROUP INDEX #': [1, 3]
+            'PROVIDER_GROUP_INDEX_#': [1, 3]
         })
         
         # Test that combining months works correctly
@@ -126,8 +126,9 @@ class TestAllToDateCompilation:
         assert 2 in combined['MONTH'].values
         
         # Should preserve all required columns
-        required_cols = ['MONTH', 'YEAR', 'PROVIDER TYPE', 'PROVIDER', 
-                        'ADDRESS', 'CITY', 'ZIP', 'CAPACITY', 'LONGITUDE', 'LATITUDE']
+        required_cols = ['MONTH', 'YEAR', 'PROVIDER_TYPE', 'PROVIDER',
+                        'ADDRESS', 'CITY', 'ZIP', 'FULL_ADDRESS', 'CAPACITY',
+                        'LONGITUDE', 'LATITUDE', 'COUNTY']
         for col in required_cols:
             assert col in combined.columns
     
@@ -137,7 +138,7 @@ class TestAllToDateCompilation:
         test_data = pd.DataFrame({
             'MONTH': [1, 1, 1],
             'YEAR': [2025, 2025, 2025],
-            'PROVIDER TYPE': ['NURSING_HOME', 'NURSING_HOME', 'NURSING_HOME'],
+            'PROVIDER_TYPE': ['NURSING_HOME', 'NURSING_HOME', 'NURSING_HOME'],
             'PROVIDER': ['Provider A', 'Provider A', 'Provider B'],
             'ADDRESS': ['123 Main St', '123 Main St', '456 Oak Ave'],
             'CITY': ['Phoenix', 'Phoenix', 'Tucson'],
@@ -145,12 +146,12 @@ class TestAllToDateCompilation:
             'CAPACITY': [50, 50, 75],
             'LONGITUDE': [-112.0, -112.0, -111.0],
             'LATITUDE': [33.5, 33.5, 32.5],
-            'PROVIDER GROUP INDEX #': [1, 1, 2]
+            'PROVIDER_GROUP_INDEX_#': [1, 1, 2]
         })
         
         # Remove duplicates based on key fields
         deduplicated = test_data.drop_duplicates(
-            subset=['MONTH', 'YEAR', 'PROVIDER TYPE', 'PROVIDER', 'ADDRESS'], 
+            subset=['MONTH', 'YEAR', 'PROVIDER_TYPE', 'PROVIDER', 'ADDRESS', 'FULL_ADDRESS'],
             keep='first'
         )
         
@@ -167,7 +168,7 @@ class TestHospitalReportHandling:
         
         # Create test data without HOSPITAL_REPORT
         test_data = pd.DataFrame({
-            'PROVIDER TYPE': ['NURSING_HOME', 'ASSISTED_LIVING_CENTER'],
+            'PROVIDER_TYPE': ['NURSING_HOME', 'ASSISTED_LIVING_CENTER'],
             'PROVIDER': ['Provider A', 'Provider B'],
             'ADDRESS': ['123 Main St', '456 Oak Ave']
         })
@@ -176,7 +177,7 @@ class TestHospitalReportHandling:
         result = analyzer.ensure_all_analysis_columns(test_data)
         
         # Should have all expected columns including HOSPITAL_REPORT handling
-        assert 'PROVIDER TYPE' in result.columns
+        assert 'PROVIDER_TYPE' in result.columns
         assert 'PROVIDER' in result.columns
         assert 'ADDRESS' in result.columns
     
@@ -186,14 +187,14 @@ class TestHospitalReportHandling:
         
         # Previous month had HOSPITAL_REPORT
         previous_month = pd.DataFrame({
-            'PROVIDER TYPE': ['HOSPITAL_REPORT'],
+            'PROVIDER_TYPE': ['HOSPITAL_REPORT'],
             'PROVIDER': ['General Hospital'],
             'ADDRESS': ['123 Hospital Dr']
         })
         
         # Current month has no HOSPITAL_REPORT
         current_month = pd.DataFrame({
-            'PROVIDER TYPE': ['NURSING_HOME'],
+            'PROVIDER_TYPE': ['NURSING_HOME'],
             'PROVIDER': ['Nursing Home A'],
             'ADDRESS': ['456 Care Ave']
         })
@@ -218,8 +219,8 @@ class TestSoloProviderLogic:
         test_data = pd.DataFrame({
             'PROVIDER': ['Solo Provider', 'Multi Provider A', 'Multi Provider B'],
             'ADDRESS': ['123 Solo St', '456 Multi Ave', '456 Multi Ave'],
-            'PROVIDER TYPE': ['NURSING_HOME', 'ASSISTED_LIVING_CENTER', 'NURSING_HOME'],
-            'PROVIDER GROUP INDEX #': [1, 2, 2]
+            'PROVIDER_TYPE': ['NURSING_HOME', 'ASSISTED_LIVING_CENTER', 'NURSING_HOME'],
+            'PROVIDER_GROUP_INDEX_#': [1, 2, 2]
         })
         
         result = analyzer.calculate_provider_groups(test_data)
@@ -244,14 +245,14 @@ class TestThisMonthStatusLogic:
         
         # Create test data with various provider types
         current_month = pd.DataFrame({
-            'PROVIDER TYPE': ['NURSING_HOME', 'ASSISTED_LIVING_CENTER', 'HOSPITAL_REPORT'],
+            'PROVIDER_TYPE': ['NURSING_HOME', 'ASSISTED_LIVING_CENTER', 'HOSPITAL_REPORT'],
             'PROVIDER': ['Provider A', 'Provider B', 'Provider C'],
             'ADDRESS': ['123 Main St', '456 Oak Ave', '789 Pine Rd']
         })
         
         # Previous month had different data
         previous_month = pd.DataFrame({
-            'PROVIDER TYPE': ['NURSING_HOME'],
+            'PROVIDER_TYPE': ['NURSING_HOME'],
             'PROVIDER': ['Provider A'],
             'ADDRESS': ['999 Old St']
         })
@@ -262,7 +263,7 @@ class TestThisMonthStatusLogic:
         
         # All provider types should have THIS MONTH STATUS
         for provider_type in ['NURSING_HOME', 'ASSISTED_LIVING_CENTER', 'HOSPITAL_REPORT']:
-            provider_records = result[result['PROVIDER TYPE'] == provider_type]
+            provider_records = result[result['PROVIDER_TYPE'] == provider_type]
             for _, record in provider_records.iterrows():
                 assert 'THIS MONTH STATUS' in record
                 assert record['THIS MONTH STATUS'] != ''
@@ -277,7 +278,7 @@ class TestHistoricalMonthNAValues:
         
         # Create test data
         test_data = pd.DataFrame({
-            'PROVIDER TYPE': ['NURSING_HOME'],
+            'PROVIDER_TYPE': ['NURSING_HOME'],
             'PROVIDER': ['Test Provider'],
             'ADDRESS': ['123 Main St']
         })
@@ -309,7 +310,7 @@ class TestHistoricalMonthNAValues:
         
         # Create test data
         test_data = pd.DataFrame({
-            'PROVIDER TYPE': ['NURSING_HOME'],
+            'PROVIDER_TYPE': ['NURSING_HOME'],
             'PROVIDER': ['Test Provider'],
             'ADDRESS': ['123 Main St']
         })
@@ -356,7 +357,7 @@ class TestIntegrationTests:
         test_data = pd.DataFrame({
             'MONTH': [1],
             'YEAR': [2025],
-            'PROVIDER TYPE': ['NURSING_HOME'],
+            'PROVIDER_TYPE': ['NURSING_HOME'],
             'PROVIDER': ['Test Provider'],
             'ADDRESS': ['123 Main St'],
             'CITY': ['Phoenix'],
@@ -364,12 +365,13 @@ class TestIntegrationTests:
             'CAPACITY': [50],
             'LONGITUDE': [-112.0],
             'LATITUDE': [33.5],
-            'PROVIDER GROUP INDEX #': [1]
+            'PROVIDER_GROUP_INDEX_#': [1]
         })
         
         # Test that all required columns are present
-        required_cols = ['MONTH', 'YEAR', 'PROVIDER TYPE', 'PROVIDER', 
-                        'ADDRESS', 'CITY', 'ZIP', 'CAPACITY', 'LONGITUDE', 'LATITUDE']
+        required_cols = ['MONTH', 'YEAR', 'PROVIDER_TYPE', 'PROVIDER',
+                        'ADDRESS', 'CITY', 'ZIP', 'FULL_ADDRESS', 'CAPACITY',
+                        'LONGITUDE', 'LATITUDE', 'COUNTY']
         
         for col in required_cols:
             assert col in test_data.columns

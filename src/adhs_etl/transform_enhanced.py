@@ -48,7 +48,7 @@ def validate_data_completeness(df: pd.DataFrame, file_name: str) -> str:
     issues = []
     
     # Check critical fields
-    critical_fields = ['PROVIDER', 'ADDRESS', 'ZIP']
+    critical_fields = ['PROVIDER', 'ADDRESS', 'ZIP', 'COUNTY']
     for field in critical_fields:
         if field in df.columns:
             empty_count = df[field].isna().sum() + (df[field] == '').sum()
@@ -193,10 +193,10 @@ class ProviderGrouper:
             on=['PROVIDER', 'ADDRESS'],
             how='left'
         )
-        df.rename(columns={'GROUP_ID': 'PROVIDER GROUP INDEX #'}, inplace=True)
-        
+        df.rename(columns={'GROUP_ID': 'PROVIDER_GROUP_INDEX_#'}, inplace=True)
+
         # Ensure integer type
-        df['PROVIDER GROUP INDEX #'] = df['PROVIDER GROUP INDEX #'].astype(int)
+        df['PROVIDER_GROUP_INDEX_#'] = df['PROVIDER_GROUP_INDEX_#'].astype(int)
         
         logger.info(f"Created {current_group - 1} provider groups")
         log_memory_usage("end of group_providers")
@@ -259,7 +259,7 @@ def process_month_data(
                     # Add metadata columns
                     df['MONTH'] = month
                     df['YEAR'] = year
-                    df['PROVIDER TYPE'] = file_path.stem  # Filename without extension
+                    df['PROVIDER_TYPE'] = file_path.stem  # Filename without extension
                     
                     # Apply field mapping
                     df_mapped = field_mapper.map_columns(df)
@@ -270,8 +270,8 @@ def process_month_data(
                     del df_mapped  # Free mapped dataframe
                     
                     # Ensure required columns exist and debug missing data
-                    required_cols = ['MONTH', 'YEAR', 'PROVIDER TYPE', 'PROVIDER', 
-                                   'ADDRESS', 'CITY', 'ZIP', 'CAPACITY', 'LONGITUDE', 'LATITUDE']
+                    required_cols = ['MONTH', 'YEAR', 'PROVIDER_TYPE', 'PROVIDER',
+                                   'ADDRESS', 'CITY', 'ZIP', 'CAPACITY', 'LONGITUDE', 'LATITUDE', 'COUNTY']
                     
                     # Debug: Log available columns for troubleshooting
                     available_cols = list(df_normalized.columns)
@@ -378,7 +378,42 @@ def process_month_data(
                                             logger.info(f"Mapped {potential_col} -> {col} for {file_path.name}")
                                             found_data = True
                                             break
-                            
+
+                            elif col == 'COUNTY':
+                                # Look for county patterns based on provider type
+                                provider_type = file_path.stem.upper()
+                                county_patterns = []
+
+                                if provider_type in ['CC_CENTERS', 'CC_GROUP_HOMES']:
+                                    county_patterns = ['billingcounty__c', 'billing_county']
+                                elif provider_type == 'OUTPATIENT_HEALTH_TREATMENT_CENTER_REPORT':
+                                    county_patterns = ['physical county', 'physical_county']
+                                else:
+                                    county_patterns = ['county']
+
+                                for potential_col in available_cols:
+                                    if any(pattern in potential_col.lower() for pattern in county_patterns):
+                                        if not df_normalized[potential_col].isna().all():
+                                            df_normalized[col] = df_normalized[potential_col]
+                                            logger.info(f"Mapped {potential_col} -> {col} for {file_path.name}")
+                                            found_data = True
+                                            break
+
+                            elif col == 'FULL_ADDRESS':
+                                # Create FULL_ADDRESS from ADDRESS, CITY, ZIP
+                                if 'ADDRESS' in df_normalized.columns and 'CITY' in df_normalized.columns and 'ZIP' in df_normalized.columns:
+                                    df_normalized['FULL_ADDRESS'] = (
+                                        df_normalized['ADDRESS'].astype(str).str.strip() + ', ' +
+                                        df_normalized['CITY'].astype(str).str.strip() + ', AZ ' +
+                                        df_normalized['ZIP'].astype(str).str.strip()
+                                    )
+                                    # Clean up any 'nan' strings and leading commas
+                                    df_normalized['FULL_ADDRESS'] = df_normalized['FULL_ADDRESS'].str.replace('nan, ', '', regex=False)
+                                    df_normalized['FULL_ADDRESS'] = df_normalized['FULL_ADDRESS'].str.replace(', nan', '', regex=False)
+                                    df_normalized['FULL_ADDRESS'] = df_normalized['FULL_ADDRESS'].str.replace('^, ', '', regex=True)
+                                    found_data = True
+                                    logger.info(f"Created FULL_ADDRESS for {file_path.name}")
+
                             # If no data found, set to appropriate default
                             if not found_data:
                                 if col in ['LONGITUDE', 'LATITUDE', 'CAPACITY']:
@@ -430,7 +465,20 @@ def process_month_data(
         # Apply provider grouping
         logger.info("Applying provider grouping...")
         combined_df = provider_grouper.group_providers(combined_df)
-        
+
+        # Create FULL_ADDRESS if it doesn't exist
+        if 'FULL_ADDRESS' not in combined_df.columns:
+            logger.info("Creating FULL_ADDRESS column...")
+            combined_df['FULL_ADDRESS'] = (
+                combined_df['ADDRESS'].astype(str).str.strip() + ', ' +
+                combined_df['CITY'].astype(str).str.strip() + ', AZ ' +
+                combined_df['ZIP'].astype(str).str.strip()
+            )
+            # Clean up any 'nan' strings and leading commas
+            combined_df['FULL_ADDRESS'] = combined_df['FULL_ADDRESS'].str.replace('nan, ', '', regex=False)
+            combined_df['FULL_ADDRESS'] = combined_df['FULL_ADDRESS'].str.replace(', nan', '', regex=False)
+            combined_df['FULL_ADDRESS'] = combined_df['FULL_ADDRESS'].str.replace('^, ', '', regex=True)
+
         # Convert all to uppercase more efficiently
         logger.info("Converting to uppercase...")
         string_cols = combined_df.select_dtypes(include=['object']).columns
@@ -442,7 +490,7 @@ def process_month_data(
         logger.info(f"Final data validation: {final_validation}")
         
         # Log summary by provider type
-        provider_type_summary = combined_df.groupby('PROVIDER TYPE').agg({
+        provider_type_summary = combined_df.groupby('PROVIDER_TYPE').agg({
             'PROVIDER': lambda x: (x.isna() | (x == '')).sum(),
             'ADDRESS': lambda x: (x.isna() | (x == '')).sum(),
             'ZIP': lambda x: (x.isna() | (x == '')).sum(),
@@ -451,7 +499,7 @@ def process_month_data(
         }).reset_index()
         
         for _, row in provider_type_summary.iterrows():
-            provider_type = row['PROVIDER TYPE']
+            provider_type = row['PROVIDER_TYPE']
             missing_fields = []
             if row['PROVIDER'] > 0:
                 missing_fields.append(f"PROVIDER:{row['PROVIDER']}")
@@ -624,7 +672,7 @@ def rebuild_all_to_date_from_monthly_files(
     
     # Sort by year, month, provider type
     logger.info("Sorting combined data...")
-    combined_df = combined_df.sort_values(['YEAR', 'MONTH', 'PROVIDER TYPE'])
+    combined_df = combined_df.sort_values(['YEAR', 'MONTH', 'PROVIDER_TYPE'])
     
     # Ensure output directory exists and is visible
     all_to_date_dir.mkdir(exist_ok=True)
@@ -723,7 +771,7 @@ def create_all_to_date_output(
     
     # Sort by year, month, provider type
     logger.info("Sorting combined data...")
-    combined_df = combined_df.sort_values(['YEAR', 'MONTH', 'PROVIDER TYPE'])
+    combined_df = combined_df.sort_values(['YEAR', 'MONTH', 'PROVIDER_TYPE'])
     
     # Ensure output directory exists and is visible
     all_to_date_dir.mkdir(exist_ok=True)

@@ -14,13 +14,13 @@ class ProviderAnalyzer:
     def __init__(self):
         """Initialize analyzer."""
         self.status_to_lead_type = {
-            'NEW PROVIDER TYPE, NEW ADDRESS': 'SURVEY LEAD',
-            'NEW PROVIDER TYPE, EXISTING ADDRESS': 'SURVEY LEAD',
-            'EXISTING PROVIDER TYPE, NEW ADDRESS': 'SURVEY LEAD',
-            'EXISTING PROVIDER TYPE, EXISTING ADDRESS': 'SURVEY LEAD',
-            'LOST PROVIDER TYPE, EXISTING ADDRESS': 'SELLER/SURVEY LEAD',
-            'LOST PROVIDER TYPE, LOST ADDRESS (0 REMAIN)': 'SELLER LEAD',
-            'LOST PROVIDER TYPE, LOST ADDRESS (1+ REMAIN)': 'SELLER LEAD'
+            'NEW PROVIDER_TYPE, NEW ADDRESS': 'SURVEY LEAD',
+            'NEW PROVIDER_TYPE, EXISTING ADDRESS': 'SURVEY LEAD',
+            'EXISTING PROVIDER_TYPE, NEW ADDRESS': 'SURVEY LEAD',
+            'EXISTING PROVIDER_TYPE, EXISTING ADDRESS': 'SURVEY LEAD',
+            'LOST PROVIDER_TYPE, EXISTING ADDRESS': 'SELLER/SURVEY LEAD',
+            'LOST PROVIDER_TYPE, LOST ADDRESS (0 REMAIN)': 'SELLER LEAD',
+            'LOST PROVIDER_TYPE, LOST ADDRESS (1+ REMAIN)': 'SELLER LEAD'
         }
     
     def analyze_month_changes(
@@ -36,22 +36,22 @@ class ProviderAnalyzer:
         previous_month_df = previous_month_df.copy()
         
         # Debug logging
-        current_provider_types = current_month_df['PROVIDER TYPE'].unique() if not current_month_df.empty else []
+        current_provider_types = current_month_df['PROVIDER_TYPE'].unique() if not current_month_df.empty else []
         logger.info(f"Current month provider types: {list(current_provider_types)}")
         
-        previous_provider_types = previous_month_df['PROVIDER TYPE'].unique() if not previous_month_df.empty else []
+        previous_provider_types = previous_month_df['PROVIDER_TYPE'].unique() if not previous_month_df.empty else []
         logger.info(f"Previous month provider types: {list(previous_provider_types)}")
         
         # Key is (PROVIDER TYPE, PROVIDER, ADDRESS)
         current_month_df['KEY'] = (
-            current_month_df['PROVIDER TYPE'].astype(str) + '|' +
+            current_month_df['PROVIDER_TYPE'].astype(str) + '|' +
             current_month_df['PROVIDER'].astype(str) + '|' +
             current_month_df['ADDRESS'].astype(str)
         )
         
         if not previous_month_df.empty:
             previous_month_df['KEY'] = (
-                previous_month_df['PROVIDER TYPE'].astype(str) + '|' +
+                previous_month_df['PROVIDER_TYPE'].astype(str) + '|' +
                 previous_month_df['PROVIDER'].astype(str) + '|' +
                 previous_month_df['ADDRESS'].astype(str)
             )
@@ -78,15 +78,15 @@ class ProviderAnalyzer:
             if key in prev_keys:
                 # Check if address is new to system
                 if address not in all_historical_addresses:
-                    record['THIS MONTH STATUS'] = 'EXISTING PROVIDER TYPE, NEW ADDRESS'
+                    record['THIS MONTH STATUS'] = 'EXISTING PROVIDER_TYPE, NEW ADDRESS'
                 else:
-                    record['THIS MONTH STATUS'] = 'EXISTING PROVIDER TYPE, EXISTING ADDRESS'
+                    record['THIS MONTH STATUS'] = 'EXISTING PROVIDER_TYPE, EXISTING ADDRESS'
             else:
                 # New provider type at this address
                 if address not in all_historical_addresses:
-                    record['THIS MONTH STATUS'] = 'NEW PROVIDER TYPE, NEW ADDRESS'
+                    record['THIS MONTH STATUS'] = 'NEW PROVIDER_TYPE, NEW ADDRESS'
                 else:
-                    record['THIS MONTH STATUS'] = 'NEW PROVIDER TYPE, EXISTING ADDRESS'
+                    record['THIS MONTH STATUS'] = 'NEW PROVIDER_TYPE, EXISTING ADDRESS'
             
             # Assign lead type
             record['LEAD TYPE'] = self.status_to_lead_type.get(record['THIS MONTH STATUS'], '')
@@ -112,11 +112,11 @@ class ProviderAnalyzer:
                     # Check if address still has any providers in current month
                     any_at_address = len(current_month_df[current_month_df['ADDRESS'] == address])
                     if any_at_address == 0:
-                        lost_record['THIS MONTH STATUS'] = 'LOST PROVIDER TYPE, LOST ADDRESS (0 REMAIN)'
+                        lost_record['THIS MONTH STATUS'] = 'LOST PROVIDER_TYPE, LOST ADDRESS (0 REMAIN)'
                     else:
-                        lost_record['THIS MONTH STATUS'] = 'LOST PROVIDER TYPE, LOST ADDRESS (1+ REMAIN)'
+                        lost_record['THIS MONTH STATUS'] = 'LOST PROVIDER_TYPE, LOST ADDRESS (1+ REMAIN)'
                 else:
-                    lost_record['THIS MONTH STATUS'] = 'LOST PROVIDER TYPE, EXISTING ADDRESS'
+                    lost_record['THIS MONTH STATUS'] = 'LOST PROVIDER_TYPE, EXISTING ADDRESS'
                 
                 # Assign lead type
                 lost_record['LEAD TYPE'] = self.status_to_lead_type.get(lost_record['THIS MONTH STATUS'], '')
@@ -134,7 +134,7 @@ class ProviderAnalyzer:
         
         # Ensure all required columns exist
         required_columns = [
-            'SOLO PROVIDER TYPE PROVIDER [Y, #]',
+            'SOLO PROVIDER_TYPE PROVIDER [Y, #]',
             'PROVIDER GROUP (DBA CONCAT)',
             'PROVIDER GROUP, ADDRESS COUNT'
         ]
@@ -146,8 +146,8 @@ class ProviderAnalyzer:
         # Get group information
         group_info = {}
         
-        for group_id in df['PROVIDER GROUP INDEX #'].unique():
-            group_df = df[df['PROVIDER GROUP INDEX #'] == group_id]
+        for group_id in df['PROVIDER_GROUP_INDEX_#'].unique():
+            group_df = df[df['PROVIDER_GROUP_INDEX_#'] == group_id]
             
             # Get all providers in group
             providers = []
@@ -164,7 +164,7 @@ class ProviderAnalyzer:
         
         # Add group information to each record
         for idx, row in df.iterrows():
-            group_id = row['PROVIDER GROUP INDEX #']
+            group_id = row['PROVIDER_GROUP_INDEX_#']
             info = group_info[group_id]
             
             # Create concat excluding self
@@ -182,9 +182,9 @@ class ProviderAnalyzer:
             providers_at_address = df[df['ADDRESS'] == row['ADDRESS']]['PROVIDER'].unique()
             
             if len(providers_at_address) == 1:
-                df.at[idx, 'SOLO PROVIDER TYPE PROVIDER [Y, #]'] = 'Y'
+                df.at[idx, 'SOLO PROVIDER_TYPE PROVIDER [Y, #]'] = 'Y'
             else:
-                df.at[idx, 'SOLO PROVIDER TYPE PROVIDER [Y, #]'] = str(len(providers_at_address))
+                df.at[idx, 'SOLO PROVIDER_TYPE PROVIDER [Y, #]'] = str(len(providers_at_address))
         
         return df
     
@@ -210,7 +210,7 @@ class ProviderAnalyzer:
                 col_name = f"{month}.{year % 100} COUNT"
             
             # Count addresses per provider
-            counts = month_df.groupby(['PROVIDER', 'PROVIDER TYPE'])['ADDRESS'].count()
+            counts = month_df.groupby(['PROVIDER', 'PROVIDER_TYPE'])['ADDRESS'].count()
             months_data[col_name] = counts
         
         return months_data
@@ -235,7 +235,7 @@ class ProviderAnalyzer:
             
             # Fill in counts
             for idx, row in df.iterrows():
-                key = (row['PROVIDER'], row['PROVIDER TYPE'])
+                key = (row['PROVIDER'], row['PROVIDER_TYPE'])
                 if key in months_data[month_col].index:
                     df.at[idx, month_col] = months_data[month_col][key]
         
@@ -297,12 +297,12 @@ class ProviderAnalyzer:
                 # Check if required columns exist
                 if 'PROVIDER GROUP, ADDRESS COUNT' in df.columns and \
                    'PROVIDER GROUP (DBA CONCAT)' in df.columns and \
-                   'PROVIDER GROUP INDEX #' in df.columns:
+                   'PROVIDER_GROUP_INDEX_#' in df.columns:
                     # Create summary concatenation
                     df[summary_col] = df.apply(
                         lambda row: f"{row['PROVIDER GROUP, ADDRESS COUNT']}, "
                                    f"{row['PROVIDER GROUP (DBA CONCAT)']}, "
-                                   f"{row['PROVIDER GROUP INDEX #']}",
+                                   f"{row['PROVIDER_GROUP_INDEX_#']}",
                         axis=1
                     )
                 else:
@@ -321,16 +321,18 @@ class ProviderAnalyzer:
         # Define the complete set of columns expected in analysis output (exactly 63 columns to match v100Track_this_shit.xlsx)
         expected_columns = [
             # Core provider data
-            'SOLO PROVIDER TYPE PROVIDER [Y, #]',
-            'PROVIDER TYPE',
+            'SOLO PROVIDER_TYPE PROVIDER [Y, #]',
+            'PROVIDER_TYPE',
             'PROVIDER',
             'ADDRESS',
             'CITY',
             'ZIP',
+            'FULL_ADDRESS',
             'CAPACITY',
             'LONGITUDE',
             'LATITUDE',
-            'PROVIDER GROUP INDEX #',
+            'COUNTY',
+            'PROVIDER_GROUP_INDEX_#',
             
             # Provider grouping
             'PROVIDER GROUP (DBA CONCAT)',
@@ -441,9 +443,9 @@ def create_analysis_summary_sheet(analysis_df: pd.DataFrame) -> pd.DataFrame:
     # Count basic metrics
     total_addresses = analysis_df['ADDRESS'].nunique()
     total_providers = analysis_df['PROVIDER'].nunique()
-    total_provider_groups = analysis_df['PROVIDER GROUP INDEX #'].nunique() if 'PROVIDER GROUP INDEX #' in analysis_df else 0
+    total_provider_groups = analysis_df['PROVIDER_GROUP_INDEX_#'].nunique() if 'PROVIDER_GROUP_INDEX_#' in analysis_df else 0
     total_blanks = analysis_df.isnull().sum().sum()
-    total_solo_providers = len(analysis_df[analysis_df.get('SOLO PROVIDER TYPE PROVIDER [Y, #]', '') == 'Y'])
+    total_solo_providers = len(analysis_df[analysis_df.get('SOLO PROVIDER_TYPE PROVIDER [Y, #]', '') == 'Y'])
     
     # Count status types
     status_counts = analysis_df['THIS MONTH STATUS'].value_counts() if 'THIS MONTH STATUS' in analysis_df else {}
@@ -461,7 +463,7 @@ def create_analysis_summary_sheet(analysis_df: pd.DataFrame) -> pd.DataFrame:
     survey_leads = len(analysis_df[analysis_df.get('LEAD TYPE', '').isin(['SURVEY LEAD', 'SELLER/SURVEY LEAD'])])
     
     # Count by provider type
-    provider_type_counts = analysis_df['PROVIDER TYPE'].value_counts() if 'PROVIDER TYPE' in analysis_df else {}
+    provider_type_counts = analysis_df['PROVIDER_TYPE'].value_counts() if 'PROVIDER_TYPE' in analysis_df else {}
     total_record_count = len(analysis_df)
     
     # Create the exact template structure
@@ -470,15 +472,15 @@ def create_analysis_summary_sheet(analysis_df: pd.DataFrame) -> pd.DataFrame:
         ['Total PROVIDER', total_providers],
         ['Total PROVIDER GROUP', total_provider_groups],
         ['Total Blanks', total_blanks],
-        ['Total SOLO PROVIDER TYPE PROVIDER', total_solo_providers],
+        ['Total SOLO PROVIDER_TYPE PROVIDER', total_solo_providers],
         ['', ''],  # Empty row
-        ['New PROVIDER TYPE, New ADDRESS', new_provider_new_address],
-        ['New PROVIDER TYPE, Existing ADDRESS', new_provider_existing_address],
-        ['Existing PROVIDER TYPE, New ADDRESS', existing_provider_new_address],
-        ['Existing PROVIDER TYPE, Existing ADDRESS', existing_provider_existing_address],
-        ['Lost PROVIDER TYPE, Existing ADDRESS', lost_provider_existing_address],
-        ['Lost PROVIDER TYPE, Lost ADDRESS (0 remain)', lost_provider_lost_address_0],
-        ['Lost PROVIDER TYPE, Lost ADDRESS (1+ remain)', lost_provider_lost_address_1],
+        ['New PROVIDER_TYPE, New ADDRESS', new_provider_new_address],
+        ['New PROVIDER_TYPE, Existing ADDRESS', new_provider_existing_address],
+        ['Existing PROVIDER_TYPE, New ADDRESS', existing_provider_new_address],
+        ['Existing PROVIDER_TYPE, Existing ADDRESS', existing_provider_existing_address],
+        ['Lost PROVIDER_TYPE, Existing ADDRESS', lost_provider_existing_address],
+        ['Lost PROVIDER_TYPE, Lost ADDRESS (0 remain)', lost_provider_lost_address_0],
+        ['Lost PROVIDER_TYPE, Lost ADDRESS (1+ remain)', lost_provider_lost_address_1],
         ['', ''],  # Empty row
         ['Seller Leads', seller_leads],
         ['Survey Leads', survey_leads],
@@ -525,12 +527,12 @@ def create_blanks_count_sheet(current_month_df: pd.DataFrame) -> pd.DataFrame:
     
     for provider_type in provider_types:
         # Filter to this provider type
-        type_df = current_month_df[current_month_df['PROVIDER TYPE'] == provider_type]
+        type_df = current_month_df[current_month_df['PROVIDER_TYPE'] == provider_type]
         
         if type_df.empty:
             # No data for this provider type
             blanks_data.append({
-                'PROVIDER TYPE': provider_type,
+                'PROVIDER_TYPE': provider_type,
                 'MONTH': 0,
                 'YEAR': 0,
                 'PROVIDER': 0,
@@ -540,14 +542,14 @@ def create_blanks_count_sheet(current_month_df: pd.DataFrame) -> pd.DataFrame:
                 'CAPACITY': 0,
                 'LONGITUDE': 0,
                 'LATITUDE': 0,
-                'PROVIDER GROUP INDEX #': 0
+                'PROVIDER_GROUP_INDEX_#': 0
             })
         else:
             # Count blanks in each field
-            row_data = {'PROVIDER TYPE': provider_type}
+            row_data = {'PROVIDER_TYPE': provider_type}
             
-            fields = ['MONTH', 'YEAR', 'PROVIDER', 'ADDRESS', 'CITY', 'ZIP', 
-                     'CAPACITY', 'LONGITUDE', 'LATITUDE', 'PROVIDER GROUP INDEX #']
+            fields = ['MONTH', 'YEAR', 'PROVIDER', 'ADDRESS', 'CITY', 'ZIP', 'FULL_ADDRESS',
+                     'CAPACITY', 'LONGITUDE', 'LATITUDE', 'COUNTY', 'PROVIDER_GROUP_INDEX_#']
             
             for field in fields:
                 if field in type_df.columns:

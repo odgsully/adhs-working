@@ -22,6 +22,6 @@
    * `All-to-Date/` — Reformat All to Date M.YY.xlsx cumulative files
    * `Analysis/` — M.YY Analysis.xlsx files with full business analysis
 10. **Output Files** — Pipeline generates three types:
-    * **Reformat**: Standardized data with MONTH, YEAR, PROVIDER TYPE, PROVIDER, ADDRESS, CITY, ZIP, CAPACITY, LONGITUDE, LATITUDE, PROVIDER GROUP INDEX #
+    * **Reformat**: Standardized data with MONTH, YEAR, PROVIDER_TYPE, PROVIDER, ADDRESS, CITY, ZIP, FULL_ADDRESS, CAPACITY, LONGITUDE, LATITUDE, COUNTY, PROVIDER_GROUP_INDEX_#
     * **All-to-Date**: Cumulative data across all months processed
     * **Analysis**: Full business analysis with 3 sheets (Summary, Blanks Count, Analysis) including lost license detection and MCAO property data

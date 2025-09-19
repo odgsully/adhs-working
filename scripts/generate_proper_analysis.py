@@ -31,24 +31,24 @@ def create_proper_summary_sheet(df: pd.DataFrame) -> pd.DataFrame:
     # Row 2: Total PROVIDER (B3 i.e. Count of all PROVIDER)
     summary_data.append({"Metric": "Total PROVIDER", "Count": len(df['PROVIDER'].unique())})
     
-    # Row 3: Total PROVIDER GROUP (B4 i.e. highest PROVIDER GROUP INDEX #)
-    summary_data.append({"Metric": "Total PROVIDER GROUP", "Count": df['PROVIDER GROUP INDEX #'].max()})
+    # Row 3: Total PROVIDER GROUP (B4 i.e. highest PROVIDER_GROUP_INDEX_#)
+    summary_data.append({"Metric": "Total PROVIDER GROUP", "Count": df['PROVIDER_GROUP_INDEX_#'].max()})
     
     # Row 4: Total Blanks (B5 i.e. Count of all Blank records)
     blank_count = 0
-    for col in ['PROVIDER', 'ADDRESS', 'CITY', 'ZIP', 'CAPACITY', 'LONGITUDE', 'LATITUDE']:
+    for col in ['PROVIDER', 'ADDRESS', 'CITY', 'ZIP', 'FULL_ADDRESS', 'CAPACITY', 'LONGITUDE', 'LATITUDE', 'COUNTY']:
         if col in df.columns:
             blank_count += df[col].apply(lambda x: pd.isna(x) or str(x).strip() in ['', 'N/A', 'NAN']).sum()
     summary_data.append({"Metric": "Total Blanks", "Count": blank_count})
     
-    # Row 5: Total SOLO PROVIDER TYPE PROVIDER (B6 i.e. count of 'Y' records)
-    summary_data.append({"Metric": "Total SOLO PROVIDER TYPE PROVIDER", "Count": len(df)})
+    # Row 5: Total SOLO PROVIDER_TYPE PROVIDER (B6 i.e. count of 'Y' records)
+    summary_data.append({"Metric": "Total SOLO PROVIDER_TYPE PROVIDER", "Count": len(df)})
     
     # Row 6: Empty row
     summary_data.append({"Metric": "", "Count": ""})
     
-    # Rows 7-11: Status types (B8-B14 based on PROVIDER TYPE & ADDRESS details)
-    summary_data.append({"Metric": "New PROVIDER TYPE, New ADDRESS", "Count": len(df)})  # First month = all new
+    # Rows 7-11: Status types (B8-B14 based on PROVIDER_TYPE & ADDRESS details)
+    summary_data.append({"Metric": "New PROVIDER_TYPE, New ADDRESS", "Count": len(df)})  # First month = all new
     summary_data.append({"Metric": "New PROVIDER TYPE, Existing ADDRESS", "Count": 0})
     summary_data.append({"Metric": "Existing PROVIDER TYPE, New ADDRESS", "Count": 0})
     summary_data.append({"Metric": "Existing PROVIDER TYPE, Existing ADDRESS", "Count": 0})

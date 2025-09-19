@@ -420,7 +420,7 @@ def validate(
         logger.info(f"Field map validated: {len(mapping)} mappings found")
         
         # Show required fields
-        required_fields = ['PROVIDER', 'ADDRESS', 'CITY', 'ZIP', 'CAPACITY', 'LONGITUDE', 'LATITUDE']
+        required_fields = ['PROVIDER', 'ADDRESS', 'CITY', 'ZIP', 'FULL_ADDRESS', 'CAPACITY', 'LONGITUDE', 'LATITUDE', 'COUNTY']
         for field in required_fields:
             mappings = [k for k, v in mapping.items() if v == field]
             logger.info(f"  {field}: {len(mappings)} mappings")

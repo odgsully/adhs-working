@@ -88,9 +88,9 @@ def create_tracking_data(raw_dir="Raw New Month"):
                 'File Name': file_name,
                 'File Format': 'xlsx',
                 'Headers': ';;'.join(headers_str),
-                'Necessary Columns': ';;'.join(['MONTH', 'YEAR', 'PROVIDER TYPE', 
-                                              'PROVIDER', 'ADDRESS', 'CITY', 'ZIP', 
-                                              'CAPACITY', 'LONGITUDE', 'LATITUDE'])
+                'Necessary Columns': ';;'.join(['MONTH', 'YEAR', 'PROVIDER_TYPE',
+                                              'PROVIDER', 'ADDRESS', 'CITY', 'ZIP', 'FULL_ADDRESS',
+                                              'CAPACITY', 'LONGITUDE', 'LATITUDE', 'COUNTY'])
             })
     
     return pd.DataFrame(tracking_data)
@@ -124,9 +124,9 @@ def create_all_to_date_file(month, year, combined_df):
     os.makedirs(summary_dir, exist_ok=True)
     
     # Define the necessary columns for consistency
-    necessary_cols = ['MONTH', 'YEAR', 'PROVIDER TYPE', 
-                     'PROVIDER', 'ADDRESS', 'CITY', 'ZIP', 
-                     'CAPACITY', 'LONGITUDE', 'LATITUDE']
+    necessary_cols = ['MONTH', 'YEAR', 'PROVIDER_TYPE',
+                     'PROVIDER', 'ADDRESS', 'CITY', 'ZIP', 'FULL_ADDRESS',
+                     'CAPACITY', 'LONGITUDE', 'LATITUDE', 'COUNTY']
     
     # Look for existing "Reformat All to Date" files
     existing_files = glob.glob(os.path.join(summary_dir, "Reformat All to Date *.xlsx"))

@@ -46,5 +46,53 @@
     "permission_mode": "default",
     "hook_event_name": "UserPromptSubmit",
     "prompt": "\nProject overview and Goal ' Have a simple clean functioning database with\nexceptional mapping & attention to detail. I have a monthly recurring number of\ndatasets to download. The goal is to have a singular script that gives\nReformatting capabilities and Analysis with perfect data execution. References a\nlocal folder called 'ALL-MONTHS', located: /Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy/ALL-MONTHS. These separate excel files are a straight raw download from Arizona\nDepartment of Health Services where it lists active licenses each month. There\nis a lot of value to be able to see who is no longer licensed as it could be a\nLead opportunity for an owner looking to sell the location which is beneficial for me as a investor. Then lead opportunities in surveying the steady licensees for my research business. Both great lead generation and we need to create great and sound analysis to differentiate & diagnose where every provider is on a individual and PROVIDER_GROUP_INDEX_# basis. \n\nBesides documentation output files, this is a large part of the ultimate goal to\npopulate the 'M.YY Analysis.xlsx' output file with perfect accuracy.\n Keep it at the top as this overview and Goal is important"
+  },
+  {
+    "session_id": "03b36817-ed29-4577-ac8a-070a0e13a21f",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/03b36817-ed29-4577-ac8a-070a0e13a21f.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "plan",
+    "hook_event_name": "UserPromptSubmit",
+    "prompt": "These - ASSISTED_LIVING_HOME.xlsx\n- NURSING_HOME.xlsx\n- BEHAVIORAL_HEALTH_OUTPATIENT_CLINIC.xlsx\n- ADULT_BEHAVIORAL_HEALTH_HOME.xlsx\n- BEHAVIORAL_HEALTH_RESIDENTIAL_FACILITY.xlsx\n- ADULT_CARE_HOME.xlsx\n- ADULT_DAY_HEALTH_CARE.xlsx\n- HOME_AND_COMMUNITY_BASED_SERVICE.xlsx\n- CHILD_DEVELOPMENT_HOME.xlsx\n- CHILD_WELFARE_RESIDENTIAL_GROUP_CARE_FACILITY.xlsx\n- SUBSTANCE_ABUSE_TREATMENT_TRANSITIONAL_FACILITY.xlsx input files are not all correct. Please update ADHS-ETL-INDEX.md and all other instances that share this wrong naming in the codebase repo. The correct inputs are in ALL-MONTHS: ADULT_BEHAVIORAL_HEALTH_THERAPEUTIC_HOME, ASSISTED_LIVING_CENTER, ASSISTED_LIVING_HOME, BEHAVIORAL_HEALTH_INPATIENT, BEHAVIORAL_HEALTH_RESIDENTIAL_FACILITY, CC_CENTERS, CC_GROUP_HOMES, DEVELOPMENTALLY_DISABLED_GROUP_HOME, HOSPITAL_REPORT, NURSING_HOME, NURSING_SUPPORTED_GROUP_HOMES, OUTPATIENT_HEALTH_TREATMENT_CENTER_REPORT. READ all to ensure every instance is replaced."
+  },
+  {
+    "session_id": "03b36817-ed29-4577-ac8a-070a0e13a21f",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/03b36817-ed29-4577-ac8a-070a0e13a21f.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "plan",
+    "hook_event_name": "UserPromptSubmit",
+    "prompt": "Great. We are also going to need to search the codebase for any mention of ### Standard Output Columns\n1. MONTH\n2. YEAR\n3. PROVIDER TYPE\n4. PROVIDER\n5. ADDRESS\n6. CITY\n7. ZIP\n8. CAPACITY\n9. LONGITUDE\n10. LATITUDE\n11. PROVIDER GROUP INDEX # as we will be adding two 2 new columns expected in the Reformat and All-to-Date outputs. Those being include COUNTY for every PROVIDER_TYPE Reformat and All-to-Date file after LATITUDE and before PROVIDER_GROUP_INDEX_# for Reformat and All-to-Date. Also FULL_ADDRESS is added between ZIP and CAPACITY. Logic from Raw for each PROVIDER TYPE header name is below:\n\nADULT_BEHAVIORAL_HEALTH_THERAPEUTIC_HOME; 'County', \nASSISTED_LIVING_CENTER; 'County', \nASSISTED_LIVING_HOME; 'County', \nBEHAVIORAL_HEALTH_INPATIENT; 'County', \nBEHAVIORAL_HEALTH_RESIDENTIAL_FACILITY; 'County', \nCC_CENTERS; 'BillingCounty__c', \nCC_GROUP_HOMES; 'BillingCounty__c', \nDEVELOPMENTALLY_DISABLED_GROUP_HOME; 'County', \nHOSPITAL_REPORT; 'County', \nNURSING_HOME; 'County', \nNURSING_SUPPORTED_GROUP_HOMES; 'County', \nOUTPATIENT_HEALTH_TREATMENT_CENTER_REPORT; 'Physical County'."
+  },
+  {
+    "session_id": "03b36817-ed29-4577-ac8a-070a0e13a21f",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/03b36817-ed29-4577-ac8a-070a0e13a21f.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "plan",
+    "hook_event_name": "UserPromptSubmit",
+    "prompt": "Are there really no other files and scripts needing updating?"
+  },
+  {
+    "session_id": "03b36817-ed29-4577-ac8a-070a0e13a21f",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/03b36817-ed29-4577-ac8a-070a0e13a21f.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "plan",
+    "hook_event_name": "UserPromptSubmit",
+    "prompt": "One more time please look and reason ULTRATHINK for any more needing these updates."
+  },
+  {
+    "session_id": "03b36817-ed29-4577-ac8a-070a0e13a21f",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/03b36817-ed29-4577-ac8a-070a0e13a21f.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "plan",
+    "hook_event_name": "UserPromptSubmit",
+    "prompt": "Great. Let's ensure no spaces in the naming so PROVIDER_TYPE and PROVIDER_GROUP_INDEX_#."
+  },
+  {
+    "session_id": "03b36817-ed29-4577-ac8a-070a0e13a21f",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/03b36817-ed29-4577-ac8a-070a0e13a21f.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "acceptEdits",
+    "hook_event_name": "UserPromptSubmit",
+    "prompt": "continue"
   }
 ]
