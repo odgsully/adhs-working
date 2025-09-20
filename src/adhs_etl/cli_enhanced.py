@@ -324,41 +324,81 @@ def run(
     analysis_path = analysis_dir / analysis_filename
     
     if not dry_run:
-        # Create summary sheet
-        summary_df = create_analysis_summary_sheet(analysis_df)
+        # Create summary sheet - pass both Analysis and Reformat data for v300 compliance
+        summary_df = create_analysis_summary_sheet(analysis_df, current_month_df)
         
-        # Create blanks count sheet
-        blanks_df = create_blanks_count_sheet(current_month_df)
+        # Create blanks count sheet - pass month and year for v300 compliance
+        blanks_df = create_blanks_count_sheet(current_month_df, month_num, year_num)
         
-        # Write all sheets to Excel
-        with pd.ExcelWriter(analysis_path, engine='openpyxl') as writer:
-            # Sheet 1: Summary
-            summary_df.to_excel(writer, sheet_name='Summary', index=False)
-            
-            # Sheet 2: Blanks Count
-            blanks_df.to_excel(writer, sheet_name='Blanks Count', index=False)
-            
-            # Sheet 3: Analysis
-            analysis_df.to_excel(writer, sheet_name='Analysis', index=False)
-            
-            # Format columns
-            for sheet_name in ['Summary', 'Blanks Count', 'Analysis']:
-                worksheet = writer.sheets[sheet_name]
-                
-                # Auto-adjust column widths
-                for column in worksheet.columns:
-                    max_length = 0
-                    column_letter = column[0].column_letter
-                    
-                    for cell in column:
-                        try:
-                            if len(str(cell.value)) > max_length:
-                                max_length = len(str(cell.value))
-                        except Exception:
-                            pass
-                    
-                    adjusted_width = min(max_length + 2, 50)
-                    worksheet.column_dimensions[column_letter].width = adjusted_width
+        # Optimize Analysis dataframe before writing - FIXED: Clean 'N/A' while preserving v300 column structure
+        logger.info("Optimizing Analysis dataframe for faster writing...")
+        analysis_df_optimized = analysis_df.copy()
+
+        # Replace 'N/A' strings - FIXED: Use empty strings instead of pd.NA to prevent column dropping
+        for col in analysis_df_optimized.columns:
+            if analysis_df_optimized[col].dtype == 'object':
+                analysis_df_optimized[col] = analysis_df_optimized[col].replace('N/A', '')
+                # Don't replace empty strings - they're already correct
+
+        # Validate column count for v300Track_this.xlsx 1:1 alignment
+        expected_columns = 155  # v300Track_this.xlsx has columns A through EY (155 columns)
+        actual_columns = len(analysis_df_optimized.columns)
+
+        logger.info(f"Column validation: {actual_columns} columns (expected: {expected_columns})")
+        logger.info(f"First 5 columns: {list(analysis_df_optimized.columns[:5])}")
+        logger.info(f"Last 5 columns: {list(analysis_df_optimized.columns[-5:])}")
+
+        if actual_columns != expected_columns:
+            logger.error(f"❌ COLUMN COUNT MISMATCH: Expected {expected_columns} columns, got {actual_columns}")
+            logger.error(f"❌ NOT CONSISTENT WITH v300Track_this.xlsx - BLOCKING OUTPUT")
+            logger.error(f"❌ NO FILES WILL BE WRITTEN UNTIL COLUMN STRUCTURE MATCHES v300")
+            return  # Block processing completely - don't write any files
+        else:
+            logger.info(f"✅ Column count validated: {actual_columns} columns match v300Track_this.xlsx")
+
+        # Write all sheets to Excel using xlsxwriter for better performance
+        try:
+            # Try xlsxwriter first (5-10x faster for large files)
+            engine = 'xlsxwriter'
+            engine_kwargs = {
+                'options': {
+                    'strings_to_urls': False,  # Don't convert strings to URLs
+                    'nan_inf_to_errors': True,  # Handle NaN/Inf properly
+                    'strings_to_formulas': False,  # Don't interpret strings as formulas
+                    'constant_memory': False  # FIXED: Disable to prevent column dropping for v300 compliance
+                }
+            }
+
+            logger.info(f"Writing Excel file using {engine} engine for better performance...")
+
+            with pd.ExcelWriter(analysis_path, engine=engine, engine_kwargs=engine_kwargs) as writer:
+                # Sheet 1: Summary
+                summary_df.to_excel(writer, sheet_name='Summary', index=False)
+
+                # Sheet 2: Blanks Count
+                blanks_df.to_excel(writer, sheet_name='Blanks Count', index=False)
+
+                # Sheet 3: Analysis (optimized)
+                analysis_df_optimized.to_excel(writer, sheet_name='Analysis', index=False)
+
+                logger.info(f"Successfully wrote Excel file with {engine} engine")
+
+        except ImportError:
+            # Fallback to openpyxl if xlsxwriter not available
+            logger.warning("xlsxwriter not available, falling back to openpyxl (slower)")
+
+            with pd.ExcelWriter(analysis_path, engine='openpyxl') as writer:
+                # Sheet 1: Summary
+                summary_df.to_excel(writer, sheet_name='Summary', index=False)
+
+                # Sheet 2: Blanks Count
+                blanks_df.to_excel(writer, sheet_name='Blanks Count', index=False)
+
+                # Sheet 3: Analysis (optimized)
+                analysis_df_optimized.to_excel(writer, sheet_name='Analysis', index=False)
+
+                # Skip column formatting for now to speed up writing
+                logger.info("Wrote Excel file with openpyxl (formatting skipped for performance)")
         
         # Ensure file is visible and accessible
         import os

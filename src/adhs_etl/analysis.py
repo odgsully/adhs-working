@@ -14,13 +14,14 @@ class ProviderAnalyzer:
     def __init__(self):
         """Initialize analyzer."""
         self.status_to_lead_type = {
-            'NEW PROVIDER_TYPE, NEW ADDRESS': 'SURVEY LEAD',
-            'NEW PROVIDER_TYPE, EXISTING ADDRESS': 'SURVEY LEAD',
-            'EXISTING PROVIDER_TYPE, NEW ADDRESS': 'SURVEY LEAD',
-            'EXISTING PROVIDER_TYPE, EXISTING ADDRESS': 'SURVEY LEAD',
-            'LOST PROVIDER_TYPE, EXISTING ADDRESS': 'SELLER/SURVEY LEAD',
-            'LOST PROVIDER_TYPE, LOST ADDRESS (0 REMAIN)': 'SELLER LEAD',
-            'LOST PROVIDER_TYPE, LOST ADDRESS (1+ REMAIN)': 'SELLER LEAD'
+            'NEW PROVIDER TYPE, NEW ADDRESS': 'Survey Lead',
+            'NEW PROVIDER TYPE, EXISTING ADDRESS': 'Survey Lead',
+            'EXISTING PROVIDER TYPE, NEW ADDRESS': 'Survey Lead',
+            'EXISTING PROVIDER TYPE, EXISTING ADDRESS': '',
+            'LOST PROVIDER TYPE, EXISTING ADDRESS': 'Seller/Survey Lead',
+            'LOST PROVIDER TYPE, LOST ADDRESS (0 remain)': 'Seller Lead',
+            'LOST PROVIDER TYPE, LOST ADDRESS (1+ remain)': 'Seller Lead',
+            'REINSTATED PROVIDER TYPE, EXISTING ADDRESS': 'Survey Lead'
         }
     
     def analyze_month_changes(
@@ -78,18 +79,37 @@ class ProviderAnalyzer:
             if key in prev_keys:
                 # Check if address is new to system
                 if address not in all_historical_addresses:
-                    record['THIS MONTH STATUS'] = 'EXISTING PROVIDER_TYPE, NEW ADDRESS'
+                    record['THIS_MONTH_STATUS'] = 'EXISTING PROVIDER TYPE, NEW ADDRESS'
                 else:
-                    record['THIS MONTH STATUS'] = 'EXISTING PROVIDER_TYPE, EXISTING ADDRESS'
+                    record['THIS_MONTH_STATUS'] = 'EXISTING PROVIDER TYPE, EXISTING ADDRESS'
             else:
-                # New provider type at this address
-                if address not in all_historical_addresses:
-                    record['THIS MONTH STATUS'] = 'NEW PROVIDER_TYPE, NEW ADDRESS'
-                else:
-                    record['THIS MONTH STATUS'] = 'NEW PROVIDER_TYPE, EXISTING ADDRESS'
+                # Check if this is a reinstated provider (existed historically but not in previous month)
+                # This requires checking all historical data for this key
+                is_reinstated = False
+                if not all_historical_df.empty and key not in prev_keys:
+                    # Only create KEY column if it doesn't exist
+                    if 'KEY' not in all_historical_df.columns:
+                        all_historical_df['KEY'] = (
+                            all_historical_df['PROVIDER_TYPE'].astype(str) + '|' +
+                            all_historical_df['PROVIDER'].astype(str) + '|' +
+                            all_historical_df['ADDRESS'].astype(str)
+                        )
+                    historical_keys = set(all_historical_df['KEY'])
+
+                    if key in historical_keys:
+                        # This combo existed historically but was lost, now reinstated
+                        is_reinstated = True
+                        record['THIS_MONTH_STATUS'] = 'REINSTATED PROVIDER TYPE, EXISTING ADDRESS'
+
+                if not is_reinstated:
+                    # New provider type at this address
+                    if address not in all_historical_addresses:
+                        record['THIS_MONTH_STATUS'] = 'NEW PROVIDER TYPE, NEW ADDRESS'
+                    else:
+                        record['THIS_MONTH_STATUS'] = 'NEW PROVIDER TYPE, EXISTING ADDRESS'
             
             # Assign lead type
-            record['LEAD TYPE'] = self.status_to_lead_type.get(record['THIS MONTH STATUS'], '')
+            record['LEAD_TYPE'] = self.status_to_lead_type.get(record['THIS_MONTH_STATUS'], '')
             
             # Remove the KEY field
             del record['KEY']
@@ -112,36 +132,60 @@ class ProviderAnalyzer:
                     # Check if address still has any providers in current month
                     any_at_address = len(current_month_df[current_month_df['ADDRESS'] == address])
                     if any_at_address == 0:
-                        lost_record['THIS MONTH STATUS'] = 'LOST PROVIDER_TYPE, LOST ADDRESS (0 REMAIN)'
+                        lost_record['THIS_MONTH_STATUS'] = 'LOST PROVIDER TYPE, LOST ADDRESS (0 remain)'
                     else:
-                        lost_record['THIS MONTH STATUS'] = 'LOST PROVIDER_TYPE, LOST ADDRESS (1+ REMAIN)'
+                        lost_record['THIS_MONTH_STATUS'] = 'LOST PROVIDER TYPE, LOST ADDRESS (1+ remain)'
                 else:
-                    lost_record['THIS MONTH STATUS'] = 'LOST PROVIDER_TYPE, EXISTING ADDRESS'
+                    lost_record['THIS_MONTH_STATUS'] = 'LOST PROVIDER TYPE, EXISTING ADDRESS'
                 
                 # Assign lead type
-                lost_record['LEAD TYPE'] = self.status_to_lead_type.get(lost_record['THIS MONTH STATUS'], '')
+                lost_record['LEAD_TYPE'] = self.status_to_lead_type.get(lost_record['THIS_MONTH_STATUS'], '')
                 
                 # Remove the KEY field
                 del lost_record['KEY']
-                
+
                 analysis_records.append(lost_record)
-        
-        return pd.DataFrame(analysis_records)
+
+        # Create the base analysis DataFrame
+        analysis_df = pd.DataFrame(analysis_records)
+
+        # Add monthly counts and movement columns
+        # Combine historical and current month data for complete counts
+        if not current_month_df.empty:
+            current_month = current_month_df.iloc[0]['MONTH'] if 'MONTH' in current_month_df.columns else None
+            current_year = current_month_df.iloc[0]['YEAR'] if 'YEAR' in current_month_df.columns else None
+
+            # Combine historical with current month for complete tracking
+            if not all_historical_df.empty:
+                combined_for_counts = pd.concat([all_historical_df, current_month_df], ignore_index=True)
+            else:
+                combined_for_counts = current_month_df
+
+            # Create monthly counts from combined data
+            months_data = self.create_monthly_counts(combined_for_counts, current_month, current_year)
+
+            # Add count and movement columns
+            if months_data:
+                analysis_df = self.create_movement_columns(analysis_df, months_data)
+                # Also add summary columns
+                analysis_df = self.create_summary_columns(analysis_df)
+
+        return analysis_df
     
     def calculate_provider_groups(self, df: pd.DataFrame) -> pd.DataFrame:
         """Calculate provider group information."""
         df = df.copy()
         
-        # Ensure all required columns exist
+        # Ensure all required columns exist (v300 exact names)
         required_columns = [
-            'SOLO PROVIDER_TYPE PROVIDER [Y, #]',
-            'PROVIDER GROUP (DBA CONCAT)',
-            'PROVIDER GROUP, ADDRESS COUNT'
+            'SOLO_PROVIDER_TYPE_PROVIDER_[Y,#]',
+            'PROVIDER_GROUP_(DBA_Concat)',
+            'PROVIDER_GROUP,_ADDRESS_COUNT'
         ]
         
         for col in required_columns:
             if col not in df.columns:
-                df[col] = 'N/A'
+                df[col] = ''  # FIXED: Use empty string instead of pd.NA to prevent column dropping
         
         # Get group information
         group_info = {}
@@ -172,19 +216,19 @@ class ProviderAnalyzer:
             other_providers = [p for p in info['all_providers'] if p != self_key]
             
             if other_providers:
-                df.at[idx, 'PROVIDER GROUP (DBA CONCAT)'] = ', '.join(other_providers)
+                df.at[idx, 'PROVIDER_GROUP_(DBA_Concat)'] = ', '.join(other_providers)
             else:
-                df.at[idx, 'PROVIDER GROUP (DBA CONCAT)'] = 'N/A'
-            
-            df.at[idx, 'PROVIDER GROUP, ADDRESS COUNT'] = info['address_count']
+                df.at[idx, 'PROVIDER_GROUP_(DBA_Concat)'] = ''  # FIXED: Use empty string instead of pd.NA to prevent column dropping
+
+            df.at[idx, 'PROVIDER_GROUP,_ADDRESS_COUNT'] = info['address_count']
             
             # Check if solo provider - a provider is solo if it's the only provider at that address
             providers_at_address = df[df['ADDRESS'] == row['ADDRESS']]['PROVIDER'].unique()
             
             if len(providers_at_address) == 1:
-                df.at[idx, 'SOLO PROVIDER_TYPE PROVIDER [Y, #]'] = 'Y'
+                df.at[idx, 'SOLO_PROVIDER_TYPE_PROVIDER_[Y,#]'] = 'Y'
             else:
-                df.at[idx, 'SOLO PROVIDER_TYPE PROVIDER [Y, #]'] = str(len(providers_at_address))
+                df.at[idx, 'SOLO_PROVIDER_TYPE_PROVIDER_[Y,#]'] = str(len(providers_at_address))
         
         return df
     
@@ -203,11 +247,11 @@ class ProviderAnalyzer:
         
         # Group by month/year and count addresses per provider
         for (month, year), month_df in all_historical_df.groupby(['MONTH', 'YEAR']):
-            # Format column name
+            # Format column name with underscore for v300 compliance
             if month >= 10:
-                col_name = f"{month}.{year % 100} COUNT"
+                col_name = f"{month}.{year % 100}_COUNT"
             else:
-                col_name = f"{month}.{year % 100} COUNT"
+                col_name = f"{month}.{year % 100}_COUNT"
             
             # Count addresses per provider
             counts = month_df.groupby(['PROVIDER', 'PROVIDER_TYPE'])['ADDRESS'].count()
@@ -225,7 +269,7 @@ class ProviderAnalyzer:
         
         # Sort months chronologically
         sorted_months = sorted(months_data.keys(), key=lambda x: (
-            int(x.split('.')[1].split()[0]),  # year (remove " COUNT" suffix)
+            int(x.split('.')[1].split('_')[0]),  # year (remove "_COUNT" suffix)
             int(x.split('.')[0])  # month
         ))
         
@@ -244,14 +288,14 @@ class ProviderAnalyzer:
             prev_month = sorted_months[i-1]
             curr_month = sorted_months[i]
             
-            # Extract month number for column name
+            # Extract month number for column name with underscore for v300 compliance
             month_num = curr_month.split('.')[0]
-            year_num = curr_month.split('.')[1].split()[0]  # Remove " COUNT" suffix
-            
+            year_num = curr_month.split('.')[1].split('_')[0]  # Remove "_COUNT" suffix
+
             if int(month_num) >= 10:
-                movement_col = f"{month_num}.{year_num} TO PREV"
+                movement_col = f"{month_num}.{year_num}_TO_PREV"
             else:
-                movement_col = f"{month_num}.{year_num} TO PREV"
+                movement_col = f"{month_num}.{year_num}_TO_PREV"
             
             df[movement_col] = df.apply(
                 lambda row: self._calculate_movement(row[prev_month], row[curr_month]),
@@ -277,12 +321,12 @@ class ProviderAnalyzer:
         df = df.copy()
         
         # Find all count columns
-        count_cols = [col for col in df.columns if col.endswith(' COUNT')]
-        
+        count_cols = [col for col in df.columns if col.endswith('_COUNT')]
+
         for count_col in count_cols:
             try:
                 # Extract month/year for summary column name
-                parts = count_col.replace(' COUNT', '').split('.')
+                parts = count_col.replace('_COUNT', '').split('.')
                 if len(parts) < 2:
                     continue
                     
@@ -290,18 +334,18 @@ class ProviderAnalyzer:
                 year = parts[1]
                 
                 if int(month) >= 10:
-                    summary_col = f"{month}.{year} SUMMARY"
+                    summary_col = f"{month}.{year}_SUMMARY"
                 else:
-                    summary_col = f"{month}.{year} SUMMARY"
+                    summary_col = f"{month}.{year}_SUMMARY"
                 
-                # Check if required columns exist
-                if 'PROVIDER GROUP, ADDRESS COUNT' in df.columns and \
-                   'PROVIDER GROUP (DBA CONCAT)' in df.columns and \
+                # Check if required columns exist (using v300 exact names)
+                if 'PROVIDER_GROUP,_ADDRESS_COUNT' in df.columns and \
+                   'PROVIDER_GROUP_(DBA_Concat)' in df.columns and \
                    'PROVIDER_GROUP_INDEX_#' in df.columns:
                     # Create summary concatenation
                     df[summary_col] = df.apply(
-                        lambda row: f"{row['PROVIDER GROUP, ADDRESS COUNT']}, "
-                                   f"{row['PROVIDER GROUP (DBA CONCAT)']}, "
+                        lambda row: f"{row['PROVIDER_GROUP,_ADDRESS_COUNT']}, "
+                                   f"{row['PROVIDER_GROUP_(DBA_Concat)']}, "
                                    f"{row['PROVIDER_GROUP_INDEX_#']}",
                         axis=1
                     )
@@ -315,72 +359,71 @@ class ProviderAnalyzer:
         return df
     
     def ensure_all_analysis_columns(self, df: pd.DataFrame, processing_month: int = None, processing_year: int = None) -> pd.DataFrame:
-        """Ensure all columns from v300Track_this.xlsx as defined in v300Track_this.md are present in the analysis output."""
+        """
+        Ensure all columns from v300Track_this.xlsx as defined in v300Track_this.md are present in the analysis output.
+        Optimized to use pd.concat for better performance and avoid DataFrame fragmentation.
+        """
         df = df.copy()
 
+        # Keep internal column names (with underscores) as they match v300Track_this.xlsx exactly
+
         # Define the complete set of columns expected in analysis output (150+ columns to match v300Track_this.xlsx)
-        expected_columns = [
-            # Core provider data (Columns A-P)
-            'SOLO PROVIDER_TYPE PROVIDER [Y, #]',
-            'PROVIDER_TYPE',
-            'PROVIDER',
-            'ADDRESS',
-            'CITY',
-            'ZIP',
-            'FULL_ADDRESS',
-            'CAPACITY',
-            'LONGITUDE',
-            'LATITUDE',
-            'COUNTY',
-            'PROVIDER_GROUP_INDEX_#',
+        # Use internal names here, will rename at the end
+        # Columns A-P according to v300Track_this.md
+        expected_columns_internal = [
+            # Core provider data (Columns A-P) - EXACT v300 order
+            'SOLO_PROVIDER_TYPE_PROVIDER_[Y,#]',  # Column A - EXACT v300 match
+            'PROVIDER_TYPE',                        # Column B - Internal name with underscore
+            'PROVIDER',                             # Column C
+            'ADDRESS',                              # Column D
+            'CITY',                                 # Column E
+            'ZIP',                                  # Column F
+            'FULL_ADDRESS',                         # Column G - Internal name with underscore
+            'CAPACITY',                             # Column H
+            'LONGITUDE',                            # Column I
+            'LATITUDE',                             # Column J
+            'COUNTY',                               # Column K
+            'PROVIDER_GROUP_INDEX_#',               # Column L - Internal name with underscore
+            'PROVIDER_GROUP_(DBA_Concat)',          # Column M - EXACT v300 match
+            'PROVIDER_GROUP,_ADDRESS_COUNT',        # Column N - EXACT v300 match
+            'THIS_MONTH_STATUS',                    # Column O - EXACT v300 match
+            'LEAD_TYPE',                            # Column P - EXACT v300 match
 
-            # Provider grouping
-            'PROVIDER GROUP (DBA CONCAT)',
-            'PROVIDER GROUP, ADDRESS COUNT',
-            'THIS MONTH STATUS',
-            'LEAD TYPE',
+            # Extended Monthly counts (Columns Q-BD) - exactly 40 columns starting from actual data (9.24)
+            '9.24_COUNT', '10.24_COUNT', '11.24_COUNT', '12.24_COUNT',
+            '1.25_COUNT', '2.25_COUNT', '3.25_COUNT', '4.25_COUNT',
+            '5.25_COUNT', '6.25_COUNT', '7.25_COUNT', '8.25_COUNT',
+            '9.25_COUNT', '10.25_COUNT', '11.25_COUNT', '12.25_COUNT',
+            '1.26_COUNT', '2.26_COUNT', '3.26_COUNT', '4.26_COUNT',
+            '5.26_COUNT', '6.26_COUNT', '7.26_COUNT', '8.26_COUNT',
+            '9.26_COUNT', '10.26_COUNT', '11.26_COUNT', '12.26_COUNT',
+            '1.27_COUNT', '2.27_COUNT', '3.27_COUNT', '4.27_COUNT',
+            '5.27_COUNT', '6.27_COUNT', '7.27_COUNT', '8.27_COUNT',
+            '9.27_COUNT', '10.27_COUNT', '11.27_COUNT', '12.27_COUNT',
 
-            # Extended Monthly counts (Columns Q-BD) - 40+ months from 1.22 through 12.25
-            '1.22 COUNT', '2.22 COUNT', '3.22 COUNT', '4.22 COUNT',
-            '5.22 COUNT', '6.22 COUNT', '7.22 COUNT', '8.22 COUNT',
-            '9.22 COUNT', '10.22 COUNT', '11.22 COUNT', '12.22 COUNT',
-            '1.23 COUNT', '2.23 COUNT', '3.23 COUNT', '4.23 COUNT',
-            '5.23 COUNT', '6.23 COUNT', '7.23 COUNT', '8.23 COUNT',
-            '9.23 COUNT', '10.23 COUNT', '11.23 COUNT', '12.23 COUNT',
-            '1.24 COUNT', '2.24 COUNT', '3.24 COUNT', '4.24 COUNT',
-            '5.24 COUNT', '6.24 COUNT', '7.24 COUNT', '8.24 COUNT',
-            '9.24 COUNT', '10.24 COUNT', '11.24 COUNT', '12.24 COUNT',
-            '1.25 COUNT', '2.25 COUNT', '3.25 COUNT', '4.25 COUNT',
-            '5.25 COUNT', '6.25 COUNT', '7.25 COUNT', '8.25 COUNT',
-            '9.25 COUNT', '10.25 COUNT', '11.25 COUNT', '12.25 COUNT',
+            # Extended Monthly movements (Columns BE-CQ) - exactly 39 TO PREV columns starting from 10.24
+            '10.24_TO_PREV', '11.24_TO_PREV', '12.24_TO_PREV',
+            '1.25_TO_PREV', '2.25_TO_PREV', '3.25_TO_PREV', '4.25_TO_PREV',
+            '5.25_TO_PREV', '6.25_TO_PREV', '7.25_TO_PREV', '8.25_TO_PREV',
+            '9.25_TO_PREV', '10.25_TO_PREV', '11.25_TO_PREV', '12.25_TO_PREV',
+            '1.26_TO_PREV', '2.26_TO_PREV', '3.26_TO_PREV', '4.26_TO_PREV',
+            '5.26_TO_PREV', '6.26_TO_PREV', '7.26_TO_PREV', '8.26_TO_PREV',
+            '9.26_TO_PREV', '10.26_TO_PREV', '11.26_TO_PREV', '12.26_TO_PREV',
+            '1.27_TO_PREV', '2.27_TO_PREV', '3.27_TO_PREV', '4.27_TO_PREV',
+            '5.27_TO_PREV', '6.27_TO_PREV', '7.27_TO_PREV', '8.27_TO_PREV',
+            '9.27_TO_PREV', '10.27_TO_PREV', '11.27_TO_PREV', '12.27_TO_PREV',
 
-            # Extended Monthly movements (Columns BE-CQ) - TO PREV for 40+ months
-            '2.22 TO PREV', '3.22 TO PREV', '4.22 TO PREV',
-            '5.22 TO PREV', '6.22 TO PREV', '7.22 TO PREV', '8.22 TO PREV',
-            '9.22 TO PREV', '10.22 TO PREV', '11.22 TO PREV', '12.22 TO PREV',
-            '1.23 TO PREV', '2.23 TO PREV', '3.23 TO PREV', '4.23 TO PREV',
-            '5.23 TO PREV', '6.23 TO PREV', '7.23 TO PREV', '8.23 TO PREV',
-            '9.23 TO PREV', '10.23 TO PREV', '11.23 TO PREV', '12.23 TO PREV',
-            '1.24 TO PREV', '2.24 TO PREV', '3.24 TO PREV', '4.24 TO PREV',
-            '5.24 TO PREV', '6.24 TO PREV', '7.24 TO PREV', '8.24 TO PREV',
-            '9.24 TO PREV', '10.24 TO PREV', '11.24 TO PREV', '12.24 TO PREV',
-            '1.25 TO PREV', '2.25 TO PREV', '3.25 TO PREV', '4.25 TO PREV',
-            '5.25 TO PREV', '6.25 TO PREV', '7.25 TO PREV', '8.25 TO PREV',
-            '9.25 TO PREV', '10.25 TO PREV', '11.25 TO PREV', '12.25 TO PREV',
-
-            # Extended Monthly summaries (Columns CR-EE) - SUMMARY for 40+ months
-            '1.22 SUMMARY', '2.22 SUMMARY', '3.22 SUMMARY', '4.22 SUMMARY',
-            '5.22 SUMMARY', '6.22 SUMMARY', '7.22 SUMMARY', '8.22 SUMMARY',
-            '9.22 SUMMARY', '10.22 SUMMARY', '11.22 SUMMARY', '12.22 SUMMARY',
-            '1.23 SUMMARY', '2.23 SUMMARY', '3.23 SUMMARY', '4.23 SUMMARY',
-            '5.23 SUMMARY', '6.23 SUMMARY', '7.23 SUMMARY', '8.23 SUMMARY',
-            '9.23 SUMMARY', '10.23 SUMMARY', '11.23 SUMMARY', '12.23 SUMMARY',
-            '1.24 SUMMARY', '2.24 SUMMARY', '3.24 SUMMARY', '4.24 SUMMARY',
-            '5.24 SUMMARY', '6.24 SUMMARY', '7.24 SUMMARY', '8.24 SUMMARY',
-            '9.24 SUMMARY', '10.24 SUMMARY', '11.24 SUMMARY', '12.24 SUMMARY',
-            '1.25 SUMMARY', '2.25 SUMMARY', '3.25 SUMMARY', '4.25 SUMMARY',
-            '5.25 SUMMARY', '6.25 SUMMARY', '7.25 SUMMARY', '8.25 SUMMARY',
-            '9.25 SUMMARY', '10.25 SUMMARY', '11.25 SUMMARY', '12.25 SUMMARY',
+            # Extended Monthly summaries (Columns CR-EE) - exactly 40 SUMMARY columns starting from 9.24
+            '9.24_SUMMARY', '10.24_SUMMARY', '11.24_SUMMARY', '12.24_SUMMARY',
+            '1.25_SUMMARY', '2.25_SUMMARY', '3.25_SUMMARY', '4.25_SUMMARY',
+            '5.25_SUMMARY', '6.25_SUMMARY', '7.25_SUMMARY', '8.25_SUMMARY',
+            '9.25_SUMMARY', '10.25_SUMMARY', '11.25_SUMMARY', '12.25_SUMMARY',
+            '1.26_SUMMARY', '2.26_SUMMARY', '3.26_SUMMARY', '4.26_SUMMARY',
+            '5.26_SUMMARY', '6.26_SUMMARY', '7.26_SUMMARY', '8.26_SUMMARY',
+            '9.26_SUMMARY', '10.26_SUMMARY', '11.26_SUMMARY', '12.26_SUMMARY',
+            '1.27_SUMMARY', '2.27_SUMMARY', '3.27_SUMMARY', '4.27_SUMMARY',
+            '5.27_SUMMARY', '6.27_SUMMARY', '7.27_SUMMARY', '8.27_SUMMARY',
+            '9.27_SUMMARY', '10.27_SUMMARY', '11.27_SUMMARY', '12.27_SUMMARY',
 
             # Metadata (Columns EF-EG) - repositioned after extended historical columns
             'MONTH',
@@ -406,94 +449,137 @@ class ProviderAnalyzer:
             'MULTI_CITY_OPERATOR',
             'RELOCATION_FLAG'
         ]
-        
-        # Add any missing columns with appropriate default values
+
         # Use processing month/year for reference, not current system date
         reference_month = processing_month if processing_month is not None else 7
         reference_year = processing_year if processing_year is not None else 2025
-        
-        for col in expected_columns:
+
+        # Collect all missing columns and their default values
+        missing_columns = {}
+
+        for col in expected_columns_internal:
             if col not in df.columns:
                 # Determine appropriate default value based on column type
-                if col.endswith(' COUNT'):
-                    # For monthly count columns, use 0 for past/current months, N/A for future months
+                if col.endswith('_COUNT'):
+                    # For monthly count columns, use 0 for past/current months, pd.NA for future months
                     try:
                         # Extract month and year from column name like "9.24 COUNT"
-                        month_year = col.replace(' COUNT', '')
+                        month_year = col.replace('_COUNT', '')
                         month, year = month_year.split('.')
                         month = int(month)
                         year = 2000 + int(year)
-                        
-                        # If it's a past month or current month, use 0; if future, use N/A
+
+                        # If it's a past month or current month, use 0; if future, use None for blank cells
                         if (year < reference_year) or (year == reference_year and month <= reference_month):
-                            df[col] = 0
+                            missing_columns[col] = 0
                         else:
-                            df[col] = 'N/A'
+                            missing_columns[col] = None  # Use None for future months to show blank in Excel
                     except Exception:
-                        df[col] = 'N/A'
-                        
-                elif col.endswith(' TO PREV'):
-                    # For monthly movement columns, use empty string for past/current months, N/A for future months
+                        missing_columns[col] = pd.NA  # Use pd.NA instead of 'N/A' string
+
+                elif col.endswith('_TO_PREV'):
+                    # For monthly movement columns, use empty string for past/current months, None for future months
                     try:
                         # Extract month and year from column name like "9.24 TO PREV"
-                        month_year = col.replace(' TO PREV', '')
+                        month_year = col.replace('_TO_PREV', '')
                         month, year = month_year.split('.')
                         month = int(month)
                         year = 2000 + int(year)
-                        
-                        # If it's a past month or current month, use empty string; if future, use N/A
+
+                        # If it's a past month or current month, use empty string; if future, use None for blank cells
                         if (year < reference_year) or (year == reference_year and month <= reference_month):
-                            df[col] = ''
+                            missing_columns[col] = ''
                         else:
-                            df[col] = 'N/A'
+                            missing_columns[col] = None  # Use None for future months to show blank in Excel
                     except Exception:
-                        df[col] = 'N/A'
-                        
-                elif col.endswith(' SUMMARY'):
-                    # For monthly summary columns, use empty string for past/current months, N/A for future months
+                        missing_columns[col] = pd.NA  # Use pd.NA instead of 'N/A' string
+
+                elif col.endswith('_SUMMARY'):
+                    # For monthly summary columns, use empty string for past/current months, None for future months
                     try:
                         # Extract month and year from column name like "9.24 SUMMARY"
-                        month_year = col.replace(' SUMMARY', '')
+                        month_year = col.replace('_SUMMARY', '')
                         month, year = month_year.split('.')
                         month = int(month)
                         year = 2000 + int(year)
-                        
-                        # If it's a past month or current month, use empty string; if future, use N/A
+
+                        # If it's a past month or current month, use empty string; if future, use None for blank cells
                         if (year < reference_year) or (year == reference_year and month <= reference_month):
-                            df[col] = ''
+                            missing_columns[col] = ''
                         else:
-                            df[col] = 'N/A'
+                            missing_columns[col] = None  # Use None for future months to show blank in Excel
                     except Exception:
-                        df[col] = 'N/A'
-                        
+                        missing_columns[col] = ''  # FIXED: Use empty string instead of pd.NA to prevent column dropping
+
                 else:
-                    # For all other columns, use N/A
-                    df[col] = 'N/A'
-        
-        # Reorder columns to match expected order
-        existing_cols = [col for col in expected_columns if col in df.columns]
-        other_cols = [col for col in df.columns if col not in expected_columns]
-        
+                    # For all other columns, use empty string to preserve columns for v300
+                    missing_columns[col] = ''  # FIXED: Use empty string instead of pd.NA to prevent column dropping
+
+        # If there are missing columns, add them all at once using pd.concat
+        if missing_columns:
+            # Create a DataFrame with the missing columns
+            new_cols_df = pd.DataFrame(
+                {col: [val] * len(df) if len(df) > 0 else [val]
+                 for col, val in missing_columns.items()},
+                index=df.index if len(df) > 0 else [0]
+            )
+
+            # Concatenate the new columns to the existing dataframe
+            df = pd.concat([df, new_cols_df], axis=1)
+
+            # If df was empty, remove the dummy row
+            if len(df) == 1 and df.index[0] == 0 and len(df.columns) == len(missing_columns):
+                df = df.iloc[0:0]  # Empty dataframe with columns
+
+        # Reorder columns to match expected order (using internal names)
+        existing_cols = [col for col in expected_columns_internal if col in df.columns]
+        other_cols = [col for col in df.columns if col not in expected_columns_internal]
+
         # Create final column order
         final_columns = existing_cols + other_cols
-        
-        return df[final_columns]
+        df = df[final_columns].copy()  # Use copy() to de-fragment
+
+        # Column names already match v300Track_this.xlsx exactly (keep underscores)
+
+        # Return properly formatted DataFrame
+        return df
 
 
-def create_analysis_summary_sheet(analysis_df: pd.DataFrame) -> pd.DataFrame:
-    """Create the summary sheet with counts."""
+def create_analysis_summary_sheet(analysis_df: pd.DataFrame, reformat_df: pd.DataFrame = None) -> pd.DataFrame:
+    """Create the summary sheet with counts matching v300Track_this.xlsx template."""
     summary_data = []
-    
-    # Count basic metrics
+
+    # Count basic metrics from Analysis data
     total_addresses = analysis_df['ADDRESS'].nunique()
     total_providers = analysis_df['PROVIDER'].nunique()
-    total_provider_groups = analysis_df['PROVIDER_GROUP_INDEX_#'].nunique() if 'PROVIDER_GROUP_INDEX_#' in analysis_df else 0
-    total_blanks = analysis_df.isnull().sum().sum()
-    total_solo_providers = len(analysis_df[analysis_df.get('SOLO PROVIDER_TYPE PROVIDER [Y, #]', '') == 'Y'])
-    
+    # Use v300 exact column name
+    provider_group_col = 'PROVIDER_GROUP_INDEX_#'
+    total_provider_groups = analysis_df[provider_group_col].nunique() if provider_group_col in analysis_df.columns else 0
+
+    # Count blanks from Reformat data (critical fields only)
+    if reformat_df is not None:
+        # Count blanks in critical fields from Reformat
+        critical_fields = ['PROVIDER', 'ADDRESS', 'CITY', 'ZIP', 'PROVIDER_TYPE']
+        total_blanks = 0
+        for field in critical_fields:
+            if field in reformat_df.columns:
+                total_blanks += reformat_df[field].isna().sum()
+    else:
+        # Fallback to counting blanks in Analysis if Reformat not provided
+        # But only count critical fields, not all columns
+        critical_fields = ['PROVIDER', 'ADDRESS', 'CITY', 'ZIP', 'PROVIDER_TYPE']
+        total_blanks = 0
+        for field in critical_fields:
+            if field in analysis_df.columns:
+                total_blanks += analysis_df[field].isna().sum()
+
+    # Use v300 exact column name
+    solo_provider_col = 'SOLO_PROVIDER_TYPE_PROVIDER_[Y,#]'
+    total_solo_providers = len(analysis_df[analysis_df[solo_provider_col] == 'Y']) if solo_provider_col in analysis_df.columns else 0
+
     # Count status types
-    status_counts = analysis_df['THIS MONTH STATUS'].value_counts() if 'THIS MONTH STATUS' in analysis_df else {}
-    
+    status_counts = analysis_df['THIS_MONTH_STATUS'].value_counts() if 'THIS_MONTH_STATUS' in analysis_df else {}
+
     new_provider_new_address = status_counts.get('NEW PROVIDER TYPE, NEW ADDRESS', 0)
     new_provider_existing_address = status_counts.get('NEW PROVIDER TYPE, EXISTING ADDRESS', 0)
     existing_provider_new_address = status_counts.get('EXISTING PROVIDER TYPE, NEW ADDRESS', 0)
@@ -501,47 +587,53 @@ def create_analysis_summary_sheet(analysis_df: pd.DataFrame) -> pd.DataFrame:
     lost_provider_existing_address = status_counts.get('LOST PROVIDER TYPE, EXISTING ADDRESS', 0)
     lost_provider_lost_address_0 = status_counts.get('LOST PROVIDER TYPE, LOST ADDRESS (0 remain)', 0)
     lost_provider_lost_address_1 = status_counts.get('LOST PROVIDER TYPE, LOST ADDRESS (1+ remain)', 0)
-    
-    # Count leads
-    seller_leads = len(analysis_df[analysis_df.get('LEAD TYPE', '').isin(['SELLER LEAD', 'SELLER/SURVEY LEAD'])])
-    survey_leads = len(analysis_df[analysis_df.get('LEAD TYPE', '').isin(['SURVEY LEAD', 'SELLER/SURVEY LEAD'])])
-    
-    # Count by provider type
-    provider_type_counts = analysis_df['PROVIDER_TYPE'].value_counts() if 'PROVIDER_TYPE' in analysis_df else {}
+    reinstated_provider_existing_address = status_counts.get('REINSTATED PROVIDER TYPE, EXISTING ADDRESS', 0)
+
+    # Count leads - updated for v300 with proper case sensitivity
+    total_seller_survey_leads = len(analysis_df[~analysis_df['LEAD_TYPE'].isin(['', pd.NA])]) if 'LEAD_TYPE' in analysis_df.columns else 0
+    seller_leads = len(analysis_df[analysis_df['LEAD_TYPE'].isin(['Seller Lead', 'Seller/Survey Lead'])]) if 'LEAD_TYPE' in analysis_df.columns else 0
+    survey_leads = len(analysis_df[analysis_df['LEAD_TYPE'].isin(['Survey Lead', 'Seller/Survey Lead'])]) if 'LEAD_TYPE' in analysis_df.columns else 0
+
+    # Count by provider type - use v300 exact column name
+    provider_type_col = 'PROVIDER_TYPE'
+    provider_type_counts = analysis_df[provider_type_col].value_counts() if provider_type_col in analysis_df.columns else {}
     total_record_count = len(analysis_df)
-    
-    # Create the exact template structure
+
+    # Create the exact template structure matching v300Track_this.xlsx
+    # Row 1 is headers, data starts at row 2
     summary_data = [
-        ['Total ADDRESS', total_addresses],
-        ['Total PROVIDER', total_providers],
-        ['Total PROVIDER GROUP', total_provider_groups],
-        ['Total Blanks', total_blanks],
-        ['Total SOLO PROVIDER_TYPE PROVIDER', total_solo_providers],
-        ['', ''],  # Empty row
-        ['New PROVIDER_TYPE, New ADDRESS', new_provider_new_address],
-        ['New PROVIDER_TYPE, Existing ADDRESS', new_provider_existing_address],
-        ['Existing PROVIDER_TYPE, New ADDRESS', existing_provider_new_address],
-        ['Existing PROVIDER_TYPE, Existing ADDRESS', existing_provider_existing_address],
-        ['Lost PROVIDER_TYPE, Existing ADDRESS', lost_provider_existing_address],
-        ['Lost PROVIDER_TYPE, Lost ADDRESS (0 remain)', lost_provider_lost_address_0],
-        ['Lost PROVIDER_TYPE, Lost ADDRESS (1+ remain)', lost_provider_lost_address_1],
-        ['', ''],  # Empty row
-        ['Seller Leads', seller_leads],
-        ['Survey Leads', survey_leads],
-        ['', ''],  # Empty row
-        ['Total Record Count (TRC)', total_record_count],
-        ['ADULT_BEHAVIORAL_HEALTH_THERAPEUTIC_HOME (TRC)', provider_type_counts.get('ADULT_BEHAVIORAL_HEALTH_THERAPEUTIC_HOME', 0)],
-        ['ASSISTED_LIVING_CENTER (TRC)', provider_type_counts.get('ASSISTED_LIVING_CENTER', 0)],
-        ['ASSISTED_LIVING_HOME (TRC)', provider_type_counts.get('ASSISTED_LIVING_HOME', 0)],
-        ['BEHAVIORAL_HEALTH_INPATIENT (TRC)', provider_type_counts.get('BEHAVIORAL_HEALTH_INPATIENT', 0)],
-        ['BEHAVIORAL_HEALTH_RESIDENTIAL_FACILITY (TRC)', provider_type_counts.get('BEHAVIORAL_HEALTH_RESIDENTIAL_FACILITY', 0)],
-        ['CC_CENTERS (TRC)', provider_type_counts.get('CC_CENTERS', 0)],
-        ['CC_GROUP_HOMES (TRC)', provider_type_counts.get('CC_GROUP_HOMES', 0)],
-        ['DEVELOPMENTALLY_DISABLED_GROUP_HOME (TRC)', provider_type_counts.get('DEVELOPMENTALLY_DISABLED_GROUP_HOME', 0)],
-        ['HOSPITAL_REPORT (TRC)', provider_type_counts.get('HOSPITAL_REPORT', 0)],
-        ['NURSING_HOME (TRC)', provider_type_counts.get('NURSING_HOME', 0)],
-        ['NURSING_SUPPORTED_GROUP_HOMES (TRC)', provider_type_counts.get('NURSING_SUPPORTED_GROUP_HOMES', 0)],
-        ['OUTPATIENT_HEALTH_TREATMENT_CENTER_REPORT (TRC)', provider_type_counts.get('OUTPATIENT_HEALTH_TREATMENT_CENTER_REPORT', 0)]
+        ['Total ADDRESS', total_addresses],                                     # Row 2
+        ['Total PROVIDER', total_providers],                                    # Row 3
+        ['Total PROVIDER GROUP', total_provider_groups],                        # Row 4
+        ['Total Blanks', total_blanks],                                         # Row 5
+        ['Total SOLO PROVIDER TYPE PROVIDER', total_solo_providers],            # Row 6
+        ['', ''],                                                                # Row 7 - Empty row
+        ['New PROVIDER TYPE, New ADDRESS', new_provider_new_address],           # Row 8
+        ['New PROVIDER TYPE, Existing ADDRESS', new_provider_existing_address], # Row 9
+        ['Existing PROVIDER TYPE, New ADDRESS', existing_provider_new_address], # Row 10
+        ['Existing PROVIDER TYPE, Existing ADDRESS', existing_provider_existing_address], # Row 11
+        ['Lost PROVIDER TYPE, Existing ADDRESS', lost_provider_existing_address],        # Row 12
+        ['Lost PROVIDER TYPE, Lost ADDRESS (0 remain)', lost_provider_lost_address_0],   # Row 13
+        ['Lost PROVIDER TYPE, Lost ADDRESS (1+ remain)', lost_provider_lost_address_1],  # Row 14
+        ['Reinstated PROVIDER TYPE, Existing ADDRESS', reinstated_provider_existing_address], # Row 15
+        ['', ''],                                                                # Row 16 - Empty row
+        ['Total Seller/Survey Lead', total_seller_survey_leads],                # Row 17 - NEW v300 row
+        ['Total Seller Lead', seller_leads],                                    # Row 18 (was 17)
+        ['Total Survey Lead', survey_leads],                                    # Row 19 (was 18)
+        ['', ''],                                                                # Row 20 - Empty row (was 19)
+        ['Total Record Count (TRC)', total_record_count],                       # Row 21 (was 20)
+        ['ADULT_BEHAVIORAL_HEALTH_THERAPEUTIC_HOME (TRC)', provider_type_counts.get('ADULT_BEHAVIORAL_HEALTH_THERAPEUTIC_HOME', 0)],  # Row 22
+        ['ASSISTED_LIVING_CENTER (TRC)', provider_type_counts.get('ASSISTED_LIVING_CENTER', 0)],  # Row 23
+        ['ASSISTED_LIVING_HOME (TRC)', provider_type_counts.get('ASSISTED_LIVING_HOME', 0)],  # Row 24
+        ['BEHAVIORAL_HEALTH_INPATIENT (TRC)', provider_type_counts.get('BEHAVIORAL_HEALTH_INPATIENT', 0)],  # Row 25
+        ['BEHAVIORAL_HEALTH_RESIDENTIAL_FACILITY (TRC)', provider_type_counts.get('BEHAVIORAL_HEALTH_RESIDENTIAL_FACILITY', 0)],  # Row 26
+        ['CC_CENTERS (TRC)', provider_type_counts.get('CC_CENTERS', 0)],  # Row 27
+        ['CC_GROUP_HOMES (TRC)', provider_type_counts.get('CC_GROUP_HOMES', 0)],  # Row 28
+        ['DEVELOPMENTALLY_DISABLED_GROUP_HOME (TRC)', provider_type_counts.get('DEVELOPMENTALLY_DISABLED_GROUP_HOME', 0)],  # Row 29
+        ['HOSPITAL_REPORT (TRC)', provider_type_counts.get('HOSPITAL_REPORT', 0)],  # Row 30
+        ['NURSING_HOME (TRC)', provider_type_counts.get('NURSING_HOME', 0)],  # Row 31
+        ['NURSING_SUPPORTED_GROUP_HOMES (TRC)', provider_type_counts.get('NURSING_SUPPORTED_GROUP_HOMES', 0)],  # Row 32
+        ['OUTPATIENT_HEALTH_TREATMENT_CENTER_REPORT (TRC)', provider_type_counts.get('OUTPATIENT_HEALTH_TREATMENT_CENTER_REPORT', 0)]  # Row 33
     ]
     
     # Create DataFrame with exact template column names
@@ -550,8 +642,15 @@ def create_analysis_summary_sheet(analysis_df: pd.DataFrame) -> pd.DataFrame:
     return summary_df
 
 
-def create_blanks_count_sheet(current_month_df: pd.DataFrame) -> pd.DataFrame:
-    """Create the blanks count sheet by provider type."""
+def create_blanks_count_sheet(current_month_df: pd.DataFrame, processing_month: int = None, processing_year: int = None) -> pd.DataFrame:
+    """
+    Create the blanks count sheet by provider type.
+
+    Args:
+        current_month_df: The current month's Reformat data
+        processing_month: The month being processed (for MONTH column validation)
+        processing_year: The year being processed (for YEAR column validation)
+    """
     provider_types = [
         'ADULT_BEHAVIORAL_HEALTH_THERAPEUTIC_HOME',
         'ASSISTED_LIVING_CENTER',
@@ -566,15 +665,16 @@ def create_blanks_count_sheet(current_month_df: pd.DataFrame) -> pd.DataFrame:
         'NURSING_SUPPORTED_GROUP_HOMES',
         'OUTPATIENT_HEALTH_TREATMENT_CENTER_REPORT'
     ]
-    
+
     blanks_data = []
-    
+
     for provider_type in provider_types:
-        # Filter to this provider type
-        type_df = current_month_df[current_month_df['PROVIDER_TYPE'] == provider_type]
-        
+        # Filter to this provider type - handle both internal and display names
+        provider_type_col = 'PROVIDER TYPE' if 'PROVIDER TYPE' in current_month_df.columns else 'PROVIDER_TYPE'
+        type_df = current_month_df[current_month_df[provider_type_col] == provider_type]
+
         if type_df.empty:
-            # No data for this provider type
+            # No data for this provider type - all fields are effectively blank
             blanks_data.append({
                 'PROVIDER_TYPE': provider_type,
                 'MONTH': 0,
@@ -586,25 +686,87 @@ def create_blanks_count_sheet(current_month_df: pd.DataFrame) -> pd.DataFrame:
                 'CAPACITY': 0,
                 'LONGITUDE': 0,
                 'LATITUDE': 0,
-                'PROVIDER_GROUP_INDEX_#': 0
+                'PROVIDER GROUP INDEX #': 0
             })
         else:
-            # Count blanks in each field
-            row_data = {'PROVIDER_TYPE': provider_type}
-            
-            fields = ['MONTH', 'YEAR', 'PROVIDER', 'ADDRESS', 'CITY', 'ZIP', 'FULL_ADDRESS',
-                     'CAPACITY', 'LONGITUDE', 'LATITUDE', 'COUNTY', 'PROVIDER_GROUP_INDEX_#']
-            
-            for field in fields:
+            # Count blanks in each field - v300 column order: Provider Type, MONTH, YEAR, then rest
+            row_data = {}
+
+            # Column A: Provider Type (always populated)
+            row_data['PROVIDER_TYPE'] = provider_type
+
+            # Column B & C: MONTH and YEAR - check if they match processing month/year
+            if 'MONTH' in type_df.columns:
+                # Count records where MONTH doesn't match the processing month
+                if processing_month is not None:
+                    month_blank_count = type_df['MONTH'].apply(
+                        lambda x: pd.isna(x) or x != processing_month
+                    ).sum()
+                else:
+                    # No processing month provided, count actual blanks
+                    month_blank_count = type_df['MONTH'].apply(
+                        lambda x: pd.isna(x) or str(x).strip() in ['', 'NAN', 'N/A']
+                    ).sum()
+                row_data['MONTH'] = month_blank_count
+            else:
+                row_data['MONTH'] = len(type_df)
+
+            if 'YEAR' in type_df.columns:
+                # Count records where YEAR doesn't match the processing year
+                if processing_year is not None:
+                    year_blank_count = type_df['YEAR'].apply(
+                        lambda x: pd.isna(x) or x != processing_year
+                    ).sum()
+                else:
+                    # No processing year provided, count actual blanks
+                    year_blank_count = type_df['YEAR'].apply(
+                        lambda x: pd.isna(x) or str(x).strip() in ['', 'NAN', 'N/A']
+                    ).sum()
+                row_data['YEAR'] = year_blank_count
+            else:
+                row_data['YEAR'] = len(type_df)
+
+            # Columns D-K: Other fields in v300 order - handle both internal and display names
+            fields_ordered = [
+                'PROVIDER',   # Column D
+                'ADDRESS',    # Column E
+                'CITY',       # Column F
+                'ZIP',        # Column G
+                'CAPACITY',   # Column H
+                'LONGITUDE',  # Column I
+                'LATITUDE',   # Column J
+                'PROVIDER GROUP INDEX #' if 'PROVIDER GROUP INDEX #' in type_df.columns else 'PROVIDER_GROUP_INDEX_#'  # Column K
+            ]
+
+            for field in fields_ordered:
                 if field in type_df.columns:
                     # Count empty, NaN, or 'NAN' values
                     blank_count = type_df[field].apply(
                         lambda x: pd.isna(x) or str(x).strip() in ['', 'NAN', 'N/A']
                     ).sum()
-                    row_data[field] = blank_count
+                    # Use v300 exact column name
+                    output_field = field  # Keep exact column name, no conversion
+                    row_data[output_field] = blank_count
                 else:
-                    row_data[field] = len(type_df)  # All blank if column doesn't exist
-            
+                    # Use v300 exact column name
+                    output_field = field  # Keep exact column name, no conversion
+                    row_data[output_field] = len(type_df)  # All blank if column doesn't exist
+
             blanks_data.append(row_data)
-    
-    return pd.DataFrame(blanks_data)
+
+    # Create DataFrame with columns in v300 order (using display names)
+    columns_ordered = [
+        'PROVIDER_TYPE',  # Column A (Unnamed: 0 in Excel) - keep internal name as it's not renamed
+        'MONTH',          # Column B
+        'YEAR',           # Column C
+        'PROVIDER',       # Column D
+        'ADDRESS',        # Column E
+        'CITY',           # Column F
+        'ZIP',            # Column G
+        'CAPACITY',       # Column H
+        'LONGITUDE',      # Column I
+        'LATITUDE',       # Column J
+        'PROVIDER_GROUP_INDEX_#'  # Column K - use v300 exact name
+    ]
+
+    return pd.DataFrame(blanks_data, columns=columns_ordered)

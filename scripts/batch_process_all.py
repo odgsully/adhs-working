@@ -84,7 +84,7 @@ def get_available_months() -> List[Tuple[str, str]]:
                     year_num = int(parts[1])
 
                     if 1 <= month_num <= 12 and 20 <= year_num <= 99:
-                        months.append((folder_name, month_code))
+                        months.append((folder.name, month_code))
             except:
                 continue
 
@@ -196,13 +196,13 @@ def run_etl_pipeline(month_code: str, dry_run: bool = False, skip_analysis: bool
 
         print_colored(f"Running: {' '.join(cmd)}", Colors.BLUE)
 
-        # Increase timeout for subprocess
+        # Increase timeout for subprocess to handle large Analysis files
         result = subprocess.run(
             cmd,
             capture_output=True,
             text=True,
             env=env,
-            timeout=600  # 10 minute timeout
+            timeout=1200  # 20 minute timeout for large files
         )
 
         if result.returncode == 0:
@@ -215,7 +215,7 @@ def run_etl_pipeline(month_code: str, dry_run: bool = False, skip_analysis: bool
             return False
 
     except subprocess.TimeoutExpired:
-        print_error(f"ETL pipeline timed out for {month_code} (exceeded 10 minutes)")
+        print_error(f"ETL pipeline timed out for {month_code} (exceeded 20 minutes)")
         return False
     except Exception as e:
         print_error(f"Error running ETL pipeline: {e}")

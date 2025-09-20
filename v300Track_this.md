@@ -12,18 +12,18 @@
 
 ## Core Identification Fields (Columns A-P)
 
-### Column A: SOLO PROVIDER TYPE PROVIDER [Y, #]
+### Column A: SOLO_PROVIDER_TYPE_PROVIDER_[Y,#]
 **Source**: Calculated from current month's Reformat data
 **Logic**:
 ```
-IF all addresses in PROVIDER GROUP INDEX # have same PROVIDER TYPE
+IF all addresses in PROVIDER_GROUP_INDEX_# have same PROVIDER_TYPE
   THEN "Y"  // Regardless of address count
 ELSE
-  COUNT(distinct PROVIDER TYPE for this PROVIDER GROUP INDEX #)
+  COUNT(distinct PROVIDER_TYPE for this PROVIDER_GROUP_INDEX_#)
 ```
 **Example**: "Y" = all addresses have same provider type (could be 1 or many addresses), "3" = group has 3 different provider types
 
-### Column B: PROVIDER TYPE
+### Column B: PROVIDER_TYPE
 **Source**: Direct from Reformat file, originally from Raw files
 **Values**: DEVELOPMENTALLY_DISABLED_GROUP_HOME, ASSISTED_LIVING_CENTER, etc.
 
@@ -43,7 +43,7 @@ ELSE
 **Source**: Direct from Reformat file
 **Format**: 5-digit ZIP code
 
-### Column G: FULL ADDRESS
+### Column G: FULL_ADDRESS
 **Source**: Concatenated from ADDRESS, CITY, STATE, ZIP
 **Logic**:
 ```
@@ -60,23 +60,21 @@ CONCATENATE(Column D, ", ", Column E, ", AZ ", Column F)
 
 ### Column H: CAPACITY
 **Source**: Direct from Reformat file
-**Note**: Shifted one column right due to FULL_ADDRESS addition
+
 
 ### Column I: LONGITUDE
 **Source**: Direct from Reformat file
-**Note**: Shifted one column right due to FULL_ADDRESS addition
 
 ### Column J: LATITUDE
 **Source**: Direct from Reformat file
-**Note**: Shifted one column right due to FULL_ADDRESS addition
+
 
 ### Column K: COUNTY
 **Source**: Direct from Reformat file
 **Values**: County names (e.g., "MARICOPA", "PIMA", "COCONINO")
 **Purpose**: Enables county-level analysis and regional tracking
-**Note**: This shifts PROVIDER GROUP INDEX # to Column L
 
-### Column L: PROVIDER GROUP INDEX #
+### Column L: PROVIDER_GROUP_INDEX_#
 **Source**: Calculated during Reformat process
 **Note**: Positioned after COUNTY field
 **Logic**:
@@ -90,13 +88,13 @@ Groups assigned unique index based on:
 4. Group members share same index number
 ```
 
-### Column M: PROVIDER GROUP (DBA CONCAT)
-**Source**: Calculated from all records sharing same PROVIDER GROUP INDEX #
+### Column M: PROVIDER_GROUP_(DBA_CONCAT)
+**Source**: Calculated from all records sharing same PROVIDER_GROUP_INDEX_#
 **Logic**:
 ```
-FOR each PROVIDER GROUP INDEX #:
+FOR each PROVIDER_GROUP_INDEX_#:
   LIST all other providers with same index
-  FORMAT as: "PROVIDER NAME (FULL ADDRESS), PROVIDER NAME (FULL ADDRESS)"
+  FORMAT as: "PROVIDER_NAME (FULL_ADDRESS), PROVIDER_NAME (FULL_ADDRESS)"
   EXCLUDE self from list
   SORT alphabetically by provider name
 ```
@@ -105,14 +103,14 @@ FOR each PROVIDER GROUP INDEX #:
 - "VISIT-N-CARE /  MAHALO (7373 W MONTEBELLO AVE, PHOENIX, AZ 85033), VISIT-N-CARE/ ALDO (7123 N 77TH DRIVE, GLENDALE, AZ 85303)"
 - "ZION COMPASSION CARE, LLC/ MT CALVARY (424 S ROSEMONT, MESA, AZ 85206), ZION COMPASSION CARE, LLC/ MT TABOR (4752 E DRAGOON AVE, TUCSON, AZ 85710)"
 
-**Format Pattern**: `PROVIDER NAME (FULL ADDRESS), PROVIDER NAME (FULL ADDRESS)`
+**Format Pattern**: `PROVIDER_NAME (FULL_ADDRESS), PROVIDER_NAME (FULL_ADDRESS)`
 **Note**: Uses FULL_ADDRESS for complete location matching
 
-### Column N: PROVIDER GROUP, ADDRESS COUNT
-**Source**: Calculated COUNT(DISTINCT FULL ADDRESS for this PROVIDER GROUP INDEX #)
-**Note**: Now uses FULL ADDRESS (Column G) instead of ADDRESS (Column D)
+### Column N: PROVIDER_GROUP, ADDRESS_COUNT
+**Source**: Calculated COUNT(DISTINCT FULL ADDRESS for this PROVIDER_GROUP_INDEX_#)
+**Note**: Now uses FULL_ADDRESS (Column G) instead of ADDRESS (Column D)
 
-### Column O: THIS MONTH STATUS
+### Column O: THIS_MONTH_STATUS
 **Source**: Calculated by comparing current month to previous month
 **Logic**:
 ```
@@ -160,20 +158,20 @@ ELSE IF provider+type+FULL_ADDRESS existed last month but not this month
 **Logic**:
 ```
 FOR each month column:
-  COUNT the number of FULL ADDRESS records for the corresponding PROVIDER
+  COUNT the number of FULL_ADDRESS records for the corresponding PROVIDER
   in the M.YY Reformat file
 
-  IF provider+type+FULL ADDRESS exists in that month's Reformat file
+  IF provider+type+FULL_ADDRESS exists in that month's Reformat file
     THEN 1
   ELSE 0
 ```
 **Note**: This is a COUNT of the number of FULL ADDRESS records for the corresponding PROVIDER record in each M.YY Reformat file. For processing a single month M.YY Analysis, copy values from the previous month's workbook for all previous months.
 **Span**: Now covers 40+ months of historical data
 **Example Columns**:
-- Q: "1.22_COUNT"
-- R: "2.22_COUNT"
+- Q: "9.24_COUNT"
+- R: "10.24_COUNT"
 - ...continuing through...
-- BD: "12.25_COUNT"
+- BD: "12.27_COUNT"
 
 
 
@@ -234,9 +232,9 @@ IF lookup returns NULL or no previous month found:
 ```
 score = 100
 IF PROVIDER is NULL: score -= 30
-IF FULL ADDRESS is NULL: score -= 25  // Changed from ADDRESS
+IF FULL_ADDRESS is NULL: score -= 25  // Changed from ADDRESS
 IF COUNTY is NULL: score -= 5         // New check
-IF PROVIDER GROUP INDEX # is NULL: score -= 10
+IF PROVIDER_GROUP_INDEX_# is NULL: score -= 10
 IF previous month data missing: score -= 20
 
 IF score >= 80: "High"
@@ -470,7 +468,7 @@ Provides high-level metrics and status distribution for quick executive overview
 
 ### Structure
 **Format**: 2 columns (Metric, Count)
-**Row Count**: 32 rows (including blank separator rows)
+**Row Count**: 33 rows (including blank separator rows)
 
 ### Field Definitions
 
@@ -545,40 +543,45 @@ Provides high-level metrics and status distribution for quick executive overview
 
 **Row 16: [BLANK SEPARATOR ROW]**
 
-#### Section 3: Lead Generation Metrics (Rows 17-18)
-**Row 17: Seller Leads**
-- **Source**: `COUNTIF(Column P = "Exit Lead - Full" OR "Exit Lead - Partial")`
-- **Logic**: Providers marked as potential acquisition targets
+#### Section 3: Lead Generation Metrics (Rows 17-19)
+**Row 17: Total Seller/Survey Lead**
+- **Source**: `COUNTIF(Column P:P, "*") - COUNTIF(Column P:P, "")` from Analysis sheet
+- **Logic**: Total count of all records with any lead type assigned
+- **Purpose**: Overall lead pipeline size
+
+**Row 18: Total Seller Lead**
+- **Source**: `COUNTIF(Column P = "Seller Lead") + COUNTIF(Column P = "Seller/Survey Lead")` from Analysis sheet
+- **Logic**: Providers marked as potential acquisition targets (includes mixed leads)
 - **Purpose**: M&A opportunity pipeline
 
-**Row 18: Survey Leads**
-- **Source**: `COUNTIF(Column P CONTAINS "Survey")`
-- **Logic**: Providers flagged for survey outreach
+**Row 19: Total Survey Lead**
+- **Source**: `COUNTIF(Column P = "Survey Lead") + COUNTIF(Column P = "Seller/Survey Lead")` from Analysis sheet
+- **Logic**: Providers flagged for survey outreach (includes mixed leads)
 - **Purpose**: Research and feedback targets
 
-**Row 19: [BLANK SEPARATOR ROW]**
+**Row 20: [BLANK SEPARATOR ROW]**
 
-#### Section 4: Provider Type Breakdown (Rows 20-32)
-**Row 20: Total Record Count (TRC)**
+#### Section 4: Provider Type Breakdown (Rows 21-33)
+**Row 21: Total Record Count (TRC)**
 - **Source**: `COUNT(all records)` from Analysis sheet
 - **Logic**: Total number of all provider records
 - **Purpose**: Overall database size
 
-**Rows 21-32: [PROVIDER_TYPE] (TRC)**
+**Rows 22-33: [PROVIDER_TYPE] (TRC)**
 - **Source**: `COUNTIF(Column B = [specific provider type])` from Analysis sheet
 - **Complete List**:
-  - Row 21: ADULT_BEHAVIORAL_HEALTH_THERAPEUTIC_HOME (TRC)
-  - Row 22: ASSISTED_LIVING_CENTER (TRC)
-  - Row 23: ASSISTED_LIVING_HOME (TRC)
-  - Row 24: BEHAVIORAL_HEALTH_INPATIENT (TRC)
-  - Row 25: BEHAVIORAL_HEALTH_RESIDENTIAL_FACILITY (TRC)
-  - Row 26: CC_CENTERS (TRC)
-  - Row 27: CC_GROUP_HOMES (TRC)
-  - Row 28: DEVELOPMENTALLY_DISABLED_GROUP_HOME (TRC)
-  - Row 29: HOSPITAL_REPORT (TRC)
-  - Row 30: NURSING_HOME (TRC)
-  - Row 31: NURSING_SUPPORTED_GROUP_HOMES (TRC)
-  - Row 32: OUTPATIENT_HEALTH_TREATMENT_CENTER_REPORT (TRC)
+  - Row 22: ADULT_BEHAVIORAL_HEALTH_THERAPEUTIC_HOME (TRC)
+  - Row 23: ASSISTED_LIVING_CENTER (TRC)
+  - Row 24: ASSISTED_LIVING_HOME (TRC)
+  - Row 25: BEHAVIORAL_HEALTH_INPATIENT (TRC)
+  - Row 26: BEHAVIORAL_HEALTH_RESIDENTIAL_FACILITY (TRC)
+  - Row 27: CC_CENTERS (TRC)
+  - Row 28: CC_GROUP_HOMES (TRC)
+  - Row 29: DEVELOPMENTALLY_DISABLED_GROUP_HOME (TRC)
+  - Row 30: HOSPITAL_REPORT (TRC)
+  - Row 31: NURSING_HOME (TRC)
+  - Row 32: NURSING_SUPPORTED_GROUP_HOMES (TRC)
+  - Row 33: OUTPATIENT_HEALTH_TREATMENT_CENTER_REPORT (TRC)
 - **Logic**: Total Record Count for each provider type
 - **Purpose**: Distribution by service category
 
@@ -602,25 +605,26 @@ B14: =COUNTIF(Analysis!O:O,"Lost PROVIDER TYPE, Lost ADDRESS (1+ remain)")
 B15: =COUNTIF(Analysis!O:O,"Reinstated PROVIDER TYPE, Existing ADDRESS")
 
 // Lead counts
-B17: =COUNTIFS(Analysis!P:P,"Exit Lead - Full")+COUNTIFS(Analysis!P:P,"Exit Lead - Partial")
-B18: =COUNTIF(Analysis!P:P,"*Survey*")
+B17: =COUNTIF(Analysis!P:P,"*")-COUNTIF(Analysis!P:P,"")  // Total Seller/Survey Lead
+B18: =COUNTIF(Analysis!P:P,"Seller Lead")+COUNTIF(Analysis!P:P,"Seller/Survey Lead")  // Total Seller Lead
+B19: =COUNTIF(Analysis!P:P,"Survey Lead")+COUNTIF(Analysis!P:P,"Seller/Survey Lead")  // Total Survey Lead
 
 // Total Record Count
-B20: =COUNTA(Analysis!B:B)-1  // Subtract header row
+B21: =COUNTA(Analysis!B:B)-1  // Subtract header row
 
 // Provider type counts
-B21: =COUNTIF(Analysis!B:B,"ADULT_BEHAVIORAL_HEALTH_THERAPEUTIC_HOME")
-B22: =COUNTIF(Analysis!B:B,"ASSISTED_LIVING_CENTER")
-B23: =COUNTIF(Analysis!B:B,"ASSISTED_LIVING_HOME")
-B24: =COUNTIF(Analysis!B:B,"BEHAVIORAL_HEALTH_INPATIENT")
-B25: =COUNTIF(Analysis!B:B,"BEHAVIORAL_HEALTH_RESIDENTIAL_FACILITY")
-B26: =COUNTIF(Analysis!B:B,"CC_CENTERS")
-B27: =COUNTIF(Analysis!B:B,"CC_GROUP_HOMES")
-B28: =COUNTIF(Analysis!B:B,"DEVELOPMENTALLY_DISABLED_GROUP_HOME")
-B29: =COUNTIF(Analysis!B:B,"HOSPITAL_REPORT")
-B30: =COUNTIF(Analysis!B:B,"NURSING_HOME")
-B31: =COUNTIF(Analysis!B:B,"NURSING_SUPPORTED_GROUP_HOMES")
-B32: =COUNTIF(Analysis!B:B,"OUTPATIENT_HEALTH_TREATMENT_CENTER_REPORT")
+B22: =COUNTIF(Analysis!B:B,"ADULT_BEHAVIORAL_HEALTH_THERAPEUTIC_HOME")
+B23: =COUNTIF(Analysis!B:B,"ASSISTED_LIVING_CENTER")
+B24: =COUNTIF(Analysis!B:B,"ASSISTED_LIVING_HOME")
+B25: =COUNTIF(Analysis!B:B,"BEHAVIORAL_HEALTH_INPATIENT")
+B26: =COUNTIF(Analysis!B:B,"BEHAVIORAL_HEALTH_RESIDENTIAL_FACILITY")
+B27: =COUNTIF(Analysis!B:B,"CC_CENTERS")
+B28: =COUNTIF(Analysis!B:B,"CC_GROUP_HOMES")
+B29: =COUNTIF(Analysis!B:B,"DEVELOPMENTALLY_DISABLED_GROUP_HOME")
+B30: =COUNTIF(Analysis!B:B,"HOSPITAL_REPORT")
+B31: =COUNTIF(Analysis!B:B,"NURSING_HOME")
+B32: =COUNTIF(Analysis!B:B,"NURSING_SUPPORTED_GROUP_HOMES")
+B33: =COUNTIF(Analysis!B:B,"OUTPATIENT_HEALTH_TREATMENT_CENTER_REPORT")
 ```
 
 ---
@@ -722,7 +726,7 @@ For each cell in the matrix:
 ## Summary of v300 Enhancements
 
 ### Major v300 Enhancements:
-1. **FULL ADDRESS** (Column G) - Complete address string for better matching
+1. **FULL_ADDRESS** (Column G) - Complete address string for better matching
 2. **COUNTY** (Column K) - Regional analysis capability
 3. **Extended History**  40+ months vs. ~15 months
 4. **Column Shift** - Enhanced fields now in columns EH-EY (18 tracking fields)
@@ -744,7 +748,7 @@ For each cell in the matrix:
 
 ## Critical Implementation Notes
 
-1. **FULL ADDRESS** must be consistently formatted across all months
+1. **FULL_ADDRESS** must be consistently formatted across all months
 2. **COUNTY** data must be backfilled for historical records
 3. Extended columns (Q-EE) require historical data loading
 4. Column references in formulas must be updated for new positions

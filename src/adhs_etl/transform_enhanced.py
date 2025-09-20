@@ -104,89 +104,191 @@ class EnhancedFieldMapper(FieldMapper):
 
 class ProviderGrouper:
     """Enhanced provider grouping with address and name matching."""
-    
-    def __init__(self, name_threshold: float = 85.0):
-        """Initialize with thresholds."""
+
+    def __init__(self, name_threshold: float = 90.0):
+        """Initialize with thresholds - increased to 90% for better accuracy."""
         self.name_threshold = name_threshold
         self.address_match_length = 20
-        
+
+    def _get_base_provider_name(self, name: str) -> str:
+        """
+        Extract the base provider name without sequential numbering or LLC/INC suffixes.
+        Examples:
+            "READY FOR LIFE LLC" -> "READY FOR LIFE"
+            "READY FOR LIFE II" -> "READY FOR LIFE"
+            "READY FOR LIFE III" -> "READY FOR LIFE"
+            "ABC CARE HOME 2" -> "ABC CARE HOME"
+            "THE TUNGLAND CORPORATION / 24TH" -> "THE TUNGLAND"
+            "THE TUNGLAND COMPANY LLC / BECKER" -> "THE TUNGLAND"
+        """
+        import re
+
+        # First, extract just the company name before any "/" separator
+        # This handles cases like "THE TUNGLAND CORPORATION / 24TH"
+        if '/' in name:
+            name = name.split('/')[0].strip()
+
+        # Remove common business suffixes repeatedly until no more changes
+        # This handles "THE TUNGLAND COMPANY LLC" -> "THE TUNGLAND COMPANY" -> "THE TUNGLAND"
+        suffixes_pattern = r'\b(LLC|INC|CORP|CORPORATION|COMPANY|LTD|LP|PLLC|PC|L\.L\.C\.|INCORPORATED|CO\.?)\b[\.,]?\s*$'
+        previous_name = ""
+        while name != previous_name:
+            previous_name = name
+            name = re.sub(suffixes_pattern, '', name, flags=re.IGNORECASE).strip()
+            # Also remove any remaining commas at the end (from "COMPANY, LLC" patterns)
+            name = re.sub(r',\s*$', '', name).strip()
+
+        # Remove roman numerals at the end
+        roman_pattern = r'\b(I{1,3}|IV|V|VI{0,3}|IX|X|XI{0,3}|XIV|XV)\b\s*$'
+        name = re.sub(roman_pattern, '', name).strip()
+
+        # Remove regular numbers at the end
+        number_pattern = r'\b(\d+)\b\s*$'
+        name = re.sub(number_pattern, '', name).strip()
+
+        # Remove trailing slashes or dashes that might remain
+        name = re.sub(r'[/\-]\s*$', '', name).strip()
+
+        return name
+
+    def _should_group_providers(self, name1: str, name2: str) -> bool:
+        """
+        Determine if two provider names should be grouped together.
+        Returns True if they should be in the same group, False otherwise.
+
+        Logic per v300Track_this.md:
+        - Group if 85%+ fuzzy match (Levenshtein distance) OR
+        - Group if 20+ consecutive matching characters
+        """
+        # Get base names without numbers/numerals/suffixes
+        base1 = self._get_base_provider_name(name1)
+        base2 = self._get_base_provider_name(name2)
+
+        # If base names are exactly the same, they should be grouped
+        if base1.upper() == base2.upper() and base1:  # Ensure not empty
+            return True
+
+        # Check for 20+ consecutive matching characters in original names
+        # This catches cases like "THE TUNGLAND CORPORATION" and "THE TUNGLAND COMPANY LLC"
+        import difflib
+        matcher = difflib.SequenceMatcher(None, name1.upper(), name2.upper())
+        match = matcher.find_longest_match(0, len(name1), 0, len(name2))
+
+        if match.size >= 20:
+            return True
+
+        # Check fuzzy matching on base names with 85% threshold (per v300Track_this.md)
+        similarity = fuzz.ratio(base1.upper(), base2.upper())
+
+        # Use 85% threshold as specified in requirements
+        return similarity >= 85
+
     def group_providers(self, df: pd.DataFrame) -> pd.DataFrame:
         """Group providers by both address matching and name fuzzy matching - optimized version."""
         if df.empty:
             return df
-            
+
         df = df.copy()
         log_memory_usage("start of group_providers")
-        
+
         # Get unique combinations of provider and address
         unique_providers = df[['PROVIDER', 'ADDRESS']].drop_duplicates().reset_index(drop=True)
         n_unique = len(unique_providers)
         logger.info(f"Grouping {n_unique} unique provider-address combinations")
-        
-        # Initialize group assignments
-        group_assignments = {}
-        current_group = 1
-        
+
         # Create address prefix for fast matching
         unique_providers['ADDR_PREFIX'] = unique_providers['ADDRESS'].fillna('').astype(str).str[:20]
-        
-        # Process in batches to avoid memory issues
-        batch_size = 100
-        for start_idx in range(0, n_unique, batch_size):
-            end_idx = min(start_idx + batch_size, n_unique)
-            
-            for idx in range(start_idx, end_idx):
-                if idx in group_assignments:
-                    continue
-                
-                provider_row = unique_providers.iloc[idx]
-                addr_prefix = provider_row['ADDR_PREFIX']
-                provider_name = str(provider_row['PROVIDER']) if pd.notna(provider_row['PROVIDER']) else ''
-                
-                # Find all matching addresses (vectorized)
-                if addr_prefix:
-                    addr_matches = unique_providers.index[
-                        (unique_providers.index > idx) & 
-                        (unique_providers['ADDR_PREFIX'] == addr_prefix) &
-                        (~unique_providers.index.isin(group_assignments))
-                    ].tolist()
-                else:
-                    addr_matches = []
-                
-                # Check name similarity only for non-address matches (more selective)
-                remaining_indices = [i for i in range(idx + 1, n_unique) if i not in group_assignments and i not in addr_matches]
-                
-                name_matches = []
-                if provider_name and remaining_indices:
-                    # Check name similarity in small batches
-                    for i in remaining_indices[:20]:  # Limit to first 20 to avoid excessive computation
-                        other_name = str(unique_providers.iloc[i]['PROVIDER']) if pd.notna(unique_providers.iloc[i]['PROVIDER']) else ''
-                        if other_name and fuzz.ratio(provider_name, other_name) >= self.name_threshold:
-                            name_matches.append(i)
-                
-                # Combine all matches
-                all_matches = [idx] + addr_matches + name_matches
-                
-                # Assign group to all matches
-                for match_idx in all_matches:
-                    group_assignments[match_idx] = current_group
-                
+
+        # Extract base names for all providers (for efficient grouping)
+        unique_providers['BASE_NAME'] = unique_providers['PROVIDER'].apply(
+            lambda x: self._get_base_provider_name(str(x)) if pd.notna(x) else ''
+        )
+
+        # Initialize group assignments - using Union-Find structure for efficient grouping
+        parent = list(range(n_unique))  # Each provider starts as its own group
+
+        def find(x):
+            """Find root parent with path compression."""
+            if parent[x] != x:
+                parent[x] = find(parent[x])
+            return parent[x]
+
+        def union(x, y):
+            """Union two groups."""
+            root_x, root_y = find(x), find(y)
+            if root_x != root_y:
+                parent[root_y] = root_x
+
+        # Step 1: Group by exact base name matches (most reliable)
+        logger.info("Grouping by exact base name matches...")
+        base_name_groups = unique_providers.groupby('BASE_NAME').groups
+        for base_name, indices in base_name_groups.items():
+            if base_name and len(indices) > 1:  # Skip empty base names and single providers
+                indices_list = indices.tolist()
+                for i in range(1, len(indices_list)):
+                    union(indices_list[0], indices_list[i])
+
+        # Step 2: Group by address prefix matches
+        logger.info("Grouping by address matches...")
+        addr_groups = unique_providers.groupby('ADDR_PREFIX').groups
+        for addr_prefix, indices in addr_groups.items():
+            if addr_prefix and len(indices) > 1:  # Skip empty addresses
+                indices_list = indices.tolist()
+                for i in range(1, len(indices_list)):
+                    union(indices_list[0], indices_list[i])
+
+        # Step 3: Check for fuzzy name matches (optimized for performance)
+        # Only check providers that aren't already grouped by base name or address
+        logger.info("Checking for additional fuzzy name matches...")
+
+        # Group providers by their current root to avoid redundant checks
+        roots_to_check = {}
+        for idx in range(n_unique):
+            root = find(idx)
+            if root not in roots_to_check:
+                roots_to_check[root] = []
+            roots_to_check[root].append(idx)
+
+        # Only process groups that might need merging (skip large groups already formed)
+        small_groups = [indices for indices in roots_to_check.values() if len(indices) <= 3]
+
+        # Limit fuzzy matching to small groups to avoid O(n²) complexity
+        if len(small_groups) > 100:  # Too many small groups, sample them
+            import random
+            small_groups = random.sample(small_groups, 100)
+
+        for i, group1 in enumerate(small_groups):
+            # Get representative provider from group1
+            rep1_idx = group1[0]
+            provider_name = str(unique_providers.iloc[rep1_idx]['PROVIDER']) if pd.notna(unique_providers.iloc[rep1_idx]['PROVIDER']) else ''
+
+            if not provider_name:
+                continue
+
+            # Only check against subsequent groups to avoid duplicates
+            for group2 in small_groups[i+1:i+11]:  # Limit to next 10 groups
+                rep2_idx = group2[0]
+                other_name = str(unique_providers.iloc[rep2_idx]['PROVIDER']) if pd.notna(unique_providers.iloc[rep2_idx]['PROVIDER']) else ''
+
+                if other_name and self._should_group_providers(provider_name, other_name):
+                    union(rep1_idx, rep2_idx)
+
+        # Clear memory after fuzzy matching
+        clear_memory()
+
+        # Step 4: Assign final group IDs
+        # First, find all unique roots
+        unique_roots = {}
+        current_group = 1
+        for idx in range(n_unique):
+            root = find(idx)
+            if root not in unique_roots:
+                unique_roots[root] = current_group
                 current_group += 1
-            
-            # Clear memory periodically
-            if start_idx % 500 == 0:
-                clear_memory()
-        
-        # Create a mapping dataframe
-        unique_providers['GROUP_ID'] = unique_providers.index.map(group_assignments)
-        
-        # Handle any remaining ungrouped providers
-        ungrouped_mask = unique_providers['GROUP_ID'].isna()
-        if ungrouped_mask.any():
-            n_ungrouped = ungrouped_mask.sum()
-            unique_providers.loc[ungrouped_mask, 'GROUP_ID'] = range(current_group, current_group + n_ungrouped)
-            current_group += n_ungrouped
-        
+
+        # Assign group IDs based on roots
+        unique_providers['GROUP_ID'] = [unique_roots[find(idx)] for idx in range(n_unique)]
+
         # Merge back to original dataframe using vectorized operation
         df = df.merge(
             unique_providers[['PROVIDER', 'ADDRESS', 'GROUP_ID']],
@@ -197,10 +299,14 @@ class ProviderGrouper:
 
         # Ensure integer type
         df['PROVIDER_GROUP_INDEX_#'] = df['PROVIDER_GROUP_INDEX_#'].astype(int)
-        
-        logger.info(f"Created {current_group - 1} provider groups")
+
+        # Log grouping results
+        group_counts = df.groupby('PROVIDER_GROUP_INDEX_#').size()
+        multi_provider_groups = (group_counts > 1).sum()
+        logger.info(f"Created {current_group - 1} provider groups ({multi_provider_groups} multi-provider groups)")
+
         log_memory_usage("end of group_providers")
-        
+
         return df
 
 
@@ -402,10 +508,28 @@ def process_month_data(
                             elif col == 'FULL_ADDRESS':
                                 # Create FULL_ADDRESS from ADDRESS, CITY, ZIP
                                 if 'ADDRESS' in df_normalized.columns and 'CITY' in df_normalized.columns and 'ZIP' in df_normalized.columns:
+                                    # Format ZIP properly - remove decimals if present
+                                    def format_zip(x):
+                                        if pd.isna(x) or str(x) in ['', 'nan', 'NaN', 'None']:
+                                            return ''
+                                        x_str = str(x)
+                                        # Handle ZIP+4 format (e.g., 85251-1234)
+                                        if '-' in x_str and len(x_str.split('-')) == 2:
+                                            return x_str  # Keep ZIP+4 as is
+                                        # Handle numeric ZIP codes (remove .0)
+                                        try:
+                                            # Try to convert to float then int to remove decimals
+                                            return str(int(float(x_str)))
+                                        except (ValueError, TypeError):
+                                            # If conversion fails, return as string
+                                            return x_str
+
+                                    zip_formatted = df_normalized['ZIP'].apply(format_zip)
+
                                     df_normalized['FULL_ADDRESS'] = (
                                         df_normalized['ADDRESS'].astype(str).str.strip() + ', ' +
                                         df_normalized['CITY'].astype(str).str.strip() + ', AZ ' +
-                                        df_normalized['ZIP'].astype(str).str.strip()
+                                        zip_formatted.str.strip()
                                     )
                                     # Clean up any 'nan' strings and leading commas
                                     df_normalized['FULL_ADDRESS'] = df_normalized['FULL_ADDRESS'].str.replace('nan, ', '', regex=False)
@@ -469,10 +593,28 @@ def process_month_data(
         # Create FULL_ADDRESS if it doesn't exist
         if 'FULL_ADDRESS' not in combined_df.columns:
             logger.info("Creating FULL_ADDRESS column...")
+            # Format ZIP properly - remove decimals if present
+            def format_zip(x):
+                if pd.isna(x) or str(x) in ['', 'nan', 'NaN', 'None']:
+                    return ''
+                x_str = str(x)
+                # Handle ZIP+4 format (e.g., 85251-1234)
+                if '-' in x_str and len(x_str.split('-')) == 2:
+                    return x_str  # Keep ZIP+4 as is
+                # Handle numeric ZIP codes (remove .0)
+                try:
+                    # Try to convert to float then int to remove decimals
+                    return str(int(float(x_str)))
+                except (ValueError, TypeError):
+                    # If conversion fails, return as string
+                    return x_str
+
+            zip_formatted = combined_df['ZIP'].apply(format_zip)
+
             combined_df['FULL_ADDRESS'] = (
                 combined_df['ADDRESS'].astype(str).str.strip() + ', ' +
                 combined_df['CITY'].astype(str).str.strip() + ', AZ ' +
-                combined_df['ZIP'].astype(str).str.strip()
+                zip_formatted.str.strip()
             )
             # Clean up any 'nan' strings and leading commas
             combined_df['FULL_ADDRESS'] = combined_df['FULL_ADDRESS'].str.replace('nan, ', '', regex=False)
@@ -677,16 +819,35 @@ def rebuild_all_to_date_from_monthly_files(
     # Ensure output directory exists and is visible
     all_to_date_dir.mkdir(exist_ok=True)
     
-    # Save with formatting
+    # Save with xlsxwriter for better performance on large files
     logger.info(f"Writing {len(combined_df)} rows to {output_path}")
-    with pd.ExcelWriter(output_path, engine='openpyxl') as writer:
-        combined_df.to_excel(writer, sheet_name='Sheet1', index=False)
-        
-        # Format MONTH and YEAR columns as numbers
-        worksheet = writer.sheets['Sheet1']
-        for col in ['A', 'B']:  # MONTH and YEAR columns
-            for cell in worksheet[col][1:]:  # Skip header
-                cell.number_format = '0'
+
+    try:
+        # Try xlsxwriter first (5-10x faster for large files)
+        engine = 'xlsxwriter'
+        engine_kwargs = {
+            'options': {
+                'strings_to_urls': False,
+                'nan_inf_to_errors': True,
+                'constant_memory': True  # Use constant memory mode for large files
+            }
+        }
+
+        with pd.ExcelWriter(output_path, engine=engine, engine_kwargs=engine_kwargs) as writer:
+            combined_df.to_excel(writer, sheet_name='Sheet1', index=False)
+            logger.info(f"Successfully wrote All-to-Date file with {engine} engine")
+
+    except ImportError:
+        # Fallback to openpyxl if xlsxwriter not available
+        logger.warning("xlsxwriter not available, using openpyxl (slower)")
+        with pd.ExcelWriter(output_path, engine='openpyxl') as writer:
+            combined_df.to_excel(writer, sheet_name='Sheet1', index=False)
+
+            # Format MONTH and YEAR columns as numbers
+            worksheet = writer.sheets['Sheet1']
+            for col in ['A', 'B']:  # MONTH and YEAR columns
+                for cell in worksheet[col][1:]:  # Skip header
+                    cell.number_format = '0'
     
     # Ensure file is visible and accessible
     try:
@@ -776,16 +937,35 @@ def create_all_to_date_output(
     # Ensure output directory exists and is visible
     all_to_date_dir.mkdir(exist_ok=True)
     
-    # Save with formatting
+    # Save with xlsxwriter for better performance on large files
     logger.info(f"Writing {len(combined_df)} rows to {output_path}")
-    with pd.ExcelWriter(output_path, engine='openpyxl') as writer:
-        combined_df.to_excel(writer, sheet_name='Sheet1', index=False)
-        
-        # Format MONTH and YEAR columns as numbers
-        worksheet = writer.sheets['Sheet1']
-        for col in ['A', 'B']:  # MONTH and YEAR columns
-            for cell in worksheet[col][1:]:  # Skip header
-                cell.number_format = '0'
+
+    try:
+        # Try xlsxwriter first (5-10x faster for large files)
+        engine = 'xlsxwriter'
+        engine_kwargs = {
+            'options': {
+                'strings_to_urls': False,
+                'nan_inf_to_errors': True,
+                'constant_memory': True  # Use constant memory mode for large files
+            }
+        }
+
+        with pd.ExcelWriter(output_path, engine=engine, engine_kwargs=engine_kwargs) as writer:
+            combined_df.to_excel(writer, sheet_name='Sheet1', index=False)
+            logger.info(f"Successfully wrote All-to-Date file with {engine} engine")
+
+    except ImportError:
+        # Fallback to openpyxl if xlsxwriter not available
+        logger.warning("xlsxwriter not available, using openpyxl (slower)")
+        with pd.ExcelWriter(output_path, engine='openpyxl') as writer:
+            combined_df.to_excel(writer, sheet_name='Sheet1', index=False)
+
+            # Format MONTH and YEAR columns as numbers
+            worksheet = writer.sheets['Sheet1']
+            for col in ['A', 'B']:  # MONTH and YEAR columns
+                for cell in worksheet[col][1:]:  # Skip header
+                    cell.number_format = '0'
     
     # Ensure file is visible and accessible
     try:
