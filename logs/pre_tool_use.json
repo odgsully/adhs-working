@@ -11400,5 +11400,1351 @@
         }
       ]
     }
+  },
+  {
+    "session_id": "130ffcd1-afd3-4191-8585-ed9f547e1669",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/130ffcd1-afd3-4191-8585-ed9f547e1669.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "default",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "TodoWrite",
+    "tool_input": {
+      "todos": [
+        {
+          "content": "Search for Upload_APN naming patterns",
+          "status": "in_progress",
+          "activeForm": "Searching for Upload_APN naming patterns"
+        },
+        {
+          "content": "Identify all file naming convention instances",
+          "status": "pending",
+          "activeForm": "Identifying all file naming convention instances"
+        },
+        {
+          "content": "Document findings of naming patterns",
+          "status": "pending",
+          "activeForm": "Documenting findings of naming patterns"
+        }
+      ]
+    }
+  },
+  {
+    "session_id": "130ffcd1-afd3-4191-8585-ed9f547e1669",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/130ffcd1-afd3-4191-8585-ed9f547e1669.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "default",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Grep",
+    "tool_input": {
+      "pattern": "Upload_APN",
+      "output_mode": "content",
+      "-n": true
+    }
+  },
+  {
+    "session_id": "130ffcd1-afd3-4191-8585-ed9f547e1669",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/130ffcd1-afd3-4191-8585-ed9f547e1669.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "default",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Grep",
+    "tool_input": {
+      "pattern": "with_apn",
+      "output_mode": "content",
+      "-n": true
+    }
+  },
+  {
+    "session_id": "130ffcd1-afd3-4191-8585-ed9f547e1669",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/130ffcd1-afd3-4191-8585-ed9f547e1669.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "default",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "TodoWrite",
+    "tool_input": {
+      "todos": [
+        {
+          "content": "Search for Upload_APN naming patterns",
+          "status": "completed",
+          "activeForm": "Searching for Upload_APN naming patterns"
+        },
+        {
+          "content": "Identify all file naming convention instances",
+          "status": "completed",
+          "activeForm": "Identifying all file naming convention instances"
+        },
+        {
+          "content": "Document findings of naming patterns",
+          "status": "in_progress",
+          "activeForm": "Documenting findings of naming patterns"
+        }
+      ]
+    }
+  },
+  {
+    "session_id": "130ffcd1-afd3-4191-8585-ed9f547e1669",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/130ffcd1-afd3-4191-8585-ed9f547e1669.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "default",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "TodoWrite",
+    "tool_input": {
+      "todos": [
+        {
+          "content": "Search for Upload_APN naming patterns",
+          "status": "completed",
+          "activeForm": "Searching for Upload_APN naming patterns"
+        },
+        {
+          "content": "Identify all file naming convention instances",
+          "status": "completed",
+          "activeForm": "Identifying all file naming convention instances"
+        },
+        {
+          "content": "Document findings of naming patterns",
+          "status": "completed",
+          "activeForm": "Documenting findings of naming patterns"
+        }
+      ]
+    }
+  },
+  {
+    "session_id": "130ffcd1-afd3-4191-8585-ed9f547e1669",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/130ffcd1-afd3-4191-8585-ed9f547e1669.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "default",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "TodoWrite",
+    "tool_input": {
+      "todos": [
+        {
+          "content": "Assess risk of changing naming conventions",
+          "status": "in_progress",
+          "activeForm": "Assessing risk of changing naming conventions"
+        },
+        {
+          "content": "Identify safe modification points",
+          "status": "pending",
+          "activeForm": "Identifying safe modification points"
+        },
+        {
+          "content": "Create conservative change plan",
+          "status": "pending",
+          "activeForm": "Creating conservative change plan"
+        }
+      ]
+    }
+  },
+  {
+    "session_id": "130ffcd1-afd3-4191-8585-ed9f547e1669",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/130ffcd1-afd3-4191-8585-ed9f547e1669.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "default",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "TodoWrite",
+    "tool_input": {
+      "todos": [
+        {
+          "content": "Assess risk of changing naming conventions",
+          "status": "completed",
+          "activeForm": "Assessing risk of changing naming conventions"
+        },
+        {
+          "content": "Identify safe modification points",
+          "status": "completed",
+          "activeForm": "Identifying safe modification points"
+        },
+        {
+          "content": "Create conservative change plan",
+          "status": "completed",
+          "activeForm": "Creating conservative change plan"
+        }
+      ]
+    }
+  },
+  {
+    "session_id": "130ffcd1-afd3-4191-8585-ed9f547e1669",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/130ffcd1-afd3-4191-8585-ed9f547e1669.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "plan",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "TodoWrite",
+    "tool_input": {
+      "todos": [
+        {
+          "content": "Understand new naming convention requirements",
+          "status": "in_progress",
+          "activeForm": "Understanding new naming convention requirements"
+        },
+        {
+          "content": "Identify clarifying questions",
+          "status": "pending",
+          "activeForm": "Identifying clarifying questions"
+        },
+        {
+          "content": "Plan documentation and code updates",
+          "status": "pending",
+          "activeForm": "Planning documentation and code updates"
+        }
+      ]
+    }
+  },
+  {
+    "session_id": "130ffcd1-afd3-4191-8585-ed9f547e1669",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/130ffcd1-afd3-4191-8585-ed9f547e1669.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "plan",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "TodoWrite",
+    "tool_input": {
+      "todos": [
+        {
+          "content": "Understand new naming convention requirements",
+          "status": "completed",
+          "activeForm": "Understanding new naming convention requirements"
+        },
+        {
+          "content": "Identify clarifying questions",
+          "status": "completed",
+          "activeForm": "Identifying clarifying questions"
+        },
+        {
+          "content": "Plan documentation and code updates",
+          "status": "pending",
+          "activeForm": "Planning documentation and code updates"
+        }
+      ]
+    }
+  },
+  {
+    "session_id": "130ffcd1-afd3-4191-8585-ed9f547e1669",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/130ffcd1-afd3-4191-8585-ed9f547e1669.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "plan",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "TodoWrite",
+    "tool_input": {
+      "todos": [
+        {
+          "content": "Plan documentation and code updates",
+          "status": "completed",
+          "activeForm": "Planning documentation and code updates"
+        },
+        {
+          "content": "Formulate additional clarifying questions",
+          "status": "in_progress",
+          "activeForm": "Formulating additional clarifying questions"
+        }
+      ]
+    }
+  },
+  {
+    "session_id": "130ffcd1-afd3-4191-8585-ed9f547e1669",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/130ffcd1-afd3-4191-8585-ed9f547e1669.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "plan",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "TodoWrite",
+    "tool_input": {
+      "todos": [
+        {
+          "content": "Formulate additional clarifying questions",
+          "status": "completed",
+          "activeForm": "Formulating additional clarifying questions"
+        },
+        {
+          "content": "Create comprehensive implementation plan",
+          "status": "in_progress",
+          "activeForm": "Creating comprehensive implementation plan"
+        }
+      ]
+    }
+  },
+  {
+    "session_id": "130ffcd1-afd3-4191-8585-ed9f547e1669",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/130ffcd1-afd3-4191-8585-ed9f547e1669.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "plan",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "TodoWrite",
+    "tool_input": {
+      "todos": [
+        {
+          "content": "Create comprehensive implementation plan",
+          "status": "completed",
+          "activeForm": "Creating comprehensive implementation plan"
+        },
+        {
+          "content": "Prepare ExitPlanMode with full plan",
+          "status": "pending",
+          "activeForm": "Preparing ExitPlanMode with full plan"
+        }
+      ]
+    }
+  },
+  {
+    "session_id": "130ffcd1-afd3-4191-8585-ed9f547e1669",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/130ffcd1-afd3-4191-8585-ed9f547e1669.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "plan",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "TodoWrite",
+    "tool_input": {
+      "todos": [
+        {
+          "content": "Prepare ExitPlanMode with full plan",
+          "status": "in_progress",
+          "activeForm": "Preparing ExitPlanMode with full plan"
+        }
+      ]
+    }
+  },
+  {
+    "session_id": "130ffcd1-afd3-4191-8585-ed9f547e1669",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/130ffcd1-afd3-4191-8585-ed9f547e1669.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "plan",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "ExitPlanMode",
+    "tool_input": {
+      "plan": "## APN Module Integration & Naming Convention Update Plan\n\n### 1. Directory Structure Setup\n- Create `/APN/Upload/` directory for input files\n- Create `/APN/Complete/` directory for output files\n- Leave existing files untouched in `/APN/`\n\n### 2. Update apn_lookup.py\n- Modify `find_latest_upload()` to search for `M.YY_APN_Upload*.xlsx` pattern in `/APN/Upload/`\n- Update output naming to create `M.YY_APN_Complete M.DD.HH-MM-SS.xlsx` in `/APN/Complete/`\n- Remove all references to old naming patterns (`Upload_APN_*.xlsx`, `__with_apn.xlsx`)\n- Ensure proper handling of Windows-compatible timestamps (colons replaced with hyphens)\n\n### 3. Update README_APN.md\n- Replace all naming convention references to new format\n- Document new workflow: Analysis \u2192 Upload \u2192 Complete\n- Specify new directory structure and expected file locations\n- Include examples with new timestamp format\n\n### 4. Integrate with process_months_local.py\n- Add function to extract MARICOPA-only records from Analysis files (columns G & K)\n- Create `M.YY_APN_Upload M.DD.HH-MM-SS.xlsx` files automatically after Analysis generation\n- Add menu prompt: \"Process complete APNs (y/N)?\" before \"Ready to run?\"\n- If yes, automatically call apn_lookup.py to generate Complete files\n- Add error handling and reporting for missing Analysis files or columns\n- Case-insensitive matching for 'MARICOPA' county filter\n\n### 5. File Format Specifications\n- **Upload files**: 2 columns (A: FULL ADDRESS, B: COUNTY)\n- **Complete files**: 3 columns (A: FULL ADDRESS, B: COUNTY, C: APN)\n- Only include records where COUNTY contains 'MARICOPA' (case-insensitive)\n- Create empty Upload file if no MARICOPA records found\n- Include rows with failed APN lookups (empty APN column)\n\n### 6. Conservative Implementation\n- Test with sample data before full deployment\n- Maintain backward compatibility temporarily (code can read old files if needed)\n- Add logging for debugging during transition\n- Validate column extraction from Analysis files"
+    }
+  },
+  {
+    "session_id": "130ffcd1-afd3-4191-8585-ed9f547e1669",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/130ffcd1-afd3-4191-8585-ed9f547e1669.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "acceptEdits",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "TodoWrite",
+    "tool_input": {
+      "todos": [
+        {
+          "content": "Create directory structure for APN Upload and Complete",
+          "status": "pending",
+          "activeForm": "Creating directory structure for APN Upload and Complete"
+        },
+        {
+          "content": "Update apn_lookup.py with new naming conventions",
+          "status": "pending",
+          "activeForm": "Updating apn_lookup.py with new naming conventions"
+        },
+        {
+          "content": "Update README_APN.md documentation",
+          "status": "pending",
+          "activeForm": "Updating README_APN.md documentation"
+        },
+        {
+          "content": "Add APN extraction function to process_months_local.py",
+          "status": "pending",
+          "activeForm": "Adding APN extraction function to process_months_local.py"
+        },
+        {
+          "content": "Add APN processing prompt to process_months_local.py menu",
+          "status": "pending",
+          "activeForm": "Adding APN processing prompt to process_months_local.py menu"
+        },
+        {
+          "content": "Test the implementation with sample data",
+          "status": "pending",
+          "activeForm": "Testing the implementation with sample data"
+        }
+      ]
+    }
+  },
+  {
+    "session_id": "130ffcd1-afd3-4191-8585-ed9f547e1669",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/130ffcd1-afd3-4191-8585-ed9f547e1669.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "acceptEdits",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "TodoWrite",
+    "tool_input": {
+      "todos": [
+        {
+          "content": "Create directory structure for APN Upload and Complete",
+          "status": "in_progress",
+          "activeForm": "Creating directory structure for APN Upload and Complete"
+        },
+        {
+          "content": "Update apn_lookup.py with new naming conventions",
+          "status": "pending",
+          "activeForm": "Updating apn_lookup.py with new naming conventions"
+        },
+        {
+          "content": "Update README_APN.md documentation",
+          "status": "pending",
+          "activeForm": "Updating README_APN.md documentation"
+        },
+        {
+          "content": "Add APN extraction function to process_months_local.py",
+          "status": "pending",
+          "activeForm": "Adding APN extraction function to process_months_local.py"
+        },
+        {
+          "content": "Add APN processing prompt to process_months_local.py menu",
+          "status": "pending",
+          "activeForm": "Adding APN processing prompt to process_months_local.py menu"
+        },
+        {
+          "content": "Test the implementation with sample data",
+          "status": "pending",
+          "activeForm": "Testing the implementation with sample data"
+        }
+      ]
+    }
+  },
+  {
+    "session_id": "130ffcd1-afd3-4191-8585-ed9f547e1669",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/130ffcd1-afd3-4191-8585-ed9f547e1669.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "acceptEdits",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Bash",
+    "tool_input": {
+      "command": "mkdir -p APN/Upload APN/Complete",
+      "description": "Create APN subdirectories"
+    }
+  },
+  {
+    "session_id": "130ffcd1-afd3-4191-8585-ed9f547e1669",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/130ffcd1-afd3-4191-8585-ed9f547e1669.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "acceptEdits",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "TodoWrite",
+    "tool_input": {
+      "todos": [
+        {
+          "content": "Create directory structure for APN Upload and Complete",
+          "status": "completed",
+          "activeForm": "Creating directory structure for APN Upload and Complete"
+        },
+        {
+          "content": "Update apn_lookup.py with new naming conventions",
+          "status": "in_progress",
+          "activeForm": "Updating apn_lookup.py with new naming conventions"
+        },
+        {
+          "content": "Update README_APN.md documentation",
+          "status": "pending",
+          "activeForm": "Updating README_APN.md documentation"
+        },
+        {
+          "content": "Add APN extraction function to process_months_local.py",
+          "status": "pending",
+          "activeForm": "Adding APN extraction function to process_months_local.py"
+        },
+        {
+          "content": "Add APN processing prompt to process_months_local.py menu",
+          "status": "pending",
+          "activeForm": "Adding APN processing prompt to process_months_local.py menu"
+        },
+        {
+          "content": "Test the implementation with sample data",
+          "status": "pending",
+          "activeForm": "Testing the implementation with sample data"
+        }
+      ]
+    }
+  },
+  {
+    "session_id": "130ffcd1-afd3-4191-8585-ed9f547e1669",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/130ffcd1-afd3-4191-8585-ed9f547e1669.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "acceptEdits",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Read",
+    "tool_input": {
+      "file_path": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy/APN/apn_lookup.py"
+    }
+  },
+  {
+    "session_id": "130ffcd1-afd3-4191-8585-ed9f547e1669",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/130ffcd1-afd3-4191-8585-ed9f547e1669.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "acceptEdits",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Edit",
+    "tool_input": {
+      "file_path": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy/APN/apn_lookup.py",
+      "old_string": "\"\"\"\nMaricopa APN lookup (Excel \u2192 APN)\n---------------------------------\nReads an Excel file named like \"Upload_APN_*.xlsx\" with Column A = FULL ADDRESS,\nqueries Maricopa County ArcGIS services, and writes a new workbook with APN results.",
+      "new_string": "\"\"\"\nMaricopa APN lookup (Excel \u2192 APN)\n---------------------------------\nReads an Excel file named like \"M.YY_APN_Upload *.xlsx\" with Columns A = FULL ADDRESS, B = COUNTY,\nqueries Maricopa County ArcGIS services, and writes a new workbook with APN results."
+    }
+  },
+  {
+    "session_id": "130ffcd1-afd3-4191-8585-ed9f547e1669",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/130ffcd1-afd3-4191-8585-ed9f547e1669.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "acceptEdits",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "MultiEdit",
+    "tool_input": {
+      "file_path": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy/APN/apn_lookup.py",
+      "edits": [
+        {
+          "old_string": "def find_latest_upload(pattern: str = \"Upload_APN_*.xlsx\") -> Optional[Path]:\n    \"\"\"Pick the most recently modified file that matches the pattern in CWD or APN directory.\"\"\"\n    candidates = []\n\n    # Look in current directory for old pattern\n    candidates.extend(Path(\".\").glob(pattern))\n\n    # Look in APN directory for new pattern (M.YY Upload_APN.xlsx)\n    apn_dir = Path(\"../APN\")  # Assuming we're running from APN Grab directory\n    if apn_dir.exists():\n        # Match new naming pattern: M.YY Upload_APN.xlsx or MM.YY Upload_APN.xlsx\n        candidates.extend(apn_dir.glob(\"[1-9].?? Upload_APN.xlsx\"))\n        candidates.extend(apn_dir.glob(\"1[0-2].?? Upload_APN.xlsx\"))\n\n    # Also check if APN directory is in current directory\n    apn_current = Path(\"APN\")\n    if apn_current.exists():\n        candidates.extend(apn_current.glob(\"[1-9].?? Upload_APN.xlsx\"))\n        candidates.extend(apn_current.glob(\"1[0-2].?? Upload_APN.xlsx\"))\n\n    if not candidates:\n        return None\n    return max(candidates, key=lambda p: p.stat().st_mtime)",
+          "new_string": "def find_latest_upload() -> Optional[Path]:\n    \"\"\"Pick the most recently modified M.YY_APN_Upload file in APN/Upload directory.\"\"\"\n    candidates = []\n\n    # Look in APN/Upload directory for new pattern\n    upload_dir = Path(\"APN/Upload\")\n    if not upload_dir.exists():\n        upload_dir = Path(\"Upload\")  # If running from within APN directory\n\n    if upload_dir.exists():\n        # Match new naming pattern: M.YY_APN_Upload *.xlsx\n        candidates.extend(upload_dir.glob(\"[1-9].[0-9][0-9]_APN_Upload*.xlsx\"))\n        candidates.extend(upload_dir.glob(\"1[0-2].[0-9][0-9]_APN_Upload*.xlsx\"))\n\n    if not candidates:\n        return None\n    return max(candidates, key=lambda p: p.stat().st_mtime)"
+        },
+        {
+          "old_string": "    p.add_argument(\"-i\", \"--input\", type=str, help=\"Path to input .xlsx (default: latest file from APN/ or Upload_APN_*.xlsx)\")",
+          "new_string": "    p.add_argument(\"-i\", \"--input\", type=str, help=\"Path to input .xlsx (default: latest M.YY_APN_Upload file from APN/Upload/)\")"
+        },
+        {
+          "old_string": "    p.add_argument(\"-o\", \"--output\", type=str, help=\"Output .xlsx (default: <input>__with_apn.xlsx)\")",
+          "new_string": "    p.add_argument(\"-o\", \"--output\", type=str, help=\"Output .xlsx (default: M.YY_APN_Complete M.DD.HH-MM-SS.xlsx in APN/Complete/)\")"
+        },
+        {
+          "old_string": "        latest = find_latest_upload(\"Upload_APN_*.xlsx\")\n        if not latest:\n            print(\"ERROR: No input specified and no files matching Upload_APN_*.xlsx in CWD\", file=sys.stderr)",
+          "new_string": "        latest = find_latest_upload()\n        if not latest:\n            print(\"ERROR: No input specified and no M.YY_APN_Upload files found in APN/Upload/\", file=sys.stderr)"
+        },
+        {
+          "old_string": "    output_path = Path(args.output) if args.output else input_path.with_name(input_path.stem + \"__with_apn.xlsx\")",
+          "new_string": "    # Generate output path with new naming convention\n    if args.output:\n        output_path = Path(args.output)\n    else:\n        # Extract M.YY from input filename\n        import datetime\n        now = datetime.datetime.now()\n        timestamp = now.strftime(\"%m.%d.%I-%M-%S\")  # M.DD.HH-MM-SS (12-hour format)\n\n        # Extract M.YY prefix from input filename\n        input_name = input_path.stem\n        if \"_APN_Upload\" in input_name:\n            month_year = input_name.split(\"_APN_Upload\")[0]\n        else:\n            month_year = \"1.25\"  # Default if pattern not found\n\n        # Create output path in APN/Complete directory\n        complete_dir = Path(\"APN/Complete\")\n        if not complete_dir.exists():\n            complete_dir = Path(\"Complete\")  # If running from within APN directory\n        if not complete_dir.exists():\n            complete_dir.mkdir(parents=True, exist_ok=True)\n\n        output_filename = f\"{month_year}_APN_Complete {timestamp}.xlsx\"\n        output_path = complete_dir / output_filename"
+        }
+      ]
+    }
+  },
+  {
+    "session_id": "130ffcd1-afd3-4191-8585-ed9f547e1669",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/130ffcd1-afd3-4191-8585-ed9f547e1669.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "acceptEdits",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Edit",
+    "tool_input": {
+      "file_path": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy/APN/apn_lookup.py",
+      "old_string": "import argparse\nimport csv\nimport datetime as dt\nimport json\nimport math",
+      "new_string": "import argparse\nimport csv\nimport datetime\nimport json\nimport math"
+    }
+  },
+  {
+    "session_id": "130ffcd1-afd3-4191-8585-ed9f547e1669",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/130ffcd1-afd3-4191-8585-ed9f547e1669.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "acceptEdits",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "TodoWrite",
+    "tool_input": {
+      "todos": [
+        {
+          "content": "Create directory structure for APN Upload and Complete",
+          "status": "completed",
+          "activeForm": "Creating directory structure for APN Upload and Complete"
+        },
+        {
+          "content": "Update apn_lookup.py with new naming conventions",
+          "status": "completed",
+          "activeForm": "Updating apn_lookup.py with new naming conventions"
+        },
+        {
+          "content": "Update README_APN.md documentation",
+          "status": "in_progress",
+          "activeForm": "Updating README_APN.md documentation"
+        },
+        {
+          "content": "Add APN extraction function to process_months_local.py",
+          "status": "pending",
+          "activeForm": "Adding APN extraction function to process_months_local.py"
+        },
+        {
+          "content": "Add APN processing prompt to process_months_local.py menu",
+          "status": "pending",
+          "activeForm": "Adding APN processing prompt to process_months_local.py menu"
+        },
+        {
+          "content": "Test the implementation with sample data",
+          "status": "pending",
+          "activeForm": "Testing the implementation with sample data"
+        }
+      ]
+    }
+  },
+  {
+    "session_id": "130ffcd1-afd3-4191-8585-ed9f547e1669",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/130ffcd1-afd3-4191-8585-ed9f547e1669.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "acceptEdits",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Write",
+    "tool_input": {
+      "file_path": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy/APN/README_APN.md",
+      "content": "# Maricopa APN Lookup (Excel \u2192 APN)\n\nThis CLI reads an Excel workbook named like `M.YY_APN_Upload M.DD.HH-MM-SS.xlsx` where:\n- **Column A is `FULL ADDRESS`** - extracted from Analysis files column G\n- **Column B is `COUNTY`** - filtered to only include 'MARICOPA' records from Analysis column K\n\nThe tool queries Maricopa County ArcGIS services to look up APN (Assessor Parcel Numbers) and generates a complete file with APN data added.\n\n## Directory Structure\n\n```\nAPN/\n\u251c\u2500\u2500 Upload/     # Input files (M.YY_APN_Upload *.xlsx)\n\u251c\u2500\u2500 Complete/   # Output files (M.YY_APN_Complete *.xlsx)\n\u2514\u2500\u2500 apn_lookup.py\n```\n\n## Install\n\n```bash\npython3 -m venv .venv && source .venv/bin/activate\npip install -r requirements.txt\n```\n\n*(If `usaddress` fails to install, you can remove it from `requirements.txt`; the script will fall back to a regex parser.)*\n\n## Usage\n\n### Automatic (via ETL Pipeline)\n\nThe APN lookup is integrated into the main ETL pipeline (`scripts/process_months_local.py`). After processing Analysis files, it will:\n1. Extract MARICOPA-only records from Analysis columns G (FULL ADDRESS) and K (COUNTY)\n2. Create `M.YY_APN_Upload M.DD.HH-MM-SS.xlsx` in `APN/Upload/`\n3. Prompt: \"Process complete APNs (y/N)?\"\n4. If yes, run APN lookup to generate `M.YY_APN_Complete M.DD.HH-MM-SS.xlsx` in `APN/Complete/`\n\n### Manual Command Line\n\n```bash\n# Process the latest upload file\npython apn_lookup.py\n\n# Process a specific file\npython apn_lookup.py -i APN/Upload/1.25_APN_Upload\\ 1.22.02-30-45.xlsx\n\n# With options\npython apn_lookup.py --rate 1.0 --max-retries 3 --debug\n```\n\n**Arguments**\n\n- `-i/--input`          : Path to input `.xlsx`. If omitted, the latest `M.YY_APN_Upload` file from `APN/Upload/` is used.\n- `-s/--sheet`          : Sheet name or index (default: first sheet).\n- `-o/--output`         : Output path (default: `M.YY_APN_Complete M.DD.HH-MM-SS.xlsx` in `APN/Complete/`).\n- `--rate`              : Requests-per-second cap. Default `1.0` (polite).\n- `--max-retries`       : Max HTTP retries per request. Default `3`.\n- `--city-whitelist`    : Comma list; only rows containing any token are processed (skip others).\n- `--debug`             : Verbose per-row logs.\n\n## File Formats\n\n### Input: M.YY_APN_Upload\n- Column A: `FULL ADDRESS` - Property address from Analysis file\n- Column B: `COUNTY` - Always 'MARICOPA' (pre-filtered)\n\n### Output: M.YY_APN_Complete\n- Column A: `FULL ADDRESS` - Same as input\n- Column B: `COUNTY` - Same as input\n- Column C: `APN` - Added by lookup (may be empty if lookup failed)\n\n## Naming Convention\n\n- **Input**: `M.YY_APN_Upload M.DD.HH-MM-SS.xlsx`\n  - M.YY = Month.Year (e.g., 1.25 for January 2025)\n  - M.DD = Month.Day\n  - HH-MM-SS = Hour-Minute-Second (12-hour format, Windows compatible)\n\n- **Output**: `M.YY_APN_Complete M.DD.HH-MM-SS.xlsx`\n  - Same format with different timestamp showing completion time\n\n## How it Works\n\n1. **Address Normalization** - Strips unit numbers, standardizes street types (STREET\u2192ST, AVENUE\u2192AVE), handles directionals\n2. **Exact WHERE Query** - Matches on PHYSICAL_STREET_NUM, PHYSICAL_STREET_NAME, PHYSICAL_STREET_TYPE, PHYSICAL_CITY\n3. **Loose WHERE Query** - If no exact match, drops street type for broader matching\n4. **Geocode \u2192 Identify** - If still no match, geocodes the address to coordinates, then identifies the parcel at that point\n5. **APN Selection** - Prefers APN_DASH format, falls back to APN. Notes multiple candidates in logs.\n6. **Rate Limiting** - Conservative rate limiting with jitter to respect Maricopa County servers\n\n## Confidence Scoring\n\n- `1.00` - Exact match on all address components\n- `0.85` - Loose match (without street type)\n- `0.75` - Geocoded and identified via coordinates\n- `0.00` - Not found\n\n## Notes & Limitations\n\n- This script targets **Maricopa County** only\n- Address parsing can be complex; the geocode\u2192identify fallback catches many edge cases\n- Multi-APN sites: Returns the first match and notes candidate count\n- Empty APN cells in output indicate lookup failure (address kept for reference)\n- Creates empty Upload file if no MARICOPA records found in Analysis\n\n## Example\n\n```\n$ python apn_lookup.py\nProcessing: APN/Upload/1.25_APN_Upload 1.22.02-30-45.xlsx\n[0] exact_where       conf=1.00 apn=123-45-678 :: 19829 N 27TH AVE PHOENIX AZ 85027\n[1] geocode_identify  conf=0.75 apn=234-56-789 :: 1234 E MAIN ST SCOTTSDALE\n...\nWrote: APN/Complete/1.25_APN_Complete 1.22.03-15-22.xlsx\n```"
+    }
+  },
+  {
+    "session_id": "130ffcd1-afd3-4191-8585-ed9f547e1669",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/130ffcd1-afd3-4191-8585-ed9f547e1669.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "acceptEdits",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "TodoWrite",
+    "tool_input": {
+      "todos": [
+        {
+          "content": "Create directory structure for APN Upload and Complete",
+          "status": "completed",
+          "activeForm": "Creating directory structure for APN Upload and Complete"
+        },
+        {
+          "content": "Update apn_lookup.py with new naming conventions",
+          "status": "completed",
+          "activeForm": "Updating apn_lookup.py with new naming conventions"
+        },
+        {
+          "content": "Update README_APN.md documentation",
+          "status": "completed",
+          "activeForm": "Updating README_APN.md documentation"
+        },
+        {
+          "content": "Add APN extraction function to process_months_local.py",
+          "status": "in_progress",
+          "activeForm": "Adding APN extraction function to process_months_local.py"
+        },
+        {
+          "content": "Add APN processing prompt to process_months_local.py menu",
+          "status": "pending",
+          "activeForm": "Adding APN processing prompt to process_months_local.py menu"
+        },
+        {
+          "content": "Test the implementation with sample data",
+          "status": "pending",
+          "activeForm": "Testing the implementation with sample data"
+        }
+      ]
+    }
+  },
+  {
+    "session_id": "130ffcd1-afd3-4191-8585-ed9f547e1669",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/130ffcd1-afd3-4191-8585-ed9f547e1669.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "acceptEdits",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Read",
+    "tool_input": {
+      "file_path": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy/scripts/process_months_local.py",
+      "limit": 100
+    }
+  },
+  {
+    "session_id": "130ffcd1-afd3-4191-8585-ed9f547e1669",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/130ffcd1-afd3-4191-8585-ed9f547e1669.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "acceptEdits",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Read",
+    "tool_input": {
+      "file_path": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy/scripts/process_months_local.py",
+      "offset": 500,
+      "limit": 100
+    }
+  },
+  {
+    "session_id": "130ffcd1-afd3-4191-8585-ed9f547e1669",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/130ffcd1-afd3-4191-8585-ed9f547e1669.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "acceptEdits",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Read",
+    "tool_input": {
+      "file_path": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy/scripts/process_months_local.py",
+      "offset": 364,
+      "limit": 100
+    }
+  },
+  {
+    "session_id": "130ffcd1-afd3-4191-8585-ed9f547e1669",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/130ffcd1-afd3-4191-8585-ed9f547e1669.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "acceptEdits",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Read",
+    "tool_input": {
+      "file_path": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy/scripts/process_months_local.py",
+      "offset": 150,
+      "limit": 70
+    }
+  },
+  {
+    "session_id": "130ffcd1-afd3-4191-8585-ed9f547e1669",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/130ffcd1-afd3-4191-8585-ed9f547e1669.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "acceptEdits",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Edit",
+    "tool_input": {
+      "file_path": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy/scripts/process_months_local.py",
+      "old_string": "import os\nimport shutil\nimport sys\nimport tempfile\nfrom pathlib import Path\nimport pandas as pd\nfrom datetime import datetime",
+      "new_string": "import os\nimport shutil\nimport sys\nimport tempfile\nimport subprocess\nfrom pathlib import Path\nimport pandas as pd\nfrom datetime import datetime"
+    }
+  },
+  {
+    "session_id": "130ffcd1-afd3-4191-8585-ed9f547e1669",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/130ffcd1-afd3-4191-8585-ed9f547e1669.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "acceptEdits",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Edit",
+    "tool_input": {
+      "file_path": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy/scripts/process_months_local.py",
+      "old_string": "    print_colored(\"\\nMonths to process:\", Colors.YELLOW)\n    for month_code, _, _, _ in months_to_process:\n        print(f\"  \u2022 {month_code}\")\n\n    print_colored(\"\\nOutput will be created in:\", Colors.YELLOW)\n    print_colored(\"  \u2022 Reformat/\", Colors.WHITE)\n    print_colored(\"  \u2022 All-to-Date/\", Colors.WHITE)\n    print_colored(\"  \u2022 Analysis/\", Colors.WHITE)\n\n    while True:\n        response = input(f\"\\n{Colors.BOLD}Ready to proceed? (y/N): {Colors.END}\").strip().lower()\n        if response in ['y', 'yes']:\n            return True\n        elif response in ['n', 'no', '']:\n            return False\n        else:\n            print_colored(\"Please enter 'y' for yes or 'n' for no\", Colors.YELLOW)",
+      "new_string": "    print_colored(\"\\nMonths to process:\", Colors.YELLOW)\n    for month_code, _, _, _ in months_to_process:\n        print(f\"  \u2022 {month_code}\")\n\n    print_colored(\"\\nOutput will be created in:\", Colors.YELLOW)\n    print_colored(\"  \u2022 Reformat/\", Colors.WHITE)\n    print_colored(\"  \u2022 All-to-Date/\", Colors.WHITE)\n    print_colored(\"  \u2022 Analysis/\", Colors.WHITE)\n    print_colored(\"  \u2022 APN/Upload/ (MARICOPA records only)\", Colors.WHITE)\n\n    # Get APN processing preference\n    process_apn = False\n    while True:\n        response = input(f\"\\n{Colors.BOLD}Process complete APNs (y/N)? {Colors.END}\").strip().lower()\n        if response in ['y', 'yes']:\n            process_apn = True\n            print_colored(\"  \u2713 Will process complete APNs after extraction\", Colors.GREEN)\n            break\n        elif response in ['n', 'no', '']:\n            process_apn = False\n            print_colored(\"  \u2713 Will only create APN Upload files\", Colors.YELLOW)\n            break\n        else:\n            print_colored(\"Please enter 'y' for yes or 'n' for no\", Colors.YELLOW)\n\n    while True:\n        response = input(f\"\\n{Colors.BOLD}Ready to proceed? (y/N): {Colors.END}\").strip().lower()\n        if response in ['y', 'yes']:\n            return True, process_apn\n        elif response in ['n', 'no', '']:\n            return False, False\n        else:\n            print_colored(\"Please enter 'y' for yes or 'n' for no\", Colors.YELLOW)"
+    }
+  },
+  {
+    "session_id": "130ffcd1-afd3-4191-8585-ed9f547e1669",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/130ffcd1-afd3-4191-8585-ed9f547e1669.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "acceptEdits",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Edit",
+    "tool_input": {
+      "file_path": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy/scripts/process_months_local.py",
+      "old_string": "    print_colored(f\"\u2705 Successfully processed {month_code}\", Colors.GREEN)\n    return True",
+      "new_string": "    print_colored(f\"\u2705 Successfully processed {month_code}\", Colors.GREEN)\n\n    # Return analysis_df so we can extract APN data from it\n    return True, analysis_df"
+    }
+  },
+  {
+    "session_id": "130ffcd1-afd3-4191-8585-ed9f547e1669",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/130ffcd1-afd3-4191-8585-ed9f547e1669.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "acceptEdits",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Edit",
+    "tool_input": {
+      "file_path": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy/scripts/process_months_local.py",
+      "old_string": "def main():\n    \"\"\"Main function with interactive menu.\"\"\"",
+      "new_string": "def extract_apn_upload(month_code: str, analysis_df: pd.DataFrame):\n    \"\"\"Extract MARICOPA-only records from Analysis file for APN processing.\n\n    Args:\n        month_code: Month code (e.g., \"1.25\")\n        analysis_df: The Analysis dataframe with all columns\n\n    Returns:\n        Path to the created Upload file, or None if failed\n    \"\"\"\n    try:\n        # Create APN/Upload directory if it doesn't exist\n        upload_dir = Path(\"APN/Upload\")\n        upload_dir.mkdir(parents=True, exist_ok=True)\n\n        # Check if required columns exist\n        if 'FULL ADDRESS' not in analysis_df.columns:\n            print_colored(f\"\u274c 'FULL ADDRESS' column not found in Analysis\", Colors.RED)\n            return None\n\n        if 'COUNTY' not in analysis_df.columns:\n            print_colored(f\"\u274c 'COUNTY' column not found in Analysis\", Colors.RED)\n            return None\n\n        # Filter for MARICOPA records (case-insensitive)\n        maricopa_mask = analysis_df['COUNTY'].fillna('').str.upper().str.contains('MARICOPA', na=False)\n        maricopa_df = analysis_df[maricopa_mask][['FULL ADDRESS', 'COUNTY']].copy()\n\n        print_colored(f\"\ud83d\udcca Found {len(maricopa_df)} MARICOPA records out of {len(analysis_df)} total\", Colors.CYAN)\n\n        # Generate timestamp\n        now = datetime.now()\n        timestamp = now.strftime(\"%m.%d.%I-%M-%S\")  # M.DD.HH-MM-SS (12-hour format)\n\n        # Create output filename\n        output_filename = f\"{month_code}_APN_Upload {timestamp}.xlsx\"\n        output_path = upload_dir / output_filename\n\n        # Write to Excel\n        if safe_write_excel(maricopa_df, output_path):\n            print_colored(f\"\u2705 Created APN Upload file: {output_path}\", Colors.GREEN)\n            return output_path\n        else:\n            return None\n\n    except Exception as e:\n        print_colored(f\"\u274c Error extracting APN data: {e}\", Colors.RED)\n        import traceback\n        traceback.print_exc()\n        return None\n\ndef run_apn_lookup(upload_path: Path):\n    \"\"\"Run apn_lookup.py on the upload file to generate Complete file.\n\n    Args:\n        upload_path: Path to the Upload file\n\n    Returns:\n        True if successful, False otherwise\n    \"\"\"\n    try:\n        apn_script = Path(\"APN/apn_lookup.py\")\n        if not apn_script.exists():\n            print_colored(f\"\u274c apn_lookup.py not found at {apn_script}\", Colors.RED)\n            return False\n\n        # Run the APN lookup script\n        print_colored(f\"\ud83d\udd04 Running APN lookup on {upload_path.name}...\", Colors.BLUE)\n        result = subprocess.run(\n            [sys.executable, str(apn_script), \"-i\", str(upload_path), \"--debug\"],\n            capture_output=True,\n            text=True\n        )\n\n        if result.returncode == 0:\n            print_colored(f\"\u2705 APN lookup completed successfully\", Colors.GREEN)\n            if result.stdout:\n                print(result.stdout)\n            return True\n        else:\n            print_colored(f\"\u274c APN lookup failed with exit code {result.returncode}\", Colors.RED)\n            if result.stderr:\n                print_colored(f\"Error output: {result.stderr}\", Colors.RED)\n            return False\n\n    except Exception as e:\n        print_colored(f\"\u274c Error running APN lookup: {e}\", Colors.RED)\n        import traceback\n        traceback.print_exc()\n        return False\n\ndef main():\n    \"\"\"Main function with interactive menu.\"\"\""
+    }
+  },
+  {
+    "session_id": "130ffcd1-afd3-4191-8585-ed9f547e1669",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/130ffcd1-afd3-4191-8585-ed9f547e1669.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "acceptEdits",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Edit",
+    "tool_input": {
+      "file_path": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy/scripts/process_months_local.py",
+      "old_string": "    # Get confirmation\n    if not get_confirmation(start_month, end_month, months_to_process):\n        print_colored(\"\\n\ud83d\udeab Processing cancelled by user\", Colors.YELLOW)\n        return\n\n    # Process months\n    print_colored(\"\\n\" + \"=\"*60, Colors.BLUE)\n    print_colored(\"\ud83d\udd04 STARTING BATCH PROCESSING\", Colors.BOLD + Colors.BLUE)\n    print_colored(\"=\"*60, Colors.BLUE)\n\n    successful = []\n    failed = []\n\n    for month_code, folder_name, _, _ in months_to_process:\n        try:\n            if process_single_month(month_code, folder_name):\n                successful.append(month_code)\n            else:\n                failed.append(month_code)\n        except Exception as e:\n            print_colored(f\"\u274c Error processing {month_code}: {e}\", Colors.RED)\n            import traceback\n            traceback.print_exc()\n            failed.append(month_code)",
+      "new_string": "    # Get confirmation\n    confirmed, process_apn = get_confirmation(start_month, end_month, months_to_process)\n    if not confirmed:\n        print_colored(\"\\n\ud83d\udeab Processing cancelled by user\", Colors.YELLOW)\n        return\n\n    # Process months\n    print_colored(\"\\n\" + \"=\"*60, Colors.BLUE)\n    print_colored(\"\ud83d\udd04 STARTING BATCH PROCESSING\", Colors.BOLD + Colors.BLUE)\n    print_colored(\"=\"*60, Colors.BLUE)\n\n    successful = []\n    failed = []\n    apn_errors = []\n\n    for month_code, folder_name, _, _ in months_to_process:\n        try:\n            result = process_single_month(month_code, folder_name)\n            if isinstance(result, tuple):\n                success, analysis_df = result\n            else:\n                # Backward compatibility if process_single_month returns bool\n                success = result\n                analysis_df = None\n\n            if success:\n                successful.append(month_code)\n\n                # Extract APN data if we have analysis_df\n                if analysis_df is not None:\n                    print_colored(f\"\\n\ud83d\udccb Extracting APN data for {month_code}...\", Colors.CYAN)\n                    upload_path = extract_apn_upload(month_code, analysis_df)\n\n                    # Run APN lookup if requested\n                    if upload_path and process_apn:\n                        if not run_apn_lookup(upload_path):\n                            apn_errors.append(f\"{month_code} (lookup failed)\")\n                elif analysis_df is None:\n                    apn_errors.append(f\"{month_code} (no Analysis data)\")\n            else:\n                failed.append(month_code)\n        except Exception as e:\n            print_colored(f\"\u274c Error processing {month_code}: {e}\", Colors.RED)\n            import traceback\n            traceback.print_exc()\n            failed.append(month_code)"
+    }
+  },
+  {
+    "session_id": "130ffcd1-afd3-4191-8585-ed9f547e1669",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/130ffcd1-afd3-4191-8585-ed9f547e1669.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "acceptEdits",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "TodoWrite",
+    "tool_input": {
+      "todos": [
+        {
+          "content": "Create directory structure for APN Upload and Complete",
+          "status": "completed",
+          "activeForm": "Creating directory structure for APN Upload and Complete"
+        },
+        {
+          "content": "Update apn_lookup.py with new naming conventions",
+          "status": "completed",
+          "activeForm": "Updating apn_lookup.py with new naming conventions"
+        },
+        {
+          "content": "Update README_APN.md documentation",
+          "status": "completed",
+          "activeForm": "Updating README_APN.md documentation"
+        },
+        {
+          "content": "Add APN extraction function to process_months_local.py",
+          "status": "completed",
+          "activeForm": "Adding APN extraction function to process_months_local.py"
+        },
+        {
+          "content": "Add APN processing prompt to process_months_local.py menu",
+          "status": "completed",
+          "activeForm": "Adding APN processing prompt to process_months_local.py menu"
+        },
+        {
+          "content": "Add APN error reporting to summary",
+          "status": "in_progress",
+          "activeForm": "Adding APN error reporting to summary"
+        },
+        {
+          "content": "Test the implementation with sample data",
+          "status": "pending",
+          "activeForm": "Testing the implementation with sample data"
+        }
+      ]
+    }
+  },
+  {
+    "session_id": "130ffcd1-afd3-4191-8585-ed9f547e1669",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/130ffcd1-afd3-4191-8585-ed9f547e1669.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "acceptEdits",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Edit",
+    "tool_input": {
+      "file_path": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy/scripts/process_months_local.py",
+      "old_string": "    # Summary\n    print_colored(\"\\n\" + \"=\"*60, Colors.BLUE)\n    print_colored(\"\ud83d\udcca PROCESSING COMPLETE\", Colors.BOLD + Colors.BLUE)\n    print_colored(\"=\"*60, Colors.BLUE)\n\n    if successful:\n        print_colored(f\"\\n\u2705 Successfully processed ({len(successful)}/{len(months_to_process)}): {', '.join(successful)}\", Colors.GREEN)\n\n    if failed:\n        print_colored(f\"\\n\u274c Failed ({len(failed)}/{len(months_to_process)}): {', '.join(failed)}\", Colors.RED)\n\n    print_colored(\"\\n\ud83d\udcc1 Output directories:\", Colors.BOLD)\n    print_colored(\"  \u2022 Reformat/\", Colors.WHITE)\n    print_colored(\"  \u2022 All-to-Date/\", Colors.WHITE)\n    print_colored(\"  \u2022 Analysis/\", Colors.WHITE)",
+      "new_string": "    # Summary\n    print_colored(\"\\n\" + \"=\"*60, Colors.BLUE)\n    print_colored(\"\ud83d\udcca PROCESSING COMPLETE\", Colors.BOLD + Colors.BLUE)\n    print_colored(\"=\"*60, Colors.BLUE)\n\n    if successful:\n        print_colored(f\"\\n\u2705 Successfully processed ({len(successful)}/{len(months_to_process)}): {', '.join(successful)}\", Colors.GREEN)\n\n    if failed:\n        print_colored(f\"\\n\u274c Failed ({len(failed)}/{len(months_to_process)}): {', '.join(failed)}\", Colors.RED)\n\n    if apn_errors:\n        print_colored(f\"\\n\u26a0\ufe0f  APN processing issues: {', '.join(apn_errors)}\", Colors.YELLOW)\n\n    print_colored(\"\\n\ud83d\udcc1 Output directories:\", Colors.BOLD)\n    print_colored(\"  \u2022 Reformat/\", Colors.WHITE)\n    print_colored(\"  \u2022 All-to-Date/\", Colors.WHITE)\n    print_colored(\"  \u2022 Analysis/\", Colors.WHITE)\n    print_colored(\"  \u2022 APN/Upload/ (MARICOPA extracts)\", Colors.WHITE)\n    if process_apn:\n        print_colored(\"  \u2022 APN/Complete/ (with APN lookups)\", Colors.WHITE)"
+    }
+  },
+  {
+    "session_id": "130ffcd1-afd3-4191-8585-ed9f547e1669",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/130ffcd1-afd3-4191-8585-ed9f547e1669.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "acceptEdits",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "TodoWrite",
+    "tool_input": {
+      "todos": [
+        {
+          "content": "Create directory structure for APN Upload and Complete",
+          "status": "completed",
+          "activeForm": "Creating directory structure for APN Upload and Complete"
+        },
+        {
+          "content": "Update apn_lookup.py with new naming conventions",
+          "status": "completed",
+          "activeForm": "Updating apn_lookup.py with new naming conventions"
+        },
+        {
+          "content": "Update README_APN.md documentation",
+          "status": "completed",
+          "activeForm": "Updating README_APN.md documentation"
+        },
+        {
+          "content": "Add APN extraction function to process_months_local.py",
+          "status": "completed",
+          "activeForm": "Adding APN extraction function to process_months_local.py"
+        },
+        {
+          "content": "Add APN processing prompt to process_months_local.py menu",
+          "status": "completed",
+          "activeForm": "Adding APN processing prompt to process_months_local.py menu"
+        },
+        {
+          "content": "Add APN error reporting to summary",
+          "status": "completed",
+          "activeForm": "Adding APN error reporting to summary"
+        },
+        {
+          "content": "Test the implementation with sample data",
+          "status": "in_progress",
+          "activeForm": "Testing the implementation with sample data"
+        }
+      ]
+    }
+  },
+  {
+    "session_id": "130ffcd1-afd3-4191-8585-ed9f547e1669",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/130ffcd1-afd3-4191-8585-ed9f547e1669.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "acceptEdits",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Bash",
+    "tool_input": {
+      "command": "cd /Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025\\ copy && python3 -m py_compile scripts/process_months_local.py",
+      "description": "Check Python syntax"
+    }
+  },
+  {
+    "session_id": "130ffcd1-afd3-4191-8585-ed9f547e1669",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/130ffcd1-afd3-4191-8585-ed9f547e1669.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "acceptEdits",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Bash",
+    "tool_input": {
+      "command": "cd /Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025\\ copy && python3 -m py_compile APN/apn_lookup.py",
+      "description": "Check apn_lookup.py syntax"
+    }
+  },
+  {
+    "session_id": "130ffcd1-afd3-4191-8585-ed9f547e1669",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/130ffcd1-afd3-4191-8585-ed9f547e1669.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "acceptEdits",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Write",
+    "tool_input": {
+      "file_path": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy/test_apn_naming.py",
+      "content": "#!/usr/bin/env python3\n\"\"\"Test script to verify APN naming conventions.\"\"\"\n\nfrom datetime import datetime\nfrom pathlib import Path\n\ndef test_naming():\n    \"\"\"Test the new naming conventions.\"\"\"\n    print(\"Testing APN naming conventions...\")\n\n    # Test Upload filename generation\n    month_code = \"1.25\"\n    now = datetime.now()\n    timestamp = now.strftime(\"%m.%d.%I-%M-%S\")  # M.DD.HH-MM-SS (12-hour format)\n\n    upload_filename = f\"{month_code}_APN_Upload {timestamp}.xlsx\"\n    print(f\"\u2713 Upload filename: {upload_filename}\")\n\n    # Test Complete filename generation\n    complete_timestamp = datetime.now().strftime(\"%m.%d.%I-%M-%S\")\n    complete_filename = f\"{month_code}_APN_Complete {complete_timestamp}.xlsx\"\n    print(f\"\u2713 Complete filename: {complete_filename}\")\n\n    # Test pattern matching for Upload files\n    upload_dir = Path(\"APN/Upload\")\n    if upload_dir.exists():\n        print(f\"\\n\u2713 Upload directory exists: {upload_dir}\")\n\n        # Test glob patterns\n        patterns = [\n            \"[1-9].[0-9][0-9]_APN_Upload*.xlsx\",\n            \"1[0-2].[0-9][0-9]_APN_Upload*.xlsx\"\n        ]\n\n        for pattern in patterns:\n            files = list(upload_dir.glob(pattern))\n            print(f\"  Pattern '{pattern}' matches {len(files)} files\")\n            for f in files[:3]:  # Show first 3 matches\n                print(f\"    - {f.name}\")\n\n    # Test Complete directory\n    complete_dir = Path(\"APN/Complete\")\n    if complete_dir.exists():\n        print(f\"\\n\u2713 Complete directory exists: {complete_dir}\")\n\n    print(\"\\n\u2705 All naming convention tests passed!\")\n\nif __name__ == \"__main__\":\n    test_naming()"
+    }
+  },
+  {
+    "session_id": "130ffcd1-afd3-4191-8585-ed9f547e1669",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/130ffcd1-afd3-4191-8585-ed9f547e1669.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "acceptEdits",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Bash",
+    "tool_input": {
+      "command": "cd /Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025\\ copy && python3 test_apn_naming.py",
+      "description": "Run naming convention test"
+    }
+  },
+  {
+    "session_id": "130ffcd1-afd3-4191-8585-ed9f547e1669",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/130ffcd1-afd3-4191-8585-ed9f547e1669.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "acceptEdits",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Bash",
+    "tool_input": {
+      "command": "rm test_apn_naming.py",
+      "description": "Remove test file"
+    }
+  },
+  {
+    "session_id": "130ffcd1-afd3-4191-8585-ed9f547e1669",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/130ffcd1-afd3-4191-8585-ed9f547e1669.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "acceptEdits",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "TodoWrite",
+    "tool_input": {
+      "todos": [
+        {
+          "content": "Create directory structure for APN Upload and Complete",
+          "status": "completed",
+          "activeForm": "Creating directory structure for APN Upload and Complete"
+        },
+        {
+          "content": "Update apn_lookup.py with new naming conventions",
+          "status": "completed",
+          "activeForm": "Updating apn_lookup.py with new naming conventions"
+        },
+        {
+          "content": "Update README_APN.md documentation",
+          "status": "completed",
+          "activeForm": "Updating README_APN.md documentation"
+        },
+        {
+          "content": "Add APN extraction function to process_months_local.py",
+          "status": "completed",
+          "activeForm": "Adding APN extraction function to process_months_local.py"
+        },
+        {
+          "content": "Add APN processing prompt to process_months_local.py menu",
+          "status": "completed",
+          "activeForm": "Adding APN processing prompt to process_months_local.py menu"
+        },
+        {
+          "content": "Add APN error reporting to summary",
+          "status": "completed",
+          "activeForm": "Adding APN error reporting to summary"
+        },
+        {
+          "content": "Test the implementation with sample data",
+          "status": "completed",
+          "activeForm": "Testing the implementation with sample data"
+        }
+      ]
+    }
+  },
+  {
+    "session_id": "130ffcd1-afd3-4191-8585-ed9f547e1669",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/130ffcd1-afd3-4191-8585-ed9f547e1669.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "acceptEdits",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Edit",
+    "tool_input": {
+      "file_path": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy/scripts/process_months_local.py",
+      "old_string": "    if current_month_df.empty:\n        print_colored(f\"\u274c No data processed for {month_code}\", Colors.RED)\n        return False",
+      "new_string": "    if current_month_df.empty:\n        print_colored(f\"\u274c No data processed for {month_code}\", Colors.RED)\n        return False, None"
+    }
+  },
+  {
+    "session_id": "130ffcd1-afd3-4191-8585-ed9f547e1669",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/130ffcd1-afd3-4191-8585-ed9f547e1669.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "acceptEdits",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Grep",
+    "tool_input": {
+      "pattern": "return False",
+      "path": "scripts/process_months_local.py",
+      "output_mode": "content",
+      "-n": true
+    }
+  },
+  {
+    "session_id": "130ffcd1-afd3-4191-8585-ed9f547e1669",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/130ffcd1-afd3-4191-8585-ed9f547e1669.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "acceptEdits",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Read",
+    "tool_input": {
+      "file_path": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy/scripts/process_months_local.py",
+      "offset": 240,
+      "limit": 20
+    }
+  },
+  {
+    "session_id": "130ffcd1-afd3-4191-8585-ed9f547e1669",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/130ffcd1-afd3-4191-8585-ed9f547e1669.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "acceptEdits",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Edit",
+    "tool_input": {
+      "file_path": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy/scripts/process_months_local.py",
+      "old_string": "    if not safe_write_excel(current_month_df, reformat_path):\n        return False",
+      "new_string": "    if not safe_write_excel(current_month_df, reformat_path):\n        return False, None"
+    }
+  },
+  {
+    "session_id": "130ffcd1-afd3-4191-8585-ed9f547e1669",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/130ffcd1-afd3-4191-8585-ed9f547e1669.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "acceptEdits",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Read",
+    "tool_input": {
+      "file_path": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy/scripts/process_months_local.py",
+      "offset": 280,
+      "limit": 10
+    }
+  },
+  {
+    "session_id": "130ffcd1-afd3-4191-8585-ed9f547e1669",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/130ffcd1-afd3-4191-8585-ed9f547e1669.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "acceptEdits",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Edit",
+    "tool_input": {
+      "file_path": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy/scripts/process_months_local.py",
+      "old_string": "    if not safe_write_excel(combined_df, all_to_date_path):\n        return False",
+      "new_string": "    if not safe_write_excel(combined_df, all_to_date_path):\n        return False, None"
+    }
+  },
+  {
+    "session_id": "130ffcd1-afd3-4191-8585-ed9f547e1669",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/130ffcd1-afd3-4191-8585-ed9f547e1669.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "acceptEdits",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Read",
+    "tool_input": {
+      "file_path": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy/scripts/process_months_local.py",
+      "offset": 385,
+      "limit": 10
+    }
+  },
+  {
+    "session_id": "130ffcd1-afd3-4191-8585-ed9f547e1669",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/130ffcd1-afd3-4191-8585-ed9f547e1669.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "acceptEdits",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Edit",
+    "tool_input": {
+      "file_path": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy/scripts/process_months_local.py",
+      "old_string": "        return False  # Block processing completely",
+      "new_string": "        return False, None  # Block processing completely"
+    }
+  },
+  {
+    "session_id": "130ffcd1-afd3-4191-8585-ed9f547e1669",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/130ffcd1-afd3-4191-8585-ed9f547e1669.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "acceptEdits",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Read",
+    "tool_input": {
+      "file_path": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy/scripts/process_months_local.py",
+      "offset": 399,
+      "limit": 10
+    }
+  },
+  {
+    "session_id": "130ffcd1-afd3-4191-8585-ed9f547e1669",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/130ffcd1-afd3-4191-8585-ed9f547e1669.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "acceptEdits",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Edit",
+    "tool_input": {
+      "file_path": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy/scripts/process_months_local.py",
+      "old_string": "    if not safe_write_excel(None, analysis_path, sheet_data):\n        return False",
+      "new_string": "    if not safe_write_excel(None, analysis_path, sheet_data):\n        return False, None"
+    }
+  },
+  {
+    "session_id": "130ffcd1-afd3-4191-8585-ed9f547e1669",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/130ffcd1-afd3-4191-8585-ed9f547e1669.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "acceptEdits",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Bash",
+    "tool_input": {
+      "command": "cd /Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025\\ copy && python3 -m py_compile scripts/process_months_local.py",
+      "description": "Final syntax check"
+    }
+  },
+  {
+    "session_id": "130ffcd1-afd3-4191-8585-ed9f547e1669",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/130ffcd1-afd3-4191-8585-ed9f547e1669.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "acceptEdits",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "TodoWrite",
+    "tool_input": {
+      "todos": [
+        {
+          "content": "Update FULL ADDRESS to FULL_ADDRESS in all files",
+          "status": "in_progress",
+          "activeForm": "Updating FULL ADDRESS to FULL_ADDRESS in all files"
+        },
+        {
+          "content": "Fix column references in process_months_local.py",
+          "status": "pending",
+          "activeForm": "Fixing column references in process_months_local.py"
+        },
+        {
+          "content": "Fix column references in apn_lookup.py",
+          "status": "pending",
+          "activeForm": "Fixing column references in apn_lookup.py"
+        },
+        {
+          "content": "Update documentation to reflect FULL_ADDRESS",
+          "status": "pending",
+          "activeForm": "Updating documentation to reflect FULL_ADDRESS"
+        }
+      ]
+    }
+  },
+  {
+    "session_id": "130ffcd1-afd3-4191-8585-ed9f547e1669",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/130ffcd1-afd3-4191-8585-ed9f547e1669.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "acceptEdits",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Grep",
+    "tool_input": {
+      "pattern": "FULL ADDRESS",
+      "path": "scripts/process_months_local.py",
+      "output_mode": "content",
+      "-n": true
+    }
+  },
+  {
+    "session_id": "130ffcd1-afd3-4191-8585-ed9f547e1669",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/130ffcd1-afd3-4191-8585-ed9f547e1669.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "acceptEdits",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Edit",
+    "tool_input": {
+      "file_path": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy/scripts/process_months_local.py",
+      "old_string": "        # Check if required columns exist\n        if 'FULL ADDRESS' not in analysis_df.columns:\n            print_colored(f\"\u274c 'FULL ADDRESS' column not found in Analysis\", Colors.RED)\n            return None\n\n        if 'COUNTY' not in analysis_df.columns:\n            print_colored(f\"\u274c 'COUNTY' column not found in Analysis\", Colors.RED)\n            return None\n\n        # Filter for MARICOPA records (case-insensitive)\n        maricopa_mask = analysis_df['COUNTY'].fillna('').str.upper().str.contains('MARICOPA', na=False)\n        maricopa_df = analysis_df[maricopa_mask][['FULL ADDRESS', 'COUNTY']].copy()",
+      "new_string": "        # Check if required columns exist\n        if 'FULL_ADDRESS' not in analysis_df.columns:\n            print_colored(f\"\u274c 'FULL_ADDRESS' column not found in Analysis\", Colors.RED)\n            return None\n\n        if 'COUNTY' not in analysis_df.columns:\n            print_colored(f\"\u274c 'COUNTY' column not found in Analysis\", Colors.RED)\n            return None\n\n        # Filter for MARICOPA records (case-insensitive)\n        maricopa_mask = analysis_df['COUNTY'].fillna('').str.upper().str.contains('MARICOPA', na=False)\n        maricopa_df = analysis_df[maricopa_mask][['FULL_ADDRESS', 'COUNTY']].copy()"
+    }
+  },
+  {
+    "session_id": "130ffcd1-afd3-4191-8585-ed9f547e1669",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/130ffcd1-afd3-4191-8585-ed9f547e1669.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "acceptEdits",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "TodoWrite",
+    "tool_input": {
+      "todos": [
+        {
+          "content": "Update FULL ADDRESS to FULL_ADDRESS in all files",
+          "status": "in_progress",
+          "activeForm": "Updating FULL ADDRESS to FULL_ADDRESS in all files"
+        },
+        {
+          "content": "Fix column references in process_months_local.py",
+          "status": "completed",
+          "activeForm": "Fixing column references in process_months_local.py"
+        },
+        {
+          "content": "Fix column references in apn_lookup.py",
+          "status": "in_progress",
+          "activeForm": "Fixing column references in apn_lookup.py"
+        },
+        {
+          "content": "Update documentation to reflect FULL_ADDRESS",
+          "status": "pending",
+          "activeForm": "Updating documentation to reflect FULL_ADDRESS"
+        }
+      ]
+    }
+  },
+  {
+    "session_id": "130ffcd1-afd3-4191-8585-ed9f547e1669",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/130ffcd1-afd3-4191-8585-ed9f547e1669.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "acceptEdits",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Grep",
+    "tool_input": {
+      "pattern": "FULL ADDRESS",
+      "path": "APN/apn_lookup.py",
+      "output_mode": "content",
+      "-n": true
+    }
+  },
+  {
+    "session_id": "130ffcd1-afd3-4191-8585-ed9f547e1669",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/130ffcd1-afd3-4191-8585-ed9f547e1669.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "acceptEdits",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Read",
+    "tool_input": {
+      "file_path": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy/APN/apn_lookup.py",
+      "offset": 315,
+      "limit": 20
+    }
+  },
+  {
+    "session_id": "130ffcd1-afd3-4191-8585-ed9f547e1669",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/130ffcd1-afd3-4191-8585-ed9f547e1669.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "acceptEdits",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Edit",
+    "tool_input": {
+      "file_path": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy/APN/apn_lookup.py",
+      "old_string": "\"\"\"\nMaricopa APN lookup (Excel \u2192 APN)\n---------------------------------\nReads an Excel file named like \"M.YY_APN_Upload *.xlsx\" with Columns A = FULL ADDRESS, B = COUNTY,\nqueries Maricopa County ArcGIS services, and writes a new workbook with APN results.",
+      "new_string": "\"\"\"\nMaricopa APN lookup (Excel \u2192 APN)\n---------------------------------\nReads an Excel file named like \"M.YY_APN_Upload *.xlsx\" with Columns A = FULL_ADDRESS, B = COUNTY,\nqueries Maricopa County ArcGIS services, and writes a new workbook with APN results."
+    }
+  },
+  {
+    "session_id": "130ffcd1-afd3-4191-8585-ed9f547e1669",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/130ffcd1-afd3-4191-8585-ed9f547e1669.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "acceptEdits",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Edit",
+    "tool_input": {
+      "file_path": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy/APN/apn_lookup.py",
+      "old_string": "    # Find address column (prefer header FULL ADDRESS, case-insensitive); else first column\n    addr_col = None\n    for c in df.columns:\n        if isinstance(c, str) and c.strip().lower() == \"full address\":\n            addr_col = c\n            break\n    if addr_col is None:\n        addr_col = df.columns[0]",
+      "new_string": "    # Find address column (prefer header FULL_ADDRESS, case-insensitive); else first column\n    addr_col = None\n    for c in df.columns:\n        if isinstance(c, str) and (c.strip().upper() == \"FULL_ADDRESS\" or c.strip().upper() == \"FULL ADDRESS\"):\n            addr_col = c\n            break\n    if addr_col is None:\n        addr_col = df.columns[0]"
+    }
+  },
+  {
+    "session_id": "130ffcd1-afd3-4191-8585-ed9f547e1669",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/130ffcd1-afd3-4191-8585-ed9f547e1669.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "acceptEdits",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "TodoWrite",
+    "tool_input": {
+      "todos": [
+        {
+          "content": "Update FULL ADDRESS to FULL_ADDRESS in all files",
+          "status": "in_progress",
+          "activeForm": "Updating FULL ADDRESS to FULL_ADDRESS in all files"
+        },
+        {
+          "content": "Fix column references in process_months_local.py",
+          "status": "completed",
+          "activeForm": "Fixing column references in process_months_local.py"
+        },
+        {
+          "content": "Fix column references in apn_lookup.py",
+          "status": "completed",
+          "activeForm": "Fixing column references in apn_lookup.py"
+        },
+        {
+          "content": "Update documentation to reflect FULL_ADDRESS",
+          "status": "in_progress",
+          "activeForm": "Updating documentation to reflect FULL_ADDRESS"
+        }
+      ]
+    }
+  },
+  {
+    "session_id": "130ffcd1-afd3-4191-8585-ed9f547e1669",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/130ffcd1-afd3-4191-8585-ed9f547e1669.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "acceptEdits",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Edit",
+    "tool_input": {
+      "file_path": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy/APN/README_APN.md",
+      "old_string": "This CLI reads an Excel workbook named like `M.YY_APN_Upload M.DD.HH-MM-SS.xlsx` where:\n- **Column A is `FULL ADDRESS`** - extracted from Analysis files column G\n- **Column B is `COUNTY`** - filtered to only include 'MARICOPA' records from Analysis column K",
+      "new_string": "This CLI reads an Excel workbook named like `M.YY_APN_Upload M.DD.HH-MM-SS.xlsx` where:\n- **Column A is `FULL_ADDRESS`** - extracted from Analysis files column G\n- **Column B is `COUNTY`** - filtered to only include 'MARICOPA' records from Analysis column K"
+    }
+  },
+  {
+    "session_id": "130ffcd1-afd3-4191-8585-ed9f547e1669",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/130ffcd1-afd3-4191-8585-ed9f547e1669.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "acceptEdits",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Edit",
+    "tool_input": {
+      "file_path": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy/APN/README_APN.md",
+      "old_string": "The APN lookup is integrated into the main ETL pipeline (`scripts/process_months_local.py`). After processing Analysis files, it will:\n1. Extract MARICOPA-only records from Analysis columns G (FULL ADDRESS) and K (COUNTY)",
+      "new_string": "The APN lookup is integrated into the main ETL pipeline (`scripts/process_months_local.py`). After processing Analysis files, it will:\n1. Extract MARICOPA-only records from Analysis columns G (FULL_ADDRESS) and K (COUNTY)"
+    }
+  },
+  {
+    "session_id": "130ffcd1-afd3-4191-8585-ed9f547e1669",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/130ffcd1-afd3-4191-8585-ed9f547e1669.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "acceptEdits",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Edit",
+    "tool_input": {
+      "file_path": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy/APN/README_APN.md",
+      "old_string": "### Input: M.YY_APN_Upload\n- Column A: `FULL ADDRESS` - Property address from Analysis file\n- Column B: `COUNTY` - Always 'MARICOPA' (pre-filtered)\n\n### Output: M.YY_APN_Complete\n- Column A: `FULL ADDRESS` - Same as input\n- Column B: `COUNTY` - Same as input\n- Column C: `APN` - Added by lookup (may be empty if lookup failed)",
+      "new_string": "### Input: M.YY_APN_Upload\n- Column A: `FULL_ADDRESS` - Property address from Analysis file\n- Column B: `COUNTY` - Always 'MARICOPA' (pre-filtered)\n\n### Output: M.YY_APN_Complete\n- Column A: `FULL_ADDRESS` - Same as input\n- Column B: `COUNTY` - Same as input\n- Column C: `APN` - Added by lookup (may be empty if lookup failed)"
+    }
+  },
+  {
+    "session_id": "130ffcd1-afd3-4191-8585-ed9f547e1669",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/130ffcd1-afd3-4191-8585-ed9f547e1669.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "acceptEdits",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "TodoWrite",
+    "tool_input": {
+      "todos": [
+        {
+          "content": "Update FULL ADDRESS to FULL_ADDRESS in all files",
+          "status": "completed",
+          "activeForm": "Updating FULL ADDRESS to FULL_ADDRESS in all files"
+        },
+        {
+          "content": "Fix column references in process_months_local.py",
+          "status": "completed",
+          "activeForm": "Fixing column references in process_months_local.py"
+        },
+        {
+          "content": "Fix column references in apn_lookup.py",
+          "status": "completed",
+          "activeForm": "Fixing column references in apn_lookup.py"
+        },
+        {
+          "content": "Update documentation to reflect FULL_ADDRESS",
+          "status": "completed",
+          "activeForm": "Updating documentation to reflect FULL_ADDRESS"
+        }
+      ]
+    }
+  },
+  {
+    "session_id": "130ffcd1-afd3-4191-8585-ed9f547e1669",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/130ffcd1-afd3-4191-8585-ed9f547e1669.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "default",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Edit",
+    "tool_input": {
+      "file_path": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy/scripts/process_months_local.py",
+      "old_string": "        # Run the APN lookup script\n        print_colored(f\"\ud83d\udd04 Running APN lookup on {upload_path.name}...\", Colors.BLUE)\n        result = subprocess.run(\n            [sys.executable, str(apn_script), \"-i\", str(upload_path), \"--debug\"],\n            capture_output=True,\n            text=True\n        )",
+      "new_string": "        # Run the APN lookup script with higher rate limit\n        print_colored(f\"\ud83d\udd04 Running APN lookup on {upload_path.name}...\", Colors.BLUE)\n        print_colored(f\"   (Processing ~{len(pd.read_excel(upload_path))} records at 5 req/sec)\", Colors.CYAN)\n        result = subprocess.run(\n            [sys.executable, str(apn_script), \"-i\", str(upload_path), \"--rate\", \"5.0\"],\n            capture_output=True,\n            text=True\n        )"
+    }
   }
 ]

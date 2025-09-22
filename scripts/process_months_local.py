@@ -11,6 +11,7 @@ import os
 import shutil
 import sys
 import tempfile
+import subprocess
 from pathlib import Path
 import pandas as pd
 from datetime import datetime
@@ -155,13 +156,29 @@ def get_confirmation(start_month, end_month, months_to_process):
     print_colored("  • Reformat/", Colors.WHITE)
     print_colored("  • All-to-Date/", Colors.WHITE)
     print_colored("  • Analysis/", Colors.WHITE)
+    print_colored("  • APN/Upload/ (MARICOPA records only)", Colors.WHITE)
+
+    # Get APN processing preference
+    process_apn = False
+    while True:
+        response = input(f"\n{Colors.BOLD}Process complete APNs (y/N)? {Colors.END}").strip().lower()
+        if response in ['y', 'yes']:
+            process_apn = True
+            print_colored("  ✓ Will process complete APNs after extraction", Colors.GREEN)
+            break
+        elif response in ['n', 'no', '']:
+            process_apn = False
+            print_colored("  ✓ Will only create APN Upload files", Colors.YELLOW)
+            break
+        else:
+            print_colored("Please enter 'y' for yes or 'n' for no", Colors.YELLOW)
 
     while True:
         response = input(f"\n{Colors.BOLD}Ready to proceed? (y/N): {Colors.END}").strip().lower()
         if response in ['y', 'yes']:
-            return True
+            return True, process_apn
         elif response in ['n', 'no', '']:
-            return False
+            return False, False
         else:
             print_colored("Please enter 'y' for yes or 'n' for no", Colors.YELLOW)
 
@@ -209,7 +226,7 @@ def process_single_month(month_code: str, folder_name: str):
 
     if current_month_df.empty:
         print_colored(f"❌ No data processed for {month_code}", Colors.RED)
-        return False
+        return False, None
 
     log_step(f"Processed {len(current_month_df)} records")
     print_colored(f"✅ Processed {len(current_month_df)} records", Colors.GREEN)
@@ -224,7 +241,7 @@ def process_single_month(month_code: str, folder_name: str):
     log_step(f"Creating Reformat file at {reformat_path}...")
     print_colored("Creating Reformat file...", Colors.BLUE)
     if not safe_write_excel(current_month_df, reformat_path):
-        return False
+        return False, None
 
     # 2. Create All-to-Date
     log_step("Starting All-to-Date creation...")
@@ -263,7 +280,7 @@ def process_single_month(month_code: str, folder_name: str):
         combined_df = current_month_df
 
     if not safe_write_excel(combined_df, all_to_date_path):
-        return False
+        return False, None
 
     # 3. Create Analysis
     log_step("Starting Analysis creation...")
@@ -367,7 +384,7 @@ def process_single_month(month_code: str, folder_name: str):
         print_colored(f"❌ COLUMN COUNT MISMATCH: Expected {expected_columns} columns, got {actual_columns}", Colors.RED)
         print_colored(f"❌ NOT CONSISTENT WITH v300Track_this.xlsx - BLOCKING OUTPUT", Colors.RED)
         print_colored(f"❌ NO FILES WILL BE WRITTEN UNTIL COLUMN STRUCTURE MATCHES v300", Colors.RED)
-        return False  # Block processing completely
+        return False, None  # Block processing completely
     else:
         print_colored(f"✅ Column count validated: {actual_columns} columns match v300Track_this.xlsx", Colors.GREEN)
 
@@ -381,10 +398,104 @@ def process_single_month(month_code: str, folder_name: str):
     }
 
     if not safe_write_excel(None, analysis_path, sheet_data):
-        return False
+        return False, None
 
     print_colored(f"✅ Successfully processed {month_code}", Colors.GREEN)
-    return True
+
+    # Return analysis_df so we can extract APN data from it
+    return True, analysis_df
+
+def extract_apn_upload(month_code: str, analysis_df: pd.DataFrame):
+    """Extract MARICOPA-only records from Analysis file for APN processing.
+
+    Args:
+        month_code: Month code (e.g., "1.25")
+        analysis_df: The Analysis dataframe with all columns
+
+    Returns:
+        Path to the created Upload file, or None if failed
+    """
+    try:
+        # Create APN/Upload directory if it doesn't exist
+        upload_dir = Path("APN/Upload")
+        upload_dir.mkdir(parents=True, exist_ok=True)
+
+        # Check if required columns exist
+        if 'FULL_ADDRESS' not in analysis_df.columns:
+            print_colored(f"❌ 'FULL_ADDRESS' column not found in Analysis", Colors.RED)
+            return None
+
+        if 'COUNTY' not in analysis_df.columns:
+            print_colored(f"❌ 'COUNTY' column not found in Analysis", Colors.RED)
+            return None
+
+        # Filter for MARICOPA records (case-insensitive)
+        maricopa_mask = analysis_df['COUNTY'].fillna('').str.upper().str.contains('MARICOPA', na=False)
+        maricopa_df = analysis_df[maricopa_mask][['FULL_ADDRESS', 'COUNTY']].copy()
+
+        print_colored(f"📊 Found {len(maricopa_df)} MARICOPA records out of {len(analysis_df)} total", Colors.CYAN)
+
+        # Generate timestamp
+        now = datetime.now()
+        timestamp = now.strftime("%m.%d.%I-%M-%S")  # M.DD.HH-MM-SS (12-hour format)
+
+        # Create output filename
+        output_filename = f"{month_code}_APN_Upload {timestamp}.xlsx"
+        output_path = upload_dir / output_filename
+
+        # Write to Excel
+        if safe_write_excel(maricopa_df, output_path):
+            print_colored(f"✅ Created APN Upload file: {output_path}", Colors.GREEN)
+            return output_path
+        else:
+            return None
+
+    except Exception as e:
+        print_colored(f"❌ Error extracting APN data: {e}", Colors.RED)
+        import traceback
+        traceback.print_exc()
+        return None
+
+def run_apn_lookup(upload_path: Path):
+    """Run apn_lookup.py on the upload file to generate Complete file.
+
+    Args:
+        upload_path: Path to the Upload file
+
+    Returns:
+        True if successful, False otherwise
+    """
+    try:
+        apn_script = Path("APN/apn_lookup.py")
+        if not apn_script.exists():
+            print_colored(f"❌ apn_lookup.py not found at {apn_script}", Colors.RED)
+            return False
+
+        # Run the APN lookup script with higher rate limit
+        print_colored(f"🔄 Running APN lookup on {upload_path.name}...", Colors.BLUE)
+        print_colored(f"   (Processing ~{len(pd.read_excel(upload_path))} records at 5 req/sec)", Colors.CYAN)
+        result = subprocess.run(
+            [sys.executable, str(apn_script), "-i", str(upload_path), "--rate", "5.0"],
+            capture_output=True,
+            text=True
+        )
+
+        if result.returncode == 0:
+            print_colored(f"✅ APN lookup completed successfully", Colors.GREEN)
+            if result.stdout:
+                print(result.stdout)
+            return True
+        else:
+            print_colored(f"❌ APN lookup failed with exit code {result.returncode}", Colors.RED)
+            if result.stderr:
+                print_colored(f"Error output: {result.stderr}", Colors.RED)
+            return False
+
+    except Exception as e:
+        print_colored(f"❌ Error running APN lookup: {e}", Colors.RED)
+        import traceback
+        traceback.print_exc()
+        return False
 
 def main():
     """Main function with interactive menu."""
@@ -420,7 +531,8 @@ def main():
     months_to_process = months[start_idx:end_idx + 1]
 
     # Get confirmation
-    if not get_confirmation(start_month, end_month, months_to_process):
+    confirmed, process_apn = get_confirmation(start_month, end_month, months_to_process)
+    if not confirmed:
         print_colored("\n🚫 Processing cancelled by user", Colors.YELLOW)
         return
 
@@ -431,11 +543,32 @@ def main():
 
     successful = []
     failed = []
+    apn_errors = []
 
     for month_code, folder_name, _, _ in months_to_process:
         try:
-            if process_single_month(month_code, folder_name):
+            result = process_single_month(month_code, folder_name)
+            if isinstance(result, tuple):
+                success, analysis_df = result
+            else:
+                # Backward compatibility if process_single_month returns bool
+                success = result
+                analysis_df = None
+
+            if success:
                 successful.append(month_code)
+
+                # Extract APN data if we have analysis_df
+                if analysis_df is not None:
+                    print_colored(f"\n📋 Extracting APN data for {month_code}...", Colors.CYAN)
+                    upload_path = extract_apn_upload(month_code, analysis_df)
+
+                    # Run APN lookup if requested
+                    if upload_path and process_apn:
+                        if not run_apn_lookup(upload_path):
+                            apn_errors.append(f"{month_code} (lookup failed)")
+                elif analysis_df is None:
+                    apn_errors.append(f"{month_code} (no Analysis data)")
             else:
                 failed.append(month_code)
         except Exception as e:
@@ -455,10 +588,16 @@ def main():
     if failed:
         print_colored(f"\n❌ Failed ({len(failed)}/{len(months_to_process)}): {', '.join(failed)}", Colors.RED)
 
+    if apn_errors:
+        print_colored(f"\n⚠️  APN processing issues: {', '.join(apn_errors)}", Colors.YELLOW)
+
     print_colored("\n📁 Output directories:", Colors.BOLD)
     print_colored("  • Reformat/", Colors.WHITE)
     print_colored("  • All-to-Date/", Colors.WHITE)
     print_colored("  • Analysis/", Colors.WHITE)
+    print_colored("  • APN/Upload/ (MARICOPA extracts)", Colors.WHITE)
+    if process_apn:
+        print_colored("  • APN/Complete/ (with APN lookups)", Colors.WHITE)
 
 if __name__ == "__main__":
     main()
