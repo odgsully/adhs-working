@@ -4,11 +4,12 @@ Python ETL pipeline for processing Arizona Department of Health Services (ADHS) 
 
 ## Features
 
-- Processes raw ADHS Excel workbooks
+- Processes raw ADHS Excel workbooks from monthly snapshots
+- Interactive menu for selecting date ranges to process
 - Field mapping with automatic unknown column detection
-- Fuzzy matching for provider deduplication
-- MCAO geocoding integration (stub)
-- Dry-run mode for testing
+- Provider deduplication using fuzzy matching
+- MCAO geocoding integration for location data
+- Generates three output types: Reformat, All-to-Date, and Analysis files
 - Comprehensive test coverage (≥80%)
 
 ## Installation
@@ -23,16 +24,32 @@ poetry install
 
 ## Usage
 
-### Basic ETL Run
+### Primary Method: Interactive Month Processor
+
+The main entry point for processing ADHS data is the interactive script:
 
 ```bash
-poetry run adhs-etl run --month 2025-05 --raw-dir ./raw
+python scripts/process_months_local.py
+```
+
+This will:
+1. Scan the `ALL-MONTHS/` directory for available data
+2. Present an interactive menu to select start and end months
+3. Process the selected range sequentially
+4. Generate outputs in `Reformat/`, `All-to-Date/`, and `Analysis/` directories
+
+### Alternative: CLI Interface
+
+For single-month processing or automation:
+
+```bash
+poetry run adhs-etl run --month 1.25 --raw-dir ./ALL-MONTHS/Raw\ 1.25
 ```
 
 ### Dry Run Mode
 
 ```bash
-poetry run adhs-etl run --month 2025-05 --raw-dir ./raw --dry-run
+poetry run adhs-etl run --month 1.25 --raw-dir ./ALL-MONTHS/Raw\ 1.25 --dry-run
 ```
 
 ### Validate Field Mapping

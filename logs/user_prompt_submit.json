@@ -614,5 +614,53 @@
     "permission_mode": "default",
     "hook_event_name": "UserPromptSubmit",
     "prompt": "Load Supabase MCP."
+  },
+  {
+    "session_id": "37088ffc-3f97-4d32-ae11-93a884edf1c4",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/37088ffc-3f97-4d32-ae11-93a884edf1c4.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "default",
+    "hook_event_name": "UserPromptSubmit",
+    "prompt": "Project ID is jidmbkxowxvhswapuioe. sbp_0d5dc27fde1bc9d44433a07c11b068f9059bb12c is the ADHS ETL MCP SERVER token. continue"
+  },
+  {
+    "session_id": "37088ffc-3f97-4d32-ae11-93a884edf1c4",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/37088ffc-3f97-4d32-ae11-93a884edf1c4.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "plan",
+    "hook_event_name": "UserPromptSubmit",
+    "prompt": "ULTRATHINK how can we use best practices to recreate functionality for mirroring storage in Supabase. "
+  },
+  {
+    "session_id": "37088ffc-3f97-4d32-ae11-93a884edf1c4",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/37088ffc-3f97-4d32-ae11-93a884edf1c4.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "plan",
+    "hook_event_name": "UserPromptSubmit",
+    "prompt": "How can we make this better, specifically for our outputs Reformat, All-to-Date and Analysis? Also do you have any clarifying questions for me?"
+  },
+  {
+    "session_id": "8dc7c1e2-14a9-4b24-afa9-030ef1466708",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/8dc7c1e2-14a9-4b24-afa9-030ef1466708.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "default",
+    "hook_event_name": "UserPromptSubmit",
+    "prompt": "/prime "
+  },
+  {
+    "session_id": "8dc7c1e2-14a9-4b24-afa9-030ef1466708",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/8dc7c1e2-14a9-4b24-afa9-030ef1466708.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "default",
+    "hook_event_name": "UserPromptSubmit",
+    "prompt": "Let's give a light update both .claude and README.md with the understanding that process_months_local.py is the main basis for the codebase."
+  },
+  {
+    "session_id": "8dc7c1e2-14a9-4b24-afa9-030ef1466708",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/8dc7c1e2-14a9-4b24-afa9-030ef1466708.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "default",
+    "hook_event_name": "UserPromptSubmit",
+    "prompt": "There is a Supabase tied to this codebase. Knowing that I am creating a UI that will display data in Analysis for example and then within the UI will be adding additional data to the records, how would you use best practices to construct the framework around our usecase? THINK. Do not write any code yet or modify any files just respond in chat, also please ask any clarifing questions you have for me. Take your time."
   }
 ]
