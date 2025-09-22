@@ -766,5 +766,21 @@
     "permission_mode": "default",
     "hook_event_name": "UserPromptSubmit",
     "prompt": "In the current logic, does it look at the previous month APN at all? Dont write code yet just chat"
+  },
+  {
+    "session_id": "535cea99-479f-4248-8b83-13e73b7287e3",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/535cea99-479f-4248-8b83-13e73b7287e3.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "default",
+    "hook_event_name": "UserPromptSubmit",
+    "prompt": "Getting this message Mac:adhs-restore-28-Jul-2025 copy garrettsullivan$ git add .\nwarning: adding embedded git repository: APN\nhint: You've added another git repository inside your current repository.\nhint: Clones of the outer repository will not contain the contents of\nhint: the embedded repository and will not know how to obtain it.\nhint: If you meant to add a submodule, use:\nhint: \nhint:   git submodule add <url> APN\nhint: \nhint: If you added this path by mistake, you can remove it from the\nhint: index with:\nhint: \nhint:   git rm --cached APN\nhint: \nhint: See \"git help submodule\" for more information.\nMac:adhs-restore-28-Jul-2025 copy garrettsullivan$  when trying to add /APN/ to current branch. What does this mean what are my options?"
+  },
+  {
+    "session_id": "535cea99-479f-4248-8b83-13e73b7287e3",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/535cea99-479f-4248-8b83-13e73b7287e3.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "default",
+    "hook_event_name": "UserPromptSubmit",
+    "prompt": "Continue with option 1"
   }
 ]

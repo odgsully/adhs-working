@@ -12746,5 +12746,53 @@
       "old_string": "        # Run the APN lookup script\n        print_colored(f\"\ud83d\udd04 Running APN lookup on {upload_path.name}...\", Colors.BLUE)\n        result = subprocess.run(\n            [sys.executable, str(apn_script), \"-i\", str(upload_path), \"--debug\"],\n            capture_output=True,\n            text=True\n        )",
       "new_string": "        # Run the APN lookup script with higher rate limit\n        print_colored(f\"\ud83d\udd04 Running APN lookup on {upload_path.name}...\", Colors.BLUE)\n        print_colored(f\"   (Processing ~{len(pd.read_excel(upload_path))} records at 5 req/sec)\", Colors.CYAN)\n        result = subprocess.run(\n            [sys.executable, str(apn_script), \"-i\", str(upload_path), \"--rate\", \"5.0\"],\n            capture_output=True,\n            text=True\n        )"
     }
+  },
+  {
+    "session_id": "535cea99-479f-4248-8b83-13e73b7287e3",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/535cea99-479f-4248-8b83-13e73b7287e3.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "default",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Bash",
+    "tool_input": {
+      "command": "mv APN/.git APN/.git.backup",
+      "description": "Rename .git directory to backup instead of deleting"
+    }
+  },
+  {
+    "session_id": "535cea99-479f-4248-8b83-13e73b7287e3",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/535cea99-479f-4248-8b83-13e73b7287e3.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "default",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Bash",
+    "tool_input": {
+      "command": "git add APN/",
+      "description": "Add APN directory to git staging"
+    }
+  },
+  {
+    "session_id": "535cea99-479f-4248-8b83-13e73b7287e3",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/535cea99-479f-4248-8b83-13e73b7287e3.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "default",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Bash",
+    "tool_input": {
+      "command": "git status",
+      "description": "Check git status after adding APN"
+    }
+  },
+  {
+    "session_id": "535cea99-479f-4248-8b83-13e73b7287e3",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/535cea99-479f-4248-8b83-13e73b7287e3.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "default",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Bash",
+    "tool_input": {
+      "command": "git commit -m \"Add APN files without nested repository\"",
+      "description": "Commit the APN directory"
+    }
   }
 ]
