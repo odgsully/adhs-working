@@ -712,5 +712,12 @@
     "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
     "hook_event_name": "Notification",
     "message": "Claude needs your permission to use Update"
+  },
+  {
+    "session_id": "130ffcd1-afd3-4191-8585-ed9f547e1669",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/130ffcd1-afd3-4191-8585-ed9f547e1669.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "hook_event_name": "Notification",
+    "message": "Claude is waiting for your input"
   }
 ]
