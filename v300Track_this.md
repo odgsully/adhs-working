@@ -138,18 +138,20 @@ ELSE IF provider+type+FULL_ADDRESS existed last month but not this month
     IF same address but lost type: "LOST PROVIDER TYPE, EXISTING ADDRESS"
 ```
 
-### Column P: LEAD TYPE
-**Source**: Derived from THIS MONTH STATUS
+### Column P: LEAD_TYPE
+**Source**: Derived from THIS_MONTH_STATUS
 **Logic**:
 ```
-'New PROVIDER TYPE, New ADDRESS' = 'Survey Lead'
-'New PROVIDER TYPE, Existing ADDRESS' = 'Survey Lead'
-'Existing PROVIDER TYPE, New ADDRESS' = 'Survey Lead'
-'Existing PROVIDER TYPE, Existing ADDRESS' = 'Survey Lead'
-'Lost PROVIDER TYPE, Existing ADDRESS' = 'Seller/Survey Lead'
-'Lost PROVIDER TYPE, Lost ADDRESS (0 remain)' = 'Seller Lead'
-'Lost PROVIDER TYPE, Lost ADDRESS (1+ remain)' = 'Seller Lead'
+'NEW PROVIDER TYPE, NEW ADDRESS' = 'Survey Lead'
+'NEW PROVIDER TYPE, EXISTING ADDRESS' = 'Survey Lead'
+'EXISTING PROVIDER TYPE, NEW ADDRESS' = 'Survey Lead'
+'EXISTING PROVIDER TYPE, EXISTING ADDRESS' = 'Survey Lead'
+'LOST PROVIDER TYPE, EXISTING ADDRESS' = 'Seller/Survey Lead'
+'LOST PROVIDER TYPE, LOST ADDRESS (0 remain)' = 'Seller Lead'
+'LOST PROVIDER TYPE, LOST ADDRESS (1+ remain)' = 'Seller Lead'
+'REINSTATED PROVIDER TYPE, EXISTING ADDRESS' = 'Survey Lead'
 ```
+**Note**: All statuses map to a lead type - no blanks allowed. Existing steady providers are Survey Leads for ongoing research opportunities.
 
 
 
@@ -190,16 +192,16 @@ Results:
 **Span**: Covers same 40+ month range as COUNT section
 
 
-### Columns CR-EE: [Month.Year] SUMMARY
-**Coverage**: Matches extended count range
+### Columns CR-EE: [Month.Year]_SUMMARY
+**Coverage**: Matches extended count range (9.24_SUMMARY through 12.27_SUMMARY)
 **Logic**:
 ```
-IF TO PREV = 1: "Added in [Month.Year]"
-ELSE IF TO PREV = -1: "Lost in [Month.Year]"
-ELSE IF COUNT = 1: "Active"
-ELSE: "Inactive"
+Simple concatenation of Column N and Column M:
+[Column N: PROVIDER_GROUP,_ADDRESS_COUNT], [Column M: PROVIDER_GROUP_(DBA_Concat)]
 ```
-**Purpose**: Human-readable status for each historical month
+**Example**: "7, SAGUARO FOUNDATION COMMUNITY LIVING PROGRAM (2783 S MARY AVENUE), SAGUARO FOUNDATION..."
+**Purpose**: Consolidated group information showing address count and all related providers
+**Note**: Values are carried forward from previous M.YY Analysis files when processing historical data
 
 
 ### Column EF: MONTH

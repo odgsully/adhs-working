@@ -82,5 +82,12 @@
     "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
     "hook_event_name": "SessionStart",
     "source": "startup"
+  },
+  {
+    "session_id": "bf289c7e-5825-4c88-a97a-67e6e489e217",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/bf289c7e-5825-4c88-a97a-67e6e489e217.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "hook_event_name": "SessionStart",
+    "source": "compact"
   }
 ]

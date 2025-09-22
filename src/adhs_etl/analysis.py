@@ -17,7 +17,7 @@ class ProviderAnalyzer:
             'NEW PROVIDER TYPE, NEW ADDRESS': 'Survey Lead',
             'NEW PROVIDER TYPE, EXISTING ADDRESS': 'Survey Lead',
             'EXISTING PROVIDER TYPE, NEW ADDRESS': 'Survey Lead',
-            'EXISTING PROVIDER TYPE, EXISTING ADDRESS': '',
+            'EXISTING PROVIDER TYPE, EXISTING ADDRESS': 'Survey Lead',  # Changed from '' to 'Survey Lead'
             'LOST PROVIDER TYPE, EXISTING ADDRESS': 'Seller/Survey Lead',
             'LOST PROVIDER TYPE, LOST ADDRESS (0 remain)': 'Seller Lead',
             'LOST PROVIDER TYPE, LOST ADDRESS (1+ remain)': 'Seller Lead',
@@ -167,8 +167,8 @@ class ProviderAnalyzer:
             # Add count and movement columns
             if months_data:
                 analysis_df = self.create_movement_columns(analysis_df, months_data)
-                # Also add summary columns
-                analysis_df = self.create_summary_columns(analysis_df)
+                # Note: create_summary_columns() must be called AFTER calculate_provider_groups()
+                # because it needs PROVIDER_GROUP,_ADDRESS_COUNT and PROVIDER_GROUP_(DBA_Concat) columns
 
         return analysis_df
     
@@ -179,7 +179,7 @@ class ProviderAnalyzer:
         # Ensure all required columns exist (v300 exact names)
         required_columns = [
             'SOLO_PROVIDER_TYPE_PROVIDER_[Y,#]',
-            'PROVIDER_GROUP_(DBA_Concat)',
+            'PROVIDER_GROUP_(DBA_CONCAT)',
             'PROVIDER_GROUP,_ADDRESS_COUNT'
         ]
         
@@ -216,9 +216,9 @@ class ProviderAnalyzer:
             other_providers = [p for p in info['all_providers'] if p != self_key]
             
             if other_providers:
-                df.at[idx, 'PROVIDER_GROUP_(DBA_Concat)'] = ', '.join(other_providers)
+                df.at[idx, 'PROVIDER_GROUP_(DBA_CONCAT)'] = ', '.join(other_providers)
             else:
-                df.at[idx, 'PROVIDER_GROUP_(DBA_Concat)'] = ''  # FIXED: Use empty string instead of pd.NA to prevent column dropping
+                df.at[idx, 'PROVIDER_GROUP_(DBA_CONCAT)'] = ''  # FIXED: Use empty string instead of pd.NA to prevent column dropping
 
             df.at[idx, 'PROVIDER_GROUP,_ADDRESS_COUNT'] = info['address_count']
             
@@ -340,24 +340,228 @@ class ProviderAnalyzer:
                 
                 # Check if required columns exist (using v300 exact names)
                 if 'PROVIDER_GROUP,_ADDRESS_COUNT' in df.columns and \
-                   'PROVIDER_GROUP_(DBA_Concat)' in df.columns and \
-                   'PROVIDER_GROUP_INDEX_#' in df.columns:
-                    # Create summary concatenation
+                   'PROVIDER_GROUP_(DBA_CONCAT)' in df.columns:
+                    # Create summary concatenation (just Column N and M, per user requirement)
                     df[summary_col] = df.apply(
-                        lambda row: f"{row['PROVIDER_GROUP,_ADDRESS_COUNT']}, "
-                                   f"{row['PROVIDER_GROUP_(DBA_Concat)']}, "
-                                   f"{row['PROVIDER_GROUP_INDEX_#']}",
+                        lambda row: f"{row['PROVIDER_GROUP,_ADDRESS_COUNT']}, {row['PROVIDER_GROUP_(DBA_CONCAT)']}",
                         axis=1
                     )
                 else:
                     # If columns don't exist, use default
-                    df[summary_col] = "N/A, N/A, N/A"
+                    df[summary_col] = "N/A, N/A"
             except Exception as e:
                 logger.warning(f"Error creating summary column for {count_col}: {e}")
                 continue
         
         return df
-    
+
+    def calculate_enhanced_tracking_fields(self, df: pd.DataFrame, previous_month_df: pd.DataFrame = None) -> pd.DataFrame:
+        """Calculate all enhanced tracking fields (Columns EH-EY) for v300."""
+        df = df.copy()
+
+        # EH: PREVIOUS_MONTH_STATUS
+        if previous_month_df is not None and not previous_month_df.empty and 'THIS_MONTH_STATUS' in previous_month_df.columns:
+            # Create lookup based on provider+address
+            prev_status_map = {}
+            for _, row in previous_month_df.iterrows():
+                key = f"{row.get('PROVIDER', '')}|{row.get('ADDRESS', '')}"
+                prev_status_map[key] = row.get('THIS_MONTH_STATUS', '')
+
+            df['PREVIOUS_MONTH_STATUS'] = df.apply(
+                lambda row: prev_status_map.get(f"{row.get('PROVIDER', '')}|{row.get('ADDRESS', '')}", ''),
+                axis=1
+            )
+        else:
+            df['PREVIOUS_MONTH_STATUS'] = ''
+
+        # EI: STATUS_CONFIDENCE
+        def calculate_confidence(row):
+            score = 100
+            if pd.isna(row.get('PROVIDER', '')) or row.get('PROVIDER', '') == '':
+                score -= 30
+            if pd.isna(row.get('FULL_ADDRESS', '')) or row.get('FULL_ADDRESS', '') == '':
+                score -= 25
+            if pd.isna(row.get('COUNTY', '')) or row.get('COUNTY', '') == '':
+                score -= 5
+            if pd.isna(row.get('PROVIDER_GROUP_INDEX_#', '')):
+                score -= 10
+            if row.get('PREVIOUS_MONTH_STATUS', '') == '':
+                score -= 20
+
+            if score >= 80:
+                return 'High'
+            elif score >= 50:
+                return 'Medium'
+            else:
+                return 'Low'
+
+        df['STATUS_CONFIDENCE'] = df.apply(calculate_confidence, axis=1)
+
+        # Prepare provider type sets for comparison (used by both GAINED and LOST)
+        if previous_month_df is not None and not previous_month_df.empty:
+            # Get unique provider types for each provider in both months
+            current_provider_types = df.groupby('PROVIDER')['PROVIDER_TYPE'].apply(set).to_dict()
+            prev_provider_types = previous_month_df.groupby('PROVIDER')['PROVIDER_TYPE'].apply(set).to_dict()
+        else:
+            current_provider_types = {}
+            prev_provider_types = {}
+
+        # EJ: PROVIDER_TYPES_GAINED
+        # Compare provider types between current and previous month
+        if previous_month_df is not None and not previous_month_df.empty:
+            def get_types_gained(row):
+                provider = row['PROVIDER']
+                if provider in prev_provider_types:
+                    current_types = current_provider_types.get(provider, set())
+                    prev_types = prev_provider_types.get(provider, set())
+                    gained = current_types - prev_types
+                    if gained:
+                        return ', '.join(sorted(gained))
+                return ''
+
+            df['PROVIDER_TYPES_GAINED'] = df.apply(get_types_gained, axis=1)
+        else:
+            df['PROVIDER_TYPES_GAINED'] = ''
+
+        # EK: PROVIDER_TYPES_LOST
+        # For PROVIDER_TYPES_LOST, we need to check the previous month data for providers that had types
+        if previous_month_df is not None and not previous_month_df.empty:
+            # Create a mapping of providers to their lost types
+            lost_types_map = {}
+
+            # Check each provider in the previous month
+            for provider, prev_types in prev_provider_types.items():
+                current_types = current_provider_types.get(provider, set())
+                lost = prev_types - current_types
+                if lost:
+                    lost_types_map[provider] = ', '.join(sorted(lost))
+
+            # Apply to dataframe
+            df['PROVIDER_TYPES_LOST'] = df['PROVIDER'].map(lost_types_map).fillna('')
+        else:
+            df['PROVIDER_TYPES_LOST'] = ''
+
+        # EL: NET_TYPE_CHANGE
+        df['NET_TYPE_CHANGE'] = 0
+
+        # EM: MONTHS_SINCE_LOST
+        df['MONTHS_SINCE_LOST'] = df.apply(
+            lambda row: 1 if 'LOST' in str(row.get('THIS_MONTH_STATUS', '')) else 0,
+            axis=1
+        )
+
+        # EN: REINSTATED_FLAG
+        df['REINSTATED_FLAG'] = df.apply(
+            lambda row: 'Y' if 'REINSTATED' in str(row.get('THIS_MONTH_STATUS', '')) else 'N',
+            axis=1
+        )
+
+        # EO: REINSTATED_DATE
+        df['REINSTATED_DATE'] = ''
+
+        # EP: DATA_QUALITY_SCORE
+        def calculate_quality_score(row):
+            score = 0
+            # Required fields (60 points)
+            if not pd.isna(row.get('PROVIDER', '')) and row.get('PROVIDER', '') != '':
+                score += 10
+            if not pd.isna(row.get('PROVIDER_TYPE', '')) and row.get('PROVIDER_TYPE', '') != '':
+                score += 10
+            if not pd.isna(row.get('FULL_ADDRESS', '')) and row.get('FULL_ADDRESS', '') != '':
+                score += 10
+            if not pd.isna(row.get('COUNTY', '')) and row.get('COUNTY', '') != '':
+                score += 10
+            if not pd.isna(row.get('ZIP', '')) and row.get('ZIP', '') != '':
+                score += 10
+            if not pd.isna(row.get('PROVIDER_GROUP_INDEX_#', '')):
+                score += 10
+
+            # Optional fields (40 points)
+            if not pd.isna(row.get('CAPACITY', '')):
+                score += 13
+            if not pd.isna(row.get('LONGITUDE', '')):
+                score += 13
+            if not pd.isna(row.get('LATITUDE', '')):
+                score += 14
+
+            return score
+
+        df['DATA_QUALITY_SCORE'] = df.apply(calculate_quality_score, axis=1)
+
+        # EQ: MANUAL_REVIEW_FLAG
+        df['MANUAL_REVIEW_FLAG'] = df.apply(
+            lambda row: 'Y' if (
+                row.get('STATUS_CONFIDENCE', '') == 'Low' or
+                row.get('DATA_QUALITY_SCORE', 0) < 70 or
+                (row.get('REINSTATED_FLAG', '') == 'Y' and row.get('MONTHS_SINCE_LOST', 0) > 12)
+            ) else 'N',
+            axis=1
+        )
+
+        # ER: REVIEW_NOTES
+        df['REVIEW_NOTES'] = ''
+
+        # ES: LAST_ACTIVE_MONTH
+        df['LAST_ACTIVE_MONTH'] = ''
+
+        # ET: REGIONAL_MARKET
+        def get_regional_market(county):
+            if pd.isna(county):
+                return ''
+            county_upper = str(county).upper()
+            if county_upper in ['MARICOPA', 'PINAL']:
+                return 'Phoenix Metro'
+            elif county_upper == 'PIMA':
+                return 'Tucson Metro'
+            elif county_upper in ['COCONINO', 'YAVAPAI']:
+                return 'Northern Arizona'
+            elif county_upper in ['MOHAVE', 'LA PAZ', 'YUMA']:
+                return 'Western Arizona'
+            elif county_upper in ['COCHISE', 'SANTA CRUZ']:
+                return 'Southern Border'
+            elif county_upper in ['APACHE', 'NAVAJO']:
+                return 'Native Regions'
+            elif county_upper in ['GILA', 'GRAHAM', 'GREENLEE']:
+                return 'Eastern Arizona'
+            else:
+                return 'Other'
+
+        df['REGIONAL_MARKET'] = df['COUNTY'].apply(get_regional_market)
+
+        # EU: HISTORICAL_STABILITY_SCORE (simplified - count non-zero months)
+        count_cols = [col for col in df.columns if col.endswith('_COUNT') and not 'ADDRESS' in col]
+        if count_cols:
+            df['HISTORICAL_STABILITY_SCORE'] = df[count_cols].apply(
+                lambda row: (row > 0).sum() / len(count_cols) * 100 if len(count_cols) > 0 else 0,
+                axis=1
+            )
+        else:
+            df['HISTORICAL_STABILITY_SCORE'] = 0
+
+        # EV: EXPANSION_VELOCITY
+        df['EXPANSION_VELOCITY'] = 0  # Would need trend analysis
+
+        # EW: CONTRACTION_RISK
+        df['CONTRACTION_RISK'] = 0  # Would need trend analysis
+
+        # EX: MULTI_CITY_OPERATOR
+        # Check if provider group operates in multiple cities
+        city_counts = df.groupby('PROVIDER_GROUP_INDEX_#')['CITY'].nunique()
+        multi_city_map = (city_counts > 1).to_dict()
+        df['MULTI_CITY_OPERATOR'] = df['PROVIDER_GROUP_INDEX_#'].map(multi_city_map).fillna(False)
+        df['MULTI_CITY_OPERATOR'] = df['MULTI_CITY_OPERATOR'].apply(lambda x: 'Y' if x else 'N')
+
+        # EY: RELOCATION_FLAG
+        df['RELOCATION_FLAG'] = df.apply(
+            lambda row: 'Y' if (
+                'NEW ADDRESS' in str(row.get('THIS_MONTH_STATUS', '')) and
+                'EXISTING PROVIDER' in str(row.get('THIS_MONTH_STATUS', ''))
+            ) else 'N',
+            axis=1
+        )
+
+        return df
+
     def ensure_all_analysis_columns(self, df: pd.DataFrame, processing_month: int = None, processing_year: int = None) -> pd.DataFrame:
         """
         Ensure all columns from v300Track_this.xlsx as defined in v300Track_this.md are present in the analysis output.
@@ -384,7 +588,7 @@ class ProviderAnalyzer:
             'LATITUDE',                             # Column J
             'COUNTY',                               # Column K
             'PROVIDER_GROUP_INDEX_#',               # Column L - Internal name with underscore
-            'PROVIDER_GROUP_(DBA_Concat)',          # Column M - EXACT v300 match
+            'PROVIDER_GROUP_(DBA_CONCAT)',          # Column M - EXACT v300 match
             'PROVIDER_GROUP,_ADDRESS_COUNT',        # Column N - EXACT v300 match
             'THIS_MONTH_STATUS',                    # Column O - EXACT v300 match
             'LEAD_TYPE',                            # Column P - EXACT v300 match

@@ -224,7 +224,23 @@ def process_single_month(month_code: str, folder_name: str):
     # Add required columns
     log_step("Calculating provider groups...")
     analysis_df = analyzer.calculate_provider_groups(analysis_df)
+
+    # Add summary columns AFTER provider groups are calculated (needs Column M and N)
+    analysis_df = analyzer.create_summary_columns(analysis_df)
+
+    # Calculate enhanced tracking fields (EH:EY columns)
+    analysis_df = analyzer.calculate_enhanced_tracking_fields(analysis_df, previous_month_df)
+
     analysis_df = analyzer.ensure_all_analysis_columns(analysis_df, month_num, year_num)
+
+    # Ensure CAPACITY is formatted as integers (no decimals) - MOVED AFTER ensure_all_analysis_columns
+    if 'CAPACITY' in analysis_df.columns:
+        analysis_df['CAPACITY'] = pd.to_numeric(analysis_df['CAPACITY'], errors='coerce')
+        # Convert to integers where not null, then to string
+        mask = analysis_df['CAPACITY'].notna() & (analysis_df['CAPACITY'] != 0)
+        analysis_df.loc[mask, 'CAPACITY'] = analysis_df.loc[mask, 'CAPACITY'].astype(int).astype(str)
+        # Set null/0 values to empty string
+        analysis_df.loc[~mask, 'CAPACITY'] = ''
 
     # Fix MONTH and YEAR
     analysis_df['MONTH'] = month_num
