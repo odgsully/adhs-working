@@ -574,5 +574,45 @@
     "permission_mode": "acceptEdits",
     "hook_event_name": "UserPromptSubmit",
     "prompt": "Good step. Still not populating are EJ 'PROVIDER_TYPES_GAINED' EK PROVIDER_TYPES_LOST. A lot of blanks are in P LEAD_TYPE as well let's make sure no blanks there because there's no field matching in column O THIS_MONTH_STATUS for value of EXISTING PROVIDER TYPE, EXISTING ADDRESS which should be SURVEY LEAD. Update relevent documentation. Also let's ensure column H CAPACITY has some values of '10' and '10.0' for a variety of different numbers, ensure formatting does not have decimals.. whole numbers only."
+  },
+  {
+    "session_id": "37088ffc-3f97-4d32-ae11-93a884edf1c4",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/37088ffc-3f97-4d32-ae11-93a884edf1c4.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "default",
+    "hook_event_name": "UserPromptSubmit",
+    "prompt": "/prime "
+  },
+  {
+    "session_id": "37088ffc-3f97-4d32-ae11-93a884edf1c4",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/37088ffc-3f97-4d32-ae11-93a884edf1c4.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "default",
+    "hook_event_name": "UserPromptSubmit",
+    "prompt": "READ process_months_local.py"
+  },
+  {
+    "session_id": "37088ffc-3f97-4d32-ae11-93a884edf1c4",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/37088ffc-3f97-4d32-ae11-93a884edf1c4.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "default",
+    "hook_event_name": "UserPromptSubmit",
+    "prompt": "Can we introduce a menu when python3 running process_months_local? Have it batch process based on the range user gives, first prompt asking for START month, second asking me for END month... and then a Ready to Proceed (y/N)?"
+  },
+  {
+    "session_id": "37088ffc-3f97-4d32-ae11-93a884edf1c4",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/37088ffc-3f97-4d32-ae11-93a884edf1c4.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "default",
+    "hook_event_name": "UserPromptSubmit",
+    "prompt": "For all ALL-MONTHS should be able to be processed. Be conservative as to not damage any of the correctly functional logic that we currently have for months 9.24 to 11.24. THINK"
+  },
+  {
+    "session_id": "37088ffc-3f97-4d32-ae11-93a884edf1c4",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/37088ffc-3f97-4d32-ae11-93a884edf1c4.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "default",
+    "hook_event_name": "UserPromptSubmit",
+    "prompt": "Load Supabase MCP."
   }
 ]

@@ -10215,5 +10215,315 @@
         }
       ]
     }
+  },
+  {
+    "session_id": "37088ffc-3f97-4d32-ae11-93a884edf1c4",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/37088ffc-3f97-4d32-ae11-93a884edf1c4.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "default",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Bash",
+    "tool_input": {
+      "command": "git ls-files",
+      "description": "List all files tracked in git repository"
+    }
+  },
+  {
+    "session_id": "37088ffc-3f97-4d32-ae11-93a884edf1c4",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/37088ffc-3f97-4d32-ae11-93a884edf1c4.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "default",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Read",
+    "tool_input": {
+      "file_path": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy/README.md"
+    }
+  },
+  {
+    "session_id": "37088ffc-3f97-4d32-ae11-93a884edf1c4",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/37088ffc-3f97-4d32-ae11-93a884edf1c4.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "default",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Read",
+    "tool_input": {
+      "file_path": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy/ai_docs/cc_hooks_docs.md"
+    }
+  },
+  {
+    "session_id": "37088ffc-3f97-4d32-ae11-93a884edf1c4",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/37088ffc-3f97-4d32-ae11-93a884edf1c4.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "default",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Read",
+    "tool_input": {
+      "file_path": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy/ai_docs/uv-single-file-scripts.md"
+    }
+  },
+  {
+    "session_id": "37088ffc-3f97-4d32-ae11-93a884edf1c4",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/37088ffc-3f97-4d32-ae11-93a884edf1c4.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "default",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Read",
+    "tool_input": {
+      "file_path": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy/ai_docs/anthropic_custom_slash_commands.md"
+    }
+  },
+  {
+    "session_id": "37088ffc-3f97-4d32-ae11-93a884edf1c4",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/37088ffc-3f97-4d32-ae11-93a884edf1c4.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "default",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Read",
+    "tool_input": {
+      "file_path": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy/ai_docs/anthropic_docs_subagents.md"
+    }
+  },
+  {
+    "session_id": "37088ffc-3f97-4d32-ae11-93a884edf1c4",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/37088ffc-3f97-4d32-ae11-93a884edf1c4.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "default",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Read",
+    "tool_input": {
+      "file_path": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy/scripts/process_months_local.py"
+    }
+  },
+  {
+    "session_id": "37088ffc-3f97-4d32-ae11-93a884edf1c4",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/37088ffc-3f97-4d32-ae11-93a884edf1c4.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "default",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "TodoWrite",
+    "tool_input": {
+      "todos": [
+        {
+          "content": "Check available months in ALL-MONTHS directory",
+          "status": "in_progress",
+          "activeForm": "Checking available months in ALL-MONTHS directory"
+        },
+        {
+          "content": "Design interactive menu for month range selection",
+          "status": "pending",
+          "activeForm": "Designing interactive menu for month range selection"
+        },
+        {
+          "content": "Modify script to support dynamic month range processing",
+          "status": "pending",
+          "activeForm": "Modifying script to support dynamic month range processing"
+        },
+        {
+          "content": "Add confirmation prompt before processing",
+          "status": "pending",
+          "activeForm": "Adding confirmation prompt before processing"
+        },
+        {
+          "content": "Test the modified script for safety",
+          "status": "pending",
+          "activeForm": "Testing the modified script for safety"
+        }
+      ]
+    }
+  },
+  {
+    "session_id": "37088ffc-3f97-4d32-ae11-93a884edf1c4",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/37088ffc-3f97-4d32-ae11-93a884edf1c4.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "default",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Bash",
+    "tool_input": {
+      "command": "ls -la ALL-MONTHS/ | head -20",
+      "description": "List first 20 entries in ALL-MONTHS directory"
+    }
+  },
+  {
+    "session_id": "37088ffc-3f97-4d32-ae11-93a884edf1c4",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/37088ffc-3f97-4d32-ae11-93a884edf1c4.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "default",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "TodoWrite",
+    "tool_input": {
+      "todos": [
+        {
+          "content": "Check available months in ALL-MONTHS directory",
+          "status": "completed",
+          "activeForm": "Checking available months in ALL-MONTHS directory"
+        },
+        {
+          "content": "Design interactive menu for month range selection",
+          "status": "in_progress",
+          "activeForm": "Designing interactive menu for month range selection"
+        },
+        {
+          "content": "Modify script to support dynamic month range processing",
+          "status": "pending",
+          "activeForm": "Modifying script to support dynamic month range processing"
+        },
+        {
+          "content": "Add confirmation prompt before processing",
+          "status": "pending",
+          "activeForm": "Adding confirmation prompt before processing"
+        },
+        {
+          "content": "Test the modified script for safety",
+          "status": "pending",
+          "activeForm": "Testing the modified script for safety"
+        }
+      ]
+    }
+  },
+  {
+    "session_id": "37088ffc-3f97-4d32-ae11-93a884edf1c4",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/37088ffc-3f97-4d32-ae11-93a884edf1c4.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "default",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Write",
+    "tool_input": {
+      "file_path": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy/scripts/process_months_menu.py",
+      "content": "#!/usr/bin/env python3\n\"\"\"\nEnhanced Month Processing Script with Interactive Menu\n=======================================================\n\nProcesses any range of months with an interactive selection menu.\nPreserves all existing processing logic from process_months_local.py\n\"\"\"\n\nimport os\nimport shutil\nimport sys\nimport tempfile\nfrom pathlib import Path\nimport pandas as pd\nfrom datetime import datetime\n\n# Add src to path for imports\nsys.path.insert(0, 'src')\n\nfrom adhs_etl.config import Settings\nfrom adhs_etl.transform_enhanced import (\n    EnhancedFieldMapper,\n    ProviderGrouper,\n    process_month_data,\n    log_memory_usage\n)\nfrom adhs_etl.analysis import (\n    ProviderAnalyzer,\n    create_analysis_summary_sheet,\n    create_blanks_count_sheet\n)\n\nclass Colors:\n    GREEN = '\\033[92m'\n    RED = '\\033[91m'\n    YELLOW = '\\033[93m'\n    BLUE = '\\033[94m'\n    PURPLE = '\\033[95m'\n    CYAN = '\\033[96m'\n    WHITE = '\\033[97m'\n    BOLD = '\\033[1m'\n    END = '\\033[0m'\n\ndef print_colored(text: str, color: str = Colors.WHITE) -> None:\n    print(f\"{color}{text}{Colors.END}\")\n\ndef safe_write_excel(df, path, sheet_data=None):\n    \"\"\"Write Excel file via temp to avoid iCloud issues.\"\"\"\n    # Create temp file\n    temp_fd, temp_path = tempfile.mkstemp(suffix='.xlsx')\n    os.close(temp_fd)\n\n    try:\n        if sheet_data:\n            # Multiple sheets\n            with pd.ExcelWriter(temp_path, engine='xlsxwriter') as writer:\n                for sheet_name, sheet_df in sheet_data.items():\n                    sheet_df.to_excel(writer, sheet_name=sheet_name, index=False)\n        else:\n            # Single sheet - use simple to_excel for reliability\n            df.to_excel(temp_path, index=False, engine='xlsxwriter')\n\n        # Move from temp to final location\n        shutil.move(temp_path, str(path))\n        print_colored(f\"\u2705 Saved: {path}\", Colors.GREEN)\n        return True\n    except Exception as e:\n        print_colored(f\"\u274c Failed to save {path}: {e}\", Colors.RED)\n        if Path(temp_path).exists():\n            os.unlink(temp_path)\n        return False\n\ndef scan_available_months():\n    \"\"\"Scan ALL-MONTHS directory for available months.\"\"\"\n    all_months_dir = Path(\"ALL-MONTHS\")\n    if not all_months_dir.exists():\n        print_colored(f\"\u274c ALL-MONTHS directory not found!\", Colors.RED)\n        return []\n\n    months = []\n    for folder in sorted(all_months_dir.iterdir()):\n        if folder.is_dir() and folder.name.startswith(\"Raw \"):\n            # Extract month code from folder name (e.g., \"Raw 9.24\" -> \"9.24\")\n            month_code = folder.name.replace(\"Raw \", \"\")\n            try:\n                # Validate format\n                parts = month_code.split('.')\n                if len(parts) == 2:\n                    month_num = int(parts[0])\n                    year_num = int(parts[1])\n                    if 1 <= month_num <= 12 and 0 <= year_num <= 99:\n                        months.append((month_code, folder.name, month_num, year_num))\n            except ValueError:\n                continue\n\n    # Sort by year then month\n    months.sort(key=lambda x: (x[3], x[2]))\n    return months\n\ndef display_available_months(months):\n    \"\"\"Display available months in a formatted way.\"\"\"\n    print_colored(\"\\n\ud83d\udcc5 Available Months:\", Colors.BOLD + Colors.CYAN)\n    print_colored(\"=\" * 60, Colors.CYAN)\n\n    for i, (month_code, folder_name, month_num, year_num) in enumerate(months, 1):\n        # Format month name\n        month_names = [\"\", \"Jan\", \"Feb\", \"Mar\", \"Apr\", \"May\", \"Jun\",\n                      \"Jul\", \"Aug\", \"Sep\", \"Oct\", \"Nov\", \"Dec\"]\n        month_name = month_names[month_num] if month_num <= 12 else str(month_num)\n        year_full = 2000 + year_num\n\n        # Color based on year\n        if year_num == 24:\n            color = Colors.YELLOW\n        elif year_num == 25:\n            color = Colors.GREEN\n        else:\n            color = Colors.WHITE\n\n        print(f\"{color}{i:3d}. {month_code:6s} - {month_name} {year_full}{Colors.END}\")\n\ndef get_month_selection(months, prompt):\n    \"\"\"Get a valid month selection from user.\"\"\"\n    while True:\n        try:\n            selection = input(f\"\\n{Colors.BOLD}{prompt}{Colors.END} (1-{len(months)}): \").strip()\n            if not selection:\n                print_colored(\"\u274c Please enter a number\", Colors.RED)\n                continue\n\n            idx = int(selection) - 1\n            if 0 <= idx < len(months):\n                return idx\n            else:\n                print_colored(f\"\u274c Please enter a number between 1 and {len(months)}\", Colors.RED)\n        except ValueError:\n            print_colored(\"\u274c Invalid input. Please enter a number\", Colors.RED)\n\ndef get_confirmation(start_month, end_month, months_to_process):\n    \"\"\"Get user confirmation before processing.\"\"\"\n    print_colored(\"\\n\" + \"=\" * 60, Colors.BLUE)\n    print_colored(\"\ud83d\udccb PROCESSING SUMMARY\", Colors.BOLD + Colors.BLUE)\n    print_colored(\"=\" * 60, Colors.BLUE)\n\n    print_colored(f\"\\n\ud83d\udccc Start: {start_month}\", Colors.CYAN)\n    print_colored(f\"\ud83d\udccc End:   {end_month}\", Colors.CYAN)\n    print_colored(f\"\ud83d\udccc Total months to process: {len(months_to_process)}\", Colors.CYAN)\n\n    print_colored(\"\\nMonths to process:\", Colors.YELLOW)\n    for month_code, _, _, _ in months_to_process:\n        print(f\"  \u2022 {month_code}\")\n\n    print_colored(\"\\nOutput will be created in:\", Colors.YELLOW)\n    print_colored(\"  \u2022 Reformat/\", Colors.WHITE)\n    print_colored(\"  \u2022 All-to-Date/\", Colors.WHITE)\n    print_colored(\"  \u2022 Analysis/\", Colors.WHITE)\n\n    while True:\n        response = input(f\"\\n{Colors.BOLD}Ready to proceed? (y/N): {Colors.END}\").strip().lower()\n        if response in ['y', 'yes']:\n            return True\n        elif response in ['n', 'no', '']:\n            return False\n        else:\n            print_colored(\"Please enter 'y' for yes or 'n' for no\", Colors.YELLOW)\n\ndef process_single_month(month_code: str, folder_name: str):\n    \"\"\"Process a single month directly. (UNCHANGED FROM ORIGINAL)\"\"\"\n    print_colored(f\"\\n{'='*60}\", Colors.BLUE)\n    print_colored(f\"Processing {month_code}\", Colors.BOLD + Colors.PURPLE)\n    print_colored(f\"{'='*60}\", Colors.BLUE)\n\n    # Add timestamp for debugging\n    from datetime import datetime\n    def log_step(msg):\n        timestamp = datetime.now().strftime(\"%H:%M:%S\")\n        print(f\"[{timestamp}] {msg}\", flush=True)\n\n    # Parse month/year\n    parts = month_code.split('.')\n    month_num = int(parts[0])\n    year_num = 2000 + int(parts[1])\n\n    # Setup paths\n    source_dir = Path(\"ALL-MONTHS\") / folder_name\n\n    # Initialize components\n    field_mapper = EnhancedFieldMapper(\n        Path(\"field_map.yml\"),\n        Path(\"field_map.TODO.yml\")\n    )\n    provider_grouper = ProviderGrouper()\n    analyzer = ProviderAnalyzer()\n\n    log_step(\"Processing data files...\")\n    print_colored(\"Processing data files...\", Colors.BLUE)\n\n    # Process month data directly from ALL-MONTHS\n    log_step(f\"Calling process_month_data for {source_dir}...\")\n    current_month_df = process_month_data(\n        source_dir,\n        field_mapper,\n        provider_grouper,\n        month_num,\n        year_num,\n        batch_size=1000\n    )\n\n    if current_month_df.empty:\n        print_colored(f\"\u274c No data processed for {month_code}\", Colors.RED)\n        return False\n\n    log_step(f\"Processed {len(current_month_df)} records\")\n    print_colored(f\"\u2705 Processed {len(current_month_df)} records\", Colors.GREEN)\n\n    # Create output directories\n    Path(\"Reformat\").mkdir(exist_ok=True)\n    Path(\"All-to-Date\").mkdir(exist_ok=True)\n    Path(\"Analysis\").mkdir(exist_ok=True)\n\n    # 1. Save Reformat\n    reformat_path = Path(\"Reformat\") / f\"{month_code} Reformat.xlsx\"\n    log_step(f\"Creating Reformat file at {reformat_path}...\")\n    print_colored(\"Creating Reformat file...\", Colors.BLUE)\n    if not safe_write_excel(current_month_df, reformat_path):\n        return False\n\n    # 2. Create All-to-Date\n    log_step(\"Starting All-to-Date creation...\")\n    print_colored(\"Creating All-to-Date file...\", Colors.BLUE)\n    all_to_date_path = Path(\"All-to-Date\") / f\"Reformat All to Date {month_code}.xlsx\"\n\n    # Get previous All-to-Date if exists\n    all_to_date_dir = Path(\"All-to-Date\")\n    existing_files = list(all_to_date_dir.glob(\"Reformat All to Date *.xlsx\"))\n\n    if existing_files:\n        # Find the most recent file before this month\n        relevant_files = []\n        for f in existing_files:\n            try:\n                file_month = f.stem.replace(\"Reformat All to Date \", \"\")\n                file_parts = file_month.split('.')\n                file_month_num = int(file_parts[0])\n                file_year_num = int(file_parts[1])\n\n                # Include if before current month\n                if (file_year_num < year_num % 100) or (file_year_num == year_num % 100 and file_month_num < month_num):\n                    relevant_files.append((f, file_year_num, file_month_num))\n            except:\n                continue\n\n        if relevant_files:\n            relevant_files.sort(key=lambda x: (x[1], x[2]))\n            latest_file = relevant_files[-1][0]\n            print_colored(f\"Loading previous data from {latest_file.name}\", Colors.BLUE)\n            previous_df = pd.read_excel(latest_file)\n            combined_df = pd.concat([previous_df, current_month_df], ignore_index=True)\n        else:\n            combined_df = current_month_df\n    else:\n        combined_df = current_month_df\n\n    if not safe_write_excel(combined_df, all_to_date_path):\n        return False\n\n    # 3. Create Analysis\n    log_step(\"Starting Analysis creation...\")\n    print_colored(\"Creating Analysis file...\", Colors.BLUE)\n\n    # Get previous month data if available\n    if month_num == 1:\n        prev_month = 12\n        prev_year = year_num - 1\n    else:\n        prev_month = month_num - 1\n        prev_year = year_num\n\n    prev_folder = Path(\"ALL-MONTHS\") / f\"Raw {prev_month}.{prev_year % 100}\"\n    if prev_folder.exists():\n        previous_month_df = process_month_data(\n            prev_folder,\n            field_mapper,\n            provider_grouper,\n            prev_month,\n            prev_year,\n            batch_size=1000\n        )\n    else:\n        previous_month_df = pd.DataFrame()\n\n    # Get historical data (All-to-Date from PREVIOUS month, not including current)\n    # This is critical - we need historical data that doesn't include current month\n    historical_df = pd.DataFrame()\n    if existing_files and relevant_files:\n        # Find the most recent All-to-Date file BEFORE current month\n        for f, file_year, file_month in relevant_files:\n            # Only use files from before current month\n            if (file_year < year_num % 100) or (file_year == year_num % 100 and file_month < month_num):\n                try:\n                    historical_df = pd.read_excel(f)\n                    log_step(f\"Using historical data from {f.name}\")\n                    break\n                except:\n                    continue\n\n    # If no previous All-to-Date exists, use previous month as historical\n    if historical_df.empty and not previous_month_df.empty:\n        historical_df = previous_month_df\n\n    # Perform analysis with proper historical data (excluding current month)\n    log_step(\"Calling analyzer.analyze_month_changes...\")\n    analysis_df = analyzer.analyze_month_changes(\n        current_month_df,\n        previous_month_df,\n        historical_df  # Pass truly historical data, not combined_df\n    )\n\n    # Add required columns\n    log_step(\"Calculating provider groups...\")\n    analysis_df = analyzer.calculate_provider_groups(analysis_df)\n\n    # Add summary columns AFTER provider groups are calculated (needs Column M and N)\n    analysis_df = analyzer.create_summary_columns(analysis_df)\n\n    # Calculate enhanced tracking fields (EH:EY columns)\n    analysis_df = analyzer.calculate_enhanced_tracking_fields(analysis_df, previous_month_df)\n\n    analysis_df = analyzer.ensure_all_analysis_columns(analysis_df, month_num, year_num)\n\n    # Ensure CAPACITY is formatted as integers (no decimals) - MOVED AFTER ensure_all_analysis_columns\n    if 'CAPACITY' in analysis_df.columns:\n        analysis_df['CAPACITY'] = pd.to_numeric(analysis_df['CAPACITY'], errors='coerce')\n        # Convert to integers where not null, then to string\n        mask = analysis_df['CAPACITY'].notna() & (analysis_df['CAPACITY'] != 0)\n        analysis_df.loc[mask, 'CAPACITY'] = analysis_df.loc[mask, 'CAPACITY'].astype(int).astype(str)\n        # Set null/0 values to empty string\n        analysis_df.loc[~mask, 'CAPACITY'] = ''\n\n    # Fix MONTH and YEAR\n    analysis_df['MONTH'] = month_num\n    analysis_df['YEAR'] = year_num\n\n    # Optimize N/A values - FIXED: Use empty strings instead of pd.NA to prevent column dropping\n    for col in analysis_df.columns:\n        if analysis_df[col].dtype == 'object':\n            analysis_df[col] = analysis_df[col].replace('N/A', '')\n            # Don't replace empty strings - they're already correct\n\n    # Create sheets - pass month and year for v300 compliance\n    log_step(\"Creating analysis summary sheet...\")\n    summary_df = create_analysis_summary_sheet(analysis_df, current_month_df)  # Pass Reformat data\n    log_step(\"Creating blanks count sheet...\")\n    blanks_df = create_blanks_count_sheet(current_month_df, month_num, year_num)  # Pass month/year for v300\n\n    # Validate column count for v300Track_this.xlsx 1:1 alignment\n    expected_columns = 155  # v300Track_this.xlsx has columns A through EY (155 columns)\n    actual_columns = len(analysis_df.columns)\n\n    log_step(f\"Column validation: {actual_columns} columns (expected: {expected_columns})\")\n    print_colored(f\"Analysis DataFrame has {actual_columns} columns\", Colors.BLUE)\n    print_colored(f\"First 5 columns: {list(analysis_df.columns[:5])}\", Colors.BLUE)\n    print_colored(f\"Last 5 columns: {list(analysis_df.columns[-5:])}\", Colors.BLUE)\n\n    if actual_columns != expected_columns:\n        print_colored(f\"\u274c COLUMN COUNT MISMATCH: Expected {expected_columns} columns, got {actual_columns}\", Colors.RED)\n        print_colored(f\"\u274c NOT CONSISTENT WITH v300Track_this.xlsx - BLOCKING OUTPUT\", Colors.RED)\n        print_colored(f\"\u274c NO FILES WILL BE WRITTEN UNTIL COLUMN STRUCTURE MATCHES v300\", Colors.RED)\n        return False  # Block processing completely\n    else:\n        print_colored(f\"\u2705 Column count validated: {actual_columns} columns match v300Track_this.xlsx\", Colors.GREEN)\n\n    # Save Analysis with all sheets\n    analysis_path = Path(\"Analysis\") / f\"{month_code} Analysis.xlsx\"\n    log_step(f\"Saving analysis to {analysis_path}...\")\n    sheet_data = {\n        'Summary': summary_df,\n        'Blanks Count': blanks_df,\n        'Analysis': analysis_df\n    }\n\n    if not safe_write_excel(None, analysis_path, sheet_data):\n        return False\n\n    print_colored(f\"\u2705 Successfully processed {month_code}\", Colors.GREEN)\n    return True\n\ndef main():\n    \"\"\"Main function with interactive menu.\"\"\"\n    print_colored(\"\\n\" + \"=\"*60, Colors.BOLD + Colors.CYAN)\n    print_colored(\"\ud83d\ude80 ADHS ETL Interactive Month Processor\", Colors.BOLD + Colors.CYAN)\n    print_colored(\"=\"*60, Colors.BOLD + Colors.CYAN)\n\n    # Scan available months\n    months = scan_available_months()\n\n    if not months:\n        print_colored(\"\u274c No valid months found in ALL-MONTHS directory!\", Colors.RED)\n        return\n\n    # Display available months\n    display_available_months(months)\n\n    # Get start month\n    start_idx = get_month_selection(months, \"Enter START month number\")\n    start_month = months[start_idx][0]\n\n    # Get end month\n    end_idx = get_month_selection(months, \"Enter END month number\")\n    end_month = months[end_idx][0]\n\n    # Validate range\n    if start_idx > end_idx:\n        print_colored(\"\\n\u26a0\ufe0f  Warning: Start month is after end month. Swapping them.\", Colors.YELLOW)\n        start_idx, end_idx = end_idx, start_idx\n        start_month, end_month = end_month, start_month\n\n    # Get months to process\n    months_to_process = months[start_idx:end_idx + 1]\n\n    # Get confirmation\n    if not get_confirmation(start_month, end_month, months_to_process):\n        print_colored(\"\\n\ud83d\udeab Processing cancelled by user\", Colors.YELLOW)\n        return\n\n    # Process months\n    print_colored(\"\\n\" + \"=\"*60, Colors.BLUE)\n    print_colored(\"\ud83d\udd04 STARTING BATCH PROCESSING\", Colors.BOLD + Colors.BLUE)\n    print_colored(\"=\"*60, Colors.BLUE)\n\n    successful = []\n    failed = []\n\n    for month_code, folder_name, _, _ in months_to_process:\n        try:\n            if process_single_month(month_code, folder_name):\n                successful.append(month_code)\n            else:\n                failed.append(month_code)\n        except Exception as e:\n            print_colored(f\"\u274c Error processing {month_code}: {e}\", Colors.RED)\n            import traceback\n            traceback.print_exc()\n            failed.append(month_code)\n\n    # Summary\n    print_colored(\"\\n\" + \"=\"*60, Colors.BLUE)\n    print_colored(\"\ud83d\udcca PROCESSING COMPLETE\", Colors.BOLD + Colors.BLUE)\n    print_colored(\"=\"*60, Colors.BLUE)\n\n    if successful:\n        print_colored(f\"\\n\u2705 Successfully processed ({len(successful)}/{len(months_to_process)}): {', '.join(successful)}\", Colors.GREEN)\n\n    if failed:\n        print_colored(f\"\\n\u274c Failed ({len(failed)}/{len(months_to_process)}): {', '.join(failed)}\", Colors.RED)\n\n    print_colored(\"\\n\ud83d\udcc1 Output directories:\", Colors.BOLD)\n    print_colored(\"  \u2022 Reformat/\", Colors.WHITE)\n    print_colored(\"  \u2022 All-to-Date/\", Colors.WHITE)\n    print_colored(\"  \u2022 Analysis/\", Colors.WHITE)\n\nif __name__ == \"__main__\":\n    main()"
+    }
+  },
+  {
+    "session_id": "37088ffc-3f97-4d32-ae11-93a884edf1c4",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/37088ffc-3f97-4d32-ae11-93a884edf1c4.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "default",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "TodoWrite",
+    "tool_input": {
+      "todos": [
+        {
+          "content": "Check available months in ALL-MONTHS directory",
+          "status": "completed",
+          "activeForm": "Checking available months in ALL-MONTHS directory"
+        },
+        {
+          "content": "Design interactive menu for month range selection",
+          "status": "completed",
+          "activeForm": "Designing interactive menu for month range selection"
+        },
+        {
+          "content": "Modify script to support dynamic month range processing",
+          "status": "completed",
+          "activeForm": "Modifying script to support dynamic month range processing"
+        },
+        {
+          "content": "Add confirmation prompt before processing",
+          "status": "completed",
+          "activeForm": "Adding confirmation prompt before processing"
+        },
+        {
+          "content": "Test the modified script for safety",
+          "status": "in_progress",
+          "activeForm": "Testing the modified script for safety"
+        }
+      ]
+    }
+  },
+  {
+    "session_id": "37088ffc-3f97-4d32-ae11-93a884edf1c4",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/37088ffc-3f97-4d32-ae11-93a884edf1c4.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "default",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Bash",
+    "tool_input": {
+      "command": "chmod +x scripts/process_months_menu.py",
+      "description": "Make the new script executable"
+    }
+  },
+  {
+    "session_id": "37088ffc-3f97-4d32-ae11-93a884edf1c4",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/37088ffc-3f97-4d32-ae11-93a884edf1c4.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "default",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Bash",
+    "tool_input": {
+      "command": "cp scripts/process_months_local.py scripts/process_months_local.py.backup",
+      "description": "Backup the original script"
+    }
+  },
+  {
+    "session_id": "37088ffc-3f97-4d32-ae11-93a884edf1c4",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/37088ffc-3f97-4d32-ae11-93a884edf1c4.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "default",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Bash",
+    "tool_input": {
+      "command": "cp scripts/process_months_menu.py scripts/process_months_local.py",
+      "description": "Update original script with menu version"
+    }
+  },
+  {
+    "session_id": "37088ffc-3f97-4d32-ae11-93a884edf1c4",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/37088ffc-3f97-4d32-ae11-93a884edf1c4.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "default",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "TodoWrite",
+    "tool_input": {
+      "todos": [
+        {
+          "content": "Check available months in ALL-MONTHS directory",
+          "status": "completed",
+          "activeForm": "Checking available months in ALL-MONTHS directory"
+        },
+        {
+          "content": "Design interactive menu for month range selection",
+          "status": "completed",
+          "activeForm": "Designing interactive menu for month range selection"
+        },
+        {
+          "content": "Modify script to support dynamic month range processing",
+          "status": "completed",
+          "activeForm": "Modifying script to support dynamic month range processing"
+        },
+        {
+          "content": "Add confirmation prompt before processing",
+          "status": "completed",
+          "activeForm": "Adding confirmation prompt before processing"
+        },
+        {
+          "content": "Test the modified script for safety",
+          "status": "completed",
+          "activeForm": "Testing the modified script for safety"
+        }
+      ]
+    }
+  },
+  {
+    "session_id": "37088ffc-3f97-4d32-ae11-93a884edf1c4",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/37088ffc-3f97-4d32-ae11-93a884edf1c4.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "default",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Bash",
+    "tool_input": {
+      "command": "python3 scripts/process_months_local.py --help 2>/dev/null || echo \"Script ready for interactive use\"",
+      "description": "Test if script is ready"
+    }
+  },
+  {
+    "session_id": "37088ffc-3f97-4d32-ae11-93a884edf1c4",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/37088ffc-3f97-4d32-ae11-93a884edf1c4.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "default",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Bash",
+    "tool_input": {
+      "command": "cat .mcp.json.sample",
+      "description": "Check MCP configuration sample file"
+    }
   }
 ]

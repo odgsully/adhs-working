@@ -1,10 +1,9 @@
 #!/usr/bin/env python3
 """
-Enhanced Month Processing Script with Interactive Menu
-=======================================================
+Direct Month Processing Script - Bypasses iCloud Sync Issues
+=============================================================
 
-Processes any range of months with an interactive selection menu.
-Preserves all existing processing logic from process_months_local.py
+Processes months 9.24, 10.24, 11.24 directly with local temp writes.
 """
 
 import os
@@ -37,7 +36,6 @@ class Colors:
     YELLOW = '\033[93m'
     BLUE = '\033[94m'
     PURPLE = '\033[95m'
-    CYAN = '\033[96m'
     WHITE = '\033[97m'
     BOLD = '\033[1m'
     END = '\033[0m'
@@ -71,102 +69,8 @@ def safe_write_excel(df, path, sheet_data=None):
             os.unlink(temp_path)
         return False
 
-def scan_available_months():
-    """Scan ALL-MONTHS directory for available months."""
-    all_months_dir = Path("ALL-MONTHS")
-    if not all_months_dir.exists():
-        print_colored(f"❌ ALL-MONTHS directory not found!", Colors.RED)
-        return []
-
-    months = []
-    for folder in sorted(all_months_dir.iterdir()):
-        if folder.is_dir() and folder.name.startswith("Raw "):
-            # Extract month code from folder name (e.g., "Raw 9.24" -> "9.24")
-            month_code = folder.name.replace("Raw ", "")
-            try:
-                # Validate format
-                parts = month_code.split('.')
-                if len(parts) == 2:
-                    month_num = int(parts[0])
-                    year_num = int(parts[1])
-                    if 1 <= month_num <= 12 and 0 <= year_num <= 99:
-                        months.append((month_code, folder.name, month_num, year_num))
-            except ValueError:
-                continue
-
-    # Sort by year then month
-    months.sort(key=lambda x: (x[3], x[2]))
-    return months
-
-def display_available_months(months):
-    """Display available months in a formatted way."""
-    print_colored("\n📅 Available Months:", Colors.BOLD + Colors.CYAN)
-    print_colored("=" * 60, Colors.CYAN)
-
-    for i, (month_code, folder_name, month_num, year_num) in enumerate(months, 1):
-        # Format month name
-        month_names = ["", "Jan", "Feb", "Mar", "Apr", "May", "Jun",
-                      "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
-        month_name = month_names[month_num] if month_num <= 12 else str(month_num)
-        year_full = 2000 + year_num
-
-        # Color based on year
-        if year_num == 24:
-            color = Colors.YELLOW
-        elif year_num == 25:
-            color = Colors.GREEN
-        else:
-            color = Colors.WHITE
-
-        print(f"{color}{i:3d}. {month_code:6s} - {month_name} {year_full}{Colors.END}")
-
-def get_month_selection(months, prompt):
-    """Get a valid month selection from user."""
-    while True:
-        try:
-            selection = input(f"\n{Colors.BOLD}{prompt}{Colors.END} (1-{len(months)}): ").strip()
-            if not selection:
-                print_colored("❌ Please enter a number", Colors.RED)
-                continue
-
-            idx = int(selection) - 1
-            if 0 <= idx < len(months):
-                return idx
-            else:
-                print_colored(f"❌ Please enter a number between 1 and {len(months)}", Colors.RED)
-        except ValueError:
-            print_colored("❌ Invalid input. Please enter a number", Colors.RED)
-
-def get_confirmation(start_month, end_month, months_to_process):
-    """Get user confirmation before processing."""
-    print_colored("\n" + "=" * 60, Colors.BLUE)
-    print_colored("📋 PROCESSING SUMMARY", Colors.BOLD + Colors.BLUE)
-    print_colored("=" * 60, Colors.BLUE)
-
-    print_colored(f"\n📌 Start: {start_month}", Colors.CYAN)
-    print_colored(f"📌 End:   {end_month}", Colors.CYAN)
-    print_colored(f"📌 Total months to process: {len(months_to_process)}", Colors.CYAN)
-
-    print_colored("\nMonths to process:", Colors.YELLOW)
-    for month_code, _, _, _ in months_to_process:
-        print(f"  • {month_code}")
-
-    print_colored("\nOutput will be created in:", Colors.YELLOW)
-    print_colored("  • Reformat/", Colors.WHITE)
-    print_colored("  • All-to-Date/", Colors.WHITE)
-    print_colored("  • Analysis/", Colors.WHITE)
-
-    while True:
-        response = input(f"\n{Colors.BOLD}Ready to proceed? (y/N): {Colors.END}").strip().lower()
-        if response in ['y', 'yes']:
-            return True
-        elif response in ['n', 'no', '']:
-            return False
-        else:
-            print_colored("Please enter 'y' for yes or 'n' for no", Colors.YELLOW)
-
 def process_single_month(month_code: str, folder_name: str):
-    """Process a single month directly. (UNCHANGED FROM ORIGINAL)"""
+    """Process a single month directly."""
     print_colored(f"\n{'='*60}", Colors.BLUE)
     print_colored(f"Processing {month_code}", Colors.BOLD + Colors.PURPLE)
     print_colored(f"{'='*60}", Colors.BLUE)
@@ -387,52 +291,22 @@ def process_single_month(month_code: str, folder_name: str):
     return True
 
 def main():
-    """Main function with interactive menu."""
-    print_colored("\n" + "="*60, Colors.BOLD + Colors.CYAN)
-    print_colored("🚀 ADHS ETL Interactive Month Processor", Colors.BOLD + Colors.CYAN)
-    print_colored("="*60, Colors.BOLD + Colors.CYAN)
-
-    # Scan available months
-    months = scan_available_months()
-
-    if not months:
-        print_colored("❌ No valid months found in ALL-MONTHS directory!", Colors.RED)
-        return
-
-    # Display available months
-    display_available_months(months)
-
-    # Get start month
-    start_idx = get_month_selection(months, "Enter START month number")
-    start_month = months[start_idx][0]
-
-    # Get end month
-    end_idx = get_month_selection(months, "Enter END month number")
-    end_month = months[end_idx][0]
-
-    # Validate range
-    if start_idx > end_idx:
-        print_colored("\n⚠️  Warning: Start month is after end month. Swapping them.", Colors.YELLOW)
-        start_idx, end_idx = end_idx, start_idx
-        start_month, end_month = end_month, start_month
-
-    # Get months to process
-    months_to_process = months[start_idx:end_idx + 1]
-
-    # Get confirmation
-    if not get_confirmation(start_month, end_month, months_to_process):
-        print_colored("\n🚫 Processing cancelled by user", Colors.YELLOW)
-        return
-
-    # Process months
+    """Process the three problematic months."""
     print_colored("\n" + "="*60, Colors.BLUE)
-    print_colored("🔄 STARTING BATCH PROCESSING", Colors.BOLD + Colors.BLUE)
+    print_colored("ADHS ETL Direct Month Processing", Colors.BOLD + Colors.BLUE)
+    print_colored("Processing months 9.24, 10.24, 11.24", Colors.BLUE)
     print_colored("="*60, Colors.BLUE)
+
+    months = [
+        ("9.24", "Raw 9.24"),
+        ("10.24", "Raw 10.24"),
+        ("11.24", "Raw 11.24")
+    ]
 
     successful = []
     failed = []
 
-    for month_code, folder_name, _, _ in months_to_process:
+    for month_code, folder_name in months:
         try:
             if process_single_month(month_code, folder_name):
                 successful.append(month_code)
@@ -440,22 +314,20 @@ def main():
                 failed.append(month_code)
         except Exception as e:
             print_colored(f"❌ Error processing {month_code}: {e}", Colors.RED)
-            import traceback
-            traceback.print_exc()
             failed.append(month_code)
 
     # Summary
     print_colored("\n" + "="*60, Colors.BLUE)
-    print_colored("📊 PROCESSING COMPLETE", Colors.BOLD + Colors.BLUE)
+    print_colored("PROCESSING COMPLETE", Colors.BOLD + Colors.BLUE)
     print_colored("="*60, Colors.BLUE)
 
     if successful:
-        print_colored(f"\n✅ Successfully processed ({len(successful)}/{len(months_to_process)}): {', '.join(successful)}", Colors.GREEN)
+        print_colored(f"\n✅ Successfully processed: {', '.join(successful)}", Colors.GREEN)
 
     if failed:
-        print_colored(f"\n❌ Failed ({len(failed)}/{len(months_to_process)}): {', '.join(failed)}", Colors.RED)
+        print_colored(f"\n❌ Failed: {', '.join(failed)}", Colors.RED)
 
-    print_colored("\n📁 Output directories:", Colors.BOLD)
+    print_colored("\n📁 Check output directories:", Colors.BOLD)
     print_colored("  • Reformat/", Colors.WHITE)
     print_colored("  • All-to-Date/", Colors.WHITE)
     print_colored("  • Analysis/", Colors.WHITE)
