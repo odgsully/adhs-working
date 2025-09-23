@@ -28,7 +28,8 @@
    * `Reformat/` — M.YY Reformat.xlsx output files
    * `All-to-Date/` — Reformat All to Date M.YY.xlsx cumulative files
    * `Analysis/` — M.YY Analysis.xlsx files with full business analysis
-11. **Output Files** — Pipeline generates three types:
+11. **Output Files** — Pipeline generates four types:
     * **Reformat**: Standardized data with MONTH, YEAR, PROVIDER_TYPE, PROVIDER, ADDRESS, CITY, ZIP, FULL_ADDRESS, CAPACITY, LONGITUDE, LATITUDE, COUNTY, PROVIDER_GROUP_INDEX_#
     * **All-to-Date**: Cumulative data across all months processed
     * **Analysis**: Full business analysis with 3 sheets (Summary, Blanks Count, Analysis) including lost license detection, MCAO property data, and extended tracking per v300Track_this.md
+    * **APN Processing** (optional): For MARICOPA records, generates Upload files and Complete files with Assessor Parcel Numbers

@@ -710,5 +710,13 @@
     "permission_mode": "acceptEdits",
     "hook_event_name": "Stop",
     "stop_hook_active": false
+  },
+  {
+    "session_id": "dfb7237f-5174-41f2-973d-79bf97fbba93",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/dfb7237f-5174-41f2-973d-79bf97fbba93.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "default",
+    "hook_event_name": "Stop",
+    "stop_hook_active": false
   }
 ]

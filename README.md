@@ -9,6 +9,7 @@ Python ETL pipeline for processing Arizona Department of Health Services (ADHS) 
 - Field mapping with automatic unknown column detection
 - Provider deduplication using fuzzy matching
 - MCAO geocoding integration for location data
+- APN (Assessor Parcel Number) lookup for Maricopa County properties
 - Generates three output types: Reformat, All-to-Date, and Analysis files
 - Comprehensive test coverage (≥80%)
 
@@ -20,6 +21,9 @@ curl -sSL https://install.python-poetry.org | python3 -
 
 # Install dependencies
 poetry install
+
+# Install APN lookup dependencies
+pip3 install usaddress
 ```
 
 ## Usage
