@@ -870,5 +870,77 @@
     "permission_mode": "default",
     "hook_event_name": "UserPromptSubmit",
     "prompt": "Great. So what's the current documentation status of APN and our now working step? I am noticing some documentation deleted?"
+  },
+  {
+    "session_id": "f18f5b01-5ace-4fb6-b995-80b9dcd7107b",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/f18f5b01-5ace-4fb6-b995-80b9dcd7107b.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "default",
+    "hook_event_name": "UserPromptSubmit",
+    "prompt": "I'd like to get an understanding of the gitignore in the hopes of if downloaded cloned git, all functionality would remain for all parts of specifically if I were to start from a blank fresh laptop. Do not write any code just give me a reply in chat for a status of if that is possible at this given point in time. THINK"
+  },
+  {
+    "session_id": "f18f5b01-5ace-4fb6-b995-80b9dcd7107b",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/f18f5b01-5ace-4fb6-b995-80b9dcd7107b.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "default",
+    "hook_event_name": "UserPromptSubmit",
+    "prompt": "Please elabporate on 2. Excel data. Please dive deeper"
+  },
+  {
+    "session_id": "f18f5b01-5ace-4fb6-b995-80b9dcd7107b",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/f18f5b01-5ace-4fb6-b995-80b9dcd7107b.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "default",
+    "hook_event_name": "UserPromptSubmit",
+    "prompt": "Do not write anything just research and report"
+  },
+  {
+    "session_id": "f18f5b01-5ace-4fb6-b995-80b9dcd7107b",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/f18f5b01-5ace-4fb6-b995-80b9dcd7107b.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "default",
+    "hook_event_name": "UserPromptSubmit",
+    "prompt": "If i add some of these to gitignore now after they're already it git, will it auto-remove? or no"
+  },
+  {
+    "session_id": "f18f5b01-5ace-4fb6-b995-80b9dcd7107b",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/f18f5b01-5ace-4fb6-b995-80b9dcd7107b.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "plan",
+    "hook_event_name": "UserPromptSubmit",
+    "prompt": "Yes, I want to git remove src/Reformat/9.24 Reformat.xlsx , src/All-to-Date/Reformat All to Date, dnu/v100Track_this_shit.xlsx. continue with commit message 'removing unneccisary currently tracked'."
+  },
+  {
+    "session_id": "f18f5b01-5ace-4fb6-b995-80b9dcd7107b",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/f18f5b01-5ace-4fb6-b995-80b9dcd7107b.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "acceptEdits",
+    "hook_event_name": "UserPromptSubmit",
+    "prompt": "Will this commit to Ensure-Proper-Through-MCAO latest?"
+  },
+  {
+    "session_id": "f18f5b01-5ace-4fb6-b995-80b9dcd7107b",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/f18f5b01-5ace-4fb6-b995-80b9dcd7107b.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "acceptEdits",
+    "hook_event_name": "UserPromptSubmit",
+    "prompt": "Yes continue."
+  },
+  {
+    "session_id": "f18f5b01-5ace-4fb6-b995-80b9dcd7107b",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/f18f5b01-5ace-4fb6-b995-80b9dcd7107b.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "default",
+    "hook_event_name": "UserPromptSubmit",
+    "prompt": " Output files in wrong location - src/Reformat/\n   and src/All-to-Date/ shouldn't exist. The proper\n   locations per CLAUDE.md are root-level\n  Reformat/, All-to-Date/, and Analysis/ Absolutely correct, please check if anything referencing these as we might remove them. Shouldnt be breaking any functionality or other reference. THINK, take your time."
+  },
+  {
+    "session_id": "f18f5b01-5ace-4fb6-b995-80b9dcd7107b",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/f18f5b01-5ace-4fb6-b995-80b9dcd7107b.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "default",
+    "hook_event_name": "UserPromptSubmit",
+    "prompt": "Remove them."
   }
 ]
