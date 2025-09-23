@@ -1,0 +1,517 @@
+{
+  "api": {
+    "name": "Maricopa County Assessor's Office API",
+    "baseUrl": "https://mcassessor.maricopa.gov",
+    "version": "2024-02-01",
+    "authentication": {
+      "type": "custom_headers",
+      "headers": [
+        {
+          "name": "AUTHORIZATION",
+          "value": "{token}",
+          "required": true,
+          "description": "API token obtained from Maricopa County Assessor's Office"
+        },
+        {
+          "name": "user-agent",
+          "value": "null",
+          "required": true,
+          "description": "Must be explicitly set to null"
+        }
+      ],
+      "tokenRequest": {
+        "method": "contact_form",
+        "description": "Use the contact form on the website and select 'API Question/Token' option"
+      }
+    },
+    "statusCodes": {
+      "200": {
+        "name": "OK",
+        "description": "Request was successful"
+      },
+      "201": {
+        "name": "Created",
+        "description": "Request was successful and a resource was created"
+      },
+      "204": {
+        "name": "No Content",
+        "description": "Request was successful but there is no representation to return"
+      },
+      "400": {
+        "name": "Bad Request",
+        "description": "Request could not be understood or was missing required parameters"
+      },
+      "401": {
+        "name": "Unauthorized",
+        "description": "Authentication failed or user doesn't have permissions for requested operation"
+      },
+      "403": {
+        "name": "Forbidden",
+        "description": "Access denied"
+      },
+      "404": {
+        "name": "Not Found",
+        "description": "Resource was not found"
+      },
+      "405": {
+        "name": "Method Not Allowed",
+        "description": "Requested method is not supported for resource"
+      }
+    },
+    "pagination": {
+      "enabled": true,
+      "pageSize": 25,
+      "pageParam": "page",
+      "description": "Results are returned 25 at a time. Use page parameter to access additional pages."
+    },
+    "endpoints": {
+      "search": {
+        "property": {
+          "path": "/search/property/",
+          "method": "GET",
+          "description": "Searches all data points available. Returns structured JSON with Real Property, BPP, MH, Rentals, Subdivisions, and Content",
+          "parameters": [
+            {
+              "name": "q",
+              "type": "string",
+              "required": true,
+              "description": "URL encoded query to search for"
+            },
+            {
+              "name": "page",
+              "type": "integer",
+              "required": false,
+              "description": "Page number for pagination (25 results per page)"
+            }
+          ],
+          "response": {
+            "type": "object",
+            "properties": [
+              "realProperty",
+              "bpp",
+              "mobileHomes",
+              "rentals",
+              "subdivisions",
+              "content",
+              "totalCounts"
+            ]
+          },
+          "example": "https://mcassessor.maricopa.gov/search/property/?q=phoenix&page=2"
+        },
+        "subdivisions": {
+          "path": "/search/sub/",
+          "method": "GET",
+          "description": "Searches only subdivision names",
+          "parameters": [
+            {
+              "name": "q",
+              "type": "string",
+              "required": true,
+              "description": "URL encoded query to search for"
+            }
+          ],
+          "response": {
+            "type": "array",
+            "items": {
+              "subdivisionName": "string",
+              "parcelCount": "integer"
+            }
+          },
+          "example": "https://mcassessor.maricopa.gov/search/sub/?q=desert"
+        },
+        "rentals": {
+          "path": "/search/rental/",
+          "method": "GET",
+          "description": "Searches only rental registrations",
+          "parameters": [
+            {
+              "name": "q",
+              "type": "string",
+              "required": true,
+              "description": "URL encoded query to search for"
+            },
+            {
+              "name": "page",
+              "type": "integer",
+              "required": false,
+              "description": "Page number for pagination (25 results per page)"
+            }
+          ],
+          "response": {
+            "type": "array",
+            "items": "rentalRegistration"
+          },
+          "example": "https://mcassessor.maricopa.gov/search/rental/?q=apartment"
+        }
+      },
+      "parcel": {
+        "details": {
+          "path": "/parcel/{apn}",
+          "method": "GET",
+          "description": "Returns all available parcel data",
+          "worksWithTypes": ["Residential", "Commercial", "Land", "Agriculture"],
+          "parameters": [
+            {
+              "name": "apn",
+              "type": "string",
+              "required": true,
+              "description": "Assessor Parcel Number (can be formatted with/without spaces, dashes, or dots)"
+            }
+          ],
+          "response": {
+            "type": "object",
+            "description": "Complete parcel information"
+          },
+          "example": "https://mcassessor.maricopa.gov/parcel/123-45-678"
+        },
+        "propertyInfo": {
+          "path": "/parcel/{apn}/propertyinfo",
+          "method": "GET",
+          "description": "Returns information specific to the property",
+          "worksWithTypes": ["Residential", "Commercial", "Land", "Agriculture"],
+          "parameters": [
+            {
+              "name": "apn",
+              "type": "string",
+              "required": true,
+              "description": "Assessor Parcel Number"
+            }
+          ],
+          "response": {
+            "type": "object",
+            "description": "Property-specific details"
+          },
+          "example": "https://mcassessor.maricopa.gov/parcel/123-45-678/propertyinfo"
+        },
+        "address": {
+          "path": "/parcel/{apn}/address",
+          "method": "GET",
+          "description": "Returns address of the property",
+          "worksWithTypes": ["Residential", "Commercial", "Land", "Agriculture"],
+          "parameters": [
+            {
+              "name": "apn",
+              "type": "string",
+              "required": true,
+              "description": "Assessor Parcel Number"
+            }
+          ],
+          "response": {
+            "type": "object",
+            "properties": ["address", "city", "state", "zip"]
+          },
+          "example": "https://mcassessor.maricopa.gov/parcel/123-45-678/address"
+        },
+        "valuations": {
+          "path": "/parcel/{apn}/valuations",
+          "method": "GET",
+          "description": "Returns past 5 years of valuation data",
+          "worksWithTypes": ["Residential", "Commercial", "Land", "Agriculture"],
+          "parameters": [
+            {
+              "name": "apn",
+              "type": "string",
+              "required": true,
+              "description": "Assessor Parcel Number"
+            }
+          ],
+          "response": {
+            "type": "array",
+            "items": {
+              "year": "integer",
+              "fullCashValue": "number",
+              "limitedValue": "number",
+              "assessedValue": "number"
+            }
+          },
+          "example": "https://mcassessor.maricopa.gov/parcel/123-45-678/valuations"
+        },
+        "residentialDetails": {
+          "path": "/parcel/{apn}/residential-details",
+          "method": "GET",
+          "description": "Returns all available residential parcel data",
+          "worksWithTypes": ["Residential", "Commercial", "Land"],
+          "parameters": [
+            {
+              "name": "apn",
+              "type": "string",
+              "required": true,
+              "description": "Assessor Parcel Number"
+            }
+          ],
+          "response": {
+            "type": "object",
+            "description": "Residential-specific information"
+          },
+          "example": "https://mcassessor.maricopa.gov/parcel/123-45-678/residential-details"
+        },
+        "ownerDetails": {
+          "path": "/parcel/{apn}/owner-details",
+          "method": "GET",
+          "description": "Returns owner information for the parcel",
+          "worksWithTypes": ["Residential", "Commercial", "Land", "Agriculture"],
+          "parameters": [
+            {
+              "name": "apn",
+              "type": "string",
+              "required": true,
+              "description": "Assessor Parcel Number"
+            }
+          ],
+          "response": {
+            "type": "object",
+            "properties": ["ownerName", "mailingAddress", "ownershipDate"]
+          },
+          "example": "https://mcassessor.maricopa.gov/parcel/123-45-678/owner-details"
+        },
+        "mcr": {
+          "path": "/parcel/mcr/{mcr}",
+          "method": "GET",
+          "description": "Search by MCR (Maricopa County Recorder) number",
+          "worksWithTypes": ["Residential", "Commercial", "Land", "Agriculture"],
+          "parameters": [
+            {
+              "name": "mcr",
+              "type": "string",
+              "required": true,
+              "description": "MCR Number"
+            },
+            {
+              "name": "page",
+              "type": "integer",
+              "required": false,
+              "description": "Page number for pagination"
+            }
+          ],
+          "response": {
+            "type": "object",
+            "description": "Parcel information"
+          },
+          "example": "https://mcassessor.maricopa.gov/parcel/mcr/123456"
+        },
+        "str": {
+          "path": "/parcel/str/{str}",
+          "method": "GET",
+          "description": "Search by Section/Township/Range",
+          "worksWithTypes": ["Residential", "Commercial", "Land", "Agriculture"],
+          "parameters": [
+            {
+              "name": "str",
+              "type": "string",
+              "required": true,
+              "description": "Section/Township/Range (can be formatted with dashes only)"
+            },
+            {
+              "name": "page",
+              "type": "integer",
+              "required": false,
+              "description": "Page number for pagination"
+            }
+          ],
+          "response": {
+            "type": "array",
+            "items": "parcel"
+          },
+          "example": "https://mcassessor.maricopa.gov/parcel/str/01-02N-03E"
+        }
+      },
+      "mapId": {
+        "parcelMap": {
+          "path": "/mapid/parcel/{apn}",
+          "method": "GET",
+          "description": "Returns map file names for a parcel",
+          "parameters": [
+            {
+              "name": "apn",
+              "type": "string",
+              "required": true,
+              "description": "Assessor Parcel Number"
+            }
+          ],
+          "response": {
+            "type": "array",
+            "items": "string",
+            "description": "Array of map file names"
+          },
+          "example": "https://mcassessor.maricopa.gov/mapid/parcel/123-45-678"
+        },
+        "bookMap": {
+          "path": "/mapid/bookmap/{book}/{map}",
+          "method": "GET",
+          "description": "Returns map file names for book/map combination",
+          "parameters": [
+            {
+              "name": "book",
+              "type": "string",
+              "required": true,
+              "description": "Three digit book portion of an APN"
+            },
+            {
+              "name": "map",
+              "type": "string",
+              "required": true,
+              "description": "Two digit map portion of an APN"
+            }
+          ],
+          "response": {
+            "type": "array",
+            "items": "string",
+            "description": "Array of map file names"
+          },
+          "example": "https://mcassessor.maricopa.gov/mapid/bookmap/123/45"
+        },
+        "mcrMap": {
+          "path": "/mapid/mcr/{mcr}",
+          "method": "GET",
+          "description": "Returns map file names for MCR number",
+          "parameters": [
+            {
+              "name": "mcr",
+              "type": "string",
+              "required": true,
+              "description": "MCR Number"
+            }
+          ],
+          "response": {
+            "type": "array",
+            "items": "string",
+            "description": "Array of map file names"
+          },
+          "example": "https://mcassessor.maricopa.gov/mapid/mcr/123456"
+        }
+      },
+      "bpp": {
+        "accountDetails": {
+          "path": "/bpp/{type}/{acct}[/{year}]",
+          "method": "GET",
+          "description": "Returns account details for commercial, multiple, or lessor accounts",
+          "parameters": [
+            {
+              "name": "type",
+              "type": "string",
+              "required": true,
+              "description": "Account type character (lowercase): c=Commercial, m=Multiple, l=Lessor",
+              "enum": ["c", "m", "l"]
+            },
+            {
+              "name": "acct",
+              "type": "string",
+              "required": true,
+              "description": "Business personal property account number"
+            },
+            {
+              "name": "year",
+              "type": "integer",
+              "required": false,
+              "description": "Four digit tax year (defaults to current year)"
+            }
+          ],
+          "response": {
+            "type": "object",
+            "description": "Account details"
+          },
+          "notes": "Tax year parameter does not apply to commercial accounts",
+          "examples": [
+            "https://mcassessor.maricopa.gov/bpp/c/123456",
+            "https://mcassessor.maricopa.gov/bpp/m/123456/2024"
+          ]
+        }
+      },
+      "mobileHome": {
+        "account": {
+          "path": "/mh/{acct}",
+          "method": "GET",
+          "description": "Returns account details for an unsecured mobile home",
+          "parameters": [
+            {
+              "name": "acct",
+              "type": "string",
+              "required": true,
+              "description": "Mobile home account number"
+            }
+          ],
+          "response": {
+            "type": "object",
+            "description": "Mobile home account details"
+          },
+          "example": "https://mcassessor.maricopa.gov/mh/123456"
+        },
+        "vinSearch": {
+          "path": "/mh/vin/{vin}",
+          "method": "GET",
+          "description": "Returns account number for a mobile home VIN",
+          "parameters": [
+            {
+              "name": "vin",
+              "type": "string",
+              "required": true,
+              "description": "Mobile home VIN"
+            }
+          ],
+          "response": {
+            "type": "object",
+            "properties": ["accountNumber"]
+          },
+          "example": "https://mcassessor.maricopa.gov/mh/vin/ABC123456789"
+        }
+      }
+    },
+    "parameterFormats": {
+      "apn": {
+        "name": "Assessor Parcel Number",
+        "formats": ["123-45-678", "123 45 678", "12345678"],
+        "description": "Can be formatted with or without spaces, dashes, or dots"
+      },
+      "mcr": {
+        "name": "Maricopa County Recorder Number",
+        "format": "numeric",
+        "example": "123456"
+      },
+      "str": {
+        "name": "Section/Township/Range",
+        "format": "##-##X-##X",
+        "example": "01-02N-03E",
+        "description": "Can be formatted with dashes only"
+      },
+      "subdivision": {
+        "name": "Subdivision Name",
+        "format": "URL encoded string",
+        "example": "Desert%20Ridge",
+        "description": "Must be URL encoded"
+      },
+      "book": {
+        "name": "Book Number",
+        "format": "###",
+        "example": "123",
+        "description": "Three digit format"
+      },
+      "map": {
+        "name": "Map Number",
+        "format": "##",
+        "example": "45",
+        "description": "Two digit format"
+      },
+      "bppType": {
+        "name": "BPP Account Type",
+        "format": "single lowercase letter",
+        "values": {
+          "c": "Commercial",
+          "m": "Multiple",
+          "l": "Lessor"
+        }
+      },
+      "year": {
+        "name": "Tax Year",
+        "format": "####",
+        "example": "2024",
+        "description": "Four digit year"
+      }
+    },
+    "implementationLinks": {
+      "curl": "https://curl.haxx.se/libcurl/c/CURLOPT_HTTPHEADER.html",
+      "guzzlehttp": "http://docs.guzzlephp.org/en/stable/request-options.html",
+      "nodejs": "https://github.com/request/request",
+      "dotnet": "https://docs.microsoft.com/en-us/dotnet/api/system.net.webrequest.headers?view=netframework-4.7.1#System_Net_WebRequest_Headers"
+    }
+  }
+}

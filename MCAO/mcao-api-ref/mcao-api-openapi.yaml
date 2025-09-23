@@ -1,0 +1,788 @@
+openapi: 3.0.3
+info:
+  title: Maricopa County Assessor's Office API
+  description: RESTful API for accessing property, parcel, and assessment data from Maricopa County Assessor's Office
+  version: 2024.02.01
+  contact:
+    name: Maricopa County Assessor's Office
+    url: https://mcassessor.maricopa.gov
+    email: Use contact form on website
+servers:
+  - url: https://mcassessor.maricopa.gov
+    description: Production API Server
+security:
+  - apiToken: []
+    userAgent: []
+components:
+  securitySchemes:
+    apiToken:
+      type: apiKey
+      in: header
+      name: AUTHORIZATION
+      description: API token obtained from Maricopa County Assessor's Office
+    userAgent:
+      type: apiKey
+      in: header
+      name: user-agent
+      description: Must be explicitly set to 'null'
+  parameters:
+    apnParam:
+      name: apn
+      in: path
+      required: true
+      description: Assessor Parcel Number (can be formatted with/without spaces, dashes, or dots)
+      schema:
+        type: string
+        example: "123-45-678"
+    queryParam:
+      name: q
+      in: query
+      required: true
+      description: URL encoded search query
+      schema:
+        type: string
+    pageParam:
+      name: page
+      in: query
+      required: false
+      description: Page number for pagination (25 results per page)
+      schema:
+        type: integer
+        minimum: 1
+        example: 1
+    mcrParam:
+      name: mcr
+      in: path
+      required: true
+      description: Maricopa County Recorder Number
+      schema:
+        type: string
+        example: "123456"
+    strParam:
+      name: str
+      in: path
+      required: true
+      description: Section/Township/Range (can be formatted with dashes only)
+      schema:
+        type: string
+        example: "01-02N-03E"
+    bookParam:
+      name: book
+      in: path
+      required: true
+      description: Three digit book portion of an APN
+      schema:
+        type: string
+        pattern: '^\d{3}$'
+        example: "123"
+    mapParam:
+      name: map
+      in: path
+      required: true
+      description: Two digit map portion of an APN
+      schema:
+        type: string
+        pattern: '^\d{2}$'
+        example: "45"
+    bppTypeParam:
+      name: type
+      in: path
+      required: true
+      description: BPP account type character (lowercase)
+      schema:
+        type: string
+        enum: [c, m, l]
+        description: c=Commercial, m=Multiple, l=Lessor
+    bppAcctParam:
+      name: acct
+      in: path
+      required: true
+      description: Business personal property account number
+      schema:
+        type: string
+    yearParam:
+      name: year
+      in: path
+      required: false
+      description: Four digit tax year
+      schema:
+        type: integer
+        pattern: '^\d{4}$'
+        example: 2024
+    mhAcctParam:
+      name: acct
+      in: path
+      required: true
+      description: Mobile home account number
+      schema:
+        type: string
+    vinParam:
+      name: vin
+      in: path
+      required: true
+      description: Mobile home VIN
+      schema:
+        type: string
+  schemas:
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+        message:
+          type: string
+        status:
+          type: integer
+    SearchPropertyResponse:
+      type: object
+      properties:
+        realProperty:
+          type: array
+          items:
+            $ref: '#/components/schemas/ParcelSummary'
+        bpp:
+          type: array
+          items:
+            $ref: '#/components/schemas/BPPSummary'
+        mobileHomes:
+          type: array
+          items:
+            $ref: '#/components/schemas/MobileHomeSummary'
+        rentals:
+          type: array
+          items:
+            $ref: '#/components/schemas/RentalSummary'
+        subdivisions:
+          type: array
+          items:
+            $ref: '#/components/schemas/SubdivisionSummary'
+        content:
+          type: object
+        totalCounts:
+          type: object
+          properties:
+            realProperty:
+              type: integer
+            bpp:
+              type: integer
+            mobileHomes:
+              type: integer
+            rentals:
+              type: integer
+            subdivisions:
+              type: integer
+    ParcelSummary:
+      type: object
+      properties:
+        apn:
+          type: string
+        address:
+          type: string
+        owner:
+          type: string
+        propertyType:
+          type: string
+    BPPSummary:
+      type: object
+      properties:
+        accountNumber:
+          type: string
+        accountType:
+          type: string
+        businessName:
+          type: string
+    MobileHomeSummary:
+      type: object
+      properties:
+        accountNumber:
+          type: string
+        vin:
+          type: string
+        address:
+          type: string
+    RentalSummary:
+      type: object
+      properties:
+        registrationNumber:
+          type: string
+        address:
+          type: string
+        owner:
+          type: string
+    SubdivisionSummary:
+      type: object
+      properties:
+        name:
+          type: string
+        parcelCount:
+          type: integer
+    ParcelDetails:
+      type: object
+      properties:
+        apn:
+          type: string
+        propertyInfo:
+          $ref: '#/components/schemas/PropertyInfo'
+        ownerDetails:
+          $ref: '#/components/schemas/OwnerDetails'
+        valuations:
+          type: array
+          items:
+            $ref: '#/components/schemas/Valuation'
+        residentialDetails:
+          $ref: '#/components/schemas/ResidentialDetails'
+    PropertyInfo:
+      type: object
+      properties:
+        address:
+          type: string
+        city:
+          type: string
+        state:
+          type: string
+        zip:
+          type: string
+        propertyType:
+          type: string
+        propertyClass:
+          type: string
+        legalDescription:
+          type: string
+        lotSize:
+          type: number
+        yearBuilt:
+          type: integer
+    OwnerDetails:
+      type: object
+      properties:
+        ownerName:
+          type: string
+        mailingAddress:
+          type: string
+        ownershipDate:
+          type: string
+          format: date
+    Valuation:
+      type: object
+      properties:
+        year:
+          type: integer
+        fullCashValue:
+          type: number
+        limitedValue:
+          type: number
+        assessedValue:
+          type: number
+    ResidentialDetails:
+      type: object
+      properties:
+        bedrooms:
+          type: integer
+        bathrooms:
+          type: number
+        squareFootage:
+          type: integer
+        stories:
+          type: integer
+        constructionType:
+          type: string
+        roofType:
+          type: string
+        poolIndicator:
+          type: boolean
+    Address:
+      type: object
+      properties:
+        streetAddress:
+          type: string
+        city:
+          type: string
+        state:
+          type: string
+        zip:
+          type: string
+    MapFiles:
+      type: array
+      items:
+        type: string
+        description: Map file name
+    BPPAccount:
+      type: object
+      properties:
+        accountNumber:
+          type: string
+        accountType:
+          type: string
+        businessName:
+          type: string
+        address:
+          type: string
+        valuations:
+          type: object
+    MobileHomeAccount:
+      type: object
+      properties:
+        accountNumber:
+          type: string
+        vin:
+          type: string
+        address:
+          type: string
+        owner:
+          type: string
+        yearManufactured:
+          type: integer
+        make:
+          type: string
+        model:
+          type: string
+  responses:
+    BadRequest:
+      description: Bad Request - Request could not be understood or was missing required parameters
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Unauthorized - Authentication failed or insufficient permissions
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Forbidden:
+      description: Forbidden - Access denied
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: Not Found - Resource was not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    MethodNotAllowed:
+      description: Method Not Allowed - Requested method not supported
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+paths:
+  /search/property/:
+    get:
+      tags:
+        - Search
+      summary: Search all property types
+      description: Searches all data points available. Returns structured JSON with Real Property, BPP, MH, Rentals, Subdivisions, and Content
+      operationId: searchProperty
+      parameters:
+        - $ref: '#/components/parameters/queryParam'
+        - $ref: '#/components/parameters/pageParam'
+      responses:
+        '200':
+          description: Successful search results
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SearchPropertyResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /search/sub/:
+    get:
+      tags:
+        - Search
+      summary: Search subdivisions
+      description: Searches only subdivision names. Returns a structured JSON result set with subdivision names and parcel counts
+      operationId: searchSubdivisions
+      parameters:
+        - $ref: '#/components/parameters/queryParam'
+      responses:
+        '200':
+          description: Successful subdivision search
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/SubdivisionSummary'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /search/rental/:
+    get:
+      tags:
+        - Search
+      summary: Search rental registrations
+      description: Searches only rental registrations. Returns a structured JSON result set with rental registrations
+      operationId: searchRentals
+      parameters:
+        - $ref: '#/components/parameters/queryParam'
+        - $ref: '#/components/parameters/pageParam'
+      responses:
+        '200':
+          description: Successful rental search
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/RentalSummary'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /parcel/{apn}:
+    get:
+      tags:
+        - Parcel
+      summary: Get parcel details
+      description: Returns all available parcel data. Works with Residential, Commercial, Land, and Agriculture parcels
+      operationId: getParcelDetails
+      parameters:
+        - $ref: '#/components/parameters/apnParam'
+      responses:
+        '200':
+          description: Successful parcel retrieval
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ParcelDetails'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /parcel/{apn}/propertyinfo:
+    get:
+      tags:
+        - Parcel
+      summary: Get property information
+      description: Returns information specific to the property
+      operationId: getPropertyInfo
+      parameters:
+        - $ref: '#/components/parameters/apnParam'
+      responses:
+        '200':
+          description: Successful property info retrieval
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PropertyInfo'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /parcel/{apn}/address:
+    get:
+      tags:
+        - Parcel
+      summary: Get property address
+      description: Returns address of the property
+      operationId: getPropertyAddress
+      parameters:
+        - $ref: '#/components/parameters/apnParam'
+      responses:
+        '200':
+          description: Successful address retrieval
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Address'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /parcel/{apn}/valuations:
+    get:
+      tags:
+        - Parcel
+      summary: Get valuation history
+      description: Returns past 5 years of valuation data from a parcel
+      operationId: getValuations
+      parameters:
+        - $ref: '#/components/parameters/apnParam'
+      responses:
+        '200':
+          description: Successful valuation retrieval
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Valuation'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /parcel/{apn}/residential-details:
+    get:
+      tags:
+        - Parcel
+      summary: Get residential details
+      description: Returns all available residential parcel data. Does not apply to agriculture parcels
+      operationId: getResidentialDetails
+      parameters:
+        - $ref: '#/components/parameters/apnParam'
+      responses:
+        '200':
+          description: Successful residential details retrieval
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResidentialDetails'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /parcel/{apn}/owner-details:
+    get:
+      tags:
+        - Parcel
+      summary: Get owner details
+      description: Returns owner information for the parcel
+      operationId: getOwnerDetails
+      parameters:
+        - $ref: '#/components/parameters/apnParam'
+      responses:
+        '200':
+          description: Successful owner details retrieval
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OwnerDetails'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /parcel/mcr/{mcr}:
+    get:
+      tags:
+        - Parcel
+      summary: Search by MCR number
+      description: Search parcels by Maricopa County Recorder number
+      operationId: searchByMCR
+      parameters:
+        - $ref: '#/components/parameters/mcrParam'
+        - $ref: '#/components/parameters/pageParam'
+      responses:
+        '200':
+          description: Successful MCR search
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ParcelSummary'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /parcel/str/{str}:
+    get:
+      tags:
+        - Parcel
+      summary: Search by Section/Township/Range
+      description: Search parcels by Section/Township/Range
+      operationId: searchBySTR
+      parameters:
+        - $ref: '#/components/parameters/strParam'
+        - $ref: '#/components/parameters/pageParam'
+      responses:
+        '200':
+          description: Successful STR search
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ParcelSummary'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /mapid/parcel/{apn}:
+    get:
+      tags:
+        - Maps
+      summary: Get parcel maps
+      description: Returns map file names for a parcel
+      operationId: getParcelMaps
+      parameters:
+        - $ref: '#/components/parameters/apnParam'
+      responses:
+        '200':
+          description: Successful map retrieval
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MapFiles'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /mapid/bookmap/{book}/{map}:
+    get:
+      tags:
+        - Maps
+      summary: Get book/map maps
+      description: Returns map file names for book/map combination
+      operationId: getBookMapMaps
+      parameters:
+        - $ref: '#/components/parameters/bookParam'
+        - $ref: '#/components/parameters/mapParam'
+      responses:
+        '200':
+          description: Successful map retrieval
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MapFiles'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /mapid/mcr/{mcr}:
+    get:
+      tags:
+        - Maps
+      summary: Get MCR maps
+      description: Returns map file names for MCR number
+      operationId: getMCRMaps
+      parameters:
+        - $ref: '#/components/parameters/mcrParam'
+      responses:
+        '200':
+          description: Successful map retrieval
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MapFiles'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /bpp/{type}/{acct}:
+    get:
+      tags:
+        - Business Personal Property
+      summary: Get BPP account details
+      description: Returns account details for commercial, multiple, or lessor accounts for current tax year
+      operationId: getBPPAccount
+      parameters:
+        - $ref: '#/components/parameters/bppTypeParam'
+        - $ref: '#/components/parameters/bppAcctParam'
+      responses:
+        '200':
+          description: Successful BPP account retrieval
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BPPAccount'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /bpp/{type}/{acct}/{year}:
+    get:
+      tags:
+        - Business Personal Property
+      summary: Get BPP account for specific year
+      description: Returns account details for specific tax year (not applicable to commercial accounts)
+      operationId: getBPPAccountYear
+      parameters:
+        - $ref: '#/components/parameters/bppTypeParam'
+        - $ref: '#/components/parameters/bppAcctParam'
+        - $ref: '#/components/parameters/yearParam'
+      responses:
+        '200':
+          description: Successful BPP account retrieval
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BPPAccount'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /mh/{acct}:
+    get:
+      tags:
+        - Mobile Homes
+      summary: Get mobile home account
+      description: Returns account details for an unsecured mobile home
+      operationId: getMobileHomeAccount
+      parameters:
+        - $ref: '#/components/parameters/mhAcctParam'
+      responses:
+        '200':
+          description: Successful mobile home account retrieval
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MobileHomeAccount'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /mh/vin/{vin}:
+    get:
+      tags:
+        - Mobile Homes
+      summary: Search mobile home by VIN
+      description: Returns account number for a mobile home VIN
+      operationId: searchMobileHomeByVIN
+      parameters:
+        - $ref: '#/components/parameters/vinParam'
+      responses:
+        '200':
+          description: Successful VIN search
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  accountNumber:
+                    type: string
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+tags:
+  - name: Search
+    description: Search operations for properties, subdivisions, and rentals
+  - name: Parcel
+    description: Parcel-specific operations and data retrieval
+  - name: Maps
+    description: Map file retrieval operations
+  - name: Business Personal Property
+    description: BPP account operations
+  - name: Mobile Homes
+    description: Mobile home account operations

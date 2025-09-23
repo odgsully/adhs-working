@@ -15321,5 +15321,153 @@
       "command": "ls -la src/",
       "description": "Verify directories removed"
     }
+  },
+  {
+    "session_id": "793e0727-7fa3-4d93-80a9-859a04d9c9fa",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/793e0727-7fa3-4d93-80a9-859a04d9c9fa.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "default",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Bash",
+    "tool_input": {
+      "command": "git ls-files",
+      "description": "List all tracked files in the repository"
+    }
+  },
+  {
+    "session_id": "793e0727-7fa3-4d93-80a9-859a04d9c9fa",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/793e0727-7fa3-4d93-80a9-859a04d9c9fa.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "default",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Read",
+    "tool_input": {
+      "file_path": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy/README.md"
+    }
+  },
+  {
+    "session_id": "793e0727-7fa3-4d93-80a9-859a04d9c9fa",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/793e0727-7fa3-4d93-80a9-859a04d9c9fa.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "default",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Read",
+    "tool_input": {
+      "file_path": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy/ai_docs/cc_hooks_docs.md"
+    }
+  },
+  {
+    "session_id": "793e0727-7fa3-4d93-80a9-859a04d9c9fa",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/793e0727-7fa3-4d93-80a9-859a04d9c9fa.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "default",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Read",
+    "tool_input": {
+      "file_path": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy/ai_docs/uv-single-file-scripts.md"
+    }
+  },
+  {
+    "session_id": "793e0727-7fa3-4d93-80a9-859a04d9c9fa",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/793e0727-7fa3-4d93-80a9-859a04d9c9fa.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "default",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Read",
+    "tool_input": {
+      "file_path": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy/ai_docs/anthropic_custom_slash_commands.md"
+    }
+  },
+  {
+    "session_id": "793e0727-7fa3-4d93-80a9-859a04d9c9fa",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/793e0727-7fa3-4d93-80a9-859a04d9c9fa.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "default",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Read",
+    "tool_input": {
+      "file_path": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy/ai_docs/anthropic_docs_subagents.md"
+    }
+  },
+  {
+    "session_id": "793e0727-7fa3-4d93-80a9-859a04d9c9fa",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/793e0727-7fa3-4d93-80a9-859a04d9c9fa.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "default",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Glob",
+    "tool_input": {
+      "pattern": "**/MCAO/**"
+    }
+  },
+  {
+    "session_id": "793e0727-7fa3-4d93-80a9-859a04d9c9fa",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/793e0727-7fa3-4d93-80a9-859a04d9c9fa.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "default",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Read",
+    "tool_input": {
+      "file_path": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy/MCAO/mcao-api-ref/mcao-api-reference.md"
+    }
+  },
+  {
+    "session_id": "793e0727-7fa3-4d93-80a9-859a04d9c9fa",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/793e0727-7fa3-4d93-80a9-859a04d9c9fa.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "default",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Bash",
+    "tool_input": {
+      "command": "python3 -c \"import pandas as pd; df = pd.read_excel('/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy/MCAO/MAX_HEADERS.xlsx'); print('Sheet names:', df if isinstance(df, dict) else 'Single sheet'); print('\\\\nColumns:', df.columns.tolist() if not isinstance(df, dict) else 'Multiple sheets'); print('\\\\nShape:', df.shape if not isinstance(df, dict) else 'Multiple sheets'); print('\\\\nFirst few rows:'); print(df.head() if not isinstance(df, dict) else 'Multiple sheets detected')\"",
+      "description": "Read MCAO MAX_HEADERS Excel file"
+    }
+  },
+  {
+    "session_id": "793e0727-7fa3-4d93-80a9-859a04d9c9fa",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/793e0727-7fa3-4d93-80a9-859a04d9c9fa.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "default",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Read",
+    "tool_input": {
+      "file_path": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy/scripts/process_months_local.py"
+    }
+  },
+  {
+    "session_id": "793e0727-7fa3-4d93-80a9-859a04d9c9fa",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/793e0727-7fa3-4d93-80a9-859a04d9c9fa.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "default",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Bash",
+    "tool_input": {
+      "command": "ls -la | grep -E \"\\.env\"",
+      "description": "List env files in project root"
+    }
+  },
+  {
+    "session_id": "793e0727-7fa3-4d93-80a9-859a04d9c9fa",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/793e0727-7fa3-4d93-80a9-859a04d9c9fa.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "default",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Write",
+    "tool_input": {
+      "file_path": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy/setup_env.py",
+      "content": "#!/usr/bin/env python3\n\"\"\"\nSetup script to create .env file with MCAO API key\n\"\"\"\n\nimport os\nfrom pathlib import Path\n\ndef create_env_file():\n    \"\"\"Create .env file with MCAO API configuration.\"\"\"\n\n    env_content = \"\"\"# ADHS ETL Environment Configuration\n\n# MCAO API Configuration\nMCAO_API_KEY=cc6f7947-2054-479b-ae49-f3fa1c57f3d8\n\n# Fuzzy Matching Threshold (0-100)\n# Higher values = stricter matching\nFUZZY_THRESHOLD=80.0\n\n# Logging Configuration\nLOG_LEVEL=INFO\n\n# Optional: Database connection\n# DATABASE_URL=postgresql://user:password@localhost:5432/adhs_etl\n\n# Optional: Output directories (defaults to current directory)\n# OUTPUT_DIR=./output\n# TEMP_DIR=./temp\n\n# Optional: Processing configuration\n# BATCH_SIZE=1000\n# MAX_WORKERS=4\n\"\"\"\n\n    env_path = Path(\".env\")\n\n    if env_path.exists():\n        response = input(\".env file already exists. Overwrite? (y/N): \")\n        if response.lower() != 'y':\n            print(\"Aborted. Existing .env file preserved.\")\n            return\n\n    try:\n        env_path.write_text(env_content)\n        print(f\"\u2705 Created .env file with MCAO API key\")\n        print(f\"   MCAO_API_KEY=cc6f7947-2054-479b-ae49-f3fa1c57f3d8\")\n    except Exception as e:\n        print(f\"\u274c Error creating .env file: {e}\")\n\nif __name__ == \"__main__\":\n    create_env_file()"
+    }
+  },
+  {
+    "session_id": "793e0727-7fa3-4d93-80a9-859a04d9c9fa",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/793e0727-7fa3-4d93-80a9-859a04d9c9fa.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "default",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Bash",
+    "tool_input": {
+      "command": "python3 setup_env.py",
+      "description": "Run setup script to create .env file"
+    }
   }
 ]

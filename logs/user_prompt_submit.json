@@ -942,5 +942,45 @@
     "permission_mode": "default",
     "hook_event_name": "UserPromptSubmit",
     "prompt": "Remove them."
+  },
+  {
+    "session_id": "793e0727-7fa3-4d93-80a9-859a04d9c9fa",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/793e0727-7fa3-4d93-80a9-859a04d9c9fa.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "default",
+    "hook_event_name": "UserPromptSubmit",
+    "prompt": "/prime "
+  },
+  {
+    "session_id": "793e0727-7fa3-4d93-80a9-859a04d9c9fa",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/793e0727-7fa3-4d93-80a9-859a04d9c9fa.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "default",
+    "hook_event_name": "UserPromptSubmit",
+    "prompt": "You missed /APN/ when talking about data organization. 1-10 rating how does your reading the documentation do at identifying process_months_local.py as the main script. Don't write or change any code but just report and respond in chat"
+  },
+  {
+    "session_id": "793e0727-7fa3-4d93-80a9-859a04d9c9fa",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/793e0727-7fa3-4d93-80a9-859a04d9c9fa.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "default",
+    "hook_event_name": "UserPromptSubmit",
+    "prompt": "Great. Now turning our attention to /MCAO/ for next output files, READ Documentation at /MCAO/. READ process_months_local.py. READ the many required headers detailed in /MCAO/MAX_HEADERS.xlsx to ensure a FULL API call with all endpoints understanding. Take your time."
+  },
+  {
+    "session_id": "793e0727-7fa3-4d93-80a9-859a04d9c9fa",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/793e0727-7fa3-4d93-80a9-859a04d9c9fa.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "default",
+    "hook_event_name": "UserPromptSubmit",
+    "prompt": "Column A of MAX HEADERS xlsx changed from 'FULL ADDRESS' to 'FULL_ADDRESS' so, please note. Do you have any questions about any of these?"
+  },
+  {
+    "session_id": "793e0727-7fa3-4d93-80a9-859a04d9c9fa",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/793e0727-7fa3-4d93-80a9-859a04d9c9fa.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "default",
+    "hook_event_name": "UserPromptSubmit",
+    "prompt": "Add MCAO API KEY cc6f7947-2054-479b-ae49-f3fa1c57f3d8 to a new .env if we don't have that file yet. Use from the .env.example. In my next prompt, it should answer and clarify the rest of your questions/points."
   }
 ]
