@@ -471,24 +471,64 @@ def run_apn_lookup(upload_path: Path):
             print_colored(f"❌ apn_lookup.py not found at {apn_script}", Colors.RED)
             return False
 
-        # Run the APN lookup script with higher rate limit
+        # Count records for time estimation
+        num_records = len(pd.read_excel(upload_path))
+        estimated_minutes = max(1, (num_records / 5) / 60)  # 5 requests per second
+
         print_colored(f"🔄 Running APN lookup on {upload_path.name}...", Colors.BLUE)
-        print_colored(f"   (Processing ~{len(pd.read_excel(upload_path))} records at 5 req/sec)", Colors.CYAN)
-        result = subprocess.run(
-            [sys.executable, str(apn_script), "-i", str(upload_path), "--rate", "5.0"],
-            capture_output=True,
-            text=True
+        print_colored(f"   Processing {num_records} records at 5 req/sec", Colors.CYAN)
+        print_colored(f"   Estimated time: ~{estimated_minutes:.1f} minutes (if no cache hits)", Colors.CYAN)
+        print_colored(f"   Press Ctrl+C to skip APN processing for remaining months", Colors.YELLOW)
+
+        # Use Popen for real-time output streaming
+        # Add -u flag for unbuffered Python output
+        process = subprocess.Popen(
+            [sys.executable, "-u", str(apn_script), "-i", str(upload_path), "--rate", "5.0"],
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+            text=True,
+            bufsize=1,  # Line buffered
+            env={**os.environ, "PYTHONUNBUFFERED": "1"}  # Force unbuffered output
         )
 
-        if result.returncode == 0:
-            print_colored(f"✅ APN lookup completed successfully", Colors.GREEN)
-            if result.stdout:
-                print(result.stdout)
-            return True
-        else:
-            print_colored(f"❌ APN lookup failed with exit code {result.returncode}", Colors.RED)
-            if result.stderr:
-                print_colored(f"Error output: {result.stderr}", Colors.RED)
+        # Stream output in real-time
+        try:
+            while True:
+                line = process.stdout.readline()
+                if not line:
+                    break
+
+                # Color-code different types of output
+                line = line.rstrip()
+                if "Progress:" in line:
+                    print(f"   {line}", flush=True)  # Show progress updates
+                elif "Cache hits:" in line or "📊" in line:
+                    print_colored(f"   {line}", Colors.CYAN)
+                elif "ERROR" in line or "❌" in line:
+                    print_colored(f"   {line}", Colors.RED)
+                elif "✅" in line or "Wrote:" in line:
+                    print_colored(f"   {line}", Colors.GREEN)
+                elif line:
+                    print(f"   {line}", flush=True)
+
+            # Wait for process to complete
+            process.wait()
+
+            if process.returncode == 0:
+                print_colored(f"✅ APN lookup completed successfully", Colors.GREEN)
+                return True
+            else:
+                # Read any error output
+                stderr_output = process.stderr.read()
+                print_colored(f"❌ APN lookup failed with exit code {process.returncode}", Colors.RED)
+                if stderr_output:
+                    print_colored(f"Error output: {stderr_output}", Colors.RED)
+                return False
+
+        except KeyboardInterrupt:
+            print_colored(f"\n⚠️  APN lookup interrupted by user", Colors.YELLOW)
+            process.terminate()
+            process.wait()
             return False
 
     except Exception as e:
