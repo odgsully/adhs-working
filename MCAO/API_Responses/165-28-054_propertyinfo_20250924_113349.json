@@ -1,0 +1,21 @@
+{
+  "MCR": "9641",
+  "AssociatedParcels": [],
+  "MoreAssociatedParcelsExist": false,
+  "PropertyAddress": "10010 N 29TH ST PHOENIX, AZ 85028",
+  "PropertyDescription": "PARADISE VALLEY OASIS 1-A",
+  "LotSize": "10453",
+  "IsResidential": true,
+  "MapidExists": false,
+  "SectionTownshipRange": "26 3N 3E",
+  "AssessorMarket": "05",
+  "AreaNeighborhood": "009",
+  "SubdivisionName": "PARADISE VALLEY OASIS 1-A",
+  "Lot": "413",
+  "HighSchoolDistrict": "PARADISE VALLEY UNIFIED #69",
+  "ElementarySchoolDistrict": "PARADISE VALLEY UNIFIED SCHOOL DISTRICT",
+  "LocalJusidiction": "PHOENIX",
+  "PropertyType": "RESIDENTIAL",
+  "ParcelStatus": "A",
+  "APL_flag": "1"
+}

@@ -1,0 +1,33 @@
+{
+  "ConstructionYear": "1961",
+  "OriginalConstructionYear": "1961",
+  "LotSize": "10453",
+  "LivableSpace": "2262",
+  "Detached_Livable_sqft": null,
+  "AssessorMarket": "05",
+  "AreaNeighborhood": "009",
+  "Pool": false,
+  "PEImprovementQualityGrade": "Comparable",
+  "ImprovementQualityGrade": "CLASS R3",
+  "NumberOfCoveredPatios": 0,
+  "NumberOfUncoveredPatios": "1",
+  "NumberOfPatios": "1",
+  "PatioType": "Uncovered",
+  "ExteriorWalls": "Bp - 8\" Painted Block",
+  "RoofType": "As - Asphalt",
+  "BathFixtures": "6",
+  "Cooling": "RF - REFRIGERATION",
+  "Heating": "Yes",
+  "NumberOfGarages": "2",
+  "NumberOfCarports": 0,
+  "ParkingDetails": {
+    "ParkingType": "Garage",
+    "ParkingCount": "1"
+  },
+  "LocationalFactors": "",
+  "OtherStructures": "",
+  "ParkingType": "Garage",
+  "CoveredParking": true,
+  "LocationalCharacteristics": "",
+  "PhysicalCondition": null
+}

@@ -196,6 +196,7 @@ class MCAAOAPIClient:
     def map_to_max_headers(self, api_data: Dict[str, Any]) -> Dict[str, Any]:
         """
         Map API response data to MAX_HEADERS column structure.
+        Based on actual MCAO API response structure discovered through testing.
 
         Args:
             api_data: Combined API response data
@@ -205,140 +206,188 @@ class MCAAOAPIClient:
         """
         mapped = {}
 
-        # Owner data mapping
-        if 'owner' in api_data:
-            owner = api_data['owner']
-            mapped['Owner_OwnerID'] = owner.get('id', '')
-            mapped['Owner_Ownership'] = owner.get('ownership_type', '')
-            mapped['Owner_OwnerName'] = owner.get('name', '')
-
-            # Mailing address
-            if 'mailing_address' in owner:
-                addr = owner['mailing_address']
-                mapped['Owner_FullMailingAddress'] = addr.get('full_address', '')
-                mapped['Owner_MailingAddress_Street'] = addr.get('street', '')
-                mapped['Owner_MailingAddress_City'] = addr.get('city', '')
-                mapped['Owner_MailingAddress_State'] = addr.get('state', '')
-                mapped['Owner_MailingAddress_Zip'] = addr.get('zip', '')
-
-            mapped['Owner_DeedDate'] = owner.get('deed_date', '')
-            mapped['Owner_SalePrice'] = owner.get('sale_price', '')
-            mapped['Owner_Mailing_CareOf'] = owner.get('care_of', '')
-
-        # Property data mapping
-        if 'parcel' in api_data:
+        # Process parcel endpoint data
+        if 'parcel' in api_data and api_data['parcel']:
             parcel = api_data['parcel']
-            mapped['PropertyID'] = parcel.get('property_id', '')
-            mapped['PropertyType'] = parcel.get('property_type', '')
-            mapped['LotSize'] = parcel.get('lot_size', '')
-            mapped['IsResidential'] = parcel.get('is_residential', '')
-            mapped['YearBuilt'] = parcel.get('year_built', '')
-            mapped['TaxDistrict'] = parcel.get('tax_district', '')
-            mapped['SubdivisionName'] = parcel.get('subdivision_name', '')
-            mapped['LegalDescription'] = parcel.get('legal_description', '')
-            mapped['Zoning'] = parcel.get('zoning', '')
-            mapped['LandUse'] = parcel.get('land_use', '')
-            mapped['EffectiveDate'] = parcel.get('effective_date', '')
 
-        # Residential data mapping
-        if 'residential' in api_data:
-            res = api_data['residential']
-            mapped['ResidentialPropertyData_LivableSpace'] = res.get('livable_space', '')
-            mapped['ResidentialPropertyData_NumberOfGarages'] = res.get('garages', '')
-            mapped['ResidentialPropertyData_OriginalConstructionYear'] = res.get('original_construction_year', '')
-            mapped['ResidentialPropertyData_Detached_Livable_sqft'] = res.get('detached_livable_sqft', '')
-            mapped['ResidentialPropertyData_Bedrooms'] = res.get('bedrooms', '')
-            mapped['ResidentialPropertyData_Bathrooms'] = res.get('bathrooms', '')
-            mapped['ResidentialPropertyData_Pools'] = res.get('pools', '')
-            mapped['ResidentialPropertyData_AirConditioning'] = res.get('air_conditioning', '')
-            mapped['ResidentialPropertyData_HeatingType'] = res.get('heating_type', '')
-            mapped['ResidentialPropertyData_WaterHeater'] = res.get('water_heater', '')
+            # Owner data (nested in parcel response)
+            if 'Owner' in parcel:
+                owner = parcel['Owner']
+                mapped['Owner_OwnerID'] = str(owner.get('OwnerID', ''))
+                mapped['Owner_Ownership'] = str(owner.get('Ownership', ''))
+                mapped['Owner_OwnerName'] = str(owner.get('Ownership', ''))  # Same as Ownership
+                mapped['Owner_FullMailingAddress'] = str(owner.get('FullMailingAddress', ''))
+                mapped['Owner_MailingAddress_Street'] = str(owner.get('MailingAddress1', ''))
+                mapped['Owner_MailingAddress_City'] = str(owner.get('MailingCity', ''))
+                mapped['Owner_MailingAddress_State'] = str(owner.get('MailingState', ''))
+                mapped['Owner_MailingAddress_Zip'] = str(owner.get('MailingZip', ''))
+                mapped['Owner_DeedDate'] = str(owner.get('DeedDate', ''))
+                mapped['Owner_SalePrice'] = str(owner.get('SalePrice', '')) if owner.get('SalePrice') else ''
+                mapped['Owner_Mailing_CareOf'] = str(owner.get('InCareOf', '')) if owner.get('InCareOf') else ''
 
-        # Commercial data mapping (if present in parcel data)
-        if 'parcel' in api_data and 'commercial' in api_data['parcel']:
-            com = api_data['parcel']['commercial']
-            mapped['CommercialPropertyData_GrossSquareFeet'] = com.get('gross_sqft', '')
-            mapped['CommercialPropertyData_NetLeasableArea'] = com.get('net_leasable_area', '')
-            mapped['CommercialPropertyData_NumberOfUnits'] = com.get('units', '')
-            mapped['CommercialPropertyData_NumberOfStories'] = com.get('stories', '')
-            mapped['CommercialPropertyData_ParkingSpaces'] = com.get('parking_spaces', '')
-            mapped['CommercialPropertyData_ConstructionType'] = com.get('construction_type', '')
+            # Property data (direct fields in parcel)
+            mapped['PropertyID'] = str(parcel.get('MCR', ''))  # MCR seems to be the property ID
+            mapped['PropertyType'] = str(parcel.get('PropertyType', ''))
+            mapped['LotSize'] = str(parcel.get('LotSize', ''))
+            mapped['IsResidential'] = str(parcel.get('IsResidential', ''))
+            mapped['YearBuilt'] = ''  # Will be filled from ResidentialPropertyData
+            mapped['TaxDistrict'] = str(parcel.get('TaxAreaCode', ''))
+            mapped['SubdivisionName'] = str(parcel.get('SubdivisionName', ''))
+            mapped['LegalDescription'] = str(parcel.get('PropertyDescription', ''))
 
-        # Valuations mapping (most recent 2 years)
-        if 'valuations' in api_data:
-            vals = api_data['valuations']
-            if isinstance(vals, list):
-                # Sort by year descending to get most recent first
-                vals_sorted = sorted(vals, key=lambda x: x.get('tax_year', 0), reverse=True)
+            # Zoning (it's an array in the response)
+            if 'Zoning' in parcel and isinstance(parcel['Zoning'], list):
+                mapped['Zoning'] = ', '.join(str(z) for z in parcel['Zoning']) if parcel['Zoning'] else ''
+            else:
+                mapped['Zoning'] = ''
+
+            mapped['LandUse'] = str(parcel.get('PropertyUseCode', ''))
+            mapped['EffectiveDate'] = ''  # Not in response
+
+            # GIS data (Geo object in parcel)
+            if 'Geo' in parcel:
+                geo = parcel['Geo']
+                mapped['GIS_Latitude'] = str(geo.get('lat', '')) if geo.get('lat') else ''
+                mapped['GIS_Longitude'] = str(geo.get('long', '')) if geo.get('long') else ''
+
+            # Section/Township/Range
+            str_value = parcel.get('SectionTownshipRange', '')
+            if str_value:
+                # Parse "26 3N 3E" format
+                parts = str(str_value).split()
+                if len(parts) >= 3:
+                    mapped['GIS_Section'] = parts[0]
+                    mapped['GIS_Township'] = parts[1] if len(parts) > 1 else ''
+                    mapped['GIS_Range'] = parts[2] if len(parts) > 2 else ''
+                else:
+                    mapped['GIS_Section'] = str_value
+                    mapped['GIS_Township'] = ''
+                    mapped['GIS_Range'] = ''
+
+            mapped['GIS_MapNumber'] = ''  # Not in response
+
+            # School districts
+            mapped['SchoolDistrict'] = str(parcel.get('ElementarySchoolDistrict', ''))
+
+            # Additional fields
+            mapped['CensusBlock'] = ''  # Not in response
+            mapped['FireDistrict'] = ''  # Not in response
+            mapped['AssessmentRatio'] = ''  # Will get from valuations
+            mapped['ExemptionCode'] = ''  # Not in response
+            mapped['ExemptionValue'] = ''  # Not in response
+            mapped['SpecialAssessments'] = ''  # Not in response
+            mapped['TotalTaxes'] = ''  # Not in response
+            mapped['DelinquentTaxes'] = ''  # Not in response
+            mapped['PropertyClass'] = ''  # Not in response
+            mapped['UseCode'] = str(parcel.get('PropertyUseCode', ''))
+
+            # Residential Property Data (nested in parcel)
+            if 'ResidentialPropertyData' in parcel:
+                res = parcel['ResidentialPropertyData']
+                mapped['ResidentialPropertyData_LivableSpace'] = str(res.get('LivableSpace', ''))
+                mapped['ResidentialPropertyData_NumberOfGarages'] = str(res.get('NumberOfGarages', ''))
+                mapped['ResidentialPropertyData_OriginalConstructionYear'] = str(res.get('OriginalConstructionYear', ''))
+                mapped['ResidentialPropertyData_Detached_Livable_sqft'] = str(res.get('Detached_Livable_sqft', '')) if res.get('Detached_Livable_sqft') else ''
+                mapped['ResidentialPropertyData_Bedrooms'] = ''  # Not in response
+                mapped['ResidentialPropertyData_Bathrooms'] = str(res.get('BathFixtures', ''))  # Using BathFixtures
+                mapped['ResidentialPropertyData_Pools'] = 'Yes' if res.get('Pool') else 'No'
+                mapped['ResidentialPropertyData_AirConditioning'] = str(res.get('Cooling', ''))
+                mapped['ResidentialPropertyData_HeatingType'] = 'Yes' if res.get('Heating') else 'No'
+                mapped['ResidentialPropertyData_WaterHeater'] = ''  # Not in response
+
+                # Also set YearBuilt from residential data
+                mapped['YearBuilt'] = str(res.get('ConstructionYear', ''))
+
+            # Valuations (array in parcel)
+            if 'Valuations' in parcel and isinstance(parcel['Valuations'], list):
+                vals = parcel['Valuations']
+                # Sort by TaxYear descending
+                vals_sorted = sorted(vals, key=lambda x: int(x.get('TaxYear', 0)), reverse=True)
 
                 for i, val in enumerate(vals_sorted[:2]):  # Get up to 2 most recent
                     prefix = f'Valuations_{i}_'
-                    mapped[f'{prefix}LegalClassification'] = val.get('legal_classification', '')
-                    mapped[f'{prefix}TaxYear'] = val.get('tax_year', '')
-                    mapped[f'{prefix}FullCashValue'] = val.get('full_cash_value', '')
-                    mapped[f'{prefix}AssessedValue'] = val.get('assessed_value', '')
-                    mapped[f'{prefix}LimitedPropertyValue'] = val.get('limited_property_value', '')
+                    mapped[f'{prefix}LegalClassification'] = str(val.get('LegalClassification', ''))
+                    mapped[f'{prefix}TaxYear'] = str(val.get('TaxYear', ''))
+                    mapped[f'{prefix}FullCashValue'] = str(val.get('FullCashValue', ''))
+                    mapped[f'{prefix}AssessedValue'] = str(val.get('AssessedFCV', ''))
+                    mapped[f'{prefix}LimitedPropertyValue'] = str(val.get('LimitedPropertyValue', ''))
 
-                    # Land and improvements breakdown
-                    if 'land' in val:
-                        mapped[f'{prefix}Land_FullCashValue'] = val['land'].get('full_cash_value', '')
-                    if 'improvements' in val:
-                        mapped[f'{prefix}Improvements_FullCashValue'] = val['improvements'].get('full_cash_value', '')
+                    # These aren't broken down in the response
+                    mapped[f'{prefix}Land_FullCashValue'] = ''
+                    mapped[f'{prefix}Improvements_FullCashValue'] = ''
 
-        # Sales history mapping (most recent 2 sales)
-        if 'parcel' in api_data and 'sales' in api_data['parcel']:
-            sales = api_data['parcel']['sales']
-            if isinstance(sales, list):
-                # Sort by date descending
-                sales_sorted = sorted(sales, key=lambda x: x.get('sale_date', ''), reverse=True)
+                    # Get assessment ratio from first valuation
+                    if i == 0 and val.get('AssessmentRatioPercentage'):
+                        mapped['AssessmentRatio'] = str(val.get('AssessmentRatioPercentage', ''))
 
-                for i, sale in enumerate(sales_sorted[:2]):  # Get up to 2 most recent
-                    prefix = f'Sales_{i}_'
-                    mapped[f'{prefix}SaleDate'] = sale.get('sale_date', '')
-                    mapped[f'{prefix}SalePrice'] = sale.get('sale_price', '')
-                    mapped[f'{prefix}SaleType'] = sale.get('sale_type', '')
-                    mapped[f'{prefix}Grantor'] = sale.get('grantor', '')
-                    mapped[f'{prefix}Grantee'] = sale.get('grantee', '')
+        # Process owner-details endpoint data (overwrites some fields with more detail)
+        if 'owner' in api_data and api_data['owner']:
+            owner = api_data['owner']
+            mapped['Owner_OwnerID'] = str(owner.get('OwnerID', ''))
+            mapped['Owner_Ownership'] = str(owner.get('Ownership', ''))
+            mapped['Owner_OwnerName'] = str(owner.get('Ownership', ''))
+            mapped['Owner_FullMailingAddress'] = str(owner.get('FullMailingAddress', ''))
+            mapped['Owner_MailingAddress_Street'] = str(owner.get('MailingAddress1', ''))
+            mapped['Owner_MailingAddress_City'] = str(owner.get('MailingCity', ''))
+            mapped['Owner_MailingAddress_State'] = str(owner.get('MailingState', ''))
+            mapped['Owner_MailingAddress_Zip'] = str(owner.get('MailingZip', ''))
+            mapped['Owner_DeedDate'] = str(owner.get('DeedDate', ''))
+            mapped['Owner_SalePrice'] = str(owner.get('SalePrice', '')) if owner.get('SalePrice') else ''
+            mapped['Owner_Mailing_CareOf'] = str(owner.get('InCareOf', '')) if owner.get('InCareOf') else ''
 
-        # GIS data mapping
-        if 'parcel' in api_data and 'gis' in api_data['parcel']:
-            gis = api_data['parcel']['gis']
-            mapped['GIS_Latitude'] = gis.get('latitude', '')
-            mapped['GIS_Longitude'] = gis.get('longitude', '')
-            mapped['GIS_MapNumber'] = gis.get('map_number', '')
-            mapped['GIS_Township'] = gis.get('township', '')
-            mapped['GIS_Range'] = gis.get('range', '')
-            mapped['GIS_Section'] = gis.get('section', '')
+        # Process valuations endpoint data (overwrites/supplements)
+        if 'valuations' in api_data and isinstance(api_data['valuations'], list):
+            vals = api_data['valuations']
+            # Sort by TaxYear descending
+            vals_sorted = sorted(vals, key=lambda x: int(x.get('TaxYear', 0)), reverse=True)
 
-        # Additional fields
-        if 'parcel' in api_data:
-            parcel = api_data['parcel']
-            mapped['CensusBlock'] = parcel.get('census_block', '')
-            mapped['SchoolDistrict'] = parcel.get('school_district', '')
-            mapped['FireDistrict'] = parcel.get('fire_district', '')
-            mapped['AssessmentRatio'] = parcel.get('assessment_ratio', '')
-            mapped['ExemptionCode'] = parcel.get('exemption_code', '')
-            mapped['ExemptionValue'] = parcel.get('exemption_value', '')
-            mapped['SpecialAssessments'] = parcel.get('special_assessments', '')
-            mapped['TotalTaxes'] = parcel.get('total_taxes', '')
-            mapped['DelinquentTaxes'] = parcel.get('delinquent_taxes', '')
-            mapped['PropertyClass'] = parcel.get('property_class', '')
-            mapped['UseCode'] = parcel.get('use_code', '')
+            for i, val in enumerate(vals_sorted[:2]):  # Get up to 2 most recent
+                prefix = f'Valuations_{i}_'
+                mapped[f'{prefix}LegalClassification'] = str(val.get('LegalClassification', ''))
+                mapped[f'{prefix}TaxYear'] = str(val.get('TaxYear', ''))
+                mapped[f'{prefix}FullCashValue'] = str(val.get('FullCashValue', ''))
+                mapped[f'{prefix}AssessedValue'] = str(val.get('AssessedFCV', ''))
+                mapped[f'{prefix}LimitedPropertyValue'] = str(val.get('LimitedPropertyValue', ''))
 
-        # Permits (most recent)
-        if 'parcel' in api_data and 'permits' in api_data['parcel']:
-            permits = api_data['parcel']['permits']
-            if isinstance(permits, list) and permits:
-                permit = permits[0]  # Most recent
-                mapped['Permits_0_PermitDate'] = permit.get('permit_date', '')
-                mapped['Permits_0_PermitType'] = permit.get('permit_type', '')
-                mapped['Permits_0_PermitValue'] = permit.get('permit_value', '')
+        # Process residential-details endpoint data (overwrites/supplements)
+        if 'residential' in api_data and api_data['residential']:
+            res = api_data['residential']
+            mapped['YearBuilt'] = str(res.get('ConstructionYear', ''))
+            mapped['ResidentialPropertyData_LivableSpace'] = str(res.get('LivableSpace', ''))
+            mapped['ResidentialPropertyData_NumberOfGarages'] = str(res.get('NumberOfGarages', ''))
+            mapped['ResidentialPropertyData_OriginalConstructionYear'] = str(res.get('OriginalConstructionYear', ''))
+            mapped['ResidentialPropertyData_Detached_Livable_sqft'] = str(res.get('Detached_Livable_sqft', '')) if res.get('Detached_Livable_sqft') else ''
+            mapped['ResidentialPropertyData_Bathrooms'] = str(res.get('BathFixtures', ''))
+            mapped['ResidentialPropertyData_Pools'] = 'Yes' if res.get('Pool') else 'No'
+            mapped['ResidentialPropertyData_AirConditioning'] = str(res.get('Cooling', ''))
+            mapped['ResidentialPropertyData_HeatingType'] = 'Yes' if res.get('Heating') else 'No'
 
-        # Improvements
-        if 'parcel' in api_data and 'improvements' in api_data['parcel']:
-            imp = api_data['parcel']['improvements']
-            mapped['Improvements_Pool'] = imp.get('pool', '')
-            mapped['Improvements_Tennis'] = imp.get('tennis', '')
-            mapped['Improvements_Other'] = imp.get('other', '')
+        # Sales history - not in current API responses but leave structure
+        mapped['Sales_0_SaleDate'] = mapped.get('Owner_DeedDate', '')  # Use deed date as sale date
+        mapped['Sales_0_SalePrice'] = mapped.get('Owner_SalePrice', '')
+        mapped['Sales_0_SaleType'] = ''
+        mapped['Sales_0_Grantor'] = ''
+        mapped['Sales_0_Grantee'] = mapped.get('Owner_OwnerName', '')
+        mapped['Sales_1_SaleDate'] = ''
+        mapped['Sales_1_SalePrice'] = ''
+        mapped['Sales_1_SaleType'] = ''
+
+        # Commercial data - not in residential responses but structure remains
+        mapped['CommercialPropertyData_GrossSquareFeet'] = ''
+        mapped['CommercialPropertyData_NetLeasableArea'] = ''
+        mapped['CommercialPropertyData_NumberOfUnits'] = ''
+        mapped['CommercialPropertyData_NumberOfStories'] = ''
+        mapped['CommercialPropertyData_ParkingSpaces'] = ''
+        mapped['CommercialPropertyData_ConstructionType'] = ''
+
+        # Permits - not in current response
+        mapped['Permits_0_PermitDate'] = ''
+        mapped['Permits_0_PermitType'] = ''
+        mapped['Permits_0_PermitValue'] = ''
+
+        # Improvements - Pool info is in ResidentialPropertyData
+        mapped['Improvements_Pool'] = mapped.get('ResidentialPropertyData_Pools', '')
+        mapped['Improvements_Tennis'] = ''
+        mapped['Improvements_Other'] = ''
 
         return mapped
