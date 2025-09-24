@@ -1,0 +1,95 @@
+Account__r.AZCCFacilityType__c: null
+Account__r.CCN__c: null
+Account__r.External_Facility_Id__c: null
+Account__r.Mothership_Hospital_Name__c: null
+Account__r.Phone: null
+Account__r.SubType__c: null
+Approved To: null
+Approved_To__c: null
+BUREAU: null
+BillingState: null
+Bureau: null
+CCN: null
+COUNTY: null
+Capacity-Infants: null
+Capacity-One-Year-Olds: null
+CapacityInfants__c: null
+CapacityOneYearOlds__c: null
+Certificate Name: null
+CertificateEffectiveDate__c: null
+CertificateExpirationDate__c: null
+Effective Date: null
+EffectiveDate: null
+Effective_Date__c: null
+Expiration Date: null
+ExpirationDate: null
+Expiration_Date__c: null
+External Facility Id: null
+ExternalFacilityID: null
+FACILITY_ID: null
+FACILITY_TYPE_ID: null
+Facility_Registration_Id__c: null
+Facility_Type__c: null
+HCI Bureau: null
+HCIBureau__c: null
+Id: null
+Issue Date: null
+IssueDate: null
+Issue_Date__c: null
+LICENSE_EFFECTIVE_DATE: null
+LICENSE_EXPIRE_DATE: null
+LICENSE_ISSUE_DATE: null
+LICENSE_NUMBER: null
+License Tier: null
+LicenseTier__c: null
+Mothership Hospital Name: null
+N_BLOCK: null
+Phone: null
+Physical_County__c: null
+Physical_State__c: null
+Program__c: null
+RUN_DATE: null
+STATE: null
+SUBTYPE: null
+SUPP_SERVICE_PROVIDED: null
+School Aged: null
+SchoolAged__c: null
+State: null
+Status: null
+Status__c: null
+SubType: null
+Subtype: null
+TELEPHONE: null
+TodaysDate: null
+TodaysDate__c: null
+Type: null
+'Unnamed: 1': null
+hospital_sgl: null
+mcaid_cert: null
+rundate: null
+MothershipHospitalName: null
+Critical Access Hospitals: null
+Medical: null
+-.1: null
+-110.41: null
+'Unnamed: 7': null
+Original Effective Date: null
+33.29: null
+'Unnamed: 8': null
+LicenseNumber: null
+'-': null
+Peridot: null
+AZ: null
+San Carlos Apache Healthcare Corporation: null
+Gila: null
+31320: null
+'Unnamed: 15': null
+2025-07-01 00:00:00: null
+9284751200: null
+'Unnamed: 20': null
+Address: null
+103 Medicine Way Road: null
+Rural General Hospital: null
+MED3014: null
+'Unnamed: 9': null
+CertificateNumber: null

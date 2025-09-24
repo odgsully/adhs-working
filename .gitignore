@@ -32,9 +32,6 @@ ENV/
 env/
 .venv
 
-# Poetry
-poetry.lock
-
 # Testing
 .coverage
 .pytest_cache/
@@ -57,7 +54,6 @@ coverage.xml
 output/
 data/
 *.log
-field_map.TODO.yml
 
 # Jupyter
 .ipynb_checkpoints/
@@ -81,3 +77,5 @@ Analysis/**/*.xlsx
 Analysis/**/*.xls
 old/**/*.xlsx
 old/**/*.xls
+MCAO/Complete/
+MCAO/Upload/

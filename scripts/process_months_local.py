@@ -10,6 +10,7 @@ Preserves all existing processing logic from process_months_local.py
 import os
 import shutil
 import sys
+import time
 import tempfile
 import subprocess
 from pathlib import Path
@@ -30,6 +31,12 @@ from adhs_etl.analysis import (
     ProviderAnalyzer,
     create_analysis_summary_sheet,
     create_blanks_count_sheet
+)
+from adhs_etl.mcao_client import MCAAOAPIClient
+from adhs_etl.mcao_field_mapping import (
+    MCAO_MAX_HEADERS,
+    get_empty_mcao_record,
+    validate_mcao_record
 )
 
 class Colors:
@@ -160,6 +167,8 @@ def get_confirmation(start_month, end_month, months_to_process):
 
     # Get APN processing preference
     process_apn = False
+    process_mcao = False
+
     while True:
         response = input(f"\n{Colors.BOLD}Process complete APNs (y/N)? {Colors.END}").strip().lower()
         if response in ['y', 'yes']:
@@ -173,12 +182,29 @@ def get_confirmation(start_month, end_month, months_to_process):
         else:
             print_colored("Please enter 'y' for yes or 'n' for no", Colors.YELLOW)
 
+    # Only ask about MCAO if APN processing is enabled
+    if process_apn:
+        while True:
+            response = input(f"\n{Colors.BOLD}Process MCAO data enrichment (y/N)? {Colors.END}").strip().lower()
+            if response in ['y', 'yes']:
+                process_mcao = True
+                print_colored("  ✓ Will enrich data with MCAO API", Colors.GREEN)
+                print_colored("    • Output: MCAO/Upload/ (filtered APNs)", Colors.WHITE)
+                print_colored("    • Output: MCAO/Complete/ (enriched with 84 fields)", Colors.WHITE)
+                break
+            elif response in ['n', 'no', '']:
+                process_mcao = False
+                print_colored("  ✓ Skipping MCAO enrichment", Colors.YELLOW)
+                break
+            else:
+                print_colored("Please enter 'y' for yes or 'n' for no", Colors.YELLOW)
+
     while True:
         response = input(f"\n{Colors.BOLD}Ready to proceed? (y/N): {Colors.END}").strip().lower()
         if response in ['y', 'yes']:
-            return True, process_apn
+            return True, process_apn, process_mcao
         elif response in ['n', 'no', '']:
-            return False, False
+            return False, False, False
         else:
             print_colored("Please enter 'y' for yes or 'n' for no", Colors.YELLOW)
 
@@ -456,6 +482,232 @@ def extract_apn_upload(month_code: str, analysis_df: pd.DataFrame):
         traceback.print_exc()
         return None
 
+def extract_mcao_upload(month_code: str, apn_complete_path: Path):
+    """Extract MCAO Upload file from APN_Complete by filtering out empty APNs.
+
+    Args:
+        month_code: Month code (e.g., "1.25")
+        apn_complete_path: Path to the APN_Complete file
+
+    Returns:
+        Path to the created MCAO_Upload file, or None if failed
+    """
+    try:
+        # Create MCAO/Upload directory
+        upload_dir = Path("MCAO/Upload")
+        upload_dir.mkdir(parents=True, exist_ok=True)
+
+        # Read APN_Complete file
+        print_colored(f"📋 Reading APN_Complete: {apn_complete_path.name}", Colors.CYAN)
+        df = pd.read_excel(apn_complete_path)
+
+        # Check required columns exist
+        if len(df.columns) < 3:
+            print_colored(f"❌ APN_Complete must have at least 3 columns, found {len(df.columns)}", Colors.RED)
+            return None
+
+        # Ensure columns are named correctly
+        df.columns = ['FULL_ADDRESS', 'COUNTY', 'APN'] + list(df.columns[3:])
+
+        # Filter out rows where APN is empty/null
+        original_count = len(df)
+        df_filtered = df[df['APN'].notna() & (df['APN'] != '') & (~df['APN'].str.upper().isin(['NONE', 'NULL', 'NA', 'N/A']))].copy()
+        filtered_count = len(df_filtered)
+        removed_count = original_count - filtered_count
+
+        print_colored(f"📊 Filtered APNs: {filtered_count} valid, {removed_count} empty/invalid removed", Colors.CYAN)
+
+        if filtered_count == 0:
+            print_colored(f"❌ No valid APNs found after filtering", Colors.RED)
+            return None
+
+        # Extract timestamp from APN_Complete filename for consistency
+        # Expected format: M.YY_APN_Complete MM.DD.HH-MM-SS.xlsx
+        timestamp = None
+        if "_APN_Complete" in apn_complete_path.stem:
+            parts = apn_complete_path.stem.split("_APN_Complete")
+            if len(parts) > 1 and parts[1].strip():
+                timestamp = parts[1].strip()
+
+        # If no timestamp found, generate new one
+        if not timestamp:
+            now = datetime.now()
+            timestamp = now.strftime("%m.%d.%I-%M-%S")
+
+        # Create output filename with same timestamp
+        output_filename = f"{month_code}_MCAO_Upload {timestamp}.xlsx"
+        output_path = upload_dir / output_filename
+
+        # Save filtered data (only first 3 columns for Upload)
+        df_upload = df_filtered[['FULL_ADDRESS', 'COUNTY', 'APN']].copy()
+
+        if safe_write_excel(df_upload, output_path):
+            print_colored(f"✅ Created MCAO Upload file: {output_path}", Colors.GREEN)
+            return output_path
+        else:
+            return None
+
+    except Exception as e:
+        print_colored(f"❌ Error creating MCAO Upload: {e}", Colors.RED)
+        import traceback
+        traceback.print_exc()
+        return None
+
+def process_mcao_complete(month_code: str, mcao_upload_path: Path):
+    """Process MCAO Upload file and enrich with API data to create MCAO_Complete.
+
+    Args:
+        month_code: Month code (e.g., "1.25")
+        mcao_upload_path: Path to the MCAO_Upload file
+
+    Returns:
+        True if successful, False otherwise
+    """
+    try:
+        # Create directories
+        complete_dir = Path("MCAO/Complete")
+        complete_dir.mkdir(parents=True, exist_ok=True)
+
+        logs_dir = Path("MCAO/Logs")
+        logs_dir.mkdir(parents=True, exist_ok=True)
+
+        # Read MCAO_Upload file
+        print_colored(f"📋 Processing MCAO enrichment for: {mcao_upload_path.name}", Colors.CYAN)
+        df_upload = pd.read_excel(mcao_upload_path)
+        total_records = len(df_upload)
+
+        # Initialize MCAO API client
+        try:
+            client = MCAAOAPIClient(rate_limit=5.0)
+        except ValueError as e:
+            print_colored(f"❌ Failed to initialize MCAO API client: {e}", Colors.RED)
+            print_colored("   Ensure MCAO_API_KEY is set in .env file", Colors.YELLOW)
+            return False
+
+        # Process each record
+        results = []
+        errors = []
+        successful = 0
+        failed = 0
+        skipped = 0
+
+        print_colored(f"⚡ Processing {total_records} records at 5 req/sec...", Colors.BLUE)
+        print_colored(f"   Estimated time: ~{(total_records * 6 / 5) / 60:.1f} minutes (6 API calls per APN)", Colors.CYAN)
+
+        start_time = time.time()
+
+        for idx, row in df_upload.iterrows():
+            # Progress indicator
+            if idx % 10 == 0 and idx > 0:
+                elapsed = time.time() - start_time
+                rate = idx / elapsed if elapsed > 0 else 0
+                remaining = (total_records - idx) / rate if rate > 0 else 0
+                print(f"   Progress: {idx}/{total_records} ({idx*100//total_records}%) | "
+                      f"Success: {successful} | Failed: {failed} | "
+                      f"Rate: {rate:.1f} rec/sec | ETA: {remaining/60:.1f} min", flush=True)
+
+            apn = row['APN']
+
+            # Skip if APN is invalid
+            if not apn or str(apn).strip() == '':
+                skipped += 1
+                continue
+
+            # Get all property data from API
+            api_data = client.get_all_property_data(str(apn))
+
+            if api_data.get('data_complete', False):
+                # Map API data to MAX_HEADERS structure
+                mapped_data = client.map_to_max_headers(api_data)
+
+                # Start with the original 3 columns
+                record = {
+                    'FULL_ADDRESS': row['FULL_ADDRESS'],
+                    'COUNTY': row['COUNTY'],
+                    'APN': row['APN']
+                }
+
+                # Add mapped API data
+                record.update(mapped_data)
+
+                # Validate and clean record
+                clean_record = validate_mcao_record(record)
+                results.append(clean_record)
+                successful += 1
+            else:
+                # Log error but don't include in output
+                failed += 1
+                error_entry = {
+                    'FULL_ADDRESS': row['FULL_ADDRESS'],
+                    'COUNTY': row['COUNTY'],
+                    'APN': apn,
+                    'ERRORS': '; '.join(api_data.get('errors', ['Unknown error'])),
+                    'TIMESTAMP': datetime.now().isoformat()
+                }
+                errors.append(error_entry)
+
+        elapsed_total = time.time() - start_time
+
+        # Print summary
+        print_colored(f"\n📊 MCAO Processing Complete:", Colors.BOLD + Colors.BLUE)
+        print_colored(f"   Total records: {total_records}", Colors.CYAN)
+        print_colored(f"   Successful: {successful} ({successful*100//max(total_records, 1)}%)", Colors.GREEN)
+        print_colored(f"   Failed: {failed} ({failed*100//max(total_records, 1)}%)", Colors.YELLOW if failed > 0 else Colors.GREEN)
+        print_colored(f"   Skipped: {skipped}", Colors.YELLOW if skipped > 0 else Colors.GREEN)
+        print_colored(f"   Total time: {elapsed_total/60:.1f} minutes", Colors.CYAN)
+
+        # Save MCAO_Complete if we have results
+        if results:
+            # Create DataFrame with all columns in correct order
+            df_complete = pd.DataFrame(results, columns=MCAO_MAX_HEADERS)
+
+            # Extract timestamp from upload filename
+            timestamp = None
+            if "_MCAO_Upload" in mcao_upload_path.stem:
+                parts = mcao_upload_path.stem.split("_MCAO_Upload")
+                if len(parts) > 1 and parts[1].strip():
+                    timestamp = parts[1].strip()
+
+            if not timestamp:
+                timestamp = datetime.now().strftime("%m.%d.%I-%M-%S")
+
+            # Save MCAO_Complete
+            complete_filename = f"{month_code}_MCAO_Complete {timestamp}.xlsx"
+            complete_path = complete_dir / complete_filename
+
+            if safe_write_excel(df_complete, complete_path):
+                print_colored(f"✅ Created MCAO Complete file: {complete_path}", Colors.GREEN)
+            else:
+                print_colored(f"❌ Failed to save MCAO Complete file", Colors.RED)
+                return False
+
+        # Save error log if there were errors
+        if errors:
+            df_errors = pd.DataFrame(errors)
+            error_filename = f"{month_code}_MCAO_errors_{timestamp}.xlsx"
+            error_path = logs_dir / error_filename
+
+            if safe_write_excel(df_errors, error_path):
+                print_colored(f"📝 Error log saved: {error_path}", Colors.YELLOW)
+
+            # Update cumulative error log
+            cumulative_log = logs_dir / "MCAO_all_errors.xlsx"
+            if cumulative_log.exists():
+                df_existing = pd.read_excel(cumulative_log)
+                df_all_errors = pd.concat([df_existing, df_errors], ignore_index=True)
+            else:
+                df_all_errors = df_errors
+
+            safe_write_excel(df_all_errors, cumulative_log)
+
+        return True
+
+    except Exception as e:
+        print_colored(f"❌ Error processing MCAO Complete: {e}", Colors.RED)
+        import traceback
+        traceback.print_exc()
+        return False
+
 def run_apn_lookup(upload_path: Path):
     """Run apn_lookup.py on the upload file to generate Complete file.
 
@@ -571,7 +823,7 @@ def main():
     months_to_process = months[start_idx:end_idx + 1]
 
     # Get confirmation
-    confirmed, process_apn = get_confirmation(start_month, end_month, months_to_process)
+    confirmed, process_apn, process_mcao = get_confirmation(start_month, end_month, months_to_process)
     if not confirmed:
         print_colored("\n🚫 Processing cancelled by user", Colors.YELLOW)
         return
@@ -584,6 +836,7 @@ def main():
     successful = []
     failed = []
     apn_errors = []
+    mcao_errors = []
 
     for month_code, folder_name, _, _ in months_to_process:
         try:
@@ -605,7 +858,28 @@ def main():
 
                     # Run APN lookup if requested
                     if upload_path and process_apn:
-                        if not run_apn_lookup(upload_path):
+                        apn_complete_path = None
+                        if run_apn_lookup(upload_path):
+                            # Find the generated APN_Complete file
+                            complete_dir = Path("APN/Complete")
+                            if complete_dir.exists():
+                                # Look for most recent file matching pattern
+                                pattern = f"{month_code}_APN_Complete*.xlsx"
+                                matches = list(complete_dir.glob(pattern))
+                                if matches:
+                                    apn_complete_path = max(matches, key=lambda p: p.stat().st_mtime)
+
+                            # Process MCAO if requested and APN_Complete exists
+                            if apn_complete_path and process_mcao:
+                                print_colored(f"\n🔄 Starting MCAO enrichment for {month_code}...", Colors.CYAN)
+                                mcao_upload_path = extract_mcao_upload(month_code, apn_complete_path)
+
+                                if mcao_upload_path:
+                                    if not process_mcao_complete(month_code, mcao_upload_path):
+                                        mcao_errors.append(f"{month_code} (MCAO enrichment failed)")
+                                else:
+                                    mcao_errors.append(f"{month_code} (MCAO upload creation failed)")
+                        else:
                             apn_errors.append(f"{month_code} (lookup failed)")
                 elif analysis_df is None:
                     apn_errors.append(f"{month_code} (no Analysis data)")
@@ -631,6 +905,9 @@ def main():
     if apn_errors:
         print_colored(f"\n⚠️  APN processing issues: {', '.join(apn_errors)}", Colors.YELLOW)
 
+    if mcao_errors:
+        print_colored(f"\n⚠️  MCAO processing issues: {', '.join(mcao_errors)}", Colors.YELLOW)
+
     print_colored("\n📁 Output directories:", Colors.BOLD)
     print_colored("  • Reformat/", Colors.WHITE)
     print_colored("  • All-to-Date/", Colors.WHITE)
@@ -638,6 +915,10 @@ def main():
     print_colored("  • APN/Upload/ (MARICOPA extracts)", Colors.WHITE)
     if process_apn:
         print_colored("  • APN/Complete/ (with APN lookups)", Colors.WHITE)
+    if process_mcao:
+        print_colored("  • MCAO/Upload/ (filtered APNs)", Colors.WHITE)
+        print_colored("  • MCAO/Complete/ (enriched with MCAO data)", Colors.WHITE)
+        print_colored("  • MCAO/Logs/ (error tracking)", Colors.WHITE)
 
 if __name__ == "__main__":
     main()
