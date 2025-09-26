@@ -1,6 +1,10 @@
-# BatchData Bulk Pipeline
+# BatchData Pipeline - Optional Post-Processing Enrichment
 
-A Python package for processing bulk skip-trace operations using BatchData APIs. This pipeline transforms eCorp entity data into BatchData format and processes it through various API endpoints including skip-trace, phone verification, DNC checking, and TCPA compliance.
+## Overview
+
+This is an **OPTIONAL** post-processing pipeline that enriches Arizona Corporation Commission (ACC) entity data with additional contact information using BatchData skip-trace APIs.
+
+**Important**: This is Stage 2 enrichment that runs AFTER the main ADHS ETL pipeline. The primary ACC entity lookup is handled by `src/adhs_etl/ecorp.py` as part of the main pipeline.
 
 ## Features
 
@@ -43,9 +47,9 @@ python -m src.run --input batchdata_local_input.xlsx
 
 ### Transform eCorp Data
 
-Transform and process eCorp data:
+Transform and process eCorp Complete files from the main pipeline:
 ```bash
-python -m src.run --input template.xlsx --ecorp ../8.25\ ecorp\ complete.xlsx
+python -m src.run --input template.xlsx --ecorp "../Complete/M.YY_Ecorp_Complete.xlsx"
 ```
 
 ### Dry Run (Cost Estimation)

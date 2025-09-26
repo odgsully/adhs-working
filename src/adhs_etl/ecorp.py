@@ -14,7 +14,7 @@ Features:
 
 Output Files:
 - Ecorp Upload: 4 columns (FULL_ADDRESS, COUNTY, Owner_Ownership, OWNER_TYPE)
-- Ecorp Complete: 26 columns (Upload + 22 ACC entity fields)
+- Ecorp Complete: 32 columns (Upload + 28 ACC entity fields)
 """
 
 import time
@@ -59,7 +59,18 @@ def classify_name_type(name: str) -> str:
         'COMPANY', 'CO.', 'ASSOCIATION', 'CHURCH', 'PROPERTIES', 'LP',
         'LTD', 'PARTNERSHIP', 'FUND', 'HOLDINGS', 'INVESTMENTS', 'VENTURES',
         'GROUP', 'ENTERPRISE', 'BORROWER', 'ACADEMY', 'COLLEGE', 'UNIVERSITY',
-        'MEDICAL', 'HEALTH', 'CARE', 'SOBER', 'LEARNING', 'PRESCHOOL'
+        'MEDICAL', 'HEALTH', 'CARE', 'SOBER', 'LEARNING', 'PRESCHOOL',
+        # Additional business/organization keywords
+        'CENTERS', 'CENTER', 'HOSPICE', 'HOSPITAL', 'CLINIC',
+        'STATE OF', 'CITY OF', 'COUNTY OF', 'TOWN OF',
+        'UNITED STATES', 'GOVERNMENT', 'FEDERAL', 'MUNICIPAL',
+        'ARMY', 'NAVY', 'AIR FORCE', 'MILITARY', 'SALVATION',
+        'ARC', 'HOUSE', 'HOME', 'HOMES', 'LIVING', 'SENIOR',
+        'FACILITY', 'FACILITIES', 'SERVICES', 'SERVICE',
+        'UNITED', 'METHODIST', 'LUTHERAN', 'EVANGELICAL', 'BAPTIST',
+        'CATHOLIC', 'CHRISTIAN', 'CONGREGATION', 'PRESBYTERY',
+        'ASSEMBLY', 'LEAGUE', 'ASSOCIATES', 'JOINT VENTURE',
+        'DST', 'LIMITED', 'PARTNERS', 'SETTLEMENT', 'HABILITATION'
     ]
 
     # Check for entity keywords
@@ -68,10 +79,6 @@ def classify_name_type(name: str) -> str:
             return "Entity"
 
     # Check for individual patterns
-    # Names with slashes (joint ownership)
-    if '/' in name:
-        return "Individual(s)"
-
     # Simple name patterns (2-4 words, likely person names)
     words = name.strip().split()
     if len(words) >= 2 and len(words) <= 4:
@@ -293,7 +300,7 @@ def search_entities(driver: webdriver.Chrome, name: str) -> List[Dict[str, str]]
 
                             principal_count = 0
                             for row in rows:
-                                if principal_count >= 3:  # Limit to 3 principals
+                                if principal_count >= 5:  # Limit to 5 principals
                                     break
 
                                 cells = row.find_all('td')
@@ -311,8 +318,8 @@ def search_entities(driver: webdriver.Chrome, name: str) -> List[Dict[str, str]]
                 except Exception:
                     pass
 
-                # Ensure we have at least empty strings for the first 3 principals
-                for i in range(1, 4):
+                # Ensure we have at least empty strings for the first 5 principals
+                for i in range(1, 6):
                     if f"Title{i}" not in principals:
                         principals[f"Title{i}"] = ""
                     if f"Name{i}" not in principals:
@@ -355,6 +362,12 @@ def search_entities(driver: webdriver.Chrome, name: str) -> List[Dict[str, str]]
                     "Title3": principal_info.get("Title3", ""),
                     "Name3": principal_info.get("Name3", ""),
                     "Address3": principal_info.get("Address3", ""),
+                    "Title4": principal_info.get("Title4", ""),
+                    "Name4": principal_info.get("Name4", ""),
+                    "Address4": principal_info.get("Address4", ""),
+                    "Title5": principal_info.get("Title5", ""),
+                    "Name5": principal_info.get("Name5", ""),
+                    "Address5": principal_info.get("Address5", ""),
                 }
             )
             # Close tab and switch back
@@ -397,7 +410,9 @@ def get_blank_acc_record() -> dict:
         'Comments': '',
         'Title1': '', 'Name1': '', 'Address1': '',
         'Title2': '', 'Name2': '', 'Address2': '',
-        'Title3': '', 'Name3': '', 'Address3': ''
+        'Title3': '', 'Name3': '', 'Address3': '',
+        'Title4': '', 'Name4': '', 'Address4': '',
+        'Title5': '', 'Name5': '', 'Address5': ''
     }
 
 
@@ -540,9 +555,9 @@ def generate_ecorp_complete(month_code: str, upload_path: Path, headless: bool =
     - Ctrl+C interrupt handling with save
     - Graceful handling of blank Owner_Ownership
 
-    Output has 26 columns:
+    Output has 32 columns:
     - A-D: FULL_ADDRESS, COUNTY, Owner_Ownership, OWNER_TYPE (from Upload)
-    - E-Z: 22 ACC fields (Search Name, Type, Entity details, Principals)
+    - E-AF: 28 ACC fields (Search Name, Type, Entity details, Principals)
 
     Parameters
     ----------

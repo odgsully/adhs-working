@@ -1099,5 +1099,1848 @@
       "description": "Test script help functionality",
       "sandbox": true
     }
+  },
+  {
+    "session_id": "b30aad95-c247-4599-9569-459534b42e66",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/b30aad95-c247-4599-9569-459534b42e66.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "plan",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Bash",
+    "tool_input": {
+      "command": "find . -name \".gitignore\" -type f 2>/dev/null | head -20",
+      "description": "Find all .gitignore files",
+      "sandbox": true
+    }
+  },
+  {
+    "session_id": "b30aad95-c247-4599-9569-459534b42e66",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/b30aad95-c247-4599-9569-459534b42e66.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "plan",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Read",
+    "tool_input": {
+      "file_path": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy/ecorp/agent_ecorp/.gitignore"
+    }
+  },
+  {
+    "session_id": "b30aad95-c247-4599-9569-459534b42e66",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/b30aad95-c247-4599-9569-459534b42e66.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "plan",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Bash",
+    "tool_input": {
+      "command": "ls -la ecorp/agent_ecorp/ | head -20",
+      "description": "Check agent_ecorp directory contents",
+      "sandbox": true
+    }
+  },
+  {
+    "session_id": "b30aad95-c247-4599-9569-459534b42e66",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/b30aad95-c247-4599-9569-459534b42e66.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "plan",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Grep",
+    "tool_input": {
+      "pattern": "^from \\.\\.|^import \\.\\.|from src|import src",
+      "path": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy/ecorp/agent_ecorp/pipeline/src",
+      "output_mode": "content",
+      "-n": true
+    }
+  },
+  {
+    "session_id": "b30aad95-c247-4599-9569-459534b42e66",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/b30aad95-c247-4599-9569-459534b42e66.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "plan",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Grep",
+    "tool_input": {
+      "pattern": "from.*main|import.*main|from.*mapping|import.*mapping",
+      "path": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy/ecorp/agent_ecorp/pipeline",
+      "output_mode": "files_with_matches"
+    }
+  },
+  {
+    "session_id": "b30aad95-c247-4599-9569-459534b42e66",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/b30aad95-c247-4599-9569-459534b42e66.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "plan",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Bash",
+    "tool_input": {
+      "command": "head -20 ecorp/agent_ecorp/pipeline/src/run.py | grep -E \"^import|^from\"",
+      "description": "Check pipeline imports",
+      "sandbox": true
+    }
+  },
+  {
+    "session_id": "b30aad95-c247-4599-9569-459534b42e66",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/b30aad95-c247-4599-9569-459534b42e66.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "plan",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "TodoWrite",
+    "tool_input": {
+      "todos": [
+        {
+          "content": "Analyze current directory structure and dependencies",
+          "status": "completed",
+          "activeForm": "Analyzing directory structure and dependencies"
+        },
+        {
+          "content": "Plan safe consolidation strategy",
+          "status": "in_progress",
+          "activeForm": "Planning safe consolidation strategy"
+        },
+        {
+          "content": "Remove redundant main.py and mapping.py from agent_ecorp",
+          "status": "pending",
+          "activeForm": "Removing redundant main.py and mapping.py"
+        },
+        {
+          "content": "Move BatchData pipeline to better location",
+          "status": "pending",
+          "activeForm": "Moving BatchData pipeline to better location"
+        },
+        {
+          "content": "Clean up redundant .gitignore file",
+          "status": "pending",
+          "activeForm": "Cleaning up redundant .gitignore file"
+        },
+        {
+          "content": "Update documentation references",
+          "status": "pending",
+          "activeForm": "Updating documentation references"
+        },
+        {
+          "content": "Test that all functionality still works",
+          "status": "pending",
+          "activeForm": "Testing all functionality"
+        }
+      ]
+    }
+  },
+  {
+    "session_id": "b30aad95-c247-4599-9569-459534b42e66",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/b30aad95-c247-4599-9569-459534b42e66.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "plan",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "ExitPlanMode",
+    "tool_input": {
+      "plan": "## Safe Consolidation Plan for agent_ecorp\n\n### Analysis Results\nAfter thorough analysis, I've confirmed:\n- **main.py** in agent_ecorp is REDUNDANT - its functionality is already in `src/adhs_etl/ecorp.py`\n- **mapping.py** is UNUSED - just reference data not called by any code\n- **BatchData pipeline** is INDEPENDENT - no dependencies on main.py or mapping.py\n- **Extra .gitignore** is unnecessary duplication of root .gitignore\n\n### Consolidation Plan (No Logic Will Be Lost)\n\n#### 1. Remove Redundant Files\n- **DELETE**: `ecorp/agent_ecorp/main.py` (568 lines of duplicate code)\n- **DELETE**: `ecorp/agent_ecorp/mapping.py` (101 lines of unused reference data)\n- **DELETE**: `ecorp/agent_ecorp/.gitignore` (duplicate of root .gitignore)\n- **DELETE**: `ecorp/agent_ecorp/requirements.txt` (Selenium deps already in main project)\n- **DELETE**: Old sample files (`8.25 ecorp in progress.xlsx`, `v2EDITTED8.25 copy.xlsx`)\n\n#### 2. Reorganize BatchData Pipeline\nMove from `ecorp/agent_ecorp/pipeline/` to `ecorp/batchdata_pipeline/`:\n```\necorp/\n\u251c\u2500\u2500 batchdata_pipeline/        # Renamed for clarity\n\u2502   \u251c\u2500\u2500 README.md              # Clear explanation this is optional post-processing\n\u2502   \u251c\u2500\u2500 pipeline/\n\u2502   \u2502   \u251c\u2500\u2500 src/              # Keep all BatchData code (unchanged)\n\u2502   \u2502   \u2514\u2500\u2500 results/          # Output directory\n\u2502   \u2514\u2500\u2500 docs/\n\u2502       \u251c\u2500\u2500 BATCHDATA.md      # Move current CLAUDE.md here\n\u2502       \u2514\u2500\u2500 examples/         # batchdata_local_pack contents\n```\n\n#### 3. Update Documentation\n- Update root `CLAUDE.md` to clarify:\n  - ACC lookup is integrated in main pipeline\n  - BatchData is optional post-processing in `ecorp/batchdata_pipeline/`\n- Create new `ecorp/batchdata_pipeline/README.md` explaining this is Stage 2 enrichment\n\n#### 4. What Will NOT Change (Preserving All Logic)\n\u2705 `src/adhs_etl/ecorp.py` - Remains the primary ACC lookup\n\u2705 All BatchData pipeline code - Just moved, not modified\n\u2705 `scripts/test_ecorp_standalone.py` - Will still work\n\u2705 `process_months_local.py` - No changes needed\n\n### Benefits of This Consolidation\n1. **Eliminates confusion** - Only ONE place for ACC scraping logic\n2. **Clearer structure** - BatchData clearly marked as optional enrichment\n3. **No duplicate .gitignore** - Single source of truth\n4. **Preserves modularity** - BatchData can still run independently\n5. **All functionality intact** - Nothing breaks\n\n### Files Summary\n- **5 files to delete** (all redundant/unused)\n- **1 directory to move/rename** (BatchData pipeline)\n- **2 documentation files to update** (clarify the flow)\n\nThis consolidation removes ~750 lines of redundant code while preserving all functionality!"
+    }
+  },
+  {
+    "session_id": "b30aad95-c247-4599-9569-459534b42e66",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/b30aad95-c247-4599-9569-459534b42e66.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "plan",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Bash",
+    "tool_input": {
+      "command": "grep -r \"from.*agent_ecorp\" . --include=\"*.py\" 2>/dev/null | grep -v \"__pycache__\"",
+      "description": "Check if anything imports from agent_ecorp",
+      "sandbox": true
+    }
+  },
+  {
+    "session_id": "b30aad95-c247-4599-9569-459534b42e66",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/b30aad95-c247-4599-9569-459534b42e66.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "plan",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Bash",
+    "tool_input": {
+      "command": "grep -r \"ecorp/agent_ecorp\" . --include=\"*.py\" --include=\"*.md\" 2>/dev/null | grep -v \"Binary file\"",
+      "description": "Check for references to agent_ecorp path",
+      "sandbox": true
+    }
+  },
+  {
+    "session_id": "b30aad95-c247-4599-9569-459534b42e66",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/b30aad95-c247-4599-9569-459534b42e66.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "plan",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Bash",
+    "tool_input": {
+      "command": "grep -r \"import main\" ecorp/agent_ecorp/pipeline --include=\"*.py\" 2>/dev/null",
+      "description": "Check if pipeline imports main.py",
+      "sandbox": true
+    }
+  },
+  {
+    "session_id": "b30aad95-c247-4599-9569-459534b42e66",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/b30aad95-c247-4599-9569-459534b42e66.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "plan",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Bash",
+    "tool_input": {
+      "command": "grep -r \"mapping.py\" ecorp/agent_ecorp --include=\"*.py\" 2>/dev/null",
+      "description": "Check if mapping.py is referenced",
+      "sandbox": true
+    }
+  },
+  {
+    "session_id": "b30aad95-c247-4599-9569-459534b42e66",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/b30aad95-c247-4599-9569-459534b42e66.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "plan",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Bash",
+    "tool_input": {
+      "command": "python3 -c \"import sys; sys.path.insert(0, 'ecorp/agent_ecorp'); import main; print('main.py imports successfully')\" 2>&1",
+      "description": "Test if main.py can run standalone",
+      "sandbox": true
+    }
+  },
+  {
+    "session_id": "b30aad95-c247-4599-9569-459534b42e66",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/b30aad95-c247-4599-9569-459534b42e66.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "plan",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Bash",
+    "tool_input": {
+      "command": "cd ecorp/agent_ecorp && python3 main.py --help 2>&1 | head -10",
+      "description": "Check if main.py is functional",
+      "sandbox": true
+    }
+  },
+  {
+    "session_id": "75574880-fde6-467a-95f5-572eddc9e0f0",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/75574880-fde6-467a-95f5-572eddc9e0f0.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "plan",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "TodoWrite",
+    "tool_input": {
+      "todos": [
+        {
+          "content": "Analyze ecorp directory structure and dependencies",
+          "status": "in_progress",
+          "activeForm": "Analyzing ecorp directory structure and dependencies"
+        },
+        {
+          "content": "Verify what files are safe to remove",
+          "status": "pending",
+          "activeForm": "Verifying what files are safe to remove"
+        },
+        {
+          "content": "Create conservative consolidation plan",
+          "status": "pending",
+          "activeForm": "Creating conservative consolidation plan"
+        },
+        {
+          "content": "Document hook configuration requirements",
+          "status": "pending",
+          "activeForm": "Documenting hook configuration requirements"
+        }
+      ]
+    }
+  },
+  {
+    "session_id": "75574880-fde6-467a-95f5-572eddc9e0f0",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/75574880-fde6-467a-95f5-572eddc9e0f0.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "plan",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Bash",
+    "tool_input": {
+      "command": "pwd",
+      "description": "Check current working directory"
+    }
+  },
+  {
+    "session_id": "75574880-fde6-467a-95f5-572eddc9e0f0",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/75574880-fde6-467a-95f5-572eddc9e0f0.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "plan",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Bash",
+    "tool_input": {
+      "command": "ls -la ecorp/",
+      "description": "List ecorp directory contents"
+    }
+  },
+  {
+    "session_id": "75574880-fde6-467a-95f5-572eddc9e0f0",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/75574880-fde6-467a-95f5-572eddc9e0f0.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "plan",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Bash",
+    "tool_input": {
+      "command": "ls -la ecorp/agent_ecorp/",
+      "description": "List agent_ecorp directory contents"
+    }
+  },
+  {
+    "session_id": "75574880-fde6-467a-95f5-572eddc9e0f0",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/75574880-fde6-467a-95f5-572eddc9e0f0.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "plan",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Grep",
+    "tool_input": {
+      "pattern": "from ecorp|import.*ecorp|agent_ecorp",
+      "path": "src",
+      "output_mode": "content",
+      "-n": true
+    }
+  },
+  {
+    "session_id": "75574880-fde6-467a-95f5-572eddc9e0f0",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/75574880-fde6-467a-95f5-572eddc9e0f0.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "plan",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Grep",
+    "tool_input": {
+      "pattern": "from ecorp|import.*ecorp|agent_ecorp",
+      "path": "scripts",
+      "output_mode": "content",
+      "-n": true
+    }
+  },
+  {
+    "session_id": "75574880-fde6-467a-95f5-572eddc9e0f0",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/75574880-fde6-467a-95f5-572eddc9e0f0.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "plan",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "TodoWrite",
+    "tool_input": {
+      "todos": [
+        {
+          "content": "Analyze ecorp directory structure and dependencies",
+          "status": "completed",
+          "activeForm": "Analyzing ecorp directory structure and dependencies"
+        },
+        {
+          "content": "Verify what files are safe to remove",
+          "status": "in_progress",
+          "activeForm": "Verifying what files are safe to remove"
+        },
+        {
+          "content": "Create conservative consolidation plan",
+          "status": "pending",
+          "activeForm": "Creating conservative consolidation plan"
+        },
+        {
+          "content": "Document hook configuration requirements",
+          "status": "pending",
+          "activeForm": "Documenting hook configuration requirements"
+        }
+      ]
+    }
+  },
+  {
+    "session_id": "75574880-fde6-467a-95f5-572eddc9e0f0",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/75574880-fde6-467a-95f5-572eddc9e0f0.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "plan",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Grep",
+    "tool_input": {
+      "pattern": "from.*mapping|import.*mapping",
+      "path": "ecorp/agent_ecorp",
+      "output_mode": "content",
+      "-n": true
+    }
+  },
+  {
+    "session_id": "75574880-fde6-467a-95f5-572eddc9e0f0",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/75574880-fde6-467a-95f5-572eddc9e0f0.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "plan",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Grep",
+    "tool_input": {
+      "pattern": "from main|import main|from \\.\\. import main",
+      "path": "ecorp/agent_ecorp/pipeline",
+      "output_mode": "content",
+      "-n": true
+    }
+  },
+  {
+    "session_id": "75574880-fde6-467a-95f5-572eddc9e0f0",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/75574880-fde6-467a-95f5-572eddc9e0f0.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "plan",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Bash",
+    "tool_input": {
+      "command": "ls -la ecorp/agent_ecorp/pipeline/",
+      "description": "Check pipeline directory structure"
+    }
+  },
+  {
+    "session_id": "75574880-fde6-467a-95f5-572eddc9e0f0",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/75574880-fde6-467a-95f5-572eddc9e0f0.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "plan",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Read",
+    "tool_input": {
+      "file_path": "ecorp/agent_ecorp/pipeline/README.md",
+      "limit": 50
+    }
+  },
+  {
+    "session_id": "75574880-fde6-467a-95f5-572eddc9e0f0",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/75574880-fde6-467a-95f5-572eddc9e0f0.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "plan",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Bash",
+    "tool_input": {
+      "command": "head -n 30 ecorp/agent_ecorp/main.py",
+      "description": "Check main.py header and imports"
+    }
+  },
+  {
+    "session_id": "75574880-fde6-467a-95f5-572eddc9e0f0",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/75574880-fde6-467a-95f5-572eddc9e0f0.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "plan",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Read",
+    "tool_input": {
+      "file_path": "src/adhs_etl/ecorp.py",
+      "limit": 30
+    }
+  },
+  {
+    "session_id": "75574880-fde6-467a-95f5-572eddc9e0f0",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/75574880-fde6-467a-95f5-572eddc9e0f0.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "plan",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Bash",
+    "tool_input": {
+      "command": "find ecorp/agent_ecorp/pipeline -name \"*.py\" -type f -exec grep -l \"from \\.\\.\" {} \\;",
+      "description": "Check if pipeline imports from parent directories"
+    }
+  },
+  {
+    "session_id": "75574880-fde6-467a-95f5-572eddc9e0f0",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/75574880-fde6-467a-95f5-572eddc9e0f0.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "plan",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Bash",
+    "tool_input": {
+      "command": "wc -l ecorp/agent_ecorp/main.py ecorp/agent_ecorp/mapping.py src/adhs_etl/ecorp.py",
+      "description": "Compare line counts between files"
+    }
+  },
+  {
+    "session_id": "75574880-fde6-467a-95f5-572eddc9e0f0",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/75574880-fde6-467a-95f5-572eddc9e0f0.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "plan",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "TodoWrite",
+    "tool_input": {
+      "todos": [
+        {
+          "content": "Analyze ecorp directory structure and dependencies",
+          "status": "completed",
+          "activeForm": "Analyzing ecorp directory structure and dependencies"
+        },
+        {
+          "content": "Verify what files are safe to remove",
+          "status": "completed",
+          "activeForm": "Verifying what files are safe to remove"
+        },
+        {
+          "content": "Create conservative consolidation plan",
+          "status": "in_progress",
+          "activeForm": "Creating conservative consolidation plan"
+        },
+        {
+          "content": "Document hook configuration requirements",
+          "status": "pending",
+          "activeForm": "Documenting hook configuration requirements"
+        }
+      ]
+    }
+  },
+  {
+    "session_id": "75574880-fde6-467a-95f5-572eddc9e0f0",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/75574880-fde6-467a-95f5-572eddc9e0f0.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "plan",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Bash",
+    "tool_input": {
+      "command": "ls -la .claude/hooks/ 2>/dev/null || echo \"No hooks directory found\"",
+      "description": "Check hooks directory"
+    }
+  },
+  {
+    "session_id": "75574880-fde6-467a-95f5-572eddc9e0f0",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/75574880-fde6-467a-95f5-572eddc9e0f0.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "plan",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "TodoWrite",
+    "tool_input": {
+      "todos": [
+        {
+          "content": "Analyze ecorp directory structure and dependencies",
+          "status": "completed",
+          "activeForm": "Analyzing ecorp directory structure and dependencies"
+        },
+        {
+          "content": "Verify what files are safe to remove",
+          "status": "completed",
+          "activeForm": "Verifying what files are safe to remove"
+        },
+        {
+          "content": "Create conservative consolidation plan",
+          "status": "completed",
+          "activeForm": "Creating conservative consolidation plan"
+        },
+        {
+          "content": "Document hook configuration requirements",
+          "status": "completed",
+          "activeForm": "Documenting hook configuration requirements"
+        }
+      ]
+    }
+  },
+  {
+    "session_id": "75574880-fde6-467a-95f5-572eddc9e0f0",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/75574880-fde6-467a-95f5-572eddc9e0f0.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "plan",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "ExitPlanMode",
+    "tool_input": {
+      "plan": "## Conservative Consolidation Plan for ecorp Directory\n\nAfter thorough analysis, here's a **CONSERVATIVE** plan that preserves all functionality:\n\n### \u2705 SAFE TO REMOVE (No Dependencies Found)\n1. **ecorp/agent_ecorp/main.py** (567 lines)\n   - REDUNDANT: Same functionality exists in src/adhs_etl/ecorp.py (655 lines)\n   - NOT imported by any code in the project\n   - Standalone script with its own CLI\n\n2. **ecorp/agent_ecorp/mapping.py** (100 lines)\n   - UNUSED: Not imported anywhere, not even within agent_ecorp\n   - Just reference data, no active code\n\n3. **ecorp/agent_ecorp/.gitignore**\n   - Duplicate of root .gitignore\n   \n4. **ecorp/agent_ecorp/requirements.txt**\n   - Dependencies already in main project\n\n5. **Old Excel files**:\n   - 8.25 ecorp in progress.xlsx\n   - v2EDITTED8.25 copy.xlsx\n   - ~$v2EDITTED8.25 copy.xlsx (temp file)\n\n### \u2705 KEEP & REORGANIZE\n**ecorp/agent_ecorp/pipeline/** \u2192 **ecorp/batchdata_pipeline/**\n- Fully independent BatchData integration\n- No dependencies on main.py or mapping.py\n- Has its own entry point and documentation\n\n### \ud83d\udcdd Documentation Updates\n1. Update root CLAUDE.md to clarify:\n   - ACC lookup: Use src/adhs_etl/ecorp.py (integrated in main pipeline)\n   - BatchData enrichment: Optional post-processing in ecorp/batchdata_pipeline/\n\n2. Move ecorp/agent_ecorp/CLAUDE.md \u2192 ecorp/batchdata_pipeline/docs/BATCHDATA.md\n\n3. Create ecorp/batchdata_pipeline/README.md explaining this is Stage 2 enrichment\n\n### \u26a0\ufe0f Hook Issue Resolution\nThe hooks are failing because they look for .claude/hooks/pre_tool_use.py relative to the working directory. When commands run from ecorp/agent_ecorp/, the hooks can't be found. After consolidation, this issue will be resolved.\n\n### Summary\n- **Remove**: 750+ lines of redundant/unused code\n- **Preserve**: ALL active functionality\n- **Improve**: Clearer structure, no duplication\n- **Fix**: Hook path issues"
+    }
+  },
+  {
+    "session_id": "75574880-fde6-467a-95f5-572eddc9e0f0",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/75574880-fde6-467a-95f5-572eddc9e0f0.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "acceptEdits",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "TodoWrite",
+    "tool_input": {
+      "todos": [
+        {
+          "content": "Remove redundant files from agent_ecorp",
+          "status": "pending",
+          "activeForm": "Removing redundant files from agent_ecorp"
+        },
+        {
+          "content": "Move pipeline directory to batchdata_pipeline",
+          "status": "pending",
+          "activeForm": "Moving pipeline directory to batchdata_pipeline"
+        },
+        {
+          "content": "Move and update documentation files",
+          "status": "pending",
+          "activeForm": "Moving and updating documentation files"
+        },
+        {
+          "content": "Update root CLAUDE.md with clarifications",
+          "status": "pending",
+          "activeForm": "Updating root CLAUDE.md with clarifications"
+        },
+        {
+          "content": "Create new README for batchdata_pipeline",
+          "status": "pending",
+          "activeForm": "Creating new README for batchdata_pipeline"
+        },
+        {
+          "content": "Test that ecorp functionality still works",
+          "status": "pending",
+          "activeForm": "Testing that ecorp functionality still works"
+        }
+      ]
+    }
+  },
+  {
+    "session_id": "75574880-fde6-467a-95f5-572eddc9e0f0",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/75574880-fde6-467a-95f5-572eddc9e0f0.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "acceptEdits",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "TodoWrite",
+    "tool_input": {
+      "todos": [
+        {
+          "content": "Remove redundant files from agent_ecorp",
+          "status": "in_progress",
+          "activeForm": "Removing redundant files from agent_ecorp"
+        },
+        {
+          "content": "Move pipeline directory to batchdata_pipeline",
+          "status": "pending",
+          "activeForm": "Moving pipeline directory to batchdata_pipeline"
+        },
+        {
+          "content": "Move and update documentation files",
+          "status": "pending",
+          "activeForm": "Moving and updating documentation files"
+        },
+        {
+          "content": "Update root CLAUDE.md with clarifications",
+          "status": "pending",
+          "activeForm": "Updating root CLAUDE.md with clarifications"
+        },
+        {
+          "content": "Create new README for batchdata_pipeline",
+          "status": "pending",
+          "activeForm": "Creating new README for batchdata_pipeline"
+        },
+        {
+          "content": "Test that ecorp functionality still works",
+          "status": "pending",
+          "activeForm": "Testing that ecorp functionality still works"
+        }
+      ]
+    }
+  },
+  {
+    "session_id": "75574880-fde6-467a-95f5-572eddc9e0f0",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/75574880-fde6-467a-95f5-572eddc9e0f0.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "acceptEdits",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Bash",
+    "tool_input": {
+      "command": "rm ecorp/agent_ecorp/main.py ecorp/agent_ecorp/mapping.py ecorp/agent_ecorp/.gitignore ecorp/agent_ecorp/requirements.txt",
+      "description": "Remove redundant Python files and configs"
+    }
+  },
+  {
+    "session_id": "75574880-fde6-467a-95f5-572eddc9e0f0",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/75574880-fde6-467a-95f5-572eddc9e0f0.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "acceptEdits",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Bash",
+    "tool_input": {
+      "command": "rm ecorp/agent_ecorp/*.xlsx ecorp/agent_ecorp/~*",
+      "description": "Remove old Excel files and temp files"
+    }
+  },
+  {
+    "session_id": "75574880-fde6-467a-95f5-572eddc9e0f0",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/75574880-fde6-467a-95f5-572eddc9e0f0.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "acceptEdits",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Bash",
+    "tool_input": {
+      "command": "rm -f ecorp/agent_ecorp/*.xlsx ecorp/agent_ecorp/~* 2>/dev/null; echo \"Excel files removed\"",
+      "description": "Remove Excel files ignoring errors"
+    }
+  },
+  {
+    "session_id": "75574880-fde6-467a-95f5-572eddc9e0f0",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/75574880-fde6-467a-95f5-572eddc9e0f0.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "acceptEdits",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "TodoWrite",
+    "tool_input": {
+      "todos": [
+        {
+          "content": "Remove redundant files from agent_ecorp",
+          "status": "completed",
+          "activeForm": "Removing redundant files from agent_ecorp"
+        },
+        {
+          "content": "Move pipeline directory to batchdata_pipeline",
+          "status": "in_progress",
+          "activeForm": "Moving pipeline directory to batchdata_pipeline"
+        },
+        {
+          "content": "Move and update documentation files",
+          "status": "pending",
+          "activeForm": "Moving and updating documentation files"
+        },
+        {
+          "content": "Update root CLAUDE.md with clarifications",
+          "status": "pending",
+          "activeForm": "Updating root CLAUDE.md with clarifications"
+        },
+        {
+          "content": "Create new README for batchdata_pipeline",
+          "status": "pending",
+          "activeForm": "Creating new README for batchdata_pipeline"
+        },
+        {
+          "content": "Test that ecorp functionality still works",
+          "status": "pending",
+          "activeForm": "Testing that ecorp functionality still works"
+        }
+      ]
+    }
+  },
+  {
+    "session_id": "75574880-fde6-467a-95f5-572eddc9e0f0",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/75574880-fde6-467a-95f5-572eddc9e0f0.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "acceptEdits",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Bash",
+    "tool_input": {
+      "command": "mv ecorp/agent_ecorp/pipeline ecorp/batchdata_pipeline",
+      "description": "Move pipeline to new location"
+    }
+  },
+  {
+    "session_id": "75574880-fde6-467a-95f5-572eddc9e0f0",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/75574880-fde6-467a-95f5-572eddc9e0f0.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "acceptEdits",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "TodoWrite",
+    "tool_input": {
+      "todos": [
+        {
+          "content": "Remove redundant files from agent_ecorp",
+          "status": "completed",
+          "activeForm": "Removing redundant files from agent_ecorp"
+        },
+        {
+          "content": "Move pipeline directory to batchdata_pipeline",
+          "status": "completed",
+          "activeForm": "Moving pipeline directory to batchdata_pipeline"
+        },
+        {
+          "content": "Move and update documentation files",
+          "status": "in_progress",
+          "activeForm": "Moving and updating documentation files"
+        },
+        {
+          "content": "Update root CLAUDE.md with clarifications",
+          "status": "pending",
+          "activeForm": "Updating root CLAUDE.md with clarifications"
+        },
+        {
+          "content": "Create new README for batchdata_pipeline",
+          "status": "pending",
+          "activeForm": "Creating new README for batchdata_pipeline"
+        },
+        {
+          "content": "Test that ecorp functionality still works",
+          "status": "pending",
+          "activeForm": "Testing that ecorp functionality still works"
+        }
+      ]
+    }
+  },
+  {
+    "session_id": "75574880-fde6-467a-95f5-572eddc9e0f0",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/75574880-fde6-467a-95f5-572eddc9e0f0.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "acceptEdits",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Bash",
+    "tool_input": {
+      "command": "mkdir -p ecorp/batchdata_pipeline/docs",
+      "description": "Create docs directory for batchdata"
+    }
+  },
+  {
+    "session_id": "75574880-fde6-467a-95f5-572eddc9e0f0",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/75574880-fde6-467a-95f5-572eddc9e0f0.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "acceptEdits",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Bash",
+    "tool_input": {
+      "command": "mv ecorp/agent_ecorp/CLAUDE.md ecorp/batchdata_pipeline/docs/BATCHDATA.md",
+      "description": "Move CLAUDE.md to batchdata docs"
+    }
+  },
+  {
+    "session_id": "75574880-fde6-467a-95f5-572eddc9e0f0",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/75574880-fde6-467a-95f5-572eddc9e0f0.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "acceptEdits",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Bash",
+    "tool_input": {
+      "command": "mv ecorp/agent_ecorp/batchdata_local_pack ecorp/batchdata_pipeline/docs/examples",
+      "description": "Move batchdata examples to docs"
+    }
+  },
+  {
+    "session_id": "75574880-fde6-467a-95f5-572eddc9e0f0",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/75574880-fde6-467a-95f5-572eddc9e0f0.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "acceptEdits",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "TodoWrite",
+    "tool_input": {
+      "todos": [
+        {
+          "content": "Remove redundant files from agent_ecorp",
+          "status": "completed",
+          "activeForm": "Removing redundant files from agent_ecorp"
+        },
+        {
+          "content": "Move pipeline directory to batchdata_pipeline",
+          "status": "completed",
+          "activeForm": "Moving pipeline directory to batchdata_pipeline"
+        },
+        {
+          "content": "Move and update documentation files",
+          "status": "completed",
+          "activeForm": "Moving and updating documentation files"
+        },
+        {
+          "content": "Update root CLAUDE.md with clarifications",
+          "status": "in_progress",
+          "activeForm": "Updating root CLAUDE.md with clarifications"
+        },
+        {
+          "content": "Create new README for batchdata_pipeline",
+          "status": "pending",
+          "activeForm": "Creating new README for batchdata_pipeline"
+        },
+        {
+          "content": "Test that ecorp functionality still works",
+          "status": "pending",
+          "activeForm": "Testing that ecorp functionality still works"
+        }
+      ]
+    }
+  },
+  {
+    "session_id": "75574880-fde6-467a-95f5-572eddc9e0f0",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/75574880-fde6-467a-95f5-572eddc9e0f0.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "acceptEdits",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Edit",
+    "tool_input": {
+      "file_path": "CLAUDE.md",
+      "old_string": "11. **Output Files** \u2014 Pipeline generates multiple types:\n    * **Reformat**: Standardized data with MONTH, YEAR, PROVIDER_TYPE, PROVIDER, ADDRESS, CITY, ZIP, FULL_ADDRESS, CAPACITY, LONGITUDE, LATITUDE, COUNTY, PROVIDER_GROUP_INDEX_#\n    * **All-to-Date**: Cumulative data across all months processed\n    * **Analysis**: Full business analysis with 3 sheets (Summary, Blanks Count, Analysis) including lost license detection, MCAO property data, and extended tracking per v300Track_this.md\n    * **APN Processing** (optional): For MARICOPA records, generates Upload files and Complete files with Assessor Parcel Numbers\n    * **MCAO Processing** (optional): Enriches APN data with 84 property fields from Maricopa County Assessor API\n    * **Ecorp Upload**: 4 columns (FULL_ADDRESS, COUNTY, Owner_Ownership, OWNER_TYPE) extracted from MCAO_Complete\n    * **Ecorp Complete**: Upload columns + 22 ACC entity fields (entity details, principals, registration data)",
+      "new_string": "11. **Output Files** \u2014 Pipeline generates multiple types:\n    * **Reformat**: Standardized data with MONTH, YEAR, PROVIDER_TYPE, PROVIDER, ADDRESS, CITY, ZIP, FULL_ADDRESS, CAPACITY, LONGITUDE, LATITUDE, COUNTY, PROVIDER_GROUP_INDEX_#\n    * **All-to-Date**: Cumulative data across all months processed\n    * **Analysis**: Full business analysis with 3 sheets (Summary, Blanks Count, Analysis) including lost license detection, MCAO property data, and extended tracking per v300Track_this.md\n    * **APN Processing** (optional): For MARICOPA records, generates Upload files and Complete files with Assessor Parcel Numbers\n    * **MCAO Processing** (optional): Enriches APN data with 84 property fields from Maricopa County Assessor API\n    * **Ecorp Upload**: 4 columns (FULL_ADDRESS, COUNTY, Owner_Ownership, OWNER_TYPE) extracted from MCAO_Complete\n    * **Ecorp Complete**: Upload columns + 22 ACC entity fields (entity details, principals, registration data) - Generated via `src/adhs_etl/ecorp.py`\n    * **BatchData Enrichment** (optional post-processing): Additional contact discovery available in `ecorp/batchdata_pipeline/` for skip-trace and phone verification"
+    }
+  },
+  {
+    "session_id": "75574880-fde6-467a-95f5-572eddc9e0f0",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/75574880-fde6-467a-95f5-572eddc9e0f0.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "acceptEdits",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "TodoWrite",
+    "tool_input": {
+      "todos": [
+        {
+          "content": "Remove redundant files from agent_ecorp",
+          "status": "completed",
+          "activeForm": "Removing redundant files from agent_ecorp"
+        },
+        {
+          "content": "Move pipeline directory to batchdata_pipeline",
+          "status": "completed",
+          "activeForm": "Moving pipeline directory to batchdata_pipeline"
+        },
+        {
+          "content": "Move and update documentation files",
+          "status": "completed",
+          "activeForm": "Moving and updating documentation files"
+        },
+        {
+          "content": "Update root CLAUDE.md with clarifications",
+          "status": "completed",
+          "activeForm": "Updating root CLAUDE.md with clarifications"
+        },
+        {
+          "content": "Create new README for batchdata_pipeline",
+          "status": "in_progress",
+          "activeForm": "Creating new README for batchdata_pipeline"
+        },
+        {
+          "content": "Test that ecorp functionality still works",
+          "status": "pending",
+          "activeForm": "Testing that ecorp functionality still works"
+        }
+      ]
+    }
+  },
+  {
+    "session_id": "75574880-fde6-467a-95f5-572eddc9e0f0",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/75574880-fde6-467a-95f5-572eddc9e0f0.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "acceptEdits",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Bash",
+    "tool_input": {
+      "command": "touch ecorp/batchdata_pipeline/README.md",
+      "description": "Create README file"
+    }
+  },
+  {
+    "session_id": "75574880-fde6-467a-95f5-572eddc9e0f0",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/75574880-fde6-467a-95f5-572eddc9e0f0.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "acceptEdits",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Read",
+    "tool_input": {
+      "file_path": "ecorp/batchdata_pipeline/README.md"
+    }
+  },
+  {
+    "session_id": "75574880-fde6-467a-95f5-572eddc9e0f0",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/75574880-fde6-467a-95f5-572eddc9e0f0.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "acceptEdits",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Edit",
+    "tool_input": {
+      "file_path": "ecorp/batchdata_pipeline/README.md",
+      "old_string": "# BatchData Bulk Pipeline\n\nA Python package for processing bulk skip-trace operations using BatchData APIs. This pipeline transforms eCorp entity data into BatchData format and processes it through various API endpoints including skip-trace, phone verification, DNC checking, and TCPA compliance.",
+      "new_string": "# BatchData Pipeline - Optional Post-Processing Enrichment\n\n## Overview\n\nThis is an **OPTIONAL** post-processing pipeline that enriches Arizona Corporation Commission (ACC) entity data with additional contact information using BatchData skip-trace APIs.\n\n**Important**: This is Stage 2 enrichment that runs AFTER the main ADHS ETL pipeline. The primary ACC entity lookup is handled by `src/adhs_etl/ecorp.py` as part of the main pipeline."
+    }
+  },
+  {
+    "session_id": "75574880-fde6-467a-95f5-572eddc9e0f0",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/75574880-fde6-467a-95f5-572eddc9e0f0.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "acceptEdits",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Edit",
+    "tool_input": {
+      "file_path": "ecorp/batchdata_pipeline/README.md",
+      "old_string": "### Transform eCorp Data\n\nTransform and process eCorp data:\n```bash\npython -m src.run --input template.xlsx --ecorp ../8.25\\ ecorp\\ complete.xlsx\n```",
+      "new_string": "### Transform eCorp Data\n\nTransform and process eCorp Complete files from the main pipeline:\n```bash\npython -m src.run --input template.xlsx --ecorp \"../Complete/M.YY_Ecorp_Complete.xlsx\"\n```"
+    }
+  },
+  {
+    "session_id": "75574880-fde6-467a-95f5-572eddc9e0f0",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/75574880-fde6-467a-95f5-572eddc9e0f0.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "acceptEdits",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "TodoWrite",
+    "tool_input": {
+      "todos": [
+        {
+          "content": "Remove redundant files from agent_ecorp",
+          "status": "completed",
+          "activeForm": "Removing redundant files from agent_ecorp"
+        },
+        {
+          "content": "Move pipeline directory to batchdata_pipeline",
+          "status": "completed",
+          "activeForm": "Moving pipeline directory to batchdata_pipeline"
+        },
+        {
+          "content": "Move and update documentation files",
+          "status": "completed",
+          "activeForm": "Moving and updating documentation files"
+        },
+        {
+          "content": "Update root CLAUDE.md with clarifications",
+          "status": "completed",
+          "activeForm": "Updating root CLAUDE.md with clarifications"
+        },
+        {
+          "content": "Create new README for batchdata_pipeline",
+          "status": "completed",
+          "activeForm": "Creating new README for batchdata_pipeline"
+        },
+        {
+          "content": "Test that ecorp functionality still works",
+          "status": "in_progress",
+          "activeForm": "Testing that ecorp functionality still works"
+        }
+      ]
+    }
+  },
+  {
+    "session_id": "75574880-fde6-467a-95f5-572eddc9e0f0",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/75574880-fde6-467a-95f5-572eddc9e0f0.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "acceptEdits",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Bash",
+    "tool_input": {
+      "command": "timeout 60 python3 scripts/test_ecorp_standalone.py",
+      "description": "Test ecorp functionality"
+    }
+  },
+  {
+    "session_id": "75574880-fde6-467a-95f5-572eddc9e0f0",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/75574880-fde6-467a-95f5-572eddc9e0f0.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "acceptEdits",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Bash",
+    "tool_input": {
+      "command": "python3 scripts/test_ecorp_standalone.py",
+      "timeout": 60000,
+      "description": "Test ecorp functionality"
+    }
+  },
+  {
+    "session_id": "75574880-fde6-467a-95f5-572eddc9e0f0",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/75574880-fde6-467a-95f5-572eddc9e0f0.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "acceptEdits",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Bash",
+    "tool_input": {
+      "command": "python3 -c \"from src.adhs_etl.ecorp import generate_ecorp_upload, generate_ecorp_complete; print('Ecorp imports successful')\"",
+      "description": "Test ecorp imports"
+    }
+  },
+  {
+    "session_id": "75574880-fde6-467a-95f5-572eddc9e0f0",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/75574880-fde6-467a-95f5-572eddc9e0f0.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "acceptEdits",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Bash",
+    "tool_input": {
+      "command": "ls -la ecorp/",
+      "description": "Check final ecorp structure"
+    }
+  },
+  {
+    "session_id": "75574880-fde6-467a-95f5-572eddc9e0f0",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/75574880-fde6-467a-95f5-572eddc9e0f0.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "acceptEdits",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Bash",
+    "tool_input": {
+      "command": "ls -la ecorp/agent_ecorp/",
+      "description": "Check what's left in agent_ecorp"
+    }
+  },
+  {
+    "session_id": "75574880-fde6-467a-95f5-572eddc9e0f0",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/75574880-fde6-467a-95f5-572eddc9e0f0.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "acceptEdits",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "TodoWrite",
+    "tool_input": {
+      "todos": [
+        {
+          "content": "Remove redundant files from agent_ecorp",
+          "status": "completed",
+          "activeForm": "Removing redundant files from agent_ecorp"
+        },
+        {
+          "content": "Move pipeline directory to batchdata_pipeline",
+          "status": "completed",
+          "activeForm": "Moving pipeline directory to batchdata_pipeline"
+        },
+        {
+          "content": "Move and update documentation files",
+          "status": "completed",
+          "activeForm": "Moving and updating documentation files"
+        },
+        {
+          "content": "Update root CLAUDE.md with clarifications",
+          "status": "completed",
+          "activeForm": "Updating root CLAUDE.md with clarifications"
+        },
+        {
+          "content": "Create new README for batchdata_pipeline",
+          "status": "completed",
+          "activeForm": "Creating new README for batchdata_pipeline"
+        },
+        {
+          "content": "Test that ecorp functionality still works",
+          "status": "completed",
+          "activeForm": "Testing that ecorp functionality still works"
+        }
+      ]
+    }
+  },
+  {
+    "session_id": "75574880-fde6-467a-95f5-572eddc9e0f0",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/75574880-fde6-467a-95f5-572eddc9e0f0.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "plan",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "TodoWrite",
+    "tool_input": {
+      "todos": [
+        {
+          "content": "Examine current ecorp.py to understand OWNER_TYPE classification logic",
+          "status": "in_progress",
+          "activeForm": "Examining current ecorp.py to understand OWNER_TYPE classification logic"
+        },
+        {
+          "content": "Identify patterns in business names that are being misclassified",
+          "status": "pending",
+          "activeForm": "Identifying patterns in business names that are being misclassified"
+        },
+        {
+          "content": "Add logic to correctly identify BUSINESS entities",
+          "status": "pending",
+          "activeForm": "Adding logic to correctly identify BUSINESS entities"
+        },
+        {
+          "content": "Add Title4, Name4, Address4 columns",
+          "status": "pending",
+          "activeForm": "Adding Title4, Name4, Address4 columns"
+        },
+        {
+          "content": "Add Title5, Name5, Address5 columns",
+          "status": "pending",
+          "activeForm": "Adding Title5, Name5, Address5 columns"
+        },
+        {
+          "content": "Update all ACC scraping logic to capture up to 5 principals",
+          "status": "pending",
+          "activeForm": "Updating all ACC scraping logic to capture up to 5 principals"
+        }
+      ]
+    }
+  },
+  {
+    "session_id": "75574880-fde6-467a-95f5-572eddc9e0f0",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/75574880-fde6-467a-95f5-572eddc9e0f0.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "plan",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Read",
+    "tool_input": {
+      "file_path": "src/adhs_etl/ecorp.py",
+      "limit": 100
+    }
+  },
+  {
+    "session_id": "75574880-fde6-467a-95f5-572eddc9e0f0",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/75574880-fde6-467a-95f5-572eddc9e0f0.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "plan",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Read",
+    "tool_input": {
+      "file_path": "src/adhs_etl/ecorp.py",
+      "offset": 100,
+      "limit": 50
+    }
+  },
+  {
+    "session_id": "75574880-fde6-467a-95f5-572eddc9e0f0",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/75574880-fde6-467a-95f5-572eddc9e0f0.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "plan",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Grep",
+    "tool_input": {
+      "pattern": "Title3|Name3|Address3|output_columns",
+      "path": "src/adhs_etl/ecorp.py",
+      "output_mode": "content",
+      "-B": 2,
+      "-A": 2,
+      "-n": true
+    }
+  },
+  {
+    "session_id": "75574880-fde6-467a-95f5-572eddc9e0f0",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/75574880-fde6-467a-95f5-572eddc9e0f0.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "plan",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Grep",
+    "tool_input": {
+      "pattern": "def generate_ecorp_complete|output_columns = \\[",
+      "path": "src/adhs_etl/ecorp.py",
+      "output_mode": "content",
+      "-A": 30,
+      "-n": true
+    }
+  },
+  {
+    "session_id": "75574880-fde6-467a-95f5-572eddc9e0f0",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/75574880-fde6-467a-95f5-572eddc9e0f0.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "plan",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "TodoWrite",
+    "tool_input": {
+      "todos": [
+        {
+          "content": "Examine current ecorp.py to understand OWNER_TYPE classification logic",
+          "status": "completed",
+          "activeForm": "Examining current ecorp.py to understand OWNER_TYPE classification logic"
+        },
+        {
+          "content": "Identify patterns in business names that are being misclassified",
+          "status": "in_progress",
+          "activeForm": "Identifying patterns in business names that are being misclassified"
+        },
+        {
+          "content": "Add logic to correctly identify BUSINESS entities",
+          "status": "pending",
+          "activeForm": "Adding logic to correctly identify BUSINESS entities"
+        },
+        {
+          "content": "Add Title4, Name4, Address4 columns",
+          "status": "pending",
+          "activeForm": "Adding Title4, Name4, Address4 columns"
+        },
+        {
+          "content": "Add Title5, Name5, Address5 columns",
+          "status": "pending",
+          "activeForm": "Adding Title5, Name5, Address5 columns"
+        },
+        {
+          "content": "Update all ACC scraping logic to capture up to 5 principals",
+          "status": "pending",
+          "activeForm": "Updating all ACC scraping logic to capture up to 5 principals"
+        }
+      ]
+    }
+  },
+  {
+    "session_id": "75574880-fde6-467a-95f5-572eddc9e0f0",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/75574880-fde6-467a-95f5-572eddc9e0f0.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "plan",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Grep",
+    "tool_input": {
+      "pattern": "to_excel|columns =|output_df",
+      "path": "src/adhs_etl/ecorp.py",
+      "output_mode": "content",
+      "-B": 2,
+      "-A": 2,
+      "-n": true
+    }
+  },
+  {
+    "session_id": "75574880-fde6-467a-95f5-572eddc9e0f0",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/75574880-fde6-467a-95f5-572eddc9e0f0.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "plan",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Grep",
+    "tool_input": {
+      "pattern": "pd\\.DataFrame\\(results\\)",
+      "path": "src/adhs_etl/ecorp.py",
+      "output_mode": "content",
+      "-B": 10,
+      "-A": 5,
+      "-n": true
+    }
+  },
+  {
+    "session_id": "75574880-fde6-467a-95f5-572eddc9e0f0",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/75574880-fde6-467a-95f5-572eddc9e0f0.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "plan",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Grep",
+    "tool_input": {
+      "pattern": "results\\.append",
+      "path": "src/adhs_etl/ecorp.py",
+      "output_mode": "content",
+      "-B": 5,
+      "-A": 15,
+      "-n": true
+    }
+  },
+  {
+    "session_id": "75574880-fde6-467a-95f5-572eddc9e0f0",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/75574880-fde6-467a-95f5-572eddc9e0f0.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "plan",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Grep",
+    "tool_input": {
+      "pattern": "def get_blank_acc_record",
+      "path": "src/adhs_etl/ecorp.py",
+      "output_mode": "content",
+      "-A": 25,
+      "-n": true
+    }
+  },
+  {
+    "session_id": "75574880-fde6-467a-95f5-572eddc9e0f0",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/75574880-fde6-467a-95f5-572eddc9e0f0.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "plan",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Grep",
+    "tool_input": {
+      "pattern": "principals|principal_info|Title1|Name1",
+      "path": "src/adhs_etl/ecorp.py",
+      "output_mode": "content",
+      "-B": 3,
+      "-A": 3,
+      "-n": true
+    }
+  },
+  {
+    "session_id": "75574880-fde6-467a-95f5-572eddc9e0f0",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/75574880-fde6-467a-95f5-572eddc9e0f0.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "plan",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "TodoWrite",
+    "tool_input": {
+      "todos": [
+        {
+          "content": "Examine current ecorp.py to understand OWNER_TYPE classification logic",
+          "status": "completed",
+          "activeForm": "Examining current ecorp.py to understand OWNER_TYPE classification logic"
+        },
+        {
+          "content": "Identify patterns in business names that are being misclassified",
+          "status": "completed",
+          "activeForm": "Identifying patterns in business names that are being misclassified"
+        },
+        {
+          "content": "Add logic to correctly identify BUSINESS entities",
+          "status": "pending",
+          "activeForm": "Adding logic to correctly identify BUSINESS entities"
+        },
+        {
+          "content": "Add Title4, Name4, Address4 columns",
+          "status": "pending",
+          "activeForm": "Adding Title4, Name4, Address4 columns"
+        },
+        {
+          "content": "Add Title5, Name5, Address5 columns",
+          "status": "pending",
+          "activeForm": "Adding Title5, Name5, Address5 columns"
+        },
+        {
+          "content": "Update all ACC scraping logic to capture up to 5 principals",
+          "status": "pending",
+          "activeForm": "Updating all ACC scraping logic to capture up to 5 principals"
+        }
+      ]
+    }
+  },
+  {
+    "session_id": "75574880-fde6-467a-95f5-572eddc9e0f0",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/75574880-fde6-467a-95f5-572eddc9e0f0.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "plan",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "ExitPlanMode",
+    "tool_input": {
+      "plan": "## Plan to Fix OWNER_TYPE Classification and Add Support for 5 Principals\n\n### Issue Analysis\nAfter analyzing the code and examples, I found:\n\n1. **OWNER_TYPE Misclassification**: Many businesses are incorrectly marked as \"INDIVIDUAL\" because:\n   - Names with \"/\" are wrongly classified as Individual(s) (e.g., \"CENTERS FOR HABILITATION/TCH\")\n   - Missing many business/organization keywords (CENTERS, HOSPICE, STATE, CITY, ARMY, ARC, HOUSE, etc.)\n   - No recognition of government entities\n\n2. **Principal Columns**: Currently limited to 3 principals, need to extend to 5\n\n### Proposed Changes\n\n#### 1. Improve Business Classification (`classify_name_type` function - lines 56-63)\n**Add new entity keywords:**\n```python\nentity_keywords = [\n    # Existing keywords\n    'LLC', 'CORP', 'INC', 'SCHOOL', 'DISTRICT', 'TRUST', 'FOUNDATION',\n    'COMPANY', 'CO.', 'ASSOCIATION', 'CHURCH', 'PROPERTIES', 'LP',\n    'LTD', 'PARTNERSHIP', 'FUND', 'HOLDINGS', 'INVESTMENTS', 'VENTURES',\n    'GROUP', 'ENTERPRISE', 'BORROWER', 'ACADEMY', 'COLLEGE', 'UNIVERSITY',\n    'MEDICAL', 'HEALTH', 'CARE', 'SOBER', 'LEARNING', 'PRESCHOOL',\n    \n    # NEW keywords based on misclassified examples\n    'CENTERS', 'CENTER', 'HOSPICE', 'HOSPITAL', 'CLINIC',\n    'STATE OF', 'CITY OF', 'COUNTY OF', 'TOWN OF',\n    'UNITED STATES', 'GOVERNMENT', 'FEDERAL', 'MUNICIPAL',\n    'ARMY', 'NAVY', 'AIR FORCE', 'MILITARY', 'SALVATION',\n    'ARC', 'HOUSE', 'HOME', 'HOMES', 'LIVING', 'SENIOR',\n    'FACILITY', 'FACILITIES', 'SERVICES', 'SERVICE',\n    'UNITED', 'METHODIST', 'LUTHERAN', 'EVANGELICAL', 'BAPTIST',\n    'CATHOLIC', 'CHRISTIAN', 'CONGREGATION', 'PRESBYTERY',\n    'ASSEMBLY', 'LEAGUE', 'ASSOCIATES', 'JOINT VENTURE',\n    'DST', 'LIMITED', 'PARTNERS', 'SETTLEMENT', 'HABILITATION'\n]\n```\n\n#### 2. Fix \"/\" Classification Logic (line 72)\n**Remove the slash check that classifies as Individual(s):**\n- Delete lines 71-73 that treat \"/\" as individual indicator\n- Many businesses use \"/\" in their names\n\n#### 3. Add Support for 5 Principals\n\n**a. Update `extract_principal_info()` function (line 296):**\n- Change limit from 3 to 5: `if principal_count >= 5:`\n\n**b. Update loop range (line 315):**\n- Change from `range(1, 4)` to `range(1, 6)`\n\n**c. Update `get_blank_acc_record()` function (lines 398-401):**\n```python\n'Title1': '', 'Name1': '', 'Address1': '',\n'Title2': '', 'Name2': '', 'Address2': '',\n'Title3': '', 'Name3': '', 'Address3': '',\n'Title4': '', 'Name4': '', 'Address4': '',  # NEW\n'Title5': '', 'Name5': '', 'Address5': ''   # NEW\n```\n\n**d. Update entity append section (lines 355-357):**\n```python\n\"Title3\": principal_info.get(\"Title3\", \"\"),\n\"Name3\": principal_info.get(\"Name3\", \"\"),\n\"Address3\": principal_info.get(\"Address3\", \"\"),\n\"Title4\": principal_info.get(\"Title4\", \"\"),  # NEW\n\"Name4\": principal_info.get(\"Name4\", \"\"),    # NEW\n\"Address4\": principal_info.get(\"Address4\", \"\"),  # NEW\n\"Title5\": principal_info.get(\"Title5\", \"\"),  # NEW\n\"Name5\": principal_info.get(\"Name5\", \"\"),    # NEW\n\"Address5\": principal_info.get(\"Address5\", \"\")   # NEW\n```\n\n#### 4. Update Documentation\n- Change \"26 columns\" to \"32 columns\" in docstring (line 543)\n- Update \"22 ACC fields\" to \"28 ACC fields\" in module docstring (line 17)\n\n### Summary\nThis plan will:\n1. Correctly classify businesses like \"CENTERS FOR HABILITATION\", \"HOSPICE OF THE VALLEY\", etc. as BUSINESS\n2. Support capturing up to 5 principals from ACC website\n3. Add 6 new columns: Title4, Name4, Address4, Title5, Name5, Address5\n4. Fix the \"/\" classification issue"
+    }
+  },
+  {
+    "session_id": "75574880-fde6-467a-95f5-572eddc9e0f0",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/75574880-fde6-467a-95f5-572eddc9e0f0.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "plan",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "ExitPlanMode",
+    "tool_input": {
+      "plan": "## Plan to Fix OWNER_TYPE Classification and Add Support for 5 Principals\n\n### Issue Analysis\nAfter analyzing the code and examples, I found:\n\n1. **OWNER_TYPE Misclassification**: Many businesses are incorrectly marked as \"INDIVIDUAL\" because:\n   - Names with \"/\" are wrongly classified as Individual(s) (e.g., \"CENTERS FOR HABILITATION/TCH\")\n   - Missing many business/organization keywords (CENTERS, HOSPICE, STATE, CITY, ARMY, ARC, HOUSE, etc.)\n   - No recognition of government entities\n\n2. **Principal Columns**: Currently limited to 3 principals, need to extend to 5\n\n### Proposed Changes\n\n#### 1. Improve Business Classification (`classify_name_type` function - lines 56-63)\n**Add new entity keywords:**\n```python\nentity_keywords = [\n    # Existing keywords\n    'LLC', 'CORP', 'INC', 'SCHOOL', 'DISTRICT', 'TRUST', 'FOUNDATION',\n    'COMPANY', 'CO.', 'ASSOCIATION', 'CHURCH', 'PROPERTIES', 'LP',\n    'LTD', 'PARTNERSHIP', 'FUND', 'HOLDINGS', 'INVESTMENTS', 'VENTURES',\n    'GROUP', 'ENTERPRISE', 'BORROWER', 'ACADEMY', 'COLLEGE', 'UNIVERSITY',\n    'MEDICAL', 'HEALTH', 'CARE', 'SOBER', 'LEARNING', 'PRESCHOOL',\n    \n    # NEW keywords based on misclassified examples\n    'CENTERS', 'CENTER', 'HOSPICE', 'HOSPITAL', 'CLINIC',\n    'STATE OF', 'CITY OF', 'COUNTY OF', 'TOWN OF',\n    'UNITED STATES', 'GOVERNMENT', 'FEDERAL', 'MUNICIPAL',\n    'ARMY', 'NAVY', 'AIR FORCE', 'MILITARY', 'SALVATION',\n    'ARC', 'HOUSE', 'HOME', 'HOMES', 'LIVING', 'SENIOR',\n    'FACILITY', 'FACILITIES', 'SERVICES', 'SERVICE',\n    'UNITED', 'METHODIST', 'LUTHERAN', 'EVANGELICAL', 'BAPTIST',\n    'CATHOLIC', 'CHRISTIAN', 'CONGREGATION', 'PRESBYTERY',\n    'ASSEMBLY', 'LEAGUE', 'ASSOCIATES', 'JOINT VENTURE',\n    'DST', 'LIMITED', 'PARTNERS', 'SETTLEMENT', 'HABILITATION'\n]\n```\n\n#### 2. Fix \"/\" Classification Logic (line 72)\n**Remove the slash check that classifies as Individual(s):**\n- Delete lines 71-73 that treat \"/\" as individual indicator\n- Many businesses use \"/\" in their names\n\n#### 3. Add Support for 5 Principals\n\n**a. Update `extract_principal_info()` function (line 296):**\n- Change limit from 3 to 5: `if principal_count >= 5:`\n\n**b. Update loop range (line 315):**\n- Change from `range(1, 4)` to `range(1, 6)`\n\n**c. Update `get_blank_acc_record()` function (lines 398-401):**\n```python\n'Title1': '', 'Name1': '', 'Address1': '',\n'Title2': '', 'Name2': '', 'Address2': '',\n'Title3': '', 'Name3': '', 'Address3': '',\n'Title4': '', 'Name4': '', 'Address4': '',  # NEW\n'Title5': '', 'Name5': '', 'Address5': ''   # NEW\n```\n\n**d. Update entity append section (lines 355-357):**\n```python\n\"Title3\": principal_info.get(\"Title3\", \"\"),\n\"Name3\": principal_info.get(\"Name3\", \"\"),\n\"Address3\": principal_info.get(\"Address3\", \"\"),\n\"Title4\": principal_info.get(\"Title4\", \"\"),  # NEW\n\"Name4\": principal_info.get(\"Name4\", \"\"),    # NEW\n\"Address4\": principal_info.get(\"Address4\", \"\"),  # NEW\n\"Title5\": principal_info.get(\"Title5\", \"\"),  # NEW\n\"Name5\": principal_info.get(\"Name5\", \"\"),    # NEW\n\"Address5\": principal_info.get(\"Address5\", \"\")   # NEW\n```\n\n#### 4. Update Documentation\n- Change \"26 columns\" to \"32 columns\" in docstring (line 543)\n- Update \"22 ACC fields\" to \"28 ACC fields\" in module docstring (line 17)\n\n### Summary\nThis plan will:\n1. Correctly classify businesses like \"CENTERS FOR HABILITATION\", \"HOSPICE OF THE VALLEY\", etc. as BUSINESS\n2. Support capturing up to 5 principals from ACC website\n3. Add 6 new columns: Title4, Name4, Address4, Title5, Name5, Address5\n4. Fix the \"/\" classification issue"
+    }
+  },
+  {
+    "session_id": "75574880-fde6-467a-95f5-572eddc9e0f0",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/75574880-fde6-467a-95f5-572eddc9e0f0.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "acceptEdits",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "TodoWrite",
+    "tool_input": {
+      "todos": [
+        {
+          "content": "Add new business entity keywords to classify_name_type",
+          "status": "pending",
+          "activeForm": "Adding new business entity keywords to classify_name_type"
+        },
+        {
+          "content": "Remove slash classification logic that treats '/' as individual indicator",
+          "status": "pending",
+          "activeForm": "Removing slash classification logic that treats '/' as individual indicator"
+        },
+        {
+          "content": "Update extract_principal_info to capture 5 principals instead of 3",
+          "status": "pending",
+          "activeForm": "Updating extract_principal_info to capture 5 principals instead of 3"
+        },
+        {
+          "content": "Add Title4, Name4, Address4 columns to get_blank_acc_record",
+          "status": "pending",
+          "activeForm": "Adding Title4, Name4, Address4 columns to get_blank_acc_record"
+        },
+        {
+          "content": "Add Title5, Name5, Address5 columns to get_blank_acc_record",
+          "status": "pending",
+          "activeForm": "Adding Title5, Name5, Address5 columns to get_blank_acc_record"
+        },
+        {
+          "content": "Update entity append section to include new principal columns",
+          "status": "pending",
+          "activeForm": "Updating entity append section to include new principal columns"
+        },
+        {
+          "content": "Update documentation to reflect 32 columns and 28 ACC fields",
+          "status": "pending",
+          "activeForm": "Updating documentation to reflect 32 columns and 28 ACC fields"
+        }
+      ]
+    }
+  },
+  {
+    "session_id": "75574880-fde6-467a-95f5-572eddc9e0f0",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/75574880-fde6-467a-95f5-572eddc9e0f0.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "acceptEdits",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "TodoWrite",
+    "tool_input": {
+      "todos": [
+        {
+          "content": "Add new business entity keywords to classify_name_type",
+          "status": "in_progress",
+          "activeForm": "Adding new business entity keywords to classify_name_type"
+        },
+        {
+          "content": "Remove slash classification logic that treats '/' as individual indicator",
+          "status": "pending",
+          "activeForm": "Removing slash classification logic that treats '/' as individual indicator"
+        },
+        {
+          "content": "Update extract_principal_info to capture 5 principals instead of 3",
+          "status": "pending",
+          "activeForm": "Updating extract_principal_info to capture 5 principals instead of 3"
+        },
+        {
+          "content": "Add Title4, Name4, Address4 columns to get_blank_acc_record",
+          "status": "pending",
+          "activeForm": "Adding Title4, Name4, Address4 columns to get_blank_acc_record"
+        },
+        {
+          "content": "Add Title5, Name5, Address5 columns to get_blank_acc_record",
+          "status": "pending",
+          "activeForm": "Adding Title5, Name5, Address5 columns to get_blank_acc_record"
+        },
+        {
+          "content": "Update entity append section to include new principal columns",
+          "status": "pending",
+          "activeForm": "Updating entity append section to include new principal columns"
+        },
+        {
+          "content": "Update documentation to reflect 32 columns and 28 ACC fields",
+          "status": "pending",
+          "activeForm": "Updating documentation to reflect 32 columns and 28 ACC fields"
+        }
+      ]
+    }
+  },
+  {
+    "session_id": "75574880-fde6-467a-95f5-572eddc9e0f0",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/75574880-fde6-467a-95f5-572eddc9e0f0.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "acceptEdits",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Edit",
+    "tool_input": {
+      "file_path": "src/adhs_etl/ecorp.py",
+      "old_string": "    # Entity keywords\n    entity_keywords = [\n        'LLC', 'CORP', 'INC', 'SCHOOL', 'DISTRICT', 'TRUST', 'FOUNDATION',\n        'COMPANY', 'CO.', 'ASSOCIATION', 'CHURCH', 'PROPERTIES', 'LP',\n        'LTD', 'PARTNERSHIP', 'FUND', 'HOLDINGS', 'INVESTMENTS', 'VENTURES',\n        'GROUP', 'ENTERPRISE', 'BORROWER', 'ACADEMY', 'COLLEGE', 'UNIVERSITY',\n        'MEDICAL', 'HEALTH', 'CARE', 'SOBER', 'LEARNING', 'PRESCHOOL'\n    ]",
+      "new_string": "    # Entity keywords\n    entity_keywords = [\n        'LLC', 'CORP', 'INC', 'SCHOOL', 'DISTRICT', 'TRUST', 'FOUNDATION',\n        'COMPANY', 'CO.', 'ASSOCIATION', 'CHURCH', 'PROPERTIES', 'LP',\n        'LTD', 'PARTNERSHIP', 'FUND', 'HOLDINGS', 'INVESTMENTS', 'VENTURES',\n        'GROUP', 'ENTERPRISE', 'BORROWER', 'ACADEMY', 'COLLEGE', 'UNIVERSITY',\n        'MEDICAL', 'HEALTH', 'CARE', 'SOBER', 'LEARNING', 'PRESCHOOL',\n        # Additional business/organization keywords\n        'CENTERS', 'CENTER', 'HOSPICE', 'HOSPITAL', 'CLINIC',\n        'STATE OF', 'CITY OF', 'COUNTY OF', 'TOWN OF',\n        'UNITED STATES', 'GOVERNMENT', 'FEDERAL', 'MUNICIPAL',\n        'ARMY', 'NAVY', 'AIR FORCE', 'MILITARY', 'SALVATION',\n        'ARC', 'HOUSE', 'HOME', 'HOMES', 'LIVING', 'SENIOR',\n        'FACILITY', 'FACILITIES', 'SERVICES', 'SERVICE',\n        'UNITED', 'METHODIST', 'LUTHERAN', 'EVANGELICAL', 'BAPTIST',\n        'CATHOLIC', 'CHRISTIAN', 'CONGREGATION', 'PRESBYTERY',\n        'ASSEMBLY', 'LEAGUE', 'ASSOCIATES', 'JOINT VENTURE',\n        'DST', 'LIMITED', 'PARTNERS', 'SETTLEMENT', 'HABILITATION'\n    ]"
+    }
+  },
+  {
+    "session_id": "75574880-fde6-467a-95f5-572eddc9e0f0",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/75574880-fde6-467a-95f5-572eddc9e0f0.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "acceptEdits",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "TodoWrite",
+    "tool_input": {
+      "todos": [
+        {
+          "content": "Add new business entity keywords to classify_name_type",
+          "status": "completed",
+          "activeForm": "Adding new business entity keywords to classify_name_type"
+        },
+        {
+          "content": "Remove slash classification logic that treats '/' as individual indicator",
+          "status": "in_progress",
+          "activeForm": "Removing slash classification logic that treats '/' as individual indicator"
+        },
+        {
+          "content": "Update extract_principal_info to capture 5 principals instead of 3",
+          "status": "pending",
+          "activeForm": "Updating extract_principal_info to capture 5 principals instead of 3"
+        },
+        {
+          "content": "Add Title4, Name4, Address4 columns to get_blank_acc_record",
+          "status": "pending",
+          "activeForm": "Adding Title4, Name4, Address4 columns to get_blank_acc_record"
+        },
+        {
+          "content": "Add Title5, Name5, Address5 columns to get_blank_acc_record",
+          "status": "pending",
+          "activeForm": "Adding Title5, Name5, Address5 columns to get_blank_acc_record"
+        },
+        {
+          "content": "Update entity append section to include new principal columns",
+          "status": "pending",
+          "activeForm": "Updating entity append section to include new principal columns"
+        },
+        {
+          "content": "Update documentation to reflect 32 columns and 28 ACC fields",
+          "status": "pending",
+          "activeForm": "Updating documentation to reflect 32 columns and 28 ACC fields"
+        }
+      ]
+    }
+  },
+  {
+    "session_id": "75574880-fde6-467a-95f5-572eddc9e0f0",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/75574880-fde6-467a-95f5-572eddc9e0f0.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "acceptEdits",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Edit",
+    "tool_input": {
+      "file_path": "src/adhs_etl/ecorp.py",
+      "old_string": "    # Check for entity keywords\n    for keyword in entity_keywords:\n        if keyword in name_upper:\n            return \"Entity\"\n\n    # Check for individual patterns\n    # Names with slashes (joint ownership)\n    if '/' in name:\n        return \"Individual(s)\"\n\n    # Simple name patterns (2-4 words, likely person names)",
+      "new_string": "    # Check for entity keywords\n    for keyword in entity_keywords:\n        if keyword in name_upper:\n            return \"Entity\"\n\n    # Check for individual patterns\n    # Simple name patterns (2-4 words, likely person names)"
+    }
+  },
+  {
+    "session_id": "75574880-fde6-467a-95f5-572eddc9e0f0",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/75574880-fde6-467a-95f5-572eddc9e0f0.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "acceptEdits",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "TodoWrite",
+    "tool_input": {
+      "todos": [
+        {
+          "content": "Add new business entity keywords to classify_name_type",
+          "status": "completed",
+          "activeForm": "Adding new business entity keywords to classify_name_type"
+        },
+        {
+          "content": "Remove slash classification logic that treats '/' as individual indicator",
+          "status": "completed",
+          "activeForm": "Removing slash classification logic that treats '/' as individual indicator"
+        },
+        {
+          "content": "Update extract_principal_info to capture 5 principals instead of 3",
+          "status": "in_progress",
+          "activeForm": "Updating extract_principal_info to capture 5 principals instead of 3"
+        },
+        {
+          "content": "Add Title4, Name4, Address4 columns to get_blank_acc_record",
+          "status": "pending",
+          "activeForm": "Adding Title4, Name4, Address4 columns to get_blank_acc_record"
+        },
+        {
+          "content": "Add Title5, Name5, Address5 columns to get_blank_acc_record",
+          "status": "pending",
+          "activeForm": "Adding Title5, Name5, Address5 columns to get_blank_acc_record"
+        },
+        {
+          "content": "Update entity append section to include new principal columns",
+          "status": "pending",
+          "activeForm": "Updating entity append section to include new principal columns"
+        },
+        {
+          "content": "Update documentation to reflect 32 columns and 28 ACC fields",
+          "status": "pending",
+          "activeForm": "Updating documentation to reflect 32 columns and 28 ACC fields"
+        }
+      ]
+    }
+  },
+  {
+    "session_id": "75574880-fde6-467a-95f5-572eddc9e0f0",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/75574880-fde6-467a-95f5-572eddc9e0f0.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "acceptEdits",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Edit",
+    "tool_input": {
+      "file_path": "src/adhs_etl/ecorp.py",
+      "old_string": "                            for row in rows:\n                                if principal_count >= 3:  # Limit to 3 principals\n                                    break",
+      "new_string": "                            for row in rows:\n                                if principal_count >= 5:  # Limit to 5 principals\n                                    break"
+    }
+  },
+  {
+    "session_id": "75574880-fde6-467a-95f5-572eddc9e0f0",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/75574880-fde6-467a-95f5-572eddc9e0f0.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "acceptEdits",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Edit",
+    "tool_input": {
+      "file_path": "src/adhs_etl/ecorp.py",
+      "old_string": "                # Ensure we have at least empty strings for the first 3 principals\n                for i in range(1, 4):\n                    if f\"Title{i}\" not in principals:\n                        principals[f\"Title{i}\"] = \"\"\n                    if f\"Name{i}\" not in principals:\n                        principals[f\"Name{i}\"] = \"\"\n                    if f\"Address{i}\" not in principals:\n                        principals[f\"Address{i}\"] = \"\"",
+      "new_string": "                # Ensure we have at least empty strings for the first 5 principals\n                for i in range(1, 6):\n                    if f\"Title{i}\" not in principals:\n                        principals[f\"Title{i}\"] = \"\"\n                    if f\"Name{i}\" not in principals:\n                        principals[f\"Name{i}\"] = \"\"\n                    if f\"Address{i}\" not in principals:\n                        principals[f\"Address{i}\"] = \"\""
+    }
+  },
+  {
+    "session_id": "75574880-fde6-467a-95f5-572eddc9e0f0",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/75574880-fde6-467a-95f5-572eddc9e0f0.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "acceptEdits",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "TodoWrite",
+    "tool_input": {
+      "todos": [
+        {
+          "content": "Add new business entity keywords to classify_name_type",
+          "status": "completed",
+          "activeForm": "Adding new business entity keywords to classify_name_type"
+        },
+        {
+          "content": "Remove slash classification logic that treats '/' as individual indicator",
+          "status": "completed",
+          "activeForm": "Removing slash classification logic that treats '/' as individual indicator"
+        },
+        {
+          "content": "Update extract_principal_info to capture 5 principals instead of 3",
+          "status": "completed",
+          "activeForm": "Updating extract_principal_info to capture 5 principals instead of 3"
+        },
+        {
+          "content": "Add Title4, Name4, Address4 columns to get_blank_acc_record",
+          "status": "in_progress",
+          "activeForm": "Adding Title4, Name4, Address4 columns to get_blank_acc_record"
+        },
+        {
+          "content": "Add Title5, Name5, Address5 columns to get_blank_acc_record",
+          "status": "pending",
+          "activeForm": "Adding Title5, Name5, Address5 columns to get_blank_acc_record"
+        },
+        {
+          "content": "Update entity append section to include new principal columns",
+          "status": "pending",
+          "activeForm": "Updating entity append section to include new principal columns"
+        },
+        {
+          "content": "Update documentation to reflect 32 columns and 28 ACC fields",
+          "status": "pending",
+          "activeForm": "Updating documentation to reflect 32 columns and 28 ACC fields"
+        }
+      ]
+    }
+  },
+  {
+    "session_id": "75574880-fde6-467a-95f5-572eddc9e0f0",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/75574880-fde6-467a-95f5-572eddc9e0f0.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "acceptEdits",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Edit",
+    "tool_input": {
+      "file_path": "src/adhs_etl/ecorp.py",
+      "old_string": "        'Title1': '', 'Name1': '', 'Address1': '',\n        'Title2': '', 'Name2': '', 'Address2': '',\n        'Title3': '', 'Name3': '', 'Address3': ''",
+      "new_string": "        'Title1': '', 'Name1': '', 'Address1': '',\n        'Title2': '', 'Name2': '', 'Address2': '',\n        'Title3': '', 'Name3': '', 'Address3': '',\n        'Title4': '', 'Name4': '', 'Address4': '',\n        'Title5': '', 'Name5': '', 'Address5': ''"
+    }
+  },
+  {
+    "session_id": "75574880-fde6-467a-95f5-572eddc9e0f0",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/75574880-fde6-467a-95f5-572eddc9e0f0.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "acceptEdits",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "TodoWrite",
+    "tool_input": {
+      "todos": [
+        {
+          "content": "Add new business entity keywords to classify_name_type",
+          "status": "completed",
+          "activeForm": "Adding new business entity keywords to classify_name_type"
+        },
+        {
+          "content": "Remove slash classification logic that treats '/' as individual indicator",
+          "status": "completed",
+          "activeForm": "Removing slash classification logic that treats '/' as individual indicator"
+        },
+        {
+          "content": "Update extract_principal_info to capture 5 principals instead of 3",
+          "status": "completed",
+          "activeForm": "Updating extract_principal_info to capture 5 principals instead of 3"
+        },
+        {
+          "content": "Add Title4, Name4, Address4 columns to get_blank_acc_record",
+          "status": "completed",
+          "activeForm": "Adding Title4, Name4, Address4 columns to get_blank_acc_record"
+        },
+        {
+          "content": "Add Title5, Name5, Address5 columns to get_blank_acc_record",
+          "status": "completed",
+          "activeForm": "Adding Title5, Name5, Address5 columns to get_blank_acc_record"
+        },
+        {
+          "content": "Update entity append section to include new principal columns",
+          "status": "in_progress",
+          "activeForm": "Updating entity append section to include new principal columns"
+        },
+        {
+          "content": "Update documentation to reflect 32 columns and 28 ACC fields",
+          "status": "pending",
+          "activeForm": "Updating documentation to reflect 32 columns and 28 ACC fields"
+        }
+      ]
+    }
+  },
+  {
+    "session_id": "75574880-fde6-467a-95f5-572eddc9e0f0",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/75574880-fde6-467a-95f5-572eddc9e0f0.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "acceptEdits",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Edit",
+    "tool_input": {
+      "file_path": "src/adhs_etl/ecorp.py",
+      "old_string": "                    \"Title3\": principal_info.get(\"Title3\", \"\"),\n                    \"Name3\": principal_info.get(\"Name3\", \"\"),\n                    \"Address3\": principal_info.get(\"Address3\", \"\"),\n                }",
+      "new_string": "                    \"Title3\": principal_info.get(\"Title3\", \"\"),\n                    \"Name3\": principal_info.get(\"Name3\", \"\"),\n                    \"Address3\": principal_info.get(\"Address3\", \"\"),\n                    \"Title4\": principal_info.get(\"Title4\", \"\"),\n                    \"Name4\": principal_info.get(\"Name4\", \"\"),\n                    \"Address4\": principal_info.get(\"Address4\", \"\"),\n                    \"Title5\": principal_info.get(\"Title5\", \"\"),\n                    \"Name5\": principal_info.get(\"Name5\", \"\"),\n                    \"Address5\": principal_info.get(\"Address5\", \"\"),\n                }"
+    }
+  },
+  {
+    "session_id": "75574880-fde6-467a-95f5-572eddc9e0f0",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/75574880-fde6-467a-95f5-572eddc9e0f0.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "acceptEdits",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "TodoWrite",
+    "tool_input": {
+      "todos": [
+        {
+          "content": "Add new business entity keywords to classify_name_type",
+          "status": "completed",
+          "activeForm": "Adding new business entity keywords to classify_name_type"
+        },
+        {
+          "content": "Remove slash classification logic that treats '/' as individual indicator",
+          "status": "completed",
+          "activeForm": "Removing slash classification logic that treats '/' as individual indicator"
+        },
+        {
+          "content": "Update extract_principal_info to capture 5 principals instead of 3",
+          "status": "completed",
+          "activeForm": "Updating extract_principal_info to capture 5 principals instead of 3"
+        },
+        {
+          "content": "Add Title4, Name4, Address4 columns to get_blank_acc_record",
+          "status": "completed",
+          "activeForm": "Adding Title4, Name4, Address4 columns to get_blank_acc_record"
+        },
+        {
+          "content": "Add Title5, Name5, Address5 columns to get_blank_acc_record",
+          "status": "completed",
+          "activeForm": "Adding Title5, Name5, Address5 columns to get_blank_acc_record"
+        },
+        {
+          "content": "Update entity append section to include new principal columns",
+          "status": "completed",
+          "activeForm": "Updating entity append section to include new principal columns"
+        },
+        {
+          "content": "Update documentation to reflect 32 columns and 28 ACC fields",
+          "status": "in_progress",
+          "activeForm": "Updating documentation to reflect 32 columns and 28 ACC fields"
+        }
+      ]
+    }
+  },
+  {
+    "session_id": "75574880-fde6-467a-95f5-572eddc9e0f0",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/75574880-fde6-467a-95f5-572eddc9e0f0.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "acceptEdits",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Grep",
+    "tool_input": {
+      "pattern": "26 columns|22 ACC",
+      "path": "src/adhs_etl/ecorp.py",
+      "output_mode": "content",
+      "-n": true
+    }
+  },
+  {
+    "session_id": "75574880-fde6-467a-95f5-572eddc9e0f0",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/75574880-fde6-467a-95f5-572eddc9e0f0.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "acceptEdits",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "MultiEdit",
+    "tool_input": {
+      "file_path": "src/adhs_etl/ecorp.py",
+      "edits": [
+        {
+          "old_string": "- Ecorp Complete: 26 columns (Upload + 22 ACC entity fields)",
+          "new_string": "- Ecorp Complete: 32 columns (Upload + 28 ACC entity fields)"
+        },
+        {
+          "old_string": "    Output has 26 columns:\n    - A-D: FULL_ADDRESS, COUNTY, Owner_Ownership, OWNER_TYPE (from Upload)\n    - E-Z: 22 ACC fields (Search Name, Type, Entity details, Principals)",
+          "new_string": "    Output has 32 columns:\n    - A-D: FULL_ADDRESS, COUNTY, Owner_Ownership, OWNER_TYPE (from Upload)\n    - E-AF: 28 ACC fields (Search Name, Type, Entity details, Principals)"
+        }
+      ]
+    }
+  },
+  {
+    "session_id": "75574880-fde6-467a-95f5-572eddc9e0f0",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/75574880-fde6-467a-95f5-572eddc9e0f0.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "acceptEdits",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "TodoWrite",
+    "tool_input": {
+      "todos": [
+        {
+          "content": "Add new business entity keywords to classify_name_type",
+          "status": "completed",
+          "activeForm": "Adding new business entity keywords to classify_name_type"
+        },
+        {
+          "content": "Remove slash classification logic that treats '/' as individual indicator",
+          "status": "completed",
+          "activeForm": "Removing slash classification logic that treats '/' as individual indicator"
+        },
+        {
+          "content": "Update extract_principal_info to capture 5 principals instead of 3",
+          "status": "completed",
+          "activeForm": "Updating extract_principal_info to capture 5 principals instead of 3"
+        },
+        {
+          "content": "Add Title4, Name4, Address4 columns to get_blank_acc_record",
+          "status": "completed",
+          "activeForm": "Adding Title4, Name4, Address4 columns to get_blank_acc_record"
+        },
+        {
+          "content": "Add Title5, Name5, Address5 columns to get_blank_acc_record",
+          "status": "completed",
+          "activeForm": "Adding Title5, Name5, Address5 columns to get_blank_acc_record"
+        },
+        {
+          "content": "Update entity append section to include new principal columns",
+          "status": "completed",
+          "activeForm": "Updating entity append section to include new principal columns"
+        },
+        {
+          "content": "Update documentation to reflect 32 columns and 28 ACC fields",
+          "status": "completed",
+          "activeForm": "Updating documentation to reflect 32 columns and 28 ACC fields"
+        }
+      ]
+    }
   }
 ]

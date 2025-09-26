@@ -1,0 +1,58 @@
+[
+  {
+    "session_id": "f278c66e-24c1-4c73-99f4-bfd69d145886",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-agent-ecorp/f278c66e-24c1-4c73-99f4-bfd69d145886.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/agent_ecorp",
+    "permission_mode": "default",
+    "hook_event_name": "UserPromptSubmit",
+    "prompt": "what does this codebase do?"
+  },
+  {
+    "session_id": "f278c66e-24c1-4c73-99f4-bfd69d145886",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-agent-ecorp/f278c66e-24c1-4c73-99f4-bfd69d145886.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/agent_ecorp",
+    "permission_mode": "default",
+    "hook_event_name": "UserPromptSubmit",
+    "prompt": "Please elaborate all inputs, outputs in a detailed breakdown of the workflow functionality"
+  },
+  {
+    "session_id": "f278c66e-24c1-4c73-99f4-bfd69d145886",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-agent-ecorp/f278c66e-24c1-4c73-99f4-bfd69d145886.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/agent_ecorp",
+    "permission_mode": "default",
+    "hook_event_name": "UserPromptSubmit",
+    "prompt": "Elaborate on the BatchData process, do not modify any code just read and report back"
+  },
+  {
+    "session_id": "f278c66e-24c1-4c73-99f4-bfd69d145886",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-agent-ecorp/f278c66e-24c1-4c73-99f4-bfd69d145886.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/agent_ecorp",
+    "permission_mode": "default",
+    "hook_event_name": "UserPromptSubmit",
+    "prompt": "Explain a little more straightforward all input and outputs, do not write any code or modify anything. Is M.YY ecorp in progress in this pipeline, is ecorp complete in this pipeline?"
+  },
+  {
+    "session_id": "f278c66e-24c1-4c73-99f4-bfd69d145886",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-agent-ecorp/f278c66e-24c1-4c73-99f4-bfd69d145886.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/agent_ecorp",
+    "permission_mode": "default",
+    "hook_event_name": "UserPromptSubmit",
+    "prompt": "update both Claude MD and read me"
+  },
+  {
+    "session_id": "7b9e231a-9bcd-4b67-807e-3ad52485eaa0",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-agent-ecorp/7b9e231a-9bcd-4b67-807e-3ad52485eaa0.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/agent_ecorp",
+    "permission_mode": "default",
+    "hook_event_name": "UserPromptSubmit",
+    "prompt": "What does this codebase do?"
+  },
+  {
+    "session_id": "7b9e231a-9bcd-4b67-807e-3ad52485eaa0",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-agent-ecorp/7b9e231a-9bcd-4b67-807e-3ad52485eaa0.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/agent_ecorp",
+    "permission_mode": "default",
+    "hook_event_name": "UserPromptSubmit",
+    "prompt": "Please detail each in terms of inputs output pipeline"
+  }
+]

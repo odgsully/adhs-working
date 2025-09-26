@@ -1,0 +1,16 @@
+[
+  {
+    "session_id": "f278c66e-24c1-4c73-99f4-bfd69d145886",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-agent-ecorp/f278c66e-24c1-4c73-99f4-bfd69d145886.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/agent_ecorp",
+    "hook_event_name": "Notification",
+    "message": "Claude needs your permission to use Bash"
+  },
+  {
+    "session_id": "f278c66e-24c1-4c73-99f4-bfd69d145886",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-agent-ecorp/f278c66e-24c1-4c73-99f4-bfd69d145886.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/agent_ecorp",
+    "hook_event_name": "Notification",
+    "message": "Claude is waiting for your input"
+  }
+]
