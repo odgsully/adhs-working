@@ -79,3 +79,5 @@ old/**/*.xlsx
 old/**/*.xls
 MCAO/Complete/
 MCAO/Upload/
+Ecorp/Complete/
+Ecorp/Upload/

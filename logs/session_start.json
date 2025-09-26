@@ -145,5 +145,33 @@
     "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
     "hook_event_name": "SessionStart",
     "source": "startup"
+  },
+  {
+    "session_id": "65c1c87d-1733-4a26-93c7-0097d3327cae",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/65c1c87d-1733-4a26-93c7-0097d3327cae.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "hook_event_name": "SessionStart",
+    "source": "startup"
+  },
+  {
+    "session_id": "3bc88e43-a3fb-43f4-8633-b75fc7fdb7c5",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/3bc88e43-a3fb-43f4-8633-b75fc7fdb7c5.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "hook_event_name": "SessionStart",
+    "source": "startup"
+  },
+  {
+    "session_id": "b30aad95-c247-4599-9569-459534b42e66",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/b30aad95-c247-4599-9569-459534b42e66.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "hook_event_name": "SessionStart",
+    "source": "startup"
+  },
+  {
+    "session_id": "31bf467a-3d11-4ff0-b6c1-64457c6654fe",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/31bf467a-3d11-4ff0-b6c1-64457c6654fe.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "hook_event_name": "SessionStart",
+    "source": "startup"
   }
 ]

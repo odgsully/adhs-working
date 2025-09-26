@@ -18,7 +18,7 @@ def test_data_transformation():
     from src.io import load_workbook_sheets
     
     # Load test eCorp data (first 3 records)
-    ecorp_df = pd.read_excel("../8.25 ecorp complete.xlsx").head(3)
+    ecorp_df = pd.read_excel("../M.YY_Ecorp_Complete.xlsx").head(3)
     print(f"Loaded {len(ecorp_df)} eCorp records for testing")
     
     # Transform to BatchData format

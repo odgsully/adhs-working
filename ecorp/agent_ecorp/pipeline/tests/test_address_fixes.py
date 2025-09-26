@@ -144,7 +144,7 @@ def test_with_real_data():
         from src.transform import transform_ecorp_to_batchdata
         
         # Load first 3 records from eCorp data for testing
-        ecorp_df = pd.read_excel("../8.25 ecorp complete.xlsx").head(3)
+        ecorp_df = pd.read_excel("../M.YY_Ecorp_Complete.xlsx").head(3)
         print(f"Loaded {len(ecorp_df)} eCorp records for testing")
         
         # Transform to BatchData format

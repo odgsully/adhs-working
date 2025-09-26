@@ -11,8 +11,8 @@ This project provides a complete two-stage pipeline for:
 Input: Company Names → ACC Lookup → Entity Details → Skip-Trace → Contact Discovery → Verified Phone Numbers
 ```
 
-- **Start**: Excel file with company names (`8.25 ecorp in progress.xlsx`)
-- **Stage 1 Output**: Complete entity details with principals (`8.25 ecorp complete.xlsx`)  
+- **Start**: Excel file with company names (`M.YY_Ecorp_Upload *.xlsx`)
+- **Stage 1 Output**: Complete entity details with principals (`M.YY_Ecorp_Complete *.xlsx`)  
 - **Stage 2 Output**: Verified mobile phone numbers for each principal (`final_contacts_*.xlsx`)
 
 ## Features
@@ -62,7 +62,7 @@ Input: Company Names → ACC Lookup → Entity Details → Skip-Trace → Contac
 
 Basic usage:
 ```bash
-python main.py --input "8.25 ecorp in progress.xlsx" --output "8.25 ecorp complete.xlsx"
+python main.py --input "M.YY_Ecorp_Upload *.xlsx" --output "M.YY_Ecorp_Complete *.xlsx"
 ```
 
 Debug mode (visible browser):
@@ -75,7 +75,7 @@ python main.py --input "input.xlsx" --output "output.xlsx" --no-headless
 Transform and process eCorp data:
 ```bash
 cd pipeline
-python -m src.run --input template.xlsx --ecorp "../8.25 ecorp complete.xlsx"
+python -m src.run --input template.xlsx --ecorp "../M.YY_Ecorp_Complete *.xlsx"
 ```
 
 Process pre-formatted data:
@@ -113,8 +113,8 @@ python -m src.run --input batchdata_local_input.xlsx --dry-run
 ```
 agent_ecorp/
 ├── main.py                      # Stage 1: ACC lookup script
-├── 8.25 ecorp in progress.xlsx  # Sample Stage 1 input
-├── 8.25 ecorp complete.xlsx     # Sample Stage 1 output
+├── M.YY_Ecorp_Upload *.xlsx     # Sample Stage 1 input
+├── M.YY_Ecorp_Complete *.xlsx   # Sample Stage 1 output
 ├── pipeline/                     # Stage 2: BatchData processing
 │   ├── src/                     # Pipeline source code
 │   └── results/                 # Output directory

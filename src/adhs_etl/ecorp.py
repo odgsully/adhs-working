@@ -1,41 +1,27 @@
 """
-main.py
-This script reads an input Excel file containing company names (column
-``Owner_Ownership``) and performs a live lookup against the Arizona
-Corporation Commission (ACC) eCorp website to fetch detailed
-registration information for each company.  The results are written to
-an output Excel file.
+Arizona Corporation Commission (ACC) Entity Lookup Integration
+==============================================================
 
-The process closely mirrors the manual workflow executed during the
-analysis: a headless Chromium browser (via Selenium) navigates to
-``EntitySearch/PublicSearch`` on the ACC site, enters each search name
-into the search bar, parses the resulting table, and opens each
-entity's detail page to collect relevant fields.  If no results are
-found, the script records the search as ``Not found``.  When multiple
-records are returned for the same search term (for example, both a
-limited partnership and its general partner), each record is recorded
-separately.
+This module provides functionality to extract ownership data from MCAO files
+and enrich it with Arizona Corporation Commission entity details via web scraping.
 
-Usage:
+Features:
+- Generate Ecorp Upload files from MCAO Complete data
+- Automated ACC entity lookup via Selenium
+- Progress checkpointing for interruption recovery
+- In-memory caching to avoid duplicate lookups
+- Graceful handling of blank/missing owner names
 
-    python main.py --input "M.YY_Ecorp_Upload *.xlsx" --output "M.YY_Ecorp_Complete *.xlsx"
-
-Requirements:
-    - pandas
-    - openpyxl
-    - selenium
-    - webdriver-manager
-    - beautifulsoup4
-
-The script automatically downloads the appropriate ChromeDriver using
-webdriver-manager.  Running in a headless environment is enabled by
-default.  You may disable headless mode for debugging by setting the
-``--headless`` flag to ``false``.
+Output Files:
+- Ecorp Upload: 4 columns (FULL_ADDRESS, COUNTY, Owner_Ownership, OWNER_TYPE)
+- Ecorp Complete: 26 columns (Upload + 22 ACC entity fields)
 """
 
-import argparse
 import time
-from typing import List, Dict
+import pickle
+from pathlib import Path
+from datetime import datetime
+from typing import List, Dict, Optional, Tuple
 
 import pandas as pd
 from bs4 import BeautifulSoup
@@ -51,12 +37,12 @@ from webdriver_manager.chrome import ChromeDriverManager
 
 def classify_name_type(name: str) -> str:
     """Classify a name as Entity or Individual(s) based on keywords and patterns.
-    
+
     Parameters
     ----------
     name : str
         The name to classify
-        
+
     Returns
     -------
     str
@@ -64,38 +50,58 @@ def classify_name_type(name: str) -> str:
     """
     if not name:
         return ""
-    
+
     name_upper = str(name).upper()
-    
+
     # Entity keywords
     entity_keywords = [
-        'LLC', 'CORP', 'INC', 'SCHOOL', 'DISTRICT', 'TRUST', 'FOUNDATION', 
-        'COMPANY', 'CO.', 'ASSOCIATION', 'CHURCH', 'PROPERTIES', 'LP', 
-        'LTD', 'PARTNERSHIP', 'FUND', 'HOLDINGS', 'INVESTMENTS', 'VENTURES', 
+        'LLC', 'CORP', 'INC', 'SCHOOL', 'DISTRICT', 'TRUST', 'FOUNDATION',
+        'COMPANY', 'CO.', 'ASSOCIATION', 'CHURCH', 'PROPERTIES', 'LP',
+        'LTD', 'PARTNERSHIP', 'FUND', 'HOLDINGS', 'INVESTMENTS', 'VENTURES',
         'GROUP', 'ENTERPRISE', 'BORROWER', 'ACADEMY', 'COLLEGE', 'UNIVERSITY',
         'MEDICAL', 'HEALTH', 'CARE', 'SOBER', 'LEARNING', 'PRESCHOOL'
     ]
-    
+
     # Check for entity keywords
     for keyword in entity_keywords:
         if keyword in name_upper:
             return "Entity"
-    
+
     # Check for individual patterns
     # Names with slashes (joint ownership)
     if '/' in name:
         return "Individual(s)"
-    
+
     # Simple name patterns (2-4 words, likely person names)
     words = name.strip().split()
     if len(words) >= 2 and len(words) <= 4:
         # Additional check: if it doesn't contain entity-like words
-        if not any(word.upper() in ['PROPERTY', 'REAL', 'ESTATE', 'DEVELOPMENT', 'RENTAL'] 
+        if not any(word.upper() in ['PROPERTY', 'REAL', 'ESTATE', 'DEVELOPMENT', 'RENTAL']
                    for word in words):
             return "Individual(s)"
-    
+
     # Default to Entity for unclear cases
     return "Entity"
+
+
+def classify_owner_type(name: str) -> str:
+    """Classify owner name and map to BUSINESS/INDIVIDUAL for OWNER_TYPE column.
+
+    Parameters
+    ----------
+    name : str
+        Owner name to classify
+
+    Returns
+    -------
+    str
+        "BUSINESS" or "INDIVIDUAL"
+    """
+    if pd.isna(name) or str(name).strip() == '':
+        return ""
+
+    result = classify_name_type(name)
+    return "BUSINESS" if result == "Entity" else "INDIVIDUAL"
 
 
 def setup_driver(headless: bool = True) -> webdriver.Chrome:
@@ -170,32 +176,7 @@ def search_entities(driver: webdriver.Chrome, name: str) -> List[Dict[str, str]]
             # Click OK button to close modal
             ok_button = driver.find_element(By.XPATH, "//button[normalize-space()='OK']")
             ok_button.click()
-            return [
-                {
-                    "Search Name": name,
-                    "Type": classify_name_type(name),
-                    "Entity Name(s)": "—",
-                    "Entity ID(s)": "—",
-                    "Entity Type": "—",
-                    "Status": "Not found",
-                    "Formation Date": "—",
-                    "Business Type": "—",
-                    "Domicile State": "—",
-                    "Statutory Agent": "—",
-                    "Agent Address": "—",
-                    "County": "—",
-                    "Comments": "No search results",
-                    "Title1": "—",
-                    "Name1": "—",
-                    "Address1": "—",
-                    "Title2": "—",
-                    "Name2": "—",
-                    "Address2": "—",
-                    "Title3": "—",
-                    "Name3": "—",
-                    "Address3": "—",
-                }
-            ]
+            return [get_blank_acc_record()]
         except Exception:
             pass
 
@@ -233,7 +214,7 @@ def search_entities(driver: webdriver.Chrome, name: str) -> List[Dict[str, str]]
                 """Extract Statutory Agent information from the specific section."""
                 agent_name = ""
                 agent_addr = ""
-                
+
                 try:
                     # Method 1: Look for section-header approach
                     agent_header = soup.find(text=lambda t: t and "Statutory Agent Information" in t)
@@ -247,19 +228,18 @@ def search_entities(driver: webdriver.Chrome, name: str) -> List[Dict[str, str]]
                                     name_div = name_label.find_parent().find_next_sibling()
                                     if name_div:
                                         agent_name = name_div.get_text(strip=True)
-                                
+
                                 addr_label = next_row.find(text=lambda t: t and "Address:" in t)
                                 if addr_label:
                                     addr_div = addr_label.find_parent().find_next_sibling()
                                     if addr_div:
                                         agent_addr = addr_div.get_text(strip=True)
-                    
+
                     # Method 2: If method 1 fails, look for all Name: labels and find the one in statutory section
                     if not agent_name:
                         all_name_labels = soup.find_all(text=lambda t: t and "Name:" in t)
                         for name_label in all_name_labels:
                             # Check if this Name: label is in the statutory agent section
-                            # by looking for "Statutory Agent Information" in previous elements
                             label_parent = name_label.find_parent()
                             previous_labels = label_parent.find_all_previous('label', limit=5)
                             for prev_label in previous_labels:
@@ -271,7 +251,7 @@ def search_entities(driver: webdriver.Chrome, name: str) -> List[Dict[str, str]]
                                         break
                             if agent_name:
                                 break
-                    
+
                     # Method 3: Similar approach for address
                     if not agent_addr:
                         all_addr_labels = soup.find_all(text=lambda t: t and "Address:" in t)
@@ -286,22 +266,22 @@ def search_entities(driver: webdriver.Chrome, name: str) -> List[Dict[str, str]]
                                         break
                             if agent_addr:
                                 break
-                        
+
                 except Exception:
                     pass
-                
+
                 # Fallback to original method if new method fails
                 if not agent_name:
                     agent_name = get_field("Name:")
                 if not agent_addr:
                     agent_addr = get_field("Address:")
-                    
+
                 return agent_name, agent_addr
 
             def extract_principal_info():
                 """Extract Principal Information from the table/grid section."""
                 principals = {}
-                
+
                 try:
                     # Look for the principal information table by id
                     principal_table = soup.find('table', id='grid_principalList')
@@ -310,27 +290,27 @@ def search_entities(driver: webdriver.Chrome, name: str) -> List[Dict[str, str]]
                         tbody = principal_table.find('tbody')
                         if tbody:
                             rows = tbody.find_all('tr')
-                            
+
                             principal_count = 0
                             for row in rows:
-                                if principal_count >= 5:  # Limit to 5 principals
+                                if principal_count >= 3:  # Limit to 3 principals
                                     break
-                                    
+
                                 cells = row.find_all('td')
                                 if len(cells) >= 4:  # Title, Name, Attention, Address
                                     principal_count += 1
-                                    
+
                                     title_text = cells[0].get_text(strip=True) if cells[0] else ""
                                     name_text = cells[1].get_text(strip=True) if cells[1] else ""
                                     # Skip attention field (cells[2])
                                     addr_text = cells[3].get_text(strip=True) if cells[3] else ""
-                                    
+
                                     principals[f"Title{principal_count}"] = title_text
                                     principals[f"Name{principal_count}"] = name_text
                                     principals[f"Address{principal_count}"] = addr_text
                 except Exception:
                     pass
-                
+
                 # Ensure we have at least empty strings for the first 3 principals
                 for i in range(1, 4):
                     if f"Title{i}" not in principals:
@@ -339,7 +319,7 @@ def search_entities(driver: webdriver.Chrome, name: str) -> List[Dict[str, str]]
                         principals[f"Name{i}"] = ""
                     if f"Address{i}" not in principals:
                         principals[f"Address{i}"] = ""
-                
+
                 return principals
 
             entity_type = get_field("Entity Type:")
@@ -350,12 +330,13 @@ def search_entities(driver: webdriver.Chrome, name: str) -> List[Dict[str, str]]
             agent_name, agent_addr = get_statutory_agent_info()
             county = get_field("County:")
             principal_info = extract_principal_info()
+
             entities.append(
                 {
                     "Search Name": name,
                     "Type": classify_name_type(name),
-                    "Entity Name(s)": entity_name,
-                    "Entity ID(s)": entity_id,
+                    "Entity Name(s)": entity_name if entity_name else "",
+                    "Entity ID(s)": entity_id if entity_id else "",
                     "Entity Type": entity_type if entity_type else "",
                     "Status": status if status else "",
                     "Formation Date": formation_date if formation_date else "",
@@ -379,190 +360,297 @@ def search_entities(driver: webdriver.Chrome, name: str) -> List[Dict[str, str]]
             # Close tab and switch back
             driver.close()
             driver.switch_to.window(driver.window_handles[0])
-        
-        # If no entities were found, return a "Not found" record
+
+        # If no entities were found, return a blank record
         if not entities:
-            return [
-                {
-                    "Search Name": name,
-                    "Type": classify_name_type(name),
-                    "Entity Name(s)": "—",
-                    "Entity ID(s)": "—",
-                    "Entity Type": "—",
-                    "Status": "Not found",
-                    "Formation Date": "—",
-                    "Business Type": "—",
-                    "Domicile State": "—",
-                    "Statutory Agent": "—",
-                    "Agent Address": "—",
-                    "County": "—",
-                    "Comments": "No search results",
-                    "Title1": "—",
-                    "Name1": "—",
-                    "Address1": "—",
-                    "Title2": "—",
-                    "Name2": "—",
-                    "Address2": "—",
-                    "Title3": "—",
-                    "Name3": "—",
-                    "Address3": "—",
-                }
-            ]
-        
+            return [get_blank_acc_record()]
+
         return entities
     except Exception as e:
-        # In the event of unexpected errors, return a not-found record
-        return [
-            {
-                "Search Name": name,
-                "Type": classify_name_type(name),
-                "Entity Name(s)": "—",
-                "Entity ID(s)": "—",
-                "Entity Type": "—",
-                "Status": "Error",
-                "Formation Date": "—",
-                "Business Type": "—",
-                "Domicile State": "—",
-                "Statutory Agent": "—",
-                "Agent Address": "—",
-                "County": "—",
-                "Comments": f"Lookup error: {e}",
-                "Title1": "—",
-                "Name1": "—",
-                "Address1": "—",
-                "Title2": "—",
-                "Name2": "—",
-                "Address2": "—",
-                "Title3": "—",
-                "Name3": "—",
-                "Address3": "—",
-            }
-        ]
+        # In the event of unexpected errors, return a blank record with error comment
+        blank = get_blank_acc_record()
+        blank["Comments"] = f"Lookup error: {e}"
+        return [blank]
 
 
-def deduplicate_records(df):
-    """Remove duplicate records where all fields are identical except Entity ID(s) and Formation Date.
-    
-    Keeps the record with the most recent Formation Date.
-    
-    Parameters
-    ----------
-    df : pandas.DataFrame
-        DataFrame containing search results
-        
+def get_blank_acc_record() -> dict:
+    """Return ACC record with all 22 fields as empty strings.
+
     Returns
     -------
-    pandas.DataFrame
-        DataFrame with duplicates removed
+    dict
+        Dictionary with all ACC field keys set to empty strings
     """
-    import pandas as pd
-    
-    if len(df) <= 1:
-        return df
-    
-    def parse_formation_date(date_str):
-        """Parse formation date string into datetime, handling placeholders."""
-        if pd.isna(date_str) or str(date_str) == '—' or str(date_str) == 'nan':
-            return pd.Timestamp.min  # Earliest possible date for "no date"
-        try:
-            return pd.to_datetime(str(date_str))
-        except:
-            return pd.Timestamp.min
-    
-    # Create a copy to avoid modifying original
-    df_work = df.copy()
-    
-    # Add parsed date column for sorting
-    df_work['_parsed_date'] = df_work['Formation Date'].apply(parse_formation_date)
-    
-    # Define columns to compare (all except Entity ID(s) and Formation Date)
-    comparison_cols = [col for col in df.columns if col not in ['Entity ID(s)', 'Formation Date']]
-    
-    # Group by comparison columns and keep the one with most recent date
-    # Sort by parsed date descending (most recent first), then keep first in each group
-    df_work = df_work.sort_values('_parsed_date', ascending=False)
-    df_deduplicated = df_work.drop_duplicates(subset=comparison_cols, keep='first')
-    
-    # Remove the helper column and return
-    df_deduplicated = df_deduplicated.drop('_parsed_date', axis=1)
-    
-    # Reset index to maintain clean numbering
-    df_deduplicated = df_deduplicated.reset_index(drop=True)
-    
-    return df_deduplicated
+    return {
+        'Search Name': '',
+        'Type': '',
+        'Entity Name(s)': '',
+        'Entity ID(s)': '',
+        'Entity Type': '',
+        'Status': '',
+        'Formation Date': '',
+        'Business Type': '',
+        'Domicile State': '',
+        'Statutory Agent': '',
+        'Agent Address': '',
+        'County': '',
+        'Comments': '',
+        'Title1': '', 'Name1': '', 'Address1': '',
+        'Title2': '', 'Name2': '', 'Address2': '',
+        'Title3': '', 'Name3': '', 'Address3': ''
+    }
 
 
-def replace_placeholders(df):
-    """Replace '—' placeholder characters with empty strings.
-    
+def save_checkpoint(path: Path, results: list, idx: int) -> None:
+    """Save progress checkpoint to disk for resume capability.
+
     Parameters
     ----------
-    df : pandas.DataFrame
-        DataFrame containing search results
-        
+    path : Path
+        Path to checkpoint file
+    results : list
+        List of completed records
+    idx : int
+        Current index in processing
+    """
+    path.parent.mkdir(parents=True, exist_ok=True)
+    with open(path, 'wb') as f:
+        pickle.dump((results, idx), f)
+
+
+def extract_timestamp_from_path(path: Path) -> str:
+    """Extract timestamp from Upload filename for consistency.
+
+    Parameters
+    ----------
+    path : Path
+        Path to Upload file
+
     Returns
     -------
-    pandas.DataFrame
-        DataFrame with placeholders replaced
+    str
+        Timestamp string in format MM.DD.HH-MM-SS
     """
-    # Replace '—' with empty string across all columns
-    df_clean = df.replace('—', '')
-    return df_clean
+    stem = path.stem
+    if "_Ecorp_Upload" in stem:
+        parts = stem.split("_Ecorp_Upload")
+        if len(parts) > 1 and parts[1].strip():
+            return parts[1].strip()
+    # Fallback to current time
+    return datetime.now().strftime("%m.%d.%I-%M-%S")
 
 
-def process_file(input_path: str, output_path: str, headless: bool = True) -> None:
-    """Read input Excel, perform lookups, and write results to output Excel.
+def get_cached_or_lookup(cache: dict, owner_name: str, driver: webdriver.Chrome) -> List[Dict[str, str]]:
+    """Check cache before performing ACC lookup to avoid duplicates.
 
     Parameters
     ----------
-    input_path : str
-        Path to the input Excel file containing a column ``Owner_Ownership``
-        with names to search.
-    output_path : str
-        Destination path for the output Excel file.
-    headless : bool
-        Whether to run the browser headlessly.
+    cache : dict
+        In-memory cache mapping owner names to ACC results
+    owner_name : str
+        Owner name to lookup
+    driver : webdriver.Chrome
+        Selenium driver instance
+
+    Returns
+    -------
+    List[Dict[str, str]]
+        ACC entity results from cache or fresh lookup
     """
-    df = pd.read_excel(input_path)
-    if 'Owner_Ownership' not in df.columns:
-        raise ValueError("Input file must contain a column named 'Owner_Ownership'")
-    names = df['Owner_Ownership'].fillna('').astype(str).tolist()
-    unique_names = []
-    # preserve duplicates by enumerating
-    for name in names:
-        unique_names.append(name.strip())
-    driver = setup_driver(headless=headless)
-    results = []
+    if owner_name in cache:
+        return cache[owner_name]
+
+    results = search_entities(driver, owner_name)
+    cache[owner_name] = results
+    return results
+
+
+def generate_ecorp_upload(month_code: str, mcao_complete_path: Path) -> Optional[Path]:
+    """Generate Ecorp Upload file from MCAO_Complete data.
+
+    Extracts 4 columns from MCAO_Complete:
+    - Column A: FULL_ADDRESS (MCAO col A)
+    - Column B: COUNTY (MCAO col B)
+    - Column C: Owner_Ownership (MCAO col E)
+    - Column D: OWNER_TYPE (classified as BUSINESS/INDIVIDUAL)
+
+    Parameters
+    ----------
+    month_code : str
+        Month code (e.g., "1.25")
+    mcao_complete_path : Path
+        Path to MCAO_Complete file
+
+    Returns
+    -------
+    Optional[Path]
+        Path to created Upload file, or None if failed
+    """
     try:
-        for name in unique_names:
-            records = search_entities(driver, name)
-            results.extend(records)
-    finally:
-        driver.quit()
-    result_df = pd.DataFrame(results)
-    
-    # Apply deduplication logic to remove redundant records
-    result_df = deduplicate_records(result_df)
-    
-    # Replace placeholder characters with blanks
-    result_df = replace_placeholders(result_df)
-    
-    result_df.to_excel(output_path, index=False)
+        # Read MCAO_Complete file
+        print(f"📋 Reading MCAO_Complete: {mcao_complete_path.name}")
+        df = pd.read_excel(mcao_complete_path)
+
+        # Validate columns exist
+        if len(df.columns) < 5:
+            print(f"❌ MCAO_Complete must have at least 5 columns, found {len(df.columns)}")
+            return None
+
+        # Extract columns (0-indexed)
+        upload_df = pd.DataFrame({
+            'FULL_ADDRESS': df.iloc[:, 0],           # Column A
+            'COUNTY': df.iloc[:, 1],                 # Column B
+            'Owner_Ownership': df.iloc[:, 4],        # Column E (0-indexed = 4)
+            'OWNER_TYPE': df.iloc[:, 4].apply(classify_owner_type)  # Classify
+        })
+
+        print(f"📊 Extracted {len(upload_df)} records for Ecorp Upload")
+
+        # Count blanks
+        blank_count = upload_df['Owner_Ownership'].isna().sum() + (upload_df['Owner_Ownership'] == '').sum()
+        if blank_count > 0:
+            print(f"   ⚠️  {blank_count} records have blank Owner_Ownership")
+
+        # Generate timestamp (12-hour format)
+        timestamp = datetime.now().strftime("%m.%d.%I-%M-%S")
+
+        # Save
+        output_dir = Path("Ecorp/Upload")
+        output_dir.mkdir(parents=True, exist_ok=True)
+        output_path = output_dir / f"{month_code}_Ecorp_Upload {timestamp}.xlsx"
+
+        upload_df.to_excel(output_path, index=False, engine='xlsxwriter')
+        print(f"✅ Created Ecorp Upload: {output_path}")
+
+        return output_path
+
+    except Exception as e:
+        print(f"❌ Error creating Ecorp Upload: {e}")
+        import traceback
+        traceback.print_exc()
+        return None
 
 
-def main():
-    parser = argparse.ArgumentParser(description="ACC entity lookup automation")
-    parser.add_argument("--input", required=True, help="Path to input Excel file")
-    parser.add_argument("--output", required=True, help="Path to output Excel file")
-    parser.add_argument(
-        "--headless",
-        default=True,
-        action=argparse.BooleanOptionalAction,
-        help="Run browser in headless mode (default True)",
-    )
-    args = parser.parse_args()
-    process_file(args.input, args.output, headless=args.headless)
+def generate_ecorp_complete(month_code: str, upload_path: Path, headless: bool = True) -> bool:
+    """Enrich Upload file with ACC entity data to create Complete file.
 
+    Features:
+    - Progress checkpointing every 50 records
+    - In-memory caching to avoid duplicate lookups
+    - Ctrl+C interrupt handling with save
+    - Graceful handling of blank Owner_Ownership
 
-if __name__ == "__main__":
-    main()
+    Output has 26 columns:
+    - A-D: FULL_ADDRESS, COUNTY, Owner_Ownership, OWNER_TYPE (from Upload)
+    - E-Z: 22 ACC fields (Search Name, Type, Entity details, Principals)
+
+    Parameters
+    ----------
+    month_code : str
+        Month code (e.g., "1.25")
+    upload_path : Path
+        Path to Upload file
+    headless : bool
+        Run Chrome in headless mode
+
+    Returns
+    -------
+    bool
+        True if successful, False if interrupted or failed
+    """
+    try:
+        # Read Upload file
+        print(f"📋 Processing Ecorp Upload: {upload_path.name}")
+        df_upload = pd.read_excel(upload_path)
+        total_records = len(df_upload)
+
+        # Setup
+        checkpoint_file = Path(f"Ecorp/.checkpoint_{month_code}.pkl")
+        results = []
+        start_idx = 0
+        cache = {}  # In-memory cache
+
+        # Load checkpoint if exists
+        if checkpoint_file.exists():
+            with open(checkpoint_file, 'rb') as f:
+                results, start_idx = pickle.load(f)
+            print(f"📂 Resuming from checkpoint: record {start_idx + 1}/{total_records}")
+
+        # Initialize driver
+        print(f"🌐 Initializing Chrome WebDriver...")
+        driver = setup_driver(headless)
+
+        try:
+            start_time = time.time()
+
+            for idx, row in df_upload.iloc[start_idx:].iterrows():
+                # Progress indicator
+                if idx > 0 and idx % 10 == 0:
+                    elapsed = time.time() - start_time
+                    rate = idx / elapsed if elapsed > 0 else 0
+                    remaining = (total_records - idx) / rate if rate > 0 else 0
+                    print(f"   Progress: {idx}/{total_records} ({idx*100//total_records}%) | "
+                          f"Rate: {rate:.1f} rec/sec | ETA: {remaining/60:.1f} min", flush=True)
+
+                # Base record (columns A-D from Upload)
+                base = {
+                    'FULL_ADDRESS': row['FULL_ADDRESS'],
+                    'COUNTY': row['COUNTY'],
+                    'Owner_Ownership': row['Owner_Ownership'],
+                    'OWNER_TYPE': row['OWNER_TYPE']
+                }
+
+                # ACC lookup (columns E-Z)
+                owner_name = row['Owner_Ownership']
+
+                if pd.isna(owner_name) or str(owner_name).strip() == '':
+                    # Blank owner - use empty ACC record
+                    acc_data = get_blank_acc_record()
+                else:
+                    # Lookup with caching
+                    acc_results = get_cached_or_lookup(cache, str(owner_name), driver)
+                    acc_data = acc_results[0] if acc_results else get_blank_acc_record()
+
+                # Combine Upload cols (A-D) + ACC cols (E-Z)
+                complete_record = {**base, **acc_data}
+                results.append(complete_record)
+
+                # Checkpoint every 50 records
+                if (idx + 1) % 50 == 0:
+                    save_checkpoint(checkpoint_file, results, idx + 1)
+                    print(f"   💾 Checkpoint saved at {idx + 1} records")
+
+            # Save final Complete file
+            timestamp = extract_timestamp_from_path(upload_path)
+            output_dir = Path("Ecorp/Complete")
+            output_dir.mkdir(parents=True, exist_ok=True)
+            output_path = output_dir / f"{month_code}_Ecorp_Complete {timestamp}.xlsx"
+
+            df_complete = pd.DataFrame(results)
+            df_complete.to_excel(output_path, index=False, engine='xlsxwriter')
+
+            elapsed_total = time.time() - start_time
+            print(f"\n✅ Created Ecorp Complete: {output_path}")
+            print(f"   Total time: {elapsed_total/60:.1f} minutes")
+            print(f"   Cache hits: {total_records - len(cache)} lookups saved")
+
+            # Clean up checkpoint
+            if checkpoint_file.exists():
+                checkpoint_file.unlink()
+
+            return True
+
+        except KeyboardInterrupt:
+            print(f"\n⚠️  Interrupted by user - saving progress...")
+            save_checkpoint(checkpoint_file, results, idx)
+            print(f"💾 Progress saved to checkpoint. Run again to resume from record {idx + 1}")
+            return False
+
+        finally:
+            driver.quit()
+
+    except Exception as e:
+        print(f"❌ Error processing Ecorp Complete: {e}")
+        import traceback
+        traceback.print_exc()
+        return False

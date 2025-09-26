@@ -28,8 +28,17 @@
    * `Reformat/` — M.YY Reformat.xlsx output files
    * `All-to-Date/` — Reformat All to Date M.YY.xlsx cumulative files
    * `Analysis/` — M.YY Analysis.xlsx files with full business analysis
-11. **Output Files** — Pipeline generates four types:
+   * `APN/Upload/` — MARICOPA-only extracts for parcel lookup
+   * `APN/Complete/` — APN Upload enriched with Assessor Parcel Numbers
+   * `MCAO/Upload/` — Filtered APNs for property data enrichment
+   * `MCAO/Complete/` — Full property data (84 columns) from Maricopa County Assessor
+   * `Ecorp/Upload/` — M.YY_Ecorp_Upload *.xlsx files for ACC entity lookup
+   * `Ecorp/Complete/` — M.YY_Ecorp_Complete *.xlsx with full entity data
+11. **Output Files** — Pipeline generates multiple types:
     * **Reformat**: Standardized data with MONTH, YEAR, PROVIDER_TYPE, PROVIDER, ADDRESS, CITY, ZIP, FULL_ADDRESS, CAPACITY, LONGITUDE, LATITUDE, COUNTY, PROVIDER_GROUP_INDEX_#
     * **All-to-Date**: Cumulative data across all months processed
     * **Analysis**: Full business analysis with 3 sheets (Summary, Blanks Count, Analysis) including lost license detection, MCAO property data, and extended tracking per v300Track_this.md
     * **APN Processing** (optional): For MARICOPA records, generates Upload files and Complete files with Assessor Parcel Numbers
+    * **MCAO Processing** (optional): Enriches APN data with 84 property fields from Maricopa County Assessor API
+    * **Ecorp Upload**: 4 columns (FULL_ADDRESS, COUNTY, Owner_Ownership, OWNER_TYPE) extracted from MCAO_Complete
+    * **Ecorp Complete**: Upload columns + 22 ACC entity fields (entity details, principals, registration data)

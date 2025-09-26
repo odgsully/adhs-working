@@ -199,12 +199,30 @@ def get_confirmation(start_month, end_month, months_to_process):
             else:
                 print_colored("Please enter 'y' for yes or 'n' for no", Colors.YELLOW)
 
+    # Only ask about Ecorp if MCAO processing is enabled
+    process_ecorp = False
+    if process_mcao:
+        while True:
+            response = input(f"\n{Colors.BOLD}Generate Ecorp entity files? (y/N): {Colors.END}").strip().lower()
+            if response in ['y', 'yes']:
+                process_ecorp = True
+                print_colored("  ✓ Will generate Ecorp Upload and Complete files", Colors.GREEN)
+                print_colored("    • Output: Ecorp/Upload/ (4 columns from MCAO)", Colors.WHITE)
+                print_colored("    • Output: Ecorp/Complete/ (26 columns with ACC data)", Colors.WHITE)
+                break
+            elif response in ['n', 'no', '']:
+                process_ecorp = False
+                print_colored("  ✓ Skipping Ecorp generation", Colors.YELLOW)
+                break
+            else:
+                print_colored("Please enter 'y' for yes or 'n' for no", Colors.YELLOW)
+
     while True:
         response = input(f"\n{Colors.BOLD}Ready to proceed? (y/N): {Colors.END}").strip().lower()
         if response in ['y', 'yes']:
-            return True, process_apn, process_mcao
+            return True, process_apn, process_mcao, process_ecorp
         elif response in ['n', 'no', '']:
-            return False, False, False
+            return False, False, False, False
         else:
             print_colored("Please enter 'y' for yes or 'n' for no", Colors.YELLOW)
 
@@ -823,7 +841,7 @@ def main():
     months_to_process = months[start_idx:end_idx + 1]
 
     # Get confirmation
-    confirmed, process_apn, process_mcao = get_confirmation(start_month, end_month, months_to_process)
+    confirmed, process_apn, process_mcao, process_ecorp = get_confirmation(start_month, end_month, months_to_process)
     if not confirmed:
         print_colored("\n🚫 Processing cancelled by user", Colors.YELLOW)
         return
@@ -837,6 +855,7 @@ def main():
     failed = []
     apn_errors = []
     mcao_errors = []
+    ecorp_errors = []
 
     for month_code, folder_name, _, _ in months_to_process:
         try:
@@ -875,7 +894,43 @@ def main():
                                 mcao_upload_path = extract_mcao_upload(month_code, apn_complete_path)
 
                                 if mcao_upload_path:
-                                    if not process_mcao_complete(month_code, mcao_upload_path):
+                                    if process_mcao_complete(month_code, mcao_upload_path):
+                                        # Process Ecorp if requested and MCAO completed successfully
+                                        if process_ecorp:
+                                            # Find most recent MCAO_Complete file
+                                            mcao_complete_pattern = f"{month_code}_MCAO_Complete*.xlsx"
+                                            complete_dir = Path("MCAO/Complete")
+                                            matches = list(complete_dir.glob(mcao_complete_pattern))
+
+                                            if matches:
+                                                mcao_complete_path = max(matches, key=lambda p: p.stat().st_mtime)
+
+                                                print_colored(f"\n🏢 Generating Ecorp Upload for {month_code}...", Colors.CYAN)
+                                                from adhs_etl.ecorp import generate_ecorp_upload, generate_ecorp_complete
+
+                                                try:
+                                                    ecorp_upload_path = generate_ecorp_upload(month_code, mcao_complete_path)
+
+                                                    if ecorp_upload_path:
+                                                        print_colored(f"\n🔍 Running ACC entity lookup for {month_code}...", Colors.CYAN)
+                                                        num_records = len(pd.read_excel(ecorp_upload_path))
+                                                        estimated_minutes = max(1, (num_records * 4) / 60)
+                                                        print_colored(f"   Processing {num_records} records at ~4 sec/record", Colors.CYAN)
+                                                        print_colored(f"   Estimated time: ~{estimated_minutes:.0f} minutes", Colors.CYAN)
+                                                        print_colored(f"   Press Ctrl+C to interrupt and save progress", Colors.YELLOW)
+
+                                                        if generate_ecorp_complete(month_code, ecorp_upload_path):
+                                                            print_colored(f"✅ Ecorp processing complete for {month_code}", Colors.GREEN)
+                                                        else:
+                                                            ecorp_errors.append(f"{month_code} (ACC lookup interrupted)")
+                                                    else:
+                                                        ecorp_errors.append(f"{month_code} (Upload creation failed)")
+                                                except Exception as e:
+                                                    print_colored(f"❌ Ecorp error for {month_code}: {e}", Colors.RED)
+                                                    ecorp_errors.append(f"{month_code} (error: {str(e)})")
+                                            else:
+                                                ecorp_errors.append(f"{month_code} (MCAO_Complete not found)")
+                                    else:
                                         mcao_errors.append(f"{month_code} (MCAO enrichment failed)")
                                 else:
                                     mcao_errors.append(f"{month_code} (MCAO upload creation failed)")
@@ -908,6 +963,9 @@ def main():
     if mcao_errors:
         print_colored(f"\n⚠️  MCAO processing issues: {', '.join(mcao_errors)}", Colors.YELLOW)
 
+    if ecorp_errors:
+        print_colored(f"\n⚠️  Ecorp processing issues: {', '.join(ecorp_errors)}", Colors.YELLOW)
+
     print_colored("\n📁 Output directories:", Colors.BOLD)
     print_colored("  • Reformat/", Colors.WHITE)
     print_colored("  • All-to-Date/", Colors.WHITE)
@@ -919,6 +977,9 @@ def main():
         print_colored("  • MCAO/Upload/ (filtered APNs)", Colors.WHITE)
         print_colored("  • MCAO/Complete/ (enriched with MCAO data)", Colors.WHITE)
         print_colored("  • MCAO/Logs/ (error tracking)", Colors.WHITE)
+    if process_ecorp:
+        print_colored("  • Ecorp/Upload/ (filtered MCAO data)", Colors.WHITE)
+        print_colored("  • Ecorp/Complete/ (with ACC entity details)", Colors.WHITE)
 
 if __name__ == "__main__":
     main()

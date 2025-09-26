@@ -10,6 +10,7 @@ Python ETL pipeline for processing Arizona Department of Health Services (ADHS) 
 - Provider deduplication using fuzzy matching
 - MCAO geocoding integration for location data
 - APN (Assessor Parcel Number) lookup for Maricopa County properties
+- Ecorp (ACC) entity lookup integration for ownership research
 - Generates three output types: Reformat, All-to-Date, and Analysis files
 - Comprehensive test coverage (≥80%)
 
@@ -18,6 +19,9 @@ Python ETL pipeline for processing Arizona Department of Health Services (ADHS) 
 ```bash
 # Install Poetry if not already installed
 curl -sSL https://install.python-poetry.org | python3 -
+
+# Chrome browser required for Ecorp processing
+# Install Chrome from: https://www.google.com/chrome/
 
 # Install dependencies
 poetry install
@@ -85,6 +89,20 @@ Edit `field_map.yml` to configure column mappings:
 ```
 
 Unknown columns are automatically added to `field_map.TODO.yml`.
+
+## Output Files
+
+The pipeline generates multiple output types:
+
+- **Reformat**: Standardized provider data with MONTH, YEAR, ADDRESS, COORDINATES, etc.
+- **All-to-Date**: Cumulative data across all processed months
+- **Analysis**: Full business analysis with Summary, Blanks Count, and lost license detection
+- **APN Upload**: MARICOPA-only records extracted for parcel number lookup
+- **APN Complete**: APN Upload enriched with Assessor Parcel Numbers
+- **MCAO Upload**: Filtered APNs ready for property data enrichment
+- **MCAO Complete**: Full property data with 84 fields from Maricopa County Assessor
+- **Ecorp Upload**: Filtered MCAO data prepared for ACC entity lookup (4 columns)
+- **Ecorp Complete**: Full entity details with principals and registration data (26 columns)
 
 ## Development
 

@@ -151,7 +151,7 @@ def test_pipeline_integration():
                 print("Testing with deduplication enabled...")
                 run_pipeline(
                     "../batchdata_local_pack/template_batchdata_upload.xlsx",
-                    "../8.25 ecorp complete.xlsx",
+                    "../M.YY_Ecorp_Complete.xlsx",
                     dry_run=True,
                     dedupe=True
                 )

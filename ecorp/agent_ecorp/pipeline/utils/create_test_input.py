@@ -15,7 +15,7 @@ def create_test_input():
     """Create test input file from eCorp data and template."""
     
     # Load eCorp data
-    ecorp_path = "../8.25 ecorp complete.xlsx"
+    ecorp_path = "../M.YY_Ecorp_Complete.xlsx"
     template_path = "../batchdata_local_pack/template_batchdata_upload.xlsx"
     
     print(f"Loading eCorp data from: {ecorp_path}")

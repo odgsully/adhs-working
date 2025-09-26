@@ -17,7 +17,7 @@ def demo_transformation():
     from src.transform import transform_ecorp_to_batchdata
     
     # Load sample eCorp data
-    ecorp_df = pd.read_excel("../8.25 ecorp complete.xlsx").head(2)
+    ecorp_df = pd.read_excel("../M.YY_Ecorp_Complete.xlsx").head(2)
     print(f"📊 Loaded {len(ecorp_df)} eCorp records")
     
     print("\n📋 Sample eCorp Record:")
