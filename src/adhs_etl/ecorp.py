@@ -111,6 +111,117 @@ def classify_owner_type(name: str) -> str:
     return "BUSINESS" if result == "Entity" else "INDIVIDUAL"
 
 
+def parse_individual_names(name_str: str) -> List[str]:
+    """Parse concatenated individual names into separate formatted names.
+
+    Handles patterns like:
+    - "MCCORMICK TIMOTHY/ROBIN" → ["TIMOTHY MCCORMICK", "ROBIN MCCORMICK"]
+    - "SOTO JEREMY/SIPES CAROLYN" → ["JEREMY SOTO", "CAROLYN SIPES"]
+    - "GREEN JEROME V" → ["JEROME V GREEN"]
+    - "BARATTI JAMES J/DEBORAH F TR" → ["JAMES J BARATTI", "DEBORAH F BARATTI"]
+
+    Parameters
+    ----------
+    name_str : str
+        The concatenated name string to parse
+
+    Returns
+    -------
+    List[str]
+        List of up to 4 parsed individual names
+    """
+    if pd.isna(name_str) or str(name_str).strip() == '':
+        return []
+
+    names = []
+    name_str = str(name_str).strip()
+
+    # Remove common suffixes that aren't part of the name
+    suffixes_to_remove = ['TR', 'TRUST', 'TRUSTEE', 'ET AL', 'JT TEN', 'JTRS', 'JT', 'EST', 'ESTATE']
+    for suffix in suffixes_to_remove:
+        if name_str.endswith(' ' + suffix):
+            name_str = name_str[:-(len(suffix) + 1)].strip()
+
+    # Split by forward slash to get individual components
+    parts = [p.strip() for p in name_str.split('/') if p.strip()]
+
+    if len(parts) == 1:
+        # Single name - check if it needs reordering (LASTNAME FIRSTNAME MIDDLE)
+        single_name = parts[0]
+        words = single_name.split()
+
+        if len(words) >= 2:
+            # Check if first word looks like a last name (all caps, longer than 2 chars)
+            # and second word looks like a first name
+            if len(words[0]) > 2:
+                # Assume format is LASTNAME FIRSTNAME [MIDDLE]
+                # Reorder to FIRSTNAME [MIDDLE] LASTNAME
+                reordered = ' '.join(words[1:]) + ' ' + words[0]
+                names.append(reordered)
+            else:
+                names.append(single_name)
+        else:
+            names.append(single_name)
+
+    elif len(parts) == 2:
+        # Two parts - check if they share a last name
+        first_part_words = parts[0].split()
+        second_part = parts[1]
+
+        if len(first_part_words) >= 2:
+            # Likely format: "LASTNAME FIRSTNAME1/FIRSTNAME2"
+            potential_lastname = first_part_words[0]
+            first_firstname = ' '.join(first_part_words[1:])
+
+            # Check if second part is just a first name (no spaces or one middle initial)
+            if len(second_part.split()) <= 2:
+                # They share the last name
+                names.append(f"{first_firstname} {potential_lastname}")
+                names.append(f"{second_part} {potential_lastname}")
+            else:
+                # Two complete different names
+                # Parse each separately
+                for part in parts:
+                    part_words = part.split()
+                    if len(part_words) >= 2:
+                        reordered = ' '.join(part_words[1:]) + ' ' + part_words[0]
+                        names.append(reordered)
+                    else:
+                        names.append(part)
+        else:
+            # Simple case - treat as separate names
+            for part in parts:
+                names.append(part)
+
+    else:
+        # Multiple parts separated by slashes
+        # Check if pattern is "LASTNAME1 FIRSTNAME1/LASTNAME2 FIRSTNAME2/..."
+        all_have_multiple_words = all(len(p.split()) >= 2 for p in parts)
+
+        if all_have_multiple_words:
+            # Each part is likely "LASTNAME FIRSTNAME [MIDDLE]"
+            for part in parts:
+                part_words = part.split()
+                if len(part_words) >= 2:
+                    reordered = ' '.join(part_words[1:]) + ' ' + part_words[0]
+                    names.append(reordered)
+                else:
+                    names.append(part)
+        else:
+            # Mixed format or unclear - preserve as is
+            names.extend(parts)
+
+    # Clean up names - remove extra spaces, capitalize properly
+    cleaned_names = []
+    for name in names[:4]:  # Limit to 4 names
+        # Remove extra spaces
+        name = ' '.join(name.split())
+        # Keep uppercase as provided (these are typically already uppercase)
+        cleaned_names.append(name)
+
+    return cleaned_names
+
+
 def setup_driver(headless: bool = True) -> webdriver.Chrome:
     """Configure and return a Selenium Chrome WebDriver.
 
@@ -218,76 +329,75 @@ def search_entities(driver: webdriver.Chrome, name: str) -> List[Dict[str, str]]
                 return ""
 
             def get_statutory_agent_info():
-                """Extract Statutory Agent information from the specific section."""
-                agent_name = ""
-                agent_addr = ""
+                """Extract Statutory Agent information using simple text parsing."""
+                agents = []
 
                 try:
-                    # Method 1: Look for section-header approach
-                    agent_header = soup.find(text=lambda t: t and "Statutory Agent Information" in t)
-                    if agent_header:
-                        header_parent = agent_header.find_parent()
-                        if header_parent and 'section-header' in str(header_parent.get('class', [])):
-                            next_row = header_parent.find_next_sibling('div', class_='row')
-                            if next_row:
-                                name_label = next_row.find(text=lambda t: t and "Name:" in t)
-                                if name_label:
-                                    name_div = name_label.find_parent().find_next_sibling()
-                                    if name_div:
-                                        agent_name = name_div.get_text(strip=True)
+                    # Get the entire page text
+                    page_text = soup.get_text()
 
-                                addr_label = next_row.find(text=lambda t: t and "Address:" in t)
-                                if addr_label:
-                                    addr_div = addr_label.find_parent().find_next_sibling()
-                                    if addr_div:
-                                        agent_addr = addr_div.get_text(strip=True)
+                    # Find "Statutory Agent Information" section in the text
+                    import re
 
-                    # Method 2: If method 1 fails, look for all Name: labels and find the one in statutory section
-                    if not agent_name:
-                        all_name_labels = soup.find_all(text=lambda t: t and "Name:" in t)
-                        for name_label in all_name_labels:
-                            # Check if this Name: label is in the statutory agent section
-                            label_parent = name_label.find_parent()
-                            previous_labels = label_parent.find_all_previous('label', limit=5)
-                            for prev_label in previous_labels:
-                                if "Statutory Agent Information" in prev_label.get_text():
-                                    # This Name: is in the statutory section
-                                    name_div = label_parent.find_next_sibling()
-                                    if name_div:
-                                        agent_name = name_div.get_text(strip=True)
-                                        break
-                            if agent_name:
-                                break
+                    # Look for the statutory agent section and extract Name
+                    # Pattern: Find "Name:" then capture the next non-empty line
+                    stat_agent_section = re.search(
+                        r'Statutory Agent Information.*?Name:\s*\n\s*([^\n\r]+?)(?:\s*\n|\s*Appointed)',
+                        page_text,
+                        re.DOTALL | re.IGNORECASE
+                    )
 
-                    # Method 3: Similar approach for address
-                    if not agent_addr:
-                        all_addr_labels = soup.find_all(text=lambda t: t and "Address:" in t)
-                        for addr_label in all_addr_labels:
-                            label_parent = addr_label.find_parent()
-                            previous_labels = label_parent.find_all_previous('label', limit=5)
-                            for prev_label in previous_labels:
-                                if "Statutory Agent Information" in prev_label.get_text():
-                                    addr_div = label_parent.find_next_sibling()
-                                    if addr_div:
-                                        agent_addr = addr_div.get_text(strip=True)
-                                        break
-                            if agent_addr:
-                                break
+                    agent_name = ""
+                    agent_addr = ""
+
+                    if stat_agent_section:
+                        agent_name = stat_agent_section.group(1).strip()
+                        # Clean up - remove extra spaces
+                        agent_name = ' '.join(agent_name.split())
+                    else:
+                        # Try alternative pattern where name might be on same line
+                        alt_pattern = re.search(
+                            r'Statutory Agent Information.*?Name:\s*([^\n\r]+?)(?:\s+Attention:|Appointed|$)',
+                            page_text,
+                            re.DOTALL | re.IGNORECASE
+                        )
+                        if alt_pattern:
+                            agent_name = alt_pattern.group(1).strip()
+                            agent_name = ' '.join(agent_name.split())
+
+                    # Look for Address in the same section
+                    addr_section = re.search(
+                        r'Statutory Agent Information.*?Address:\s*\n?\s*([^\n\r]+?)(?:\s*\n|\s*Agent Last|E-mail:|County:|Mailing)',
+                        page_text,
+                        re.DOTALL | re.IGNORECASE
+                    )
+
+                    if addr_section:
+                        agent_addr = addr_section.group(1).strip()
+                        agent_addr = ' '.join(agent_addr.split())
+
+                    # If we found name or address, add to agents list
+                    if agent_name or agent_addr:
+                        agents.append({
+                            'Name': agent_name,
+                            'Address': agent_addr,
+                            'Phone': "",
+                            'Mail': ""
+                        })
 
                 except Exception:
+                    # Silent fail - return empty list
                     pass
 
-                # Fallback to original method if new method fails
-                if not agent_name:
-                    agent_name = get_field("Name:")
-                if not agent_addr:
-                    agent_addr = get_field("Address:")
-
-                return agent_name, agent_addr
+                return agents
 
             def extract_principal_info():
-                """Extract Principal Information from the table/grid section."""
-                principals = {}
+                """Extract Principal Information from the table/grid section and categorize by role."""
+                categorized_principals = {
+                    'Manager': [],
+                    'Member': [],
+                    'Manager/Member': []
+                }
 
                 try:
                     # Look for the principal information table by id
@@ -298,78 +408,142 @@ def search_entities(driver: webdriver.Chrome, name: str) -> List[Dict[str, str]]
                         if tbody:
                             rows = tbody.find_all('tr')
 
-                            principal_count = 0
                             for row in rows:
-                                if principal_count >= 5:  # Limit to 5 principals
-                                    break
-
                                 cells = row.find_all('td')
                                 if len(cells) >= 4:  # Title, Name, Attention, Address
-                                    principal_count += 1
-
                                     title_text = cells[0].get_text(strip=True) if cells[0] else ""
                                     name_text = cells[1].get_text(strip=True) if cells[1] else ""
                                     # Skip attention field (cells[2])
                                     addr_text = cells[3].get_text(strip=True) if cells[3] else ""
 
-                                    principals[f"Title{principal_count}"] = title_text
-                                    principals[f"Name{principal_count}"] = name_text
-                                    principals[f"Address{principal_count}"] = addr_text
+                                    # Look for phone/email if present (conservative approach)
+                                    phone_text = ""
+                                    mail_text = ""
+                                    if len(cells) > 4:
+                                        # Check if additional cells might contain phone/email
+                                        for cell in cells[4:]:
+                                            cell_text = cell.get_text(strip=True)
+                                            if '@' in cell_text:
+                                                mail_text = cell_text
+                                            elif any(char.isdigit() for char in cell_text) and len(cell_text) >= 7:
+                                                phone_text = cell_text
+
+                                    # Categorize based on title
+                                    title_upper = title_text.upper()
+                                    principal_data = {
+                                        'Name': name_text,
+                                        'Address': addr_text,
+                                        'Phone': phone_text,
+                                        'Mail': mail_text
+                                    }
+
+                                    if 'MANAGER' in title_upper and 'MEMBER' in title_upper:
+                                        if len(categorized_principals['Manager/Member']) < 5:
+                                            categorized_principals['Manager/Member'].append(principal_data)
+                                    elif 'MANAGER' in title_upper:
+                                        if len(categorized_principals['Manager']) < 5:
+                                            categorized_principals['Manager'].append(principal_data)
+                                    elif 'MEMBER' in title_upper:
+                                        if len(categorized_principals['Member']) < 5:
+                                            categorized_principals['Member'].append(principal_data)
+                                    else:
+                                        # Default to Manager if title unclear
+                                        if len(categorized_principals['Manager']) < 5:
+                                            categorized_principals['Manager'].append(principal_data)
+
                 except Exception:
                     pass
 
-                # Ensure we have at least empty strings for the first 5 principals
-                for i in range(1, 6):
-                    if f"Title{i}" not in principals:
-                        principals[f"Title{i}"] = ""
-                    if f"Name{i}" not in principals:
-                        principals[f"Name{i}"] = ""
-                    if f"Address{i}" not in principals:
-                        principals[f"Address{i}"] = ""
-
-                return principals
+                return categorized_principals
 
             entity_type = get_field("Entity Type:")
             status = get_field("Entity Status:")
             formation_date = get_field("Formation Date:")
             business_type = get_field("Business Type:")
             domicile_state = get_field("Domicile State:")
-            agent_name, agent_addr = get_statutory_agent_info()
+            statutory_agents = get_statutory_agent_info()
             county = get_field("County:")
             principal_info = extract_principal_info()
 
-            entities.append(
-                {
-                    "Search Name": name,
-                    "Type": classify_name_type(name),
-                    "Entity Name(s)": entity_name if entity_name else "",
-                    "Entity ID(s)": entity_id if entity_id else "",
-                    "Entity Type": entity_type if entity_type else "",
-                    "Status": status if status else "",
-                    "Formation Date": formation_date if formation_date else "",
-                    "Business Type": business_type if business_type else "",
-                    "Domicile State": domicile_state if domicile_state else "",
-                    "Statutory Agent": agent_name if agent_name else "",
-                    "Agent Address": agent_addr if agent_addr else "",
-                    "County": county if county else "",
-                    "Comments": "",
-                    "Title1": principal_info.get("Title1", ""),
-                    "Name1": principal_info.get("Name1", ""),
-                    "Address1": principal_info.get("Address1", ""),
-                    "Title2": principal_info.get("Title2", ""),
-                    "Name2": principal_info.get("Name2", ""),
-                    "Address2": principal_info.get("Address2", ""),
-                    "Title3": principal_info.get("Title3", ""),
-                    "Name3": principal_info.get("Name3", ""),
-                    "Address3": principal_info.get("Address3", ""),
-                    "Title4": principal_info.get("Title4", ""),
-                    "Name4": principal_info.get("Name4", ""),
-                    "Address4": principal_info.get("Address4", ""),
-                    "Title5": principal_info.get("Title5", ""),
-                    "Name5": principal_info.get("Name5", ""),
-                    "Address5": principal_info.get("Address5", ""),
-                }
-            )
+            # Build the record with new structure
+            record = {
+                "Search Name": name,
+                "Type": classify_name_type(name),
+                "Entity Name(s)": entity_name if entity_name else "",
+                "Entity ID(s)": entity_id if entity_id else "",
+                "Entity Type": entity_type if entity_type else "",
+                "Status": status if status else "",
+                "Formation Date": formation_date if formation_date else "",
+                "Business Type": business_type if business_type else "",
+                "Domicile State": domicile_state if domicile_state else "",
+                "County": county if county else "",
+                "Comments": ""
+            }
+
+            # Add statutory agent fields (up to 3)
+            for i in range(1, 4):
+                if i <= len(statutory_agents):
+                    agent = statutory_agents[i-1]
+                    record[f"StatutoryAgent{i}_Name"] = agent.get('Name', '')
+                    record[f"StatutoryAgent{i}_Address"] = agent.get('Address', '')
+                    record[f"StatutoryAgent{i}_Phone"] = agent.get('Phone', '')
+                    record[f"StatutoryAgent{i}_Mail"] = agent.get('Mail', '')
+                else:
+                    record[f"StatutoryAgent{i}_Name"] = ''
+                    record[f"StatutoryAgent{i}_Address"] = ''
+                    record[f"StatutoryAgent{i}_Phone"] = ''
+                    record[f"StatutoryAgent{i}_Mail"] = ''
+
+            # Add Manager fields (up to 5)
+            managers = principal_info.get('Manager', [])
+            for i in range(1, 6):
+                if i <= len(managers):
+                    mgr = managers[i-1]
+                    record[f"Manager{i}_Name"] = mgr.get('Name', '')
+                    record[f"Manager{i}_Address"] = mgr.get('Address', '')
+                    record[f"Manager{i}_Phone"] = mgr.get('Phone', '')
+                    record[f"Manager{i}_Mail"] = mgr.get('Mail', '')
+                else:
+                    record[f"Manager{i}_Name"] = ''
+                    record[f"Manager{i}_Address"] = ''
+                    record[f"Manager{i}_Phone"] = ''
+                    record[f"Manager{i}_Mail"] = ''
+
+            # Add Manager/Member fields (up to 5)
+            mgr_members = principal_info.get('Manager/Member', [])
+            for i in range(1, 6):
+                if i <= len(mgr_members):
+                    mm = mgr_members[i-1]
+                    record[f"Manager/Member{i}_Name"] = mm.get('Name', '')
+                    record[f"Manager/Member{i}_Address"] = mm.get('Address', '')
+                    record[f"Manager/Member{i}_Phone"] = mm.get('Phone', '')
+                    record[f"Manager/Member{i}_Mail"] = mm.get('Mail', '')
+                else:
+                    record[f"Manager/Member{i}_Name"] = ''
+                    record[f"Manager/Member{i}_Address"] = ''
+                    record[f"Manager/Member{i}_Phone"] = ''
+                    record[f"Manager/Member{i}_Mail"] = ''
+
+            # Add Member fields (up to 5)
+            members = principal_info.get('Member', [])
+            for i in range(1, 6):
+                if i <= len(members):
+                    mbr = members[i-1]
+                    record[f"Member{i}_Name"] = mbr.get('Name', '')
+                    record[f"Member{i}_Address"] = mbr.get('Address', '')
+                    record[f"Member{i}_Phone"] = mbr.get('Phone', '')
+                    record[f"Member{i}_Mail"] = mbr.get('Mail', '')
+                else:
+                    record[f"Member{i}_Name"] = ''
+                    record[f"Member{i}_Address"] = ''
+                    record[f"Member{i}_Phone"] = ''
+                    record[f"Member{i}_Mail"] = ''
+
+            # Add Individual name fields (empty for now - will be populated for INDIVIDUAL types)
+            for i in range(1, 5):
+                record[f"IndividualName{i}"] = ''
+
+            entities.append(record)
             # Close tab and switch back
             driver.close()
             driver.switch_to.window(driver.window_handles[0])
@@ -387,14 +561,14 @@ def search_entities(driver: webdriver.Chrome, name: str) -> List[Dict[str, str]]
 
 
 def get_blank_acc_record() -> dict:
-    """Return ACC record with all 22 fields as empty strings.
+    """Return ACC record with all fields as empty strings.
 
     Returns
     -------
     dict
         Dictionary with all ACC field keys set to empty strings
     """
-    return {
+    record = {
         'Search Name': '',
         'Type': '',
         'Entity Name(s)': '',
@@ -404,16 +578,43 @@ def get_blank_acc_record() -> dict:
         'Formation Date': '',
         'Business Type': '',
         'Domicile State': '',
-        'Statutory Agent': '',
-        'Agent Address': '',
         'County': '',
-        'Comments': '',
-        'Title1': '', 'Name1': '', 'Address1': '',
-        'Title2': '', 'Name2': '', 'Address2': '',
-        'Title3': '', 'Name3': '', 'Address3': '',
-        'Title4': '', 'Name4': '', 'Address4': '',
-        'Title5': '', 'Name5': '', 'Address5': ''
+        'Comments': ''
     }
+
+    # Add StatutoryAgent fields (3 agents)
+    for i in range(1, 4):
+        record[f'StatutoryAgent{i}_Name'] = ''
+        record[f'StatutoryAgent{i}_Address'] = ''
+        record[f'StatutoryAgent{i}_Phone'] = ''
+        record[f'StatutoryAgent{i}_Mail'] = ''
+
+    # Add Manager fields (5 managers)
+    for i in range(1, 6):
+        record[f'Manager{i}_Name'] = ''
+        record[f'Manager{i}_Address'] = ''
+        record[f'Manager{i}_Phone'] = ''
+        record[f'Manager{i}_Mail'] = ''
+
+    # Add Manager/Member fields (5 entries)
+    for i in range(1, 6):
+        record[f'Manager/Member{i}_Name'] = ''
+        record[f'Manager/Member{i}_Address'] = ''
+        record[f'Manager/Member{i}_Phone'] = ''
+        record[f'Manager/Member{i}_Mail'] = ''
+
+    # Add Member fields (5 members)
+    for i in range(1, 6):
+        record[f'Member{i}_Name'] = ''
+        record[f'Member{i}_Address'] = ''
+        record[f'Member{i}_Phone'] = ''
+        record[f'Member{i}_Mail'] = ''
+
+    # Add Individual name fields (4 individuals)
+    for i in range(1, 5):
+        record[f'IndividualName{i}'] = ''
+
+    return record
 
 
 def save_checkpoint(path: Path, results: list, idx: int) -> None:
@@ -617,12 +818,21 @@ def generate_ecorp_complete(month_code: str, upload_path: Path, headless: bool =
 
                 # ACC lookup (columns E-Z)
                 owner_name = row['Owner_Ownership']
+                owner_type = row['OWNER_TYPE']
 
                 if pd.isna(owner_name) or str(owner_name).strip() == '':
                     # Blank owner - use empty ACC record
                     acc_data = get_blank_acc_record()
+                elif owner_type == 'INDIVIDUAL':
+                    # For INDIVIDUAL type, skip ACC lookup and parse names instead
+                    acc_data = get_blank_acc_record()
+                    # Parse individual names
+                    parsed_names = parse_individual_names(owner_name)
+                    # Populate IndividualName fields
+                    for i, parsed_name in enumerate(parsed_names[:4], 1):
+                        acc_data[f'IndividualName{i}'] = parsed_name
                 else:
-                    # Lookup with caching
+                    # BUSINESS type - do ACC lookup with caching
                     acc_results = get_cached_or_lookup(cache, str(owner_name), driver)
                     acc_data = acc_results[0] if acc_results else get_blank_acc_record()
 
