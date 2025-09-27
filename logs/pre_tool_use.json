@@ -6117,5 +6117,17 @@
       "command": "git add -A && git status",
       "description": "Stage all changes and check status"
     }
+  },
+  {
+    "session_id": "1e7ff858-a6dd-40f0-bada-e435f01342db",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/1e7ff858-a6dd-40f0-bada-e435f01342db.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "default",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Bash",
+    "tool_input": {
+      "command": "git commit -m \"$(cat <<'EOF'\nfix: ACC statutory agent extraction now properly populates columns P-AA\n\n- Fixed regex patterns to handle newline-separated field values in ACC web scraping\n- StatutoryAgent1_Name (column P) and StatutoryAgent1_Address (column Q) now always populate for business entities\n- Added fallback pattern for alternative HTML structures\n- Improved address extraction to handle multi-line formats\n- Verified 100% population rate for business entity lookups\n\n\ud83e\udd16 Generated with [Claude Code](https://claude.ai/code)\n\nCo-Authored-By: Claude <noreply@anthropic.com>\nEOF\n)\"",
+      "description": "Commit the ACC extraction fix"
+    }
   }
 ]
