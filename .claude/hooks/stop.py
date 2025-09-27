@@ -12,6 +12,8 @@ import os
 import sys
 import random
 import subprocess
+import fcntl
+import time
 from pathlib import Path
 from datetime import datetime
 
@@ -20,6 +22,9 @@ try:
     load_dotenv()
 except ImportError:
     pass  # dotenv is optional
+
+# Global flag to detect recursion
+RECURSION_FLAG_FILE = "/tmp/.claude_stop_hook_active"
 
 
 def get_completion_messages():
@@ -156,12 +161,27 @@ def announce_completion():
 
 def main():
     try:
+        # Check for recursion - if flag file exists and is recent, exit immediately
+        if os.path.exists(RECURSION_FLAG_FILE):
+            try:
+                flag_age = time.time() - os.path.getmtime(RECURSION_FLAG_FILE)
+                if flag_age < 2:  # If flag was created less than 2 seconds ago
+                    sys.exit(0)  # Exit silently to prevent recursion
+            except:
+                pass
+
+        # Set recursion flag
+        try:
+            Path(RECURSION_FLAG_FILE).touch()
+        except:
+            pass
+
         # Parse command line arguments
         parser = argparse.ArgumentParser()
         parser.add_argument('--chat', action='store_true', help='Copy transcript to chat.json')
         parser.add_argument('--notify', action='store_true', help='Enable TTS completion announcement')
         args = parser.parse_args()
-        
+
         # Read JSON input from stdin
         input_data = json.load(sys.stdin)
 
@@ -169,27 +189,53 @@ def main():
         session_id = input_data.get("session_id", "")
         stop_hook_active = input_data.get("stop_hook_active", False)
 
-        # Ensure log directory exists
-        log_dir = os.path.join(os.getcwd(), "logs")
+        # Use absolute path for log directory to avoid conflicts
+        # Always use project root logs directory, not relative to CWD
+        project_root = input_data.get("cwd", os.getcwd())
+        # If we're in a subdirectory, go up to find the project root with .claude/
+        current_path = Path(project_root)
+        while current_path != current_path.parent:
+            if (current_path / ".claude" / "settings.json").exists():
+                project_root = str(current_path)
+                break
+            current_path = current_path.parent
+
+        log_dir = os.path.join(project_root, "logs")
         os.makedirs(log_dir, exist_ok=True)
         log_path = os.path.join(log_dir, "stop.json")
 
         # Read existing log data or initialize empty list
+        log_data = []
         if os.path.exists(log_path):
-            with open(log_path, 'r') as f:
-                try:
-                    log_data = json.load(f)
-                except (json.JSONDecodeError, ValueError):
-                    log_data = []
-        else:
-            log_data = []
-        
+            try:
+                with open(log_path, 'r') as f:
+                    # Try to acquire a shared lock for reading
+                    fcntl.flock(f.fileno(), fcntl.LOCK_SH | fcntl.LOCK_NB)
+                    try:
+                        log_data = json.load(f)
+                    except (json.JSONDecodeError, ValueError):
+                        log_data = []
+                    finally:
+                        fcntl.flock(f.fileno(), fcntl.LOCK_UN)
+            except (IOError, OSError):
+                # If we can't get a lock, skip logging to prevent blocking
+                pass
+
         # Append new data
         log_data.append(input_data)
-        
-        # Write back to file with formatting
-        with open(log_path, 'w') as f:
-            json.dump(log_data, f, indent=2)
+
+        # Write back to file with formatting and exclusive lock
+        try:
+            with open(log_path, 'w') as f:
+                # Try to acquire an exclusive lock for writing
+                fcntl.flock(f.fileno(), fcntl.LOCK_EX | fcntl.LOCK_NB)
+                try:
+                    json.dump(log_data, f, indent=2)
+                finally:
+                    fcntl.flock(f.fileno(), fcntl.LOCK_UN)
+        except (IOError, OSError):
+            # If we can't write, fail silently
+            pass
         
         # Handle --chat switch
         if args.chat and 'transcript_path' in input_data:
@@ -218,13 +264,32 @@ def main():
         if args.notify:
             announce_completion()
 
+        # Clean up recursion flag
+        try:
+            if os.path.exists(RECURSION_FLAG_FILE):
+                os.remove(RECURSION_FLAG_FILE)
+        except:
+            pass
+
         sys.exit(0)
 
     except json.JSONDecodeError:
         # Handle JSON decode errors gracefully
+        # Clean up recursion flag
+        try:
+            if os.path.exists(RECURSION_FLAG_FILE):
+                os.remove(RECURSION_FLAG_FILE)
+        except:
+            pass
         sys.exit(0)
     except Exception:
         # Handle any other errors gracefully
+        # Clean up recursion flag
+        try:
+            if os.path.exists(RECURSION_FLAG_FILE):
+                os.remove(RECURSION_FLAG_FILE)
+        except:
+            pass
         sys.exit(0)
 
 

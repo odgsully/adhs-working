@@ -17,17 +17,113 @@ except ImportError:
     )
 
 
+def prepare_ecorp_for_batchdata(ecorp_df: pd.DataFrame) -> pd.DataFrame:
+    """Prepare Ecorp_Complete data for batchdata pipeline by mapping columns.
+
+    This function handles both the new categorized structure (StatutoryAgent/Manager/Member)
+    and the legacy structure (Title1/Name1/Address1) for backward compatibility.
+
+    Args:
+        ecorp_df: DataFrame from Ecorp_Complete file
+
+    Returns:
+        DataFrame with columns mapped for batchdata compatibility
+    """
+    df = ecorp_df.copy()
+
+    # Check which structure we have
+    has_new_structure = 'StatutoryAgent1_Name' in df.columns
+    has_legacy_structure = 'Title1' in df.columns
+
+    if has_new_structure and not has_legacy_structure:
+        # New structure detected - need to transform
+        print("📊 Detected new Ecorp_Complete structure - transforming for batchdata compatibility...")
+
+        # Map statutory agent fields
+        if 'StatutoryAgent1_Name' in df.columns:
+            df['Statutory Agent'] = df['StatutoryAgent1_Name']
+        if 'StatutoryAgent1_Address' in df.columns:
+            df['Agent Address'] = df['StatutoryAgent1_Address']
+
+        # Consolidate principals from categorized structure
+        for idx, row in df.iterrows():
+            principals = []
+
+            # Priority order: Manager/Member > Manager > Member > Individual
+            # Collect Manager/Member entries
+            for i in range(1, 6):
+                name = row.get(f'Manager/Member{i}_Name', '')
+                if name and pd.notna(name) and str(name).strip():
+                    principals.append({
+                        'title': 'Manager/Member',
+                        'name': name,
+                        'address': row.get(f'Manager/Member{i}_Address', '')
+                    })
+
+            # Collect Manager entries
+            for i in range(1, 6):
+                name = row.get(f'Manager{i}_Name', '')
+                if name and pd.notna(name) and str(name).strip():
+                    principals.append({
+                        'title': 'Manager',
+                        'name': name,
+                        'address': row.get(f'Manager{i}_Address', '')
+                    })
+
+            # Collect Member entries
+            for i in range(1, 6):
+                name = row.get(f'Member{i}_Name', '')
+                if name and pd.notna(name) and str(name).strip():
+                    principals.append({
+                        'title': 'Member',
+                        'name': name,
+                        'address': row.get(f'Member{i}_Address', '')
+                    })
+
+            # Collect Individual entries
+            for i in range(1, 5):
+                name = row.get(f'IndividualName{i}', '')
+                if name and pd.notna(name) and str(name).strip():
+                    principals.append({
+                        'title': 'Individual',
+                        'name': name,
+                        'address': ''  # Individuals don't have addresses in the structure
+                    })
+
+            # Map first 3 principals to Title/Name/Address columns
+            for i in range(1, 4):
+                if i <= len(principals):
+                    principal = principals[i-1]
+                    df.at[idx, f'Title{i}'] = principal['title']
+                    df.at[idx, f'Name{i}'] = principal['name']
+                    df.at[idx, f'Address{i}'] = principal['address']
+                else:
+                    df.at[idx, f'Title{i}'] = ''
+                    df.at[idx, f'Name{i}'] = ''
+                    df.at[idx, f'Address{i}'] = ''
+
+        print(f"✅ Transformed {len(df)} records for batchdata compatibility")
+
+    elif has_legacy_structure:
+        print("📊 Detected legacy Ecorp_Complete structure - no transformation needed")
+
+    else:
+        print("⚠️ Warning: Unknown Ecorp_Complete structure - attempting to proceed")
+
+    return df
+
+
 def ecorp_to_batchdata_records(ecorp_row: pd.Series) -> List[Dict[str, Any]]:
     """Transform single eCorp row into BatchData records (explode principals).
-    
+
     Args:
         ecorp_row: Single row from eCorp DataFrame
-        
+
     Returns:
         List of BatchData record dictionaries
     """
     records = []
-    
+
     # Base information from eCorp record
     base_info = {
         'source_type': 'Entity',
@@ -35,9 +131,13 @@ def ecorp_to_batchdata_records(ecorp_row: pd.Series) -> List[Dict[str, Any]]:
         'source_entity_id': ecorp_row.get('Entity ID(s)', ''),
         'notes': f"Derived from eCorp search: {ecorp_row.get('Search Name', '')}"
     }
-    
-    # Extract address information (prefer Agent Address over entity address)
+
+    # Extract address information with fallback for new structure
+    # Try legacy 'Agent Address' first, then new 'StatutoryAgent1_Address'
     agent_address = ecorp_row.get('Agent Address', '')
+    if not agent_address:
+        agent_address = ecorp_row.get('StatutoryAgent1_Address', '')
+
     if agent_address:
         address_parts = parse_address(agent_address)
         base_info.update({
@@ -46,15 +146,15 @@ def ecorp_to_batchdata_records(ecorp_row: pd.Series) -> List[Dict[str, Any]]:
             'city': address_parts['city'],
             'state': address_parts['state'],
             'zip': address_parts['zip'],
-            'county': ecorp_row.get('County', '')
+            'county': ecorp_row.get('County', '') or ecorp_row.get('COUNTY', '')
         })
-    
+
     # Process up to 3 principals
     for i in range(1, 4):
         title_col = f'Title{i}'
         name_col = f'Name{i}'
         address_col = f'Address{i}'
-        
+
         title = ecorp_row.get(title_col, '')
         name = ecorp_row.get(name_col, '')
         address = ecorp_row.get(address_col, '')
@@ -108,8 +208,11 @@ def ecorp_to_batchdata_records(ecorp_row: pd.Series) -> List[Dict[str, Any]]:
     
     # If no principals were found, create record for the entity itself
     if not records:
-        # Try to use Statutory Agent as the contact
+        # Try to use Statutory Agent as the contact (with fallback to new structure)
         statutory_agent = ecorp_row.get('Statutory Agent', '')
+        if not statutory_agent:
+            statutory_agent = ecorp_row.get('StatutoryAgent1_Name', '')
+
         if statutory_agent and not pd.isna(statutory_agent):
             # Check if statutory agent is an entity (contains business keywords)
             agent_upper = str(statutory_agent).upper()
@@ -280,23 +383,29 @@ def parse_address(address_str: str) -> Dict[str, str]:
 
 def transform_ecorp_to_batchdata(ecorp_df: pd.DataFrame) -> pd.DataFrame:
     """Transform entire eCorp DataFrame to BatchData format.
-    
+
+    This function now includes a preprocessing step to handle the new
+    Ecorp_Complete structure if needed.
+
     Args:
         ecorp_df: eCorp DataFrame
-        
+
     Returns:
         BatchData formatted DataFrame
     """
+    # Preprocess the DataFrame to ensure compatibility
+    ecorp_df = prepare_ecorp_for_batchdata(ecorp_df)
+
     all_records = []
-    
+
     for _, row in ecorp_df.iterrows():
         # Skip "Not found" records
         if row.get('Status', '').strip().lower() in ['not found', 'error']:
             continue
-            
+
         records = ecorp_to_batchdata_records(row)
         all_records.extend(records)
-    
+
     return pd.DataFrame(all_records)
 
 

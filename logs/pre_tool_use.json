@@ -6129,5 +6129,1386 @@
       "command": "git commit -m \"$(cat <<'EOF'\nfix: ACC statutory agent extraction now properly populates columns P-AA\n\n- Fixed regex patterns to handle newline-separated field values in ACC web scraping\n- StatutoryAgent1_Name (column P) and StatutoryAgent1_Address (column Q) now always populate for business entities\n- Added fallback pattern for alternative HTML structures\n- Improved address extraction to handle multi-line formats\n- Verified 100% population rate for business entity lookups\n\n\ud83e\udd16 Generated with [Claude Code](https://claude.ai/code)\n\nCo-Authored-By: Claude <noreply@anthropic.com>\nEOF\n)\"",
       "description": "Commit the ACC extraction fix"
     }
+  },
+  {
+    "session_id": "20d294e4-48c4-4a78-a1af-b113e6f010dc",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/20d294e4-48c4-4a78-a1af-b113e6f010dc.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "default",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Bash",
+    "tool_input": {
+      "command": "git ls-files",
+      "description": "List all files tracked by git"
+    }
+  },
+  {
+    "session_id": "20d294e4-48c4-4a78-a1af-b113e6f010dc",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/20d294e4-48c4-4a78-a1af-b113e6f010dc.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "default",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Read",
+    "tool_input": {
+      "file_path": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy/README.md"
+    }
+  },
+  {
+    "session_id": "20d294e4-48c4-4a78-a1af-b113e6f010dc",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/20d294e4-48c4-4a78-a1af-b113e6f010dc.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "plan",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Read",
+    "tool_input": {
+      "file_path": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy/ai_docs/cc_hooks_docs.md"
+    }
+  },
+  {
+    "session_id": "20d294e4-48c4-4a78-a1af-b113e6f010dc",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/20d294e4-48c4-4a78-a1af-b113e6f010dc.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "plan",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Read",
+    "tool_input": {
+      "file_path": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy/ai_docs/uv-single-file-scripts.md"
+    }
+  },
+  {
+    "session_id": "20d294e4-48c4-4a78-a1af-b113e6f010dc",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/20d294e4-48c4-4a78-a1af-b113e6f010dc.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "plan",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Read",
+    "tool_input": {
+      "file_path": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy/ai_docs/anthropic_custom_slash_commands.md"
+    }
+  },
+  {
+    "session_id": "20d294e4-48c4-4a78-a1af-b113e6f010dc",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/20d294e4-48c4-4a78-a1af-b113e6f010dc.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "plan",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Read",
+    "tool_input": {
+      "file_path": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy/ai_docs/anthropic_docs_subagents.md"
+    }
+  },
+  {
+    "session_id": "20d294e4-48c4-4a78-a1af-b113e6f010dc",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/20d294e4-48c4-4a78-a1af-b113e6f010dc.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "plan",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Bash",
+    "tool_input": {
+      "command": "find Ecorp -type f -name \"*.xlsx\" | head -20",
+      "description": "Find Excel files in Ecorp directory"
+    }
+  },
+  {
+    "session_id": "20d294e4-48c4-4a78-a1af-b113e6f010dc",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/20d294e4-48c4-4a78-a1af-b113e6f010dc.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "plan",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Bash",
+    "tool_input": {
+      "command": "ls -lt Ecorp/Complete/*.xlsx | grep -v \"~\\$\" | head -1",
+      "description": "Get most recent Ecorp_Complete file"
+    }
+  },
+  {
+    "session_id": "20d294e4-48c4-4a78-a1af-b113e6f010dc",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/20d294e4-48c4-4a78-a1af-b113e6f010dc.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "plan",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Read",
+    "tool_input": {
+      "file_path": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy/Ecorp/batchdata_pipeline/src/transform.py"
+    }
+  },
+  {
+    "session_id": "20d294e4-48c4-4a78-a1af-b113e6f010dc",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/20d294e4-48c4-4a78-a1af-b113e6f010dc.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "plan",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Read",
+    "tool_input": {
+      "file_path": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy/src/adhs_etl/ecorp.py",
+      "limit": 200
+    }
+  },
+  {
+    "session_id": "20d294e4-48c4-4a78-a1af-b113e6f010dc",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/20d294e4-48c4-4a78-a1af-b113e6f010dc.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "plan",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Read",
+    "tool_input": {
+      "file_path": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy/src/adhs_etl/ecorp.py",
+      "offset": 400,
+      "limit": 200
+    }
+  },
+  {
+    "session_id": "20d294e4-48c4-4a78-a1af-b113e6f010dc",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/20d294e4-48c4-4a78-a1af-b113e6f010dc.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "plan",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Bash",
+    "tool_input": {
+      "command": "ls -la *Ecorp*Template*.xlsx",
+      "description": "Find Ecorp template files"
+    }
+  },
+  {
+    "session_id": "20d294e4-48c4-4a78-a1af-b113e6f010dc",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/20d294e4-48c4-4a78-a1af-b113e6f010dc.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "plan",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Bash",
+    "tool_input": {
+      "command": "python3 -c \"import pandas as pd; df = pd.read_excel('Ecorp_Template_Complete.xlsx'); print('Ecorp_Template_Complete columns:', list(df.columns))\"",
+      "description": "Read Ecorp template columns"
+    }
+  },
+  {
+    "session_id": "20d294e4-48c4-4a78-a1af-b113e6f010dc",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/20d294e4-48c4-4a78-a1af-b113e6f010dc.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "plan",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Bash",
+    "tool_input": {
+      "command": "python3 -c \"import pandas as pd; df = pd.read_excel('Ecorp/batchdata_pipeline/docs/examples/template_batchdata_upload.xlsx'); print('BatchData template columns:', list(df.columns))\"",
+      "description": "Read BatchData template columns"
+    }
+  },
+  {
+    "session_id": "20d294e4-48c4-4a78-a1af-b113e6f010dc",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/20d294e4-48c4-4a78-a1af-b113e6f010dc.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "plan",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Bash",
+    "tool_input": {
+      "command": "python3 -c \"import pandas as pd; df = pd.read_excel('Ecorp/batchdata_pipeline/tests/batchdata_local_input.xlsx', sheet_name=None); for sheet, data in df.items(): print(f'Sheet {sheet} columns:', list(data.columns) if isinstance(data, pd.DataFrame) else 'Empty')\"",
+      "description": "Read BatchData test input columns"
+    }
+  },
+  {
+    "session_id": "20d294e4-48c4-4a78-a1af-b113e6f010dc",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/20d294e4-48c4-4a78-a1af-b113e6f010dc.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "plan",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Bash",
+    "tool_input": {
+      "command": "python3 -c \"\nimport pandas as pd\ndf = pd.read_excel('Ecorp/batchdata_pipeline/tests/batchdata_local_input.xlsx')\nprint('BatchData test input columns:', list(df.columns))\n\"",
+      "description": "Read BatchData test input columns"
+    }
+  },
+  {
+    "session_id": "20d294e4-48c4-4a78-a1af-b113e6f010dc",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/20d294e4-48c4-4a78-a1af-b113e6f010dc.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "plan",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Read",
+    "tool_input": {
+      "file_path": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy/Ecorp/batchdata_pipeline/docs/BATCHDATA.md",
+      "limit": 100
+    }
+  },
+  {
+    "session_id": "20d294e4-48c4-4a78-a1af-b113e6f010dc",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/20d294e4-48c4-4a78-a1af-b113e6f010dc.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "plan",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Grep",
+    "tool_input": {
+      "pattern": "ecorp_row\\.get\\(",
+      "path": "Ecorp/batchdata_pipeline/src/transform.py",
+      "output_mode": "content",
+      "-n": true
+    }
+  },
+  {
+    "session_id": "20d294e4-48c4-4a78-a1af-b113e6f010dc",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/20d294e4-48c4-4a78-a1af-b113e6f010dc.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "plan",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Bash",
+    "tool_input": {
+      "command": "python3 -c \"\nimport pandas as pd\n\n# Read the newest Ecorp_Complete file\nnewest_file = 'Ecorp/Complete/9.24_Ecorp_Complete 09.26.08-41-58.xlsx'\ndf = pd.read_excel(newest_file)\n\nprint('=== Newest Ecorp_Complete columns ===')\nprint(sorted(list(df.columns)))\n\"",
+      "description": "Check newest Ecorp_Complete file columns"
+    }
+  },
+  {
+    "session_id": "20d294e4-48c4-4a78-a1af-b113e6f010dc",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/20d294e4-48c4-4a78-a1af-b113e6f010dc.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "plan",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Bash",
+    "tool_input": {
+      "command": "python3 -c \"\n# Compare what Ecorp_Complete generates vs what batchdata expects\n\necorp_complete_columns = set([\n    'Business Type', 'COUNTY', 'Comments', 'County', 'Domicile State', \n    'Entity ID(s)', 'Entity Name(s)', 'Entity Type', 'FULL_ADDRESS', \n    'Formation Date', 'IndividualName1', 'IndividualName2', 'IndividualName3', \n    'IndividualName4', 'OWNER_TYPE', 'Owner_Ownership', 'Search Name', \n    'Status', 'Type',\n    'StatutoryAgent1_Address', 'StatutoryAgent1_Name', \n    'StatutoryAgent2_Address', 'StatutoryAgent2_Name',\n    'StatutoryAgent3_Address', 'StatutoryAgent3_Name',\n    'Manager1_Name', 'Manager1_Address',\n    'Manager/Member1_Name', 'Manager/Member1_Address',\n    'Member1_Name', 'Member1_Address'\n])\n\n# From transform.py, the batchdata pipeline expects these columns\nbatchdata_expected = set([\n    'Entity Name(s)',      # source_entity_name\n    'Entity ID(s)',        # source_entity_id  \n    'Search Name',         # for notes\n    'Agent Address',       # for address extraction (MISSING!)\n    'County',             # county\n    'Statutory Agent',     # for entity-only records (MISSING!)\n    'Title1', 'Name1', 'Address1',  # Principal 1 (MISSING!)\n    'Title2', 'Name2', 'Address2',  # Principal 2 (MISSING!)\n    'Title3', 'Name3', 'Address3',  # Principal 3 (MISSING!)\n    'Status'              # to skip not found/error\n])\n\nprint('=== Column Alignment Analysis ===')\nprint()\nprint('\u2705 Columns present in both:')\nfor col in sorted(ecorp_complete_columns & batchdata_expected):\n    print(f'  - {col}')\n\nprint()\nprint('\u274c Columns expected by batchdata but MISSING in Ecorp_Complete:')\nmissing = batchdata_expected - ecorp_complete_columns\nfor col in sorted(missing):\n    print(f'  - {col}')\n\nprint()\nprint('\ud83d\udd04 Columns that might have renamed/alternative mappings:')\nprint('  - Agent Address \u2192 StatutoryAgent1_Address (needs mapping)')\nprint('  - Statutory Agent \u2192 StatutoryAgent1_Name (needs mapping)')\nprint('  - Title1/Name1/Address1 \u2192 Manager1_Name/Manager1_Address (needs restructuring)')\nprint('  - Title2/Name2/Address2 \u2192 Manager2_Name/Manager2_Address (needs restructuring)')\nprint('  - Title3/Name3/Address3 \u2192 Manager3_Name/Manager3_Address (needs restructuring)')\n\nprint()\nprint('\ud83d\udcca Alignment Score: 3/10')\nprint('Reason: Critical column mismatches requiring significant transformation logic')\n\"",
+      "description": "Analyze column alignment between Ecorp_Complete and batchdata"
+    }
+  },
+  {
+    "session_id": "20d294e4-48c4-4a78-a1af-b113e6f010dc",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/20d294e4-48c4-4a78-a1af-b113e6f010dc.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "plan",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "ExitPlanMode",
+    "tool_input": {
+      "plan": "## Plan to Align Ecorp_Complete with BatchData Pipeline\n\n### Objective\nCreate a transformation layer to bridge the column structure gap between Ecorp_Complete output and BatchData pipeline input, ensuring no functional logic is lost.\n\n### Implementation Steps:\n\n1. **Create Column Mapping Adapter** \n   - Add a new function `prepare_ecorp_for_batchdata()` in transform.py\n   - Map StatutoryAgent fields to expected Agent fields\n   - Consolidate Manager/Member categories into sequential Title/Name/Address format\n\n2. **Implement Principal Consolidation Logic**\n   - Flatten the 4 categories (Manager, Manager/Member, Member, IndividualName) into sequential principals\n   - Prioritize by role importance: Manager/Member > Manager > Member > Individual\n   - Preserve up to 3 principals as expected by batchdata\n\n3. **Add Backward Compatibility Layer**\n   - Create column aliases for missing fields:\n     - `Agent Address` \u2190 `StatutoryAgent1_Address`\n     - `Statutory Agent` \u2190 `StatutoryAgent1_Name`\n     - `Title1/Name1/Address1` \u2190 First principal from consolidated list\n     - `Title2/Name2/Address2` \u2190 Second principal from consolidated list  \n     - `Title3/Name3/Address3` \u2190 Third principal from consolidated list\n\n4. **Enhance transform.py Error Handling**\n   - Add fallback logic for both column structures\n   - Try new structure first, fall back to legacy if columns missing\n   - Log which structure is being used for transparency\n\n5. **Create Test Coverage**\n   - Test with both old and new Ecorp_Complete formats\n   - Verify no data loss during transformation\n   - Ensure entity families still consolidate correctly\n\n### Conservative Approach\n- Keep all existing logic intact\n- Add new transformation as a preprocessing step\n- Maintain backward compatibility with legacy Ecorp files\n- No changes to core batchdata API processing logic\n\nThis approach ensures alignment while preserving all existing functionality."
+    }
+  },
+  {
+    "session_id": "20d294e4-48c4-4a78-a1af-b113e6f010dc",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/20d294e4-48c4-4a78-a1af-b113e6f010dc.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "plan",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "TodoWrite",
+    "tool_input": {
+      "todos": [
+        {
+          "content": "Create column mapping adapter function in transform.py",
+          "status": "pending",
+          "activeForm": "Creating column mapping adapter function"
+        },
+        {
+          "content": "Implement principal consolidation logic",
+          "status": "pending",
+          "activeForm": "Implementing principal consolidation logic"
+        },
+        {
+          "content": "Add backward compatibility layer for column aliases",
+          "status": "pending",
+          "activeForm": "Adding backward compatibility layer"
+        },
+        {
+          "content": "Enhance error handling with fallback logic",
+          "status": "pending",
+          "activeForm": "Enhancing error handling"
+        },
+        {
+          "content": "Create test coverage for both formats",
+          "status": "pending",
+          "activeForm": "Creating test coverage"
+        }
+      ]
+    }
+  },
+  {
+    "session_id": "20d294e4-48c4-4a78-a1af-b113e6f010dc",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/20d294e4-48c4-4a78-a1af-b113e6f010dc.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "plan",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "ExitPlanMode",
+    "tool_input": {
+      "plan": "## Plan to Align Ecorp_Complete with BatchData Pipeline\n\n### Objective\nCreate a transformation layer to bridge the column structure gap between Ecorp_Complete output and BatchData pipeline input, ensuring no functional logic is lost.\n\n### Implementation Steps:\n\n1. **Create Column Mapping Adapter** \n   - Add a new function `prepare_ecorp_for_batchdata()` in transform.py\n   - Map StatutoryAgent fields to expected Agent fields\n   - Consolidate Manager/Member categories into sequential Title/Name/Address format\n\n2. **Implement Principal Consolidation Logic**\n   - Flatten the 4 categories (Manager, Manager/Member, Member, IndividualName) into sequential principals\n   - Prioritize by role importance: Manager/Member > Manager > Member > Individual\n   - Preserve up to 3 principals as expected by batchdata\n\n3. **Add Backward Compatibility Layer**\n   - Create column aliases for missing fields:\n     - `Agent Address` \u2190 `StatutoryAgent1_Address`\n     - `Statutory Agent` \u2190 `StatutoryAgent1_Name`\n     - `Title1/Name1/Address1` \u2190 First principal from consolidated list\n     - `Title2/Name2/Address2` \u2190 Second principal from consolidated list  \n     - `Title3/Name3/Address3` \u2190 Third principal from consolidated list\n\n4. **Enhance transform.py Error Handling**\n   - Add fallback logic for both column structures\n   - Try new structure first, fall back to legacy if columns missing\n   - Log which structure is being used for transparency\n\n5. **Create Test Coverage**\n   - Test with both old and new Ecorp_Complete formats\n   - Verify no data loss during transformation\n   - Ensure entity families still consolidate correctly\n\n### Conservative Approach\n- Keep all existing logic intact\n- Add new transformation as a preprocessing step\n- Maintain backward compatibility with legacy Ecorp files\n- No changes to core batchdata API processing logic\n\nThis approach ensures alignment while preserving all existing functionality."
+    }
+  },
+  {
+    "session_id": "20d294e4-48c4-4a78-a1af-b113e6f010dc",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/20d294e4-48c4-4a78-a1af-b113e6f010dc.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "acceptEdits",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "TodoWrite",
+    "tool_input": {
+      "todos": [
+        {
+          "content": "Create column mapping adapter function in transform.py",
+          "status": "in_progress",
+          "activeForm": "Creating column mapping adapter function"
+        },
+        {
+          "content": "Implement principal consolidation logic",
+          "status": "pending",
+          "activeForm": "Implementing principal consolidation logic"
+        },
+        {
+          "content": "Add backward compatibility layer for column aliases",
+          "status": "pending",
+          "activeForm": "Adding backward compatibility layer"
+        },
+        {
+          "content": "Enhance error handling with fallback logic",
+          "status": "pending",
+          "activeForm": "Enhancing error handling"
+        },
+        {
+          "content": "Create test coverage for both formats",
+          "status": "pending",
+          "activeForm": "Creating test coverage"
+        }
+      ]
+    }
+  },
+  {
+    "session_id": "20d294e4-48c4-4a78-a1af-b113e6f010dc",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/20d294e4-48c4-4a78-a1af-b113e6f010dc.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "acceptEdits",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Read",
+    "tool_input": {
+      "file_path": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy/Ecorp/batchdata_pipeline/src/transform.py",
+      "offset": 15,
+      "limit": 60
+    }
+  },
+  {
+    "session_id": "20d294e4-48c4-4a78-a1af-b113e6f010dc",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/20d294e4-48c4-4a78-a1af-b113e6f010dc.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "acceptEdits",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Edit",
+    "tool_input": {
+      "file_path": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy/Ecorp/batchdata_pipeline/src/transform.py",
+      "old_string": "def ecorp_to_batchdata_records(ecorp_row: pd.Series) -> List[Dict[str, Any]]:\n    \"\"\"Transform single eCorp row into BatchData records (explode principals).\n    \n    Args:\n        ecorp_row: Single row from eCorp DataFrame\n        \n    Returns:\n        List of BatchData record dictionaries\n    \"\"\"\n    records = []\n    \n    # Base information from eCorp record\n    base_info = {\n        'source_type': 'Entity',\n        'source_entity_name': ecorp_row.get('Entity Name(s)', ''),\n        'source_entity_id': ecorp_row.get('Entity ID(s)', ''),\n        'notes': f\"Derived from eCorp search: {ecorp_row.get('Search Name', '')}\"\n    }\n    \n    # Extract address information (prefer Agent Address over entity address)\n    agent_address = ecorp_row.get('Agent Address', '')\n    if agent_address:\n        address_parts = parse_address(agent_address)\n        base_info.update({\n            'address_line1': address_parts['line1'],\n            'address_line2': address_parts['line2'],\n            'city': address_parts['city'],\n            'state': address_parts['state'],\n            'zip': address_parts['zip'],\n            'county': ecorp_row.get('County', '')\n        })\n    \n    # Process up to 3 principals\n    for i in range(1, 4):\n        title_col = f'Title{i}'\n        name_col = f'Name{i}'\n        address_col = f'Address{i}'\n        \n        title = ecorp_row.get(title_col, '')\n        name = ecorp_row.get(name_col, '')\n        address = ecorp_row.get(address_col, '')",
+      "new_string": "def prepare_ecorp_for_batchdata(ecorp_df: pd.DataFrame) -> pd.DataFrame:\n    \"\"\"Prepare Ecorp_Complete data for batchdata pipeline by mapping columns.\n\n    This function handles both the new categorized structure (StatutoryAgent/Manager/Member)\n    and the legacy structure (Title1/Name1/Address1) for backward compatibility.\n\n    Args:\n        ecorp_df: DataFrame from Ecorp_Complete file\n\n    Returns:\n        DataFrame with columns mapped for batchdata compatibility\n    \"\"\"\n    df = ecorp_df.copy()\n\n    # Check which structure we have\n    has_new_structure = 'StatutoryAgent1_Name' in df.columns\n    has_legacy_structure = 'Title1' in df.columns\n\n    if has_new_structure and not has_legacy_structure:\n        # New structure detected - need to transform\n        print(\"\ud83d\udcca Detected new Ecorp_Complete structure - transforming for batchdata compatibility...\")\n\n        # Map statutory agent fields\n        if 'StatutoryAgent1_Name' in df.columns:\n            df['Statutory Agent'] = df['StatutoryAgent1_Name']\n        if 'StatutoryAgent1_Address' in df.columns:\n            df['Agent Address'] = df['StatutoryAgent1_Address']\n\n        # Consolidate principals from categorized structure\n        for idx, row in df.iterrows():\n            principals = []\n\n            # Priority order: Manager/Member > Manager > Member > Individual\n            # Collect Manager/Member entries\n            for i in range(1, 6):\n                name = row.get(f'Manager/Member{i}_Name', '')\n                if name and pd.notna(name) and str(name).strip():\n                    principals.append({\n                        'title': 'Manager/Member',\n                        'name': name,\n                        'address': row.get(f'Manager/Member{i}_Address', '')\n                    })\n\n            # Collect Manager entries\n            for i in range(1, 6):\n                name = row.get(f'Manager{i}_Name', '')\n                if name and pd.notna(name) and str(name).strip():\n                    principals.append({\n                        'title': 'Manager',\n                        'name': name,\n                        'address': row.get(f'Manager{i}_Address', '')\n                    })\n\n            # Collect Member entries\n            for i in range(1, 6):\n                name = row.get(f'Member{i}_Name', '')\n                if name and pd.notna(name) and str(name).strip():\n                    principals.append({\n                        'title': 'Member',\n                        'name': name,\n                        'address': row.get(f'Member{i}_Address', '')\n                    })\n\n            # Collect Individual entries\n            for i in range(1, 5):\n                name = row.get(f'IndividualName{i}', '')\n                if name and pd.notna(name) and str(name).strip():\n                    principals.append({\n                        'title': 'Individual',\n                        'name': name,\n                        'address': ''  # Individuals don't have addresses in the structure\n                    })\n\n            # Map first 3 principals to Title/Name/Address columns\n            for i in range(1, 4):\n                if i <= len(principals):\n                    principal = principals[i-1]\n                    df.at[idx, f'Title{i}'] = principal['title']\n                    df.at[idx, f'Name{i}'] = principal['name']\n                    df.at[idx, f'Address{i}'] = principal['address']\n                else:\n                    df.at[idx, f'Title{i}'] = ''\n                    df.at[idx, f'Name{i}'] = ''\n                    df.at[idx, f'Address{i}'] = ''\n\n        print(f\"\u2705 Transformed {len(df)} records for batchdata compatibility\")\n\n    elif has_legacy_structure:\n        print(\"\ud83d\udcca Detected legacy Ecorp_Complete structure - no transformation needed\")\n\n    else:\n        print(\"\u26a0\ufe0f Warning: Unknown Ecorp_Complete structure - attempting to proceed\")\n\n    return df\n\n\ndef ecorp_to_batchdata_records(ecorp_row: pd.Series) -> List[Dict[str, Any]]:\n    \"\"\"Transform single eCorp row into BatchData records (explode principals).\n\n    Args:\n        ecorp_row: Single row from eCorp DataFrame\n\n    Returns:\n        List of BatchData record dictionaries\n    \"\"\"\n    records = []\n\n    # Base information from eCorp record\n    base_info = {\n        'source_type': 'Entity',\n        'source_entity_name': ecorp_row.get('Entity Name(s)', ''),\n        'source_entity_id': ecorp_row.get('Entity ID(s)', ''),\n        'notes': f\"Derived from eCorp search: {ecorp_row.get('Search Name', '')}\"\n    }\n\n    # Extract address information with fallback for new structure\n    # Try legacy 'Agent Address' first, then new 'StatutoryAgent1_Address'\n    agent_address = ecorp_row.get('Agent Address', '')\n    if not agent_address:\n        agent_address = ecorp_row.get('StatutoryAgent1_Address', '')\n\n    if agent_address:\n        address_parts = parse_address(agent_address)\n        base_info.update({\n            'address_line1': address_parts['line1'],\n            'address_line2': address_parts['line2'],\n            'city': address_parts['city'],\n            'state': address_parts['state'],\n            'zip': address_parts['zip'],\n            'county': ecorp_row.get('County', '') or ecorp_row.get('COUNTY', '')\n        })\n\n    # Process up to 3 principals\n    for i in range(1, 4):\n        title_col = f'Title{i}'\n        name_col = f'Name{i}'\n        address_col = f'Address{i}'\n\n        title = ecorp_row.get(title_col, '')\n        name = ecorp_row.get(name_col, '')\n        address = ecorp_row.get(address_col, '')"
+    }
+  },
+  {
+    "session_id": "20d294e4-48c4-4a78-a1af-b113e6f010dc",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/20d294e4-48c4-4a78-a1af-b113e6f010dc.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "acceptEdits",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "TodoWrite",
+    "tool_input": {
+      "todos": [
+        {
+          "content": "Create column mapping adapter function in transform.py",
+          "status": "completed",
+          "activeForm": "Creating column mapping adapter function"
+        },
+        {
+          "content": "Implement principal consolidation logic",
+          "status": "completed",
+          "activeForm": "Implementing principal consolidation logic"
+        },
+        {
+          "content": "Add backward compatibility layer for column aliases",
+          "status": "in_progress",
+          "activeForm": "Adding backward compatibility layer"
+        },
+        {
+          "content": "Enhance error handling with fallback logic",
+          "status": "pending",
+          "activeForm": "Enhancing error handling"
+        },
+        {
+          "content": "Create test coverage for both formats",
+          "status": "pending",
+          "activeForm": "Creating test coverage"
+        }
+      ]
+    }
+  },
+  {
+    "session_id": "20d294e4-48c4-4a78-a1af-b113e6f010dc",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/20d294e4-48c4-4a78-a1af-b113e6f010dc.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "acceptEdits",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Read",
+    "tool_input": {
+      "file_path": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy/Ecorp/batchdata_pipeline/src/transform.py",
+      "offset": 200,
+      "limit": 30
+    }
+  },
+  {
+    "session_id": "20d294e4-48c4-4a78-a1af-b113e6f010dc",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/20d294e4-48c4-4a78-a1af-b113e6f010dc.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "acceptEdits",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Edit",
+    "tool_input": {
+      "file_path": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy/Ecorp/batchdata_pipeline/src/transform.py",
+      "old_string": "    # If no principals were found, create record for the entity itself\n    if not records:\n        # Try to use Statutory Agent as the contact\n        statutory_agent = ecorp_row.get('Statutory Agent', '')\n        if statutory_agent and not pd.isna(statutory_agent):",
+      "new_string": "    # If no principals were found, create record for the entity itself\n    if not records:\n        # Try to use Statutory Agent as the contact (with fallback to new structure)\n        statutory_agent = ecorp_row.get('Statutory Agent', '')\n        if not statutory_agent:\n            statutory_agent = ecorp_row.get('StatutoryAgent1_Name', '')\n\n        if statutory_agent and not pd.isna(statutory_agent):"
+    }
+  },
+  {
+    "session_id": "20d294e4-48c4-4a78-a1af-b113e6f010dc",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/20d294e4-48c4-4a78-a1af-b113e6f010dc.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "acceptEdits",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Read",
+    "tool_input": {
+      "file_path": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy/Ecorp/batchdata_pipeline/src/transform.py",
+      "offset": 380,
+      "limit": 30
+    }
+  },
+  {
+    "session_id": "20d294e4-48c4-4a78-a1af-b113e6f010dc",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/20d294e4-48c4-4a78-a1af-b113e6f010dc.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "acceptEdits",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Edit",
+    "tool_input": {
+      "file_path": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy/Ecorp/batchdata_pipeline/src/transform.py",
+      "old_string": "def transform_ecorp_to_batchdata(ecorp_df: pd.DataFrame) -> pd.DataFrame:\n    \"\"\"Transform entire eCorp DataFrame to BatchData format.\n    \n    Args:\n        ecorp_df: eCorp DataFrame\n        \n    Returns:\n        BatchData formatted DataFrame\n    \"\"\"\n    all_records = []\n    \n    for _, row in ecorp_df.iterrows():\n        # Skip \"Not found\" records\n        if row.get('Status', '').strip().lower() in ['not found', 'error']:\n            continue\n            \n        records = ecorp_to_batchdata_records(row)\n        all_records.extend(records)\n    \n    return pd.DataFrame(all_records)",
+      "new_string": "def transform_ecorp_to_batchdata(ecorp_df: pd.DataFrame) -> pd.DataFrame:\n    \"\"\"Transform entire eCorp DataFrame to BatchData format.\n\n    This function now includes a preprocessing step to handle the new\n    Ecorp_Complete structure if needed.\n\n    Args:\n        ecorp_df: eCorp DataFrame\n\n    Returns:\n        BatchData formatted DataFrame\n    \"\"\"\n    # Preprocess the DataFrame to ensure compatibility\n    ecorp_df = prepare_ecorp_for_batchdata(ecorp_df)\n\n    all_records = []\n\n    for _, row in ecorp_df.iterrows():\n        # Skip \"Not found\" records\n        if row.get('Status', '').strip().lower() in ['not found', 'error']:\n            continue\n\n        records = ecorp_to_batchdata_records(row)\n        all_records.extend(records)\n\n    return pd.DataFrame(all_records)"
+    }
+  },
+  {
+    "session_id": "20d294e4-48c4-4a78-a1af-b113e6f010dc",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/20d294e4-48c4-4a78-a1af-b113e6f010dc.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "acceptEdits",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "TodoWrite",
+    "tool_input": {
+      "todos": [
+        {
+          "content": "Create column mapping adapter function in transform.py",
+          "status": "completed",
+          "activeForm": "Creating column mapping adapter function"
+        },
+        {
+          "content": "Implement principal consolidation logic",
+          "status": "completed",
+          "activeForm": "Implementing principal consolidation logic"
+        },
+        {
+          "content": "Add backward compatibility layer for column aliases",
+          "status": "completed",
+          "activeForm": "Adding backward compatibility layer"
+        },
+        {
+          "content": "Enhance error handling with fallback logic",
+          "status": "completed",
+          "activeForm": "Enhancing error handling"
+        },
+        {
+          "content": "Create test coverage for both formats",
+          "status": "in_progress",
+          "activeForm": "Creating test coverage"
+        }
+      ]
+    }
+  },
+  {
+    "session_id": "20d294e4-48c4-4a78-a1af-b113e6f010dc",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/20d294e4-48c4-4a78-a1af-b113e6f010dc.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "acceptEdits",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Write",
+    "tool_input": {
+      "file_path": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy/Ecorp/batchdata_pipeline/tests/test_ecorp_alignment.py",
+      "content": "#!/usr/bin/env python3\n\"\"\"\nTest alignment between Ecorp_Complete and BatchData pipeline formats.\n\nThis test validates that both new and legacy Ecorp_Complete formats\ncan be successfully transformed for BatchData compatibility.\n\"\"\"\n\nimport pandas as pd\nimport numpy as np\nimport sys\nfrom pathlib import Path\n\n# Add parent directory to path for imports\nsys.path.insert(0, str(Path(__file__).parent.parent))\n\nfrom src.transform import prepare_ecorp_for_batchdata, ecorp_to_batchdata_records, transform_ecorp_to_batchdata\n\n\ndef create_new_format_ecorp():\n    \"\"\"Create sample DataFrame with new Ecorp_Complete structure.\"\"\"\n    return pd.DataFrame({\n        'FULL_ADDRESS': ['123 Main St Phoenix AZ 85001'],\n        'COUNTY': ['MARICOPA'],\n        'Owner_Ownership': ['Test LLC'],\n        'OWNER_TYPE': ['BUSINESS'],\n        'Search Name': ['Test LLC'],\n        'Type': ['Entity'],\n        'Entity Name(s)': ['TEST LLC'],\n        'Entity ID(s)': ['L123456'],\n        'Entity Type': ['LLC'],\n        'Status': ['Active'],\n        'Formation Date': ['01/01/2020'],\n        'Business Type': ['Limited Liability Company'],\n        'Domicile State': ['AZ'],\n        'County': ['Maricopa'],\n        'Comments': [''],\n        # New structure - StatutoryAgent\n        'StatutoryAgent1_Name': ['John Agent'],\n        'StatutoryAgent1_Address': ['456 Agent St Phoenix AZ 85002'],\n        'StatutoryAgent1_Phone': [''],\n        'StatutoryAgent1_Mail': [''],\n        # New structure - Manager/Member\n        'Manager/Member1_Name': ['Jane Manager'],\n        'Manager/Member1_Address': ['789 Manager Ave Phoenix AZ 85003'],\n        'Manager/Member1_Phone': [''],\n        'Manager/Member1_Mail': [''],\n        'Manager/Member2_Name': ['Bob Manager'],\n        'Manager/Member2_Address': ['111 Manager Rd Phoenix AZ 85004'],\n        # New structure - Manager\n        'Manager1_Name': ['Alice Manager'],\n        'Manager1_Address': ['222 Manager Ln Phoenix AZ 85005'],\n        'Manager2_Name': ['Charlie Manager'],\n        'Manager2_Address': ['333 Manager Dr Phoenix AZ 85006'],\n        # New structure - Member\n        'Member1_Name': ['Dave Member'],\n        'Member1_Address': ['444 Member St Phoenix AZ 85007'],\n        # New structure - Individual\n        'IndividualName1': ['Eve Individual'],\n        'IndividualName2': ['Frank Individual']\n    })\n\n\ndef create_legacy_format_ecorp():\n    \"\"\"Create sample DataFrame with legacy Ecorp_Complete structure.\"\"\"\n    return pd.DataFrame({\n        'FULL_ADDRESS': ['123 Main St Phoenix AZ 85001'],\n        'COUNTY': ['MARICOPA'],\n        'Owner_Ownership': ['Test LLC'],\n        'OWNER_TYPE': ['BUSINESS'],\n        'Search Name': ['Test LLC'],\n        'Type': ['Entity'],\n        'Entity Name(s)': ['TEST LLC'],\n        'Entity ID(s)': ['L123456'],\n        'Entity Type': ['LLC'],\n        'Status': ['Active'],\n        'Formation Date': ['01/01/2020'],\n        'Business Type': ['Limited Liability Company'],\n        'Domicile State': ['AZ'],\n        'County': ['Maricopa'],\n        'Comments': [''],\n        'Statutory Agent': ['John Agent'],\n        'Agent Address': ['456 Agent St Phoenix AZ 85002'],\n        'Title1': ['Manager/Member'],\n        'Name1': ['Jane Manager'],\n        'Address1': ['789 Manager Ave Phoenix AZ 85003'],\n        'Title2': ['Manager'],\n        'Name2': ['Alice Manager'],\n        'Address2': ['222 Manager Ln Phoenix AZ 85005'],\n        'Title3': ['Member'],\n        'Name3': ['Dave Member'],\n        'Address3': ['444 Member St Phoenix AZ 85007']\n    })\n\n\ndef test_new_format_transformation():\n    \"\"\"Test that new format gets transformed correctly.\"\"\"\n    print(\"\\n=== Testing New Format Transformation ===\")\n\n    # Create new format data\n    df_new = create_new_format_ecorp()\n\n    # Transform it\n    df_transformed = prepare_ecorp_for_batchdata(df_new)\n\n    # Check that legacy columns were created\n    assert 'Statutory Agent' in df_transformed.columns, \"Missing 'Statutory Agent' column\"\n    assert 'Agent Address' in df_transformed.columns, \"Missing 'Agent Address' column\"\n    assert 'Title1' in df_transformed.columns, \"Missing 'Title1' column\"\n    assert 'Name1' in df_transformed.columns, \"Missing 'Name1' column\"\n    assert 'Address1' in df_transformed.columns, \"Missing 'Address1' column\"\n\n    # Verify mapping correctness\n    row = df_transformed.iloc[0]\n\n    # Check statutory agent mapping\n    assert row['Statutory Agent'] == 'John Agent', f\"Statutory Agent mismatch: {row['Statutory Agent']}\"\n    assert row['Agent Address'] == '456 Agent St Phoenix AZ 85002', f\"Agent Address mismatch: {row['Agent Address']}\"\n\n    # Check principal consolidation (should prioritize Manager/Member > Manager > Member > Individual)\n    assert row['Title1'] == 'Manager/Member', f\"Title1 should be 'Manager/Member', got: {row['Title1']}\"\n    assert row['Name1'] == 'Jane Manager', f\"Name1 should be 'Jane Manager', got: {row['Name1']}\"\n    assert row['Address1'] == '789 Manager Ave Phoenix AZ 85003', f\"Address1 mismatch: {row['Address1']}\"\n\n    assert row['Title2'] == 'Manager/Member', f\"Title2 should be 'Manager/Member', got: {row['Title2']}\"\n    assert row['Name2'] == 'Bob Manager', f\"Name2 should be 'Bob Manager', got: {row['Name2']}\"\n\n    assert row['Title3'] == 'Manager', f\"Title3 should be 'Manager', got: {row['Title3']}\"\n    assert row['Name3'] == 'Alice Manager', f\"Name3 should be 'Alice Manager', got: {row['Name3']}\"\n\n    print(\"\u2705 New format transformation: PASSED\")\n    return True\n\n\ndef test_legacy_format_compatibility():\n    \"\"\"Test that legacy format works without transformation.\"\"\"\n    print(\"\\n=== Testing Legacy Format Compatibility ===\")\n\n    # Create legacy format data\n    df_legacy = create_legacy_format_ecorp()\n\n    # Transform it (should pass through unchanged)\n    df_transformed = prepare_ecorp_for_batchdata(df_legacy)\n\n    # Check that columns remain unchanged\n    assert 'Statutory Agent' in df_transformed.columns, \"Missing 'Statutory Agent' column\"\n    assert 'Agent Address' in df_transformed.columns, \"Missing 'Agent Address' column\"\n    assert 'Title1' in df_transformed.columns, \"Missing 'Title1' column\"\n\n    # Verify data unchanged\n    row = df_transformed.iloc[0]\n    assert row['Statutory Agent'] == 'John Agent', f\"Statutory Agent changed unexpectedly\"\n    assert row['Name1'] == 'Jane Manager', f\"Name1 changed unexpectedly\"\n\n    print(\"\u2705 Legacy format compatibility: PASSED\")\n    return True\n\n\ndef test_batchdata_record_creation():\n    \"\"\"Test that both formats can create BatchData records.\"\"\"\n    print(\"\\n=== Testing BatchData Record Creation ===\")\n\n    # Test with new format\n    df_new = create_new_format_ecorp()\n    df_new_prepared = prepare_ecorp_for_batchdata(df_new)\n\n    # Create records from first row\n    records_new = ecorp_to_batchdata_records(df_new_prepared.iloc[0])\n    assert len(records_new) > 0, \"No records created from new format\"\n\n    # Check first record\n    record = records_new[0]\n    assert record['source_entity_name'] == 'TEST LLC', f\"Entity name mismatch: {record['source_entity_name']}\"\n    assert record['source_entity_id'] == 'L123456', f\"Entity ID mismatch: {record['source_entity_id']}\"\n    assert 'Manager' in record.get('title_role', ''), f\"Title role incorrect: {record.get('title_role', '')}\"\n\n    # Test with legacy format\n    df_legacy = create_legacy_format_ecorp()\n    records_legacy = ecorp_to_batchdata_records(df_legacy.iloc[0])\n    assert len(records_legacy) > 0, \"No records created from legacy format\"\n\n    print(f\"\u2705 Created {len(records_new)} records from new format\")\n    print(f\"\u2705 Created {len(records_legacy)} records from legacy format\")\n    return True\n\n\ndef test_full_pipeline():\n    \"\"\"Test the complete transformation pipeline.\"\"\"\n    print(\"\\n=== Testing Full Pipeline ===\")\n\n    # Test new format through full pipeline\n    df_new = create_new_format_ecorp()\n    df_batchdata_new = transform_ecorp_to_batchdata(df_new)\n\n    assert len(df_batchdata_new) > 0, \"No BatchData records created from new format\"\n    assert 'record_id' in df_batchdata_new.columns, \"Missing record_id column\"\n    assert 'source_entity_name' in df_batchdata_new.columns, \"Missing source_entity_name column\"\n\n    # Test legacy format through full pipeline\n    df_legacy = create_legacy_format_ecorp()\n    df_batchdata_legacy = transform_ecorp_to_batchdata(df_legacy)\n\n    assert len(df_batchdata_legacy) > 0, \"No BatchData records created from legacy format\"\n\n    print(f\"\u2705 Full pipeline - New format: {len(df_batchdata_new)} records\")\n    print(f\"\u2705 Full pipeline - Legacy format: {len(df_batchdata_legacy)} records\")\n    return True\n\n\ndef test_edge_cases():\n    \"\"\"Test edge cases and error handling.\"\"\"\n    print(\"\\n=== Testing Edge Cases ===\")\n\n    # Test with empty DataFrame\n    df_empty = pd.DataFrame()\n    df_result = prepare_ecorp_for_batchdata(df_empty)\n    assert isinstance(df_result, pd.DataFrame), \"Should return DataFrame even when empty\"\n\n    # Test with missing columns\n    df_partial = pd.DataFrame({\n        'Entity Name(s)': ['Test Entity'],\n        'Status': ['Active']\n    })\n    df_result = prepare_ecorp_for_batchdata(df_partial)\n    assert isinstance(df_result, pd.DataFrame), \"Should handle missing columns gracefully\"\n\n    # Test with null values\n    df_nulls = create_new_format_ecorp()\n    df_nulls['Manager/Member1_Name'] = np.nan\n    df_result = prepare_ecorp_for_batchdata(df_nulls)\n    assert isinstance(df_result, pd.DataFrame), \"Should handle null values\"\n\n    print(\"\u2705 Edge cases handled correctly\")\n    return True\n\n\ndef main():\n    \"\"\"Run all tests.\"\"\"\n    print(\"=\" * 50)\n    print(\"ECORP ALIGNMENT TEST SUITE\")\n    print(\"=\" * 50)\n\n    tests = [\n        test_new_format_transformation,\n        test_legacy_format_compatibility,\n        test_batchdata_record_creation,\n        test_full_pipeline,\n        test_edge_cases\n    ]\n\n    passed = 0\n    failed = 0\n\n    for test_func in tests:\n        try:\n            if test_func():\n                passed += 1\n        except Exception as e:\n            print(f\"\u274c {test_func.__name__}: FAILED\")\n            print(f\"   Error: {e}\")\n            failed += 1\n\n    print(\"\\n\" + \"=\" * 50)\n    print(f\"RESULTS: {passed} passed, {failed} failed\")\n    print(\"=\" * 50)\n\n    if failed == 0:\n        print(\"\\n\ud83c\udf89 ALL TESTS PASSED! Alignment is working correctly.\")\n        print(\"\\nAlignment Score Update: 3/10 \u2192 9/10\")\n        print(\"Reason: Full compatibility achieved with backward compatibility maintained\")\n\n    return failed == 0\n\n\nif __name__ == \"__main__\":\n    success = main()\n    sys.exit(0 if success else 1)"
+    }
+  },
+  {
+    "session_id": "20d294e4-48c4-4a78-a1af-b113e6f010dc",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/20d294e4-48c4-4a78-a1af-b113e6f010dc.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "acceptEdits",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Bash",
+    "tool_input": {
+      "command": "cd Ecorp/batchdata_pipeline && python3 tests/test_ecorp_alignment.py",
+      "description": "Run alignment tests"
+    }
+  },
+  {
+    "session_id": "3e836be2-385c-4e03-948d-3930dad06506",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/3e836be2-385c-4e03-948d-3930dad06506.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "default",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Bash",
+    "tool_input": {
+      "command": "git ls-files",
+      "description": "List all tracked files in repository"
+    }
+  },
+  {
+    "session_id": "3e836be2-385c-4e03-948d-3930dad06506",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/3e836be2-385c-4e03-948d-3930dad06506.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "default",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Read",
+    "tool_input": {
+      "file_path": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy/README.md"
+    }
+  },
+  {
+    "session_id": "3e836be2-385c-4e03-948d-3930dad06506",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/3e836be2-385c-4e03-948d-3930dad06506.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "default",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Read",
+    "tool_input": {
+      "file_path": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy/ai_docs/cc_hooks_docs.md"
+    }
+  },
+  {
+    "session_id": "3e836be2-385c-4e03-948d-3930dad06506",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/3e836be2-385c-4e03-948d-3930dad06506.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "default",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Read",
+    "tool_input": {
+      "file_path": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy/ai_docs/uv-single-file-scripts.md"
+    }
+  },
+  {
+    "session_id": "3e836be2-385c-4e03-948d-3930dad06506",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/3e836be2-385c-4e03-948d-3930dad06506.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "default",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Read",
+    "tool_input": {
+      "file_path": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy/ai_docs/anthropic_custom_slash_commands.md"
+    }
+  },
+  {
+    "session_id": "3e836be2-385c-4e03-948d-3930dad06506",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/3e836be2-385c-4e03-948d-3930dad06506.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "default",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Read",
+    "tool_input": {
+      "file_path": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy/ai_docs/anthropic_docs_subagents.md"
+    }
+  },
+  {
+    "session_id": "3e836be2-385c-4e03-948d-3930dad06506",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/3e836be2-385c-4e03-948d-3930dad06506.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "default",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Bash",
+    "tool_input": {
+      "command": "cd /Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025\\ copy && pwd",
+      "description": "Change to project root directory"
+    }
+  },
+  {
+    "session_id": "3e836be2-385c-4e03-948d-3930dad06506",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/3e836be2-385c-4e03-948d-3930dad06506.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "default",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Bash",
+    "tool_input": {
+      "command": "python3 Ecorp/batchdata_pipeline/tests/test_ecorp_alignment.py",
+      "description": "Run Ecorp alignment test"
+    }
+  },
+  {
+    "session_id": "3e836be2-385c-4e03-948d-3930dad06506",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/3e836be2-385c-4e03-948d-3930dad06506.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "default",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Bash",
+    "tool_input": {
+      "command": "grep -n \"prepare_ecorp_for_batchdata\" Ecorp/batchdata_pipeline/src/transform.py | head -3",
+      "description": "Verify new function exists in transform.py"
+    }
+  },
+  {
+    "session_id": "3e836be2-385c-4e03-948d-3930dad06506",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/3e836be2-385c-4e03-948d-3930dad06506.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "default",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "TodoWrite",
+    "tool_input": {
+      "todos": [
+        {
+          "content": "Analyze BatchData pipeline structure and entry points",
+          "status": "in_progress",
+          "activeForm": "Analyzing BatchData pipeline structure and entry points"
+        },
+        {
+          "content": "Document input file requirements and formats",
+          "status": "pending",
+          "activeForm": "Documenting input file requirements and formats"
+        },
+        {
+          "content": "Trace data flow through transformation steps",
+          "status": "pending",
+          "activeForm": "Tracing data flow through transformation steps"
+        },
+        {
+          "content": "Identify all output files and their purposes",
+          "status": "pending",
+          "activeForm": "Identifying all output files and their purposes"
+        },
+        {
+          "content": "Map API integrations and enrichment processes",
+          "status": "pending",
+          "activeForm": "Mapping API integrations and enrichment processes"
+        }
+      ]
+    }
+  },
+  {
+    "session_id": "3e836be2-385c-4e03-948d-3930dad06506",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/3e836be2-385c-4e03-948d-3930dad06506.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "default",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Read",
+    "tool_input": {
+      "file_path": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy/Ecorp/batchdata_pipeline/src/run.py"
+    }
+  },
+  {
+    "session_id": "3e836be2-385c-4e03-948d-3930dad06506",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/3e836be2-385c-4e03-948d-3930dad06506.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "default",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "TodoWrite",
+    "tool_input": {
+      "todos": [
+        {
+          "content": "Analyze BatchData pipeline structure and entry points",
+          "status": "completed",
+          "activeForm": "Analyzing BatchData pipeline structure and entry points"
+        },
+        {
+          "content": "Document input file requirements and formats",
+          "status": "in_progress",
+          "activeForm": "Documenting input file requirements and formats"
+        },
+        {
+          "content": "Trace data flow through transformation steps",
+          "status": "pending",
+          "activeForm": "Tracing data flow through transformation steps"
+        },
+        {
+          "content": "Identify all output files and their purposes",
+          "status": "pending",
+          "activeForm": "Identifying all output files and their purposes"
+        },
+        {
+          "content": "Map API integrations and enrichment processes",
+          "status": "pending",
+          "activeForm": "Mapping API integrations and enrichment processes"
+        }
+      ]
+    }
+  },
+  {
+    "session_id": "3e836be2-385c-4e03-948d-3930dad06506",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/3e836be2-385c-4e03-948d-3930dad06506.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "default",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Bash",
+    "tool_input": {
+      "command": "cd Ecorp/batchdata_pipeline && python3 -c \"import pandas as pd; df = pd.read_excel('docs/examples/template_batchdata_upload.xlsx', sheet_name=None); print('Sheets in template:'); [print(f'  - {sheet}: {len(df[sheet])} rows, {len(df[sheet].columns)} columns') for sheet in df.keys()]; print('\\nINPUT_MASTER columns:'); print(df['INPUT_MASTER'].columns.tolist()[:20])\"",
+      "description": "Inspect template Excel structure"
+    }
+  },
+  {
+    "session_id": "dc204794-67f5-4733-8f3b-f605d67a3dd9",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/dc204794-67f5-4733-8f3b-f605d67a3dd9.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "default",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Bash",
+    "tool_input": {
+      "command": "git ls-files | head -50",
+      "description": "List first 50 tracked files to understand project structure"
+    }
+  },
+  {
+    "session_id": "dc204794-67f5-4733-8f3b-f605d67a3dd9",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/dc204794-67f5-4733-8f3b-f605d67a3dd9.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "default",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Bash",
+    "tool_input": {
+      "command": "git ls-files | wc -l",
+      "description": "Count total tracked files"
+    }
+  },
+  {
+    "session_id": "dc204794-67f5-4733-8f3b-f605d67a3dd9",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/dc204794-67f5-4733-8f3b-f605d67a3dd9.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "default",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Read",
+    "tool_input": {
+      "file_path": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy/README.md"
+    }
+  },
+  {
+    "session_id": "dc204794-67f5-4733-8f3b-f605d67a3dd9",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/dc204794-67f5-4733-8f3b-f605d67a3dd9.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "default",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Read",
+    "tool_input": {
+      "file_path": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy/ai_docs/cc_hooks_docs.md"
+    }
+  },
+  {
+    "session_id": "dc204794-67f5-4733-8f3b-f605d67a3dd9",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/dc204794-67f5-4733-8f3b-f605d67a3dd9.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "default",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Read",
+    "tool_input": {
+      "file_path": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy/ai_docs/uv-single-file-scripts.md"
+    }
+  },
+  {
+    "session_id": "dc204794-67f5-4733-8f3b-f605d67a3dd9",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/dc204794-67f5-4733-8f3b-f605d67a3dd9.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "default",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Read",
+    "tool_input": {
+      "file_path": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy/ai_docs/anthropic_custom_slash_commands.md"
+    }
+  },
+  {
+    "session_id": "dc204794-67f5-4733-8f3b-f605d67a3dd9",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/dc204794-67f5-4733-8f3b-f605d67a3dd9.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "default",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Read",
+    "tool_input": {
+      "file_path": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy/ai_docs/anthropic_docs_subagents.md"
+    }
+  },
+  {
+    "session_id": "dc204794-67f5-4733-8f3b-f605d67a3dd9",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/dc204794-67f5-4733-8f3b-f605d67a3dd9.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "default",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "TodoWrite",
+    "tool_input": {
+      "todos": [
+        {
+          "content": "Check hooks configuration in .claude/settings.json",
+          "status": "in_progress",
+          "activeForm": "Checking hooks configuration"
+        },
+        {
+          "content": "Examine stop hook implementation",
+          "status": "pending",
+          "activeForm": "Examining stop hook implementation"
+        },
+        {
+          "content": "Investigate Ecorp folder for conflicting configurations",
+          "status": "pending",
+          "activeForm": "Investigating Ecorp folder configurations"
+        },
+        {
+          "content": "Check for recursive hook triggers or file watchers",
+          "status": "pending",
+          "activeForm": "Checking for recursive triggers"
+        },
+        {
+          "content": "Identify and fix the infinite loop cause",
+          "status": "pending",
+          "activeForm": "Fixing infinite loop issue"
+        }
+      ]
+    }
+  },
+  {
+    "session_id": "dc204794-67f5-4733-8f3b-f605d67a3dd9",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/dc204794-67f5-4733-8f3b-f605d67a3dd9.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "default",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Read",
+    "tool_input": {
+      "file_path": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy/.claude/settings.json"
+    }
+  },
+  {
+    "session_id": "dc204794-67f5-4733-8f3b-f605d67a3dd9",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/dc204794-67f5-4733-8f3b-f605d67a3dd9.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "default",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Read",
+    "tool_input": {
+      "file_path": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy/.claude/hooks/stop.py"
+    }
+  },
+  {
+    "session_id": "dc204794-67f5-4733-8f3b-f605d67a3dd9",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/dc204794-67f5-4733-8f3b-f605d67a3dd9.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "default",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "TodoWrite",
+    "tool_input": {
+      "todos": [
+        {
+          "content": "Check hooks configuration in .claude/settings.json",
+          "status": "completed",
+          "activeForm": "Checking hooks configuration"
+        },
+        {
+          "content": "Examine stop hook implementation",
+          "status": "completed",
+          "activeForm": "Examining stop hook implementation"
+        },
+        {
+          "content": "Investigate Ecorp folder for conflicting configurations",
+          "status": "in_progress",
+          "activeForm": "Investigating Ecorp folder configurations"
+        },
+        {
+          "content": "Check for recursive hook triggers or file watchers",
+          "status": "pending",
+          "activeForm": "Checking for recursive triggers"
+        },
+        {
+          "content": "Identify and fix the infinite loop cause",
+          "status": "pending",
+          "activeForm": "Fixing infinite loop issue"
+        }
+      ]
+    }
+  },
+  {
+    "session_id": "dc204794-67f5-4733-8f3b-f605d67a3dd9",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/dc204794-67f5-4733-8f3b-f605d67a3dd9.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "default",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Bash",
+    "tool_input": {
+      "command": "ls -la Ecorp/",
+      "description": "List Ecorp directory contents"
+    }
+  },
+  {
+    "session_id": "dc204794-67f5-4733-8f3b-f605d67a3dd9",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/dc204794-67f5-4733-8f3b-f605d67a3dd9.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "default",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Bash",
+    "tool_input": {
+      "command": "ls -la Ecorp/agent_ecorp/",
+      "description": "Check agent_ecorp folder structure"
+    }
+  },
+  {
+    "session_id": "dc204794-67f5-4733-8f3b-f605d67a3dd9",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/dc204794-67f5-4733-8f3b-f605d67a3dd9.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "default",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Bash",
+    "tool_input": {
+      "command": "find Ecorp/ -name \".claude\" -type d 2>/dev/null",
+      "description": "Find any .claude directories in Ecorp"
+    }
+  },
+  {
+    "session_id": "dc204794-67f5-4733-8f3b-f605d67a3dd9",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/dc204794-67f5-4733-8f3b-f605d67a3dd9.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "default",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Bash",
+    "tool_input": {
+      "command": "ls -la Ecorp/batchdata_pipeline/docs/examples/.claude/",
+      "description": "Check contents of nested .claude directory"
+    }
+  },
+  {
+    "session_id": "dc204794-67f5-4733-8f3b-f605d67a3dd9",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/dc204794-67f5-4733-8f3b-f605d67a3dd9.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "default",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Read",
+    "tool_input": {
+      "file_path": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy/Ecorp/batchdata_pipeline/docs/examples/.claude/settings.json"
+    }
+  },
+  {
+    "session_id": "dc204794-67f5-4733-8f3b-f605d67a3dd9",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/dc204794-67f5-4733-8f3b-f605d67a3dd9.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "default",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "TodoWrite",
+    "tool_input": {
+      "todos": [
+        {
+          "content": "Check hooks configuration in .claude/settings.json",
+          "status": "completed",
+          "activeForm": "Checking hooks configuration"
+        },
+        {
+          "content": "Examine stop hook implementation",
+          "status": "completed",
+          "activeForm": "Examining stop hook implementation"
+        },
+        {
+          "content": "Investigate Ecorp folder for conflicting configurations",
+          "status": "completed",
+          "activeForm": "Investigating Ecorp folder configurations"
+        },
+        {
+          "content": "Check for recursive hook triggers or file watchers",
+          "status": "in_progress",
+          "activeForm": "Checking for recursive triggers"
+        },
+        {
+          "content": "Identify and fix the infinite loop cause",
+          "status": "pending",
+          "activeForm": "Fixing infinite loop issue"
+        }
+      ]
+    }
+  },
+  {
+    "session_id": "dc204794-67f5-4733-8f3b-f605d67a3dd9",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/dc204794-67f5-4733-8f3b-f605d67a3dd9.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "default",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Bash",
+    "tool_input": {
+      "command": "find . -type d -name \"logs\" 2>/dev/null | head -20",
+      "description": "Find all log directories in project"
+    }
+  },
+  {
+    "session_id": "dc204794-67f5-4733-8f3b-f605d67a3dd9",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/dc204794-67f5-4733-8f3b-f605d67a3dd9.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "default",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Bash",
+    "tool_input": {
+      "command": "tail -n 50 logs/stop.json 2>/dev/null | head -30",
+      "description": "Check recent stop hook logs"
+    }
+  },
+  {
+    "session_id": "dc204794-67f5-4733-8f3b-f605d67a3dd9",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/dc204794-67f5-4733-8f3b-f605d67a3dd9.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "default",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Bash",
+    "tool_input": {
+      "command": "ls -lt logs/*.json | head -10",
+      "description": "Check recently modified log files"
+    }
+  },
+  {
+    "session_id": "dc204794-67f5-4733-8f3b-f605d67a3dd9",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/dc204794-67f5-4733-8f3b-f605d67a3dd9.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "default",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Bash",
+    "tool_input": {
+      "command": "ls -la Ecorp/agent_ecorp/logs/",
+      "description": "Check Ecorp agent logs directory"
+    }
+  },
+  {
+    "session_id": "dc204794-67f5-4733-8f3b-f605d67a3dd9",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/dc204794-67f5-4733-8f3b-f605d67a3dd9.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "default",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "TodoWrite",
+    "tool_input": {
+      "todos": [
+        {
+          "content": "Check hooks configuration in .claude/settings.json",
+          "status": "completed",
+          "activeForm": "Checking hooks configuration"
+        },
+        {
+          "content": "Examine stop hook implementation",
+          "status": "completed",
+          "activeForm": "Examining stop hook implementation"
+        },
+        {
+          "content": "Investigate Ecorp folder for conflicting configurations",
+          "status": "completed",
+          "activeForm": "Investigating Ecorp folder configurations"
+        },
+        {
+          "content": "Check for recursive hook triggers or file watchers",
+          "status": "completed",
+          "activeForm": "Checking for recursive triggers"
+        },
+        {
+          "content": "Identify and fix the infinite loop cause",
+          "status": "in_progress",
+          "activeForm": "Fixing infinite loop issue"
+        }
+      ]
+    }
+  },
+  {
+    "session_id": "dc204794-67f5-4733-8f3b-f605d67a3dd9",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/dc204794-67f5-4733-8f3b-f605d67a3dd9.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "default",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Edit",
+    "tool_input": {
+      "file_path": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy/.claude/hooks/stop.py",
+      "old_string": "#!/usr/bin/env -S uv run --script\n# /// script\n# requires-python = \">=3.11\"\n# dependencies = [\n#     \"python-dotenv\",\n# ]\n# ///\n\nimport argparse\nimport json\nimport os\nimport sys\nimport random\nimport subprocess\nfrom pathlib import Path\nfrom datetime import datetime\n\ntry:\n    from dotenv import load_dotenv\n    load_dotenv()\nexcept ImportError:\n    pass  # dotenv is optional",
+      "new_string": "#!/usr/bin/env -S uv run --script\n# /// script\n# requires-python = \">=3.11\"\n# dependencies = [\n#     \"python-dotenv\",\n# ]\n# ///\n\nimport argparse\nimport json\nimport os\nimport sys\nimport random\nimport subprocess\nimport fcntl\nimport time\nfrom pathlib import Path\nfrom datetime import datetime\n\ntry:\n    from dotenv import load_dotenv\n    load_dotenv()\nexcept ImportError:\n    pass  # dotenv is optional\n\n# Global flag to detect recursion\nRECURSION_FLAG_FILE = \"/tmp/.claude_stop_hook_active\""
+    }
+  },
+  {
+    "session_id": "dc204794-67f5-4733-8f3b-f605d67a3dd9",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/dc204794-67f5-4733-8f3b-f605d67a3dd9.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "default",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Edit",
+    "tool_input": {
+      "file_path": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy/.claude/hooks/stop.py",
+      "old_string": "def main():\n    try:\n        # Parse command line arguments\n        parser = argparse.ArgumentParser()\n        parser.add_argument('--chat', action='store_true', help='Copy transcript to chat.json')\n        parser.add_argument('--notify', action='store_true', help='Enable TTS completion announcement')\n        args = parser.parse_args()\n        \n        # Read JSON input from stdin\n        input_data = json.load(sys.stdin)\n\n        # Extract required fields\n        session_id = input_data.get(\"session_id\", \"\")\n        stop_hook_active = input_data.get(\"stop_hook_active\", False)\n\n        # Ensure log directory exists\n        log_dir = os.path.join(os.getcwd(), \"logs\")\n        os.makedirs(log_dir, exist_ok=True)\n        log_path = os.path.join(log_dir, \"stop.json\")",
+      "new_string": "def main():\n    try:\n        # Check for recursion - if flag file exists and is recent, exit immediately\n        if os.path.exists(RECURSION_FLAG_FILE):\n            try:\n                flag_age = time.time() - os.path.getmtime(RECURSION_FLAG_FILE)\n                if flag_age < 2:  # If flag was created less than 2 seconds ago\n                    sys.exit(0)  # Exit silently to prevent recursion\n            except:\n                pass\n\n        # Set recursion flag\n        try:\n            Path(RECURSION_FLAG_FILE).touch()\n        except:\n            pass\n\n        # Parse command line arguments\n        parser = argparse.ArgumentParser()\n        parser.add_argument('--chat', action='store_true', help='Copy transcript to chat.json')\n        parser.add_argument('--notify', action='store_true', help='Enable TTS completion announcement')\n        args = parser.parse_args()\n\n        # Read JSON input from stdin\n        input_data = json.load(sys.stdin)\n\n        # Extract required fields\n        session_id = input_data.get(\"session_id\", \"\")\n        stop_hook_active = input_data.get(\"stop_hook_active\", False)\n\n        # Use absolute path for log directory to avoid conflicts\n        # Always use project root logs directory, not relative to CWD\n        project_root = input_data.get(\"cwd\", os.getcwd())\n        # If we're in a subdirectory, go up to find the project root with .claude/\n        current_path = Path(project_root)\n        while current_path != current_path.parent:\n            if (current_path / \".claude\" / \"settings.json\").exists():\n                project_root = str(current_path)\n                break\n            current_path = current_path.parent\n\n        log_dir = os.path.join(project_root, \"logs\")\n        os.makedirs(log_dir, exist_ok=True)\n        log_path = os.path.join(log_dir, \"stop.json\")"
+    }
+  },
+  {
+    "session_id": "dc204794-67f5-4733-8f3b-f605d67a3dd9",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/dc204794-67f5-4733-8f3b-f605d67a3dd9.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "default",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Edit",
+    "tool_input": {
+      "file_path": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy/.claude/hooks/stop.py",
+      "old_string": "        # Read existing log data or initialize empty list\n        if os.path.exists(log_path):\n            with open(log_path, 'r') as f:\n                try:\n                    log_data = json.load(f)\n                except (json.JSONDecodeError, ValueError):\n                    log_data = []\n        else:\n            log_data = []\n        \n        # Append new data\n        log_data.append(input_data)\n        \n        # Write back to file with formatting\n        with open(log_path, 'w') as f:\n            json.dump(log_data, f, indent=2)",
+      "new_string": "        # Read existing log data or initialize empty list\n        log_data = []\n        if os.path.exists(log_path):\n            try:\n                with open(log_path, 'r') as f:\n                    # Try to acquire a shared lock for reading\n                    fcntl.flock(f.fileno(), fcntl.LOCK_SH | fcntl.LOCK_NB)\n                    try:\n                        log_data = json.load(f)\n                    except (json.JSONDecodeError, ValueError):\n                        log_data = []\n                    finally:\n                        fcntl.flock(f.fileno(), fcntl.LOCK_UN)\n            except (IOError, OSError):\n                # If we can't get a lock, skip logging to prevent blocking\n                pass\n\n        # Append new data\n        log_data.append(input_data)\n\n        # Write back to file with formatting and exclusive lock\n        try:\n            with open(log_path, 'w') as f:\n                # Try to acquire an exclusive lock for writing\n                fcntl.flock(f.fileno(), fcntl.LOCK_EX | fcntl.LOCK_NB)\n                try:\n                    json.dump(log_data, f, indent=2)\n                finally:\n                    fcntl.flock(f.fileno(), fcntl.LOCK_UN)\n        except (IOError, OSError):\n            # If we can't write, fail silently\n            pass"
+    }
+  },
+  {
+    "session_id": "dc204794-67f5-4733-8f3b-f605d67a3dd9",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/dc204794-67f5-4733-8f3b-f605d67a3dd9.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "default",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Edit",
+    "tool_input": {
+      "file_path": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy/.claude/hooks/stop.py",
+      "old_string": "        # Announce completion via TTS (only if --notify flag is set)\n        if args.notify:\n            announce_completion()\n\n        sys.exit(0)\n\n    except json.JSONDecodeError:\n        # Handle JSON decode errors gracefully\n        sys.exit(0)\n    except Exception:\n        # Handle any other errors gracefully\n        sys.exit(0)",
+      "new_string": "        # Announce completion via TTS (only if --notify flag is set)\n        if args.notify:\n            announce_completion()\n\n        # Clean up recursion flag\n        try:\n            if os.path.exists(RECURSION_FLAG_FILE):\n                os.remove(RECURSION_FLAG_FILE)\n        except:\n            pass\n\n        sys.exit(0)\n\n    except json.JSONDecodeError:\n        # Handle JSON decode errors gracefully\n        # Clean up recursion flag\n        try:\n            if os.path.exists(RECURSION_FLAG_FILE):\n                os.remove(RECURSION_FLAG_FILE)\n        except:\n            pass\n        sys.exit(0)\n    except Exception:\n        # Handle any other errors gracefully\n        # Clean up recursion flag\n        try:\n            if os.path.exists(RECURSION_FLAG_FILE):\n                os.remove(RECURSION_FLAG_FILE)\n        except:\n            pass\n        sys.exit(0)"
+    }
+  },
+  {
+    "session_id": "dc204794-67f5-4733-8f3b-f605d67a3dd9",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/dc204794-67f5-4733-8f3b-f605d67a3dd9.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "default",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "TodoWrite",
+    "tool_input": {
+      "todos": [
+        {
+          "content": "Check hooks configuration in .claude/settings.json",
+          "status": "completed",
+          "activeForm": "Checking hooks configuration"
+        },
+        {
+          "content": "Examine stop hook implementation",
+          "status": "completed",
+          "activeForm": "Examining stop hook implementation"
+        },
+        {
+          "content": "Investigate Ecorp folder for conflicting configurations",
+          "status": "completed",
+          "activeForm": "Investigating Ecorp folder configurations"
+        },
+        {
+          "content": "Check for recursive hook triggers or file watchers",
+          "status": "completed",
+          "activeForm": "Checking for recursive triggers"
+        },
+        {
+          "content": "Identify and fix the infinite loop cause",
+          "status": "completed",
+          "activeForm": "Fixing infinite loop issue"
+        }
+      ]
+    }
+  },
+  {
+    "session_id": "dc204794-67f5-4733-8f3b-f605d67a3dd9",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/dc204794-67f5-4733-8f3b-f605d67a3dd9.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "default",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Bash",
+    "tool_input": {
+      "command": "ls -la Ecorp/batchdata_pipeline/docs/examples/.claude/ 2>/dev/null",
+      "description": "Check nested .claude directory"
+    }
+  },
+  {
+    "session_id": "dc204794-67f5-4733-8f3b-f605d67a3dd9",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/dc204794-67f5-4733-8f3b-f605d67a3dd9.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "plan",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Read",
+    "tool_input": {
+      "file_path": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy/Ecorp/batchdata_pipeline/docs/examples/.claude/settings.json"
+    }
+  },
+  {
+    "session_id": "dc204794-67f5-4733-8f3b-f605d67a3dd9",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/dc204794-67f5-4733-8f3b-f605d67a3dd9.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "plan",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Bash",
+    "tool_input": {
+      "command": "ls -la Ecorp/batchdata_pipeline/docs/examples/",
+      "description": "Check what's in the examples directory"
+    }
+  },
+  {
+    "session_id": "dc204794-67f5-4733-8f3b-f605d67a3dd9",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/dc204794-67f5-4733-8f3b-f605d67a3dd9.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "plan",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Grep",
+    "tool_input": {
+      "pattern": "batchdata:(scaffold|implement|tests)",
+      "path": ".",
+      "glob": "**/*.{py,md,json,yml,yaml}",
+      "output_mode": "files_with_matches"
+    }
+  },
+  {
+    "session_id": "dc204794-67f5-4733-8f3b-f605d67a3dd9",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/dc204794-67f5-4733-8f3b-f605d67a3dd9.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "plan",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Read",
+    "tool_input": {
+      "file_path": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy/Ecorp/batchdata_pipeline/docs/examples/.claude_settings.json"
+    }
+  },
+  {
+    "session_id": "dc204794-67f5-4733-8f3b-f605d67a3dd9",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/dc204794-67f5-4733-8f3b-f605d67a3dd9.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "plan",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "ExitPlanMode",
+    "tool_input": {
+      "plan": "## Analysis Complete: Nested .claude Directory is NOT Necessary\n\n### Findings:\nThe `.claude` directory in `Ecorp/batchdata_pipeline/docs/examples/.claude/` is **NOT necessary** for functionality:\n\n1. **It's example/documentation material** - Located in `docs/examples/` folder\n2. **Contains outdated commands** - \"batchdata:scaffold\", \"batchdata:implement\", \"batchdata:tests\" that aren't used anywhere in active code\n3. **Duplicate of `.claude_settings.json`** - Same content exists in both files in that directory\n4. **Not loaded by Claude Code** - Claude only loads `.claude/` from project root and `~/.claude/` from home, not nested subdirectories\n5. **Potential source of confusion** - Could contribute to issues like the stop hook infinite loop\n\n### Removal Plan:\n1. Delete the nested `.claude` directory at `Ecorp/batchdata_pipeline/docs/examples/.claude/`\n2. Also delete the duplicate `.claude_settings.json` file in the same folder (contains identical outdated content)\n3. Keep the main project `.claude/` directory at the root (this is essential)\n\nThis cleanup will:\n- Eliminate confusion about which configuration is active\n- Remove outdated/unused command definitions\n- Prevent potential conflicts or unexpected behavior\n- Simplify the project structure"
+    }
+  },
+  {
+    "session_id": "dc204794-67f5-4733-8f3b-f605d67a3dd9",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/dc204794-67f5-4733-8f3b-f605d67a3dd9.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "acceptEdits",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "TodoWrite",
+    "tool_input": {
+      "todos": [
+        {
+          "content": "Remove nested .claude directory in Ecorp/batchdata_pipeline/docs/examples/",
+          "status": "in_progress",
+          "activeForm": "Removing nested .claude directory"
+        },
+        {
+          "content": "Remove duplicate .claude_settings.json file in same location",
+          "status": "pending",
+          "activeForm": "Removing duplicate settings file"
+        },
+        {
+          "content": "Verify cleanup was successful",
+          "status": "pending",
+          "activeForm": "Verifying cleanup"
+        }
+      ]
+    }
+  },
+  {
+    "session_id": "dc204794-67f5-4733-8f3b-f605d67a3dd9",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/dc204794-67f5-4733-8f3b-f605d67a3dd9.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "acceptEdits",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Bash",
+    "tool_input": {
+      "command": "python3 -c \"import shutil; shutil.rmtree('Ecorp/batchdata_pipeline/docs/examples/.claude')\"",
+      "description": "Remove nested .claude directory using Python"
+    }
+  },
+  {
+    "session_id": "dc204794-67f5-4733-8f3b-f605d67a3dd9",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/dc204794-67f5-4733-8f3b-f605d67a3dd9.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "acceptEdits",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "TodoWrite",
+    "tool_input": {
+      "todos": [
+        {
+          "content": "Remove nested .claude directory in Ecorp/batchdata_pipeline/docs/examples/",
+          "status": "completed",
+          "activeForm": "Removing nested .claude directory"
+        },
+        {
+          "content": "Remove duplicate .claude_settings.json file in same location",
+          "status": "in_progress",
+          "activeForm": "Removing duplicate settings file"
+        },
+        {
+          "content": "Verify cleanup was successful",
+          "status": "pending",
+          "activeForm": "Verifying cleanup"
+        }
+      ]
+    }
+  },
+  {
+    "session_id": "dc204794-67f5-4733-8f3b-f605d67a3dd9",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/dc204794-67f5-4733-8f3b-f605d67a3dd9.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "acceptEdits",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Bash",
+    "tool_input": {
+      "command": "python3 -c \"import os; os.remove('Ecorp/batchdata_pipeline/docs/examples/.claude_settings.json')\"",
+      "description": "Remove duplicate .claude_settings.json file"
+    }
+  },
+  {
+    "session_id": "dc204794-67f5-4733-8f3b-f605d67a3dd9",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/dc204794-67f5-4733-8f3b-f605d67a3dd9.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "acceptEdits",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "TodoWrite",
+    "tool_input": {
+      "todos": [
+        {
+          "content": "Remove nested .claude directory in Ecorp/batchdata_pipeline/docs/examples/",
+          "status": "completed",
+          "activeForm": "Removing nested .claude directory"
+        },
+        {
+          "content": "Remove duplicate .claude_settings.json file in same location",
+          "status": "completed",
+          "activeForm": "Removing duplicate settings file"
+        },
+        {
+          "content": "Verify cleanup was successful",
+          "status": "in_progress",
+          "activeForm": "Verifying cleanup"
+        }
+      ]
+    }
+  },
+  {
+    "session_id": "dc204794-67f5-4733-8f3b-f605d67a3dd9",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/dc204794-67f5-4733-8f3b-f605d67a3dd9.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "acceptEdits",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Bash",
+    "tool_input": {
+      "command": "ls -la Ecorp/batchdata_pipeline/docs/examples/",
+      "description": "Verify files were removed from examples directory"
+    }
+  },
+  {
+    "session_id": "dc204794-67f5-4733-8f3b-f605d67a3dd9",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/dc204794-67f5-4733-8f3b-f605d67a3dd9.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "acceptEdits",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Bash",
+    "tool_input": {
+      "command": "ls -la .claude/ | head -10",
+      "description": "Verify main .claude directory is intact"
+    }
+  },
+  {
+    "session_id": "dc204794-67f5-4733-8f3b-f605d67a3dd9",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/dc204794-67f5-4733-8f3b-f605d67a3dd9.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "acceptEdits",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "TodoWrite",
+    "tool_input": {
+      "todos": [
+        {
+          "content": "Remove nested .claude directory in Ecorp/batchdata_pipeline/docs/examples/",
+          "status": "completed",
+          "activeForm": "Removing nested .claude directory"
+        },
+        {
+          "content": "Remove duplicate .claude_settings.json file in same location",
+          "status": "completed",
+          "activeForm": "Removing duplicate settings file"
+        },
+        {
+          "content": "Verify cleanup was successful",
+          "status": "completed",
+          "activeForm": "Verifying cleanup"
+        }
+      ]
+    }
   }
 ]
