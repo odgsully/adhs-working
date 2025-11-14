@@ -42,4 +42,4 @@
     * **MCAO Processing** (optional): Enriches APN data with 84 property fields from Maricopa County Assessor API
     * **Ecorp Upload**: 4 columns (FULL_ADDRESS, COUNTY, Owner_Ownership, OWNER_TYPE) extracted from MCAO_Complete
     * **Ecorp Complete**: Upload columns + 22 ACC entity fields (entity details, principals, registration data) - Generated via `src/adhs_etl/ecorp.py`
-    * **BatchData Enrichment** (optional post-processing): Additional contact discovery available in `ecorp/batchdata_pipeline/` for skip-trace and phone verification
+    * **BatchData Enrichment** (optional post-processing): Additional contact discovery available in `/Batchdata/` for skip-trace and phone verification

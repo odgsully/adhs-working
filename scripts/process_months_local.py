@@ -145,6 +145,38 @@ def get_month_selection(months, prompt):
         except ValueError:
             print_colored("❌ Invalid input. Please enter a number", Colors.RED)
 
+def get_test_mode():
+    """Get test mode selection from user.
+
+    Returns:
+        str: 'full', 'first5', or 'random5'
+    """
+    print_colored("\n" + "=" * 60, Colors.CYAN)
+    print_colored("🧪 TEST MODE SELECTION", Colors.BOLD + Colors.CYAN)
+    print_colored("=" * 60, Colors.CYAN)
+
+    print_colored("\nChoose processing mode:", Colors.YELLOW)
+    print_colored("  1. Full processing (all records)", Colors.WHITE)
+    print_colored("  2. Test mode - First 5 records", Colors.WHITE)
+    print_colored("  3. Test mode - Random 5 records", Colors.WHITE)
+
+    while True:
+        try:
+            selection = input(f"\n{Colors.BOLD}Enter mode (1-3): {Colors.END}").strip()
+            if selection == '1':
+                print_colored("  ✓ Full processing selected", Colors.GREEN)
+                return 'full'
+            elif selection == '2':
+                print_colored("  ✓ Test mode (First 5) selected", Colors.YELLOW)
+                return 'first5'
+            elif selection == '3':
+                print_colored("  ✓ Test mode (Random 5) selected", Colors.YELLOW)
+                return 'random5'
+            else:
+                print_colored("❌ Please enter 1, 2, or 3", Colors.RED)
+        except ValueError:
+            print_colored("❌ Invalid input. Please enter 1, 2, or 3", Colors.RED)
+
 def get_confirmation(start_month, end_month, months_to_process):
     """Get user confirmation before processing."""
     print_colored("\n" + "=" * 60, Colors.BLUE)
@@ -226,10 +258,19 @@ def get_confirmation(start_month, end_month, months_to_process):
         else:
             print_colored("Please enter 'y' for yes or 'n' for no", Colors.YELLOW)
 
-def process_single_month(month_code: str, folder_name: str):
-    """Process a single month directly. (UNCHANGED FROM ORIGINAL)"""
+def process_single_month(month_code: str, folder_name: str, test_mode: str = 'full'):
+    """Process a single month directly.
+
+    Args:
+        month_code: Month code (e.g., "1.25")
+        folder_name: Folder name in ALL-MONTHS directory
+        test_mode: 'full', 'first5', or 'random5'
+    """
     print_colored(f"\n{'='*60}", Colors.BLUE)
     print_colored(f"Processing {month_code}", Colors.BOLD + Colors.PURPLE)
+    if test_mode != 'full':
+        mode_label = "First 5" if test_mode == 'first5' else "Random 5"
+        print_colored(f"🧪 TEST MODE: {mode_label} records", Colors.YELLOW)
     print_colored(f"{'='*60}", Colors.BLUE)
 
     # Add timestamp for debugging
@@ -274,6 +315,30 @@ def process_single_month(month_code: str, folder_name: str):
 
     log_step(f"Processed {len(current_month_df)} records")
     print_colored(f"✅ Processed {len(current_month_df)} records", Colors.GREEN)
+
+    # Apply test mode filtering if requested
+    selected_rows = None
+    if test_mode != 'full' and len(current_month_df) > 0:
+        original_count = len(current_month_df)
+
+        if test_mode == 'first5':
+            # Take first 5 records
+            current_month_df = current_month_df.head(5).copy()
+            selected_rows = list(range(min(5, original_count)))
+            print_colored(f"🧪 Test mode: Selected first {len(current_month_df)} records (rows 0-{len(current_month_df)-1})", Colors.YELLOW)
+
+        elif test_mode == 'random5':
+            # Take random 5 records
+            import random
+            num_to_select = min(5, original_count)
+            random.seed()  # Use system time for randomness
+            selected_indices = sorted(random.sample(range(original_count), num_to_select))
+            current_month_df = current_month_df.iloc[selected_indices].copy()
+            selected_rows = selected_indices
+            print_colored(f"🧪 Test mode: Selected {len(current_month_df)} random records", Colors.YELLOW)
+            print_colored(f"   Selected rows: {selected_rows}", Colors.CYAN)
+
+        print_colored(f"   (Original dataset had {original_count} records)", Colors.CYAN)
 
     # Create output directories
     Path("Reformat").mkdir(exist_ok=True)
@@ -372,10 +437,13 @@ def process_single_month(month_code: str, folder_name: str):
 
     # Perform analysis with proper historical data (excluding current month)
     log_step("Calling analyzer.analyze_month_changes...")
+    # Skip lost license processing in test mode to avoid bloating the dataset
+    skip_lost = (test_mode != 'full')
     analysis_df = analyzer.analyze_month_changes(
         current_month_df,
         previous_month_df,
-        historical_df  # Pass truly historical data, not combined_df
+        historical_df,  # Pass truly historical data, not combined_df
+        skip_lost_licenses=skip_lost
     )
 
     # Add required columns
@@ -840,6 +908,9 @@ def main():
     # Get months to process
     months_to_process = months[start_idx:end_idx + 1]
 
+    # Get test mode selection
+    test_mode = get_test_mode()
+
     # Get confirmation
     confirmed, process_apn, process_mcao, process_ecorp = get_confirmation(start_month, end_month, months_to_process)
     if not confirmed:
@@ -859,7 +930,7 @@ def main():
 
     for month_code, folder_name, _, _ in months_to_process:
         try:
-            result = process_single_month(month_code, folder_name)
+            result = process_single_month(month_code, folder_name, test_mode)
             if isinstance(result, tuple):
                 success, analysis_df = result
             else:

@@ -104,6 +104,16 @@ The pipeline generates multiple output types:
 - **Ecorp Upload**: Filtered MCAO data prepared for ACC entity lookup (4 columns)
 - **Ecorp Complete**: Full entity details with principals and registration data (26 columns)
 
+## Optional: BatchData Enrichment
+
+For additional contact discovery via skip-trace APIs, see the BatchData pipeline in `/Batchdata/`. This optional post-processing step can enrich Ecorp Complete files with:
+- Phone number discovery
+- Email discovery
+- DNC/TCPA compliance filtering
+- Phone verification
+
+See `/Batchdata/README.md` for setup and usage instructions.
+
 ## Development
 
 ### Running Tests

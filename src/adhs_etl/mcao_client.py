@@ -91,6 +91,17 @@ class MCAAOAPIClient:
                 elif response.status_code == 401:
                     logger.error("401 Unauthorized: Invalid API key")
                     return None
+                elif response.status_code == 429:
+                    # Rate limit exceeded - retry with exponential backoff
+                    if attempt < max_retries - 1:
+                        # Start with 2 seconds, double each retry, max 60 seconds
+                        sleep_time = min(2 * (2 ** attempt), 60) + random.uniform(0, 1.0)
+                        logger.warning(f"Rate limit 429 on {endpoint}, retrying in {sleep_time:.1f}s (attempt {attempt + 1}/{max_retries})")
+                        time.sleep(sleep_time)
+                        continue
+                    else:
+                        logger.error(f"Rate limit 429 on {endpoint}, max retries exceeded")
+                        return None
                 elif response.status_code >= 500:
                     # Server error - retry with backoff
                     if attempt < max_retries - 1:
@@ -213,17 +224,22 @@ class MCAAOAPIClient:
             # Owner data (nested in parcel response)
             if 'Owner' in parcel:
                 owner = parcel['Owner']
-                mapped['Owner_OwnerID'] = str(owner.get('OwnerID', ''))
-                mapped['Owner_Ownership'] = str(owner.get('Ownership', ''))
-                mapped['Owner_OwnerName'] = str(owner.get('Ownership', ''))  # Same as Ownership
-                mapped['Owner_FullMailingAddress'] = str(owner.get('FullMailingAddress', ''))
-                mapped['Owner_MailingAddress_Street'] = str(owner.get('MailingAddress1', ''))
-                mapped['Owner_MailingAddress_City'] = str(owner.get('MailingCity', ''))
-                mapped['Owner_MailingAddress_State'] = str(owner.get('MailingState', ''))
-                mapped['Owner_MailingAddress_Zip'] = str(owner.get('MailingZip', ''))
-                mapped['Owner_DeedDate'] = str(owner.get('DeedDate', ''))
-                mapped['Owner_SalePrice'] = str(owner.get('SalePrice', '')) if owner.get('SalePrice') else ''
-                mapped['Owner_Mailing_CareOf'] = str(owner.get('InCareOf', '')) if owner.get('InCareOf') else ''
+                # Handle case where Owner is a list instead of dict
+                if isinstance(owner, list):
+                    owner = owner[0] if owner else {}
+
+                # Now owner should be a dict (or empty dict if list was empty)
+                mapped['Owner_OwnerID'] = str(owner.get('OwnerID', '')) if isinstance(owner, dict) else ''
+                mapped['Owner_Ownership'] = str(owner.get('Ownership', '')) if isinstance(owner, dict) else ''
+                mapped['Owner_OwnerName'] = str(owner.get('Ownership', '')) if isinstance(owner, dict) else ''  # Same as Ownership
+                mapped['Owner_FullMailingAddress'] = str(owner.get('FullMailingAddress', '')) if isinstance(owner, dict) else ''
+                mapped['Owner_MailingAddress_Street'] = str(owner.get('MailingAddress1', '')) if isinstance(owner, dict) else ''
+                mapped['Owner_MailingAddress_City'] = str(owner.get('MailingCity', '')) if isinstance(owner, dict) else ''
+                mapped['Owner_MailingAddress_State'] = str(owner.get('MailingState', '')) if isinstance(owner, dict) else ''
+                mapped['Owner_MailingAddress_Zip'] = str(owner.get('MailingZip', '')) if isinstance(owner, dict) else ''
+                mapped['Owner_DeedDate'] = str(owner.get('DeedDate', '')) if isinstance(owner, dict) else ''
+                mapped['Owner_SalePrice'] = str(owner.get('SalePrice', '')) if isinstance(owner, dict) and owner.get('SalePrice') else ''
+                mapped['Owner_Mailing_CareOf'] = str(owner.get('InCareOf', '')) if isinstance(owner, dict) and owner.get('InCareOf') else ''
 
             # Property data (direct fields in parcel)
             mapped['PropertyID'] = str(parcel.get('MCR', ''))  # MCR seems to be the property ID

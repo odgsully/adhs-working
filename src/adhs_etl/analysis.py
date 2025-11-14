@@ -28,9 +28,17 @@ class ProviderAnalyzer:
         self,
         current_month_df: pd.DataFrame,
         previous_month_df: pd.DataFrame,
-        all_historical_df: pd.DataFrame
+        all_historical_df: pd.DataFrame,
+        skip_lost_licenses: bool = False
     ) -> pd.DataFrame:
-        """Analyze changes between months to identify lost licenses and opportunities."""
+        """Analyze changes between months to identify lost licenses and opportunities.
+
+        Args:
+            current_month_df: Current month data
+            previous_month_df: Previous month data
+            all_historical_df: All historical data
+            skip_lost_licenses: If True, skip lost license detection (useful for test mode)
+        """
         
         # Create unique identifiers
         current_month_df = current_month_df.copy()
@@ -117,9 +125,10 @@ class ProviderAnalyzer:
             analysis_records.append(record)
         
         # Now check for lost licenses (in previous but not current)
-        if not previous_month_df.empty:
+        # Skip this in test mode to avoid bloating the dataset
+        if not previous_month_df.empty and not skip_lost_licenses:
             lost_keys = prev_keys - current_keys
-            
+
             for lost_key in lost_keys:
                 # Get the lost record
                 lost_record = previous_month_df[previous_month_df['KEY'] == lost_key].iloc[0].to_dict()
