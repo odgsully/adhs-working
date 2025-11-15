@@ -61,8 +61,9 @@ def test_template_output():
                 )
                 
                 # Check if template output file was created
-                results_files = [f for f in os.listdir("results") if f.endswith(".xlsx") and "batchdata_upload" in f]
-                
+                # Expected format: M.YY_batchdata_upload_MM.DD.HH-MM-SS.xlsx
+                results_files = [f for f in os.listdir("results") if f.endswith(".xlsx") and "_batchdata_upload_" in f]
+
                 if results_files:
                     latest_file = max(results_files, key=lambda f: os.path.getctime(os.path.join("results", f)))
                     file_path = os.path.join("results", latest_file)
@@ -121,9 +122,9 @@ def test_naming_convention():
     print(f"Month.Year format: {month_year}")
     print(f"Generated filename: {os.path.basename(test_path)}")
     
-    # Verify naming pattern
+    # Verify naming pattern: M.YY_batchdata_upload_MM.DD.HH-MM-SS.xlsx
     filename = os.path.basename(test_path)
-    if "batchdata_upload" in filename and month_year in filename:
+    if "_batchdata_upload_" in filename and month_year in filename and "_" in filename:
         print("✅ Naming convention correct")
         return True
     else:

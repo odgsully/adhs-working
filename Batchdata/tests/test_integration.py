@@ -189,8 +189,9 @@ def test_end_to_end_pipeline():
             # Step 9: Test filename generation
             print("  Step 9: Testing output filename generation...")
             final_path = get_timestamped_path(results_dir, "batchdata_complete", "xlsx")
-            
-            if "batchdata_complete" in final_path and final_path.endswith(".xlsx"):
+
+            # Expected format: prefix_MM.DD.HH-MM-SS.xlsx (with underscores, not spaces)
+            if "_batchdata_complete_" in final_path and final_path.endswith(".xlsx"):
                 print("  ✅ Output filename generation successful")
                 tests_passed += 1
             else:
