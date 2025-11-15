@@ -19,6 +19,12 @@ import pandas as pd
 from rapidfuzz import fuzz
 
 from .transform import FieldMapper, normalize_provider_data
+from .utils import (
+    get_standard_timestamp,
+    format_output_filename,
+    get_legacy_filename,
+    save_excel_with_legacy_copy
+)
 
 logger = logging.getLogger(__name__)
 
@@ -663,15 +669,24 @@ def process_month_data(
     return pd.DataFrame()
 
 
-def create_reformat_output(df: pd.DataFrame, month: int, year: int, output_dir: Path) -> Path:
-    """Create the M.YY Reformat.xlsx file."""
-    # Format month for filename
-    if month >= 10:
-        filename = f"{month}.{year % 100} Reformat.xlsx"
-    else:
-        filename = f"{month}.{year % 100} Reformat.xlsx"
-    
-    output_path = output_dir / filename
+def create_reformat_output(df: pd.DataFrame, month: int, year: int, output_dir: Path, timestamp: Optional[str] = None) -> Path:
+    """Create the M.YY_Reformat_{timestamp}.xlsx file with legacy copy."""
+    # Generate timestamp if not provided
+    if timestamp is None:
+        timestamp = get_standard_timestamp()
+
+    # Format month code
+    month_code = f"{month}.{year % 100}"
+
+    # Generate new format filename
+    new_filename = format_output_filename(month_code, "Reformat", timestamp)
+    new_path = output_dir / new_filename
+
+    # Generate legacy format filename
+    legacy_filename = get_legacy_filename(month_code, "Reformat")
+    legacy_path = output_dir / legacy_filename
+
+    output_path = new_path
     
     # Ensure MONTH and YEAR are integers
     df['MONTH'] = df['MONTH'].astype(int)
@@ -710,28 +725,42 @@ def create_reformat_output(df: pd.DataFrame, month: int, year: int, output_dir: 
             
     except Exception as e:
         logger.warning(f"Could not set permissions for {output_path}: {e}")
-    
+
+    # Create legacy copy for backward compatibility
+    save_excel_with_legacy_copy(output_path, legacy_path)
     logger.info(f"Created Reformat file: {output_path}")
+    logger.info(f"Created legacy copy: {legacy_path}")
+
     return output_path
 
 
 def rebuild_all_to_date_from_monthly_files(
     all_months_dir: Path,
-    month: int, 
-    year: int, 
+    month: int,
+    year: int,
     all_to_date_dir: Path,
-    chunk_size: int = 5000
+    chunk_size: int = 5000,
+    timestamp: Optional[str] = None
 ) -> Path:
     """Rebuild the All to Date file from scratch using all monthly files."""
     log_memory_usage("start of rebuild_all_to_date_from_monthly_files")
-    
-    # Create output filename
-    if month >= 10:
-        filename = f"Reformat All to Date {month}.{year % 100}.xlsx"
-    else:
-        filename = f"Reformat All to Date {month}.{year % 100}.xlsx"
-    
-    output_path = all_to_date_dir / filename
+
+    # Generate timestamp if not provided
+    if timestamp is None:
+        timestamp = get_standard_timestamp()
+
+    # Format month code
+    month_code = f"{month}.{year % 100}"
+
+    # Generate new format filename
+    new_filename = format_output_filename(month_code, "Reformat_All_to_Date", timestamp)
+    new_path = all_to_date_dir / new_filename
+
+    # Generate legacy format filename
+    legacy_filename = get_legacy_filename(month_code, "Reformat_All_to_Date")
+    legacy_path = all_to_date_dir / legacy_filename
+
+    output_path = new_path
     
     # Find all monthly Excel files
     monthly_files = []
@@ -868,37 +897,53 @@ def rebuild_all_to_date_from_monthly_files(
             
     except Exception as e:
         logger.warning(f"Could not set permissions for {output_path}: {e}")
-    
+
+    # Create legacy copy for backward compatibility
+    save_excel_with_legacy_copy(output_path, legacy_path)
+
     logger.info(f"Rebuilt All to Date file: {output_path} with {len(combined_df)} total rows")
+    logger.info(f"Created legacy copy: {legacy_path}")
     log_memory_usage("end of rebuild_all_to_date_from_monthly_files")
-    
+
     # Clear the combined dataframe
     del combined_df
     clear_memory()
-    
+
     return output_path
 
 
 def create_all_to_date_output(
-    new_df: pd.DataFrame, 
-    month: int, 
-    year: int, 
+    new_df: pd.DataFrame,
+    month: int,
+    year: int,
     all_to_date_dir: Path,
-    chunk_size: int = 5000
+    chunk_size: int = 5000,
+    timestamp: Optional[str] = None
 ) -> Path:
     """Create or update the Reformat All to Date M.YY file with memory optimization."""
     log_memory_usage("start of create_all_to_date_output")
-    
-    # Look for most recent All to Date file
-    existing_files = list(all_to_date_dir.glob("Reformat All to Date *.xlsx"))
-    
-    # Create output filename
-    if month >= 10:
-        filename = f"Reformat All to Date {month}.{year % 100}.xlsx"
-    else:
-        filename = f"Reformat All to Date {month}.{year % 100}.xlsx"
-    
-    output_path = all_to_date_dir / filename
+
+    # Generate timestamp if not provided
+    if timestamp is None:
+        timestamp = get_standard_timestamp()
+
+    # Format month code
+    month_code = f"{month}.{year % 100}"
+
+    # Look for most recent All to Date file (check both old and new patterns)
+    existing_files_new = list(all_to_date_dir.glob(f"{month_code}_Reformat_All_to_Date_*.xlsx"))
+    existing_files_old = list(all_to_date_dir.glob("Reformat All to Date *.xlsx"))
+    existing_files = existing_files_new + existing_files_old
+
+    # Generate new format filename
+    new_filename = format_output_filename(month_code, "Reformat_All_to_Date", timestamp)
+    new_path = all_to_date_dir / new_filename
+
+    # Generate legacy format filename
+    legacy_filename = get_legacy_filename(month_code, "Reformat_All_to_Date")
+    legacy_path = all_to_date_dir / legacy_filename
+
+    output_path = new_path
     
     if existing_files:
         # Sort by modification time to get most recent
@@ -986,12 +1031,16 @@ def create_all_to_date_output(
             
     except Exception as e:
         logger.warning(f"Could not set permissions for {output_path}: {e}")
-    
+
+    # Create legacy copy for backward compatibility
+    save_excel_with_legacy_copy(output_path, legacy_path)
+
     logger.info(f"Created All to Date file: {output_path} with {len(combined_df)} total rows")
+    logger.info(f"Created legacy copy: {legacy_path}")
     log_memory_usage("end of create_all_to_date_output")
-    
+
     # Clear the combined dataframe
     del combined_df
     clear_memory()
-    
+
     return output_path

@@ -25,6 +25,12 @@ from .analysis import (
     create_blanks_count_sheet
 )
 from .mca_api import MCAPGeocoder
+from .utils import (
+    get_standard_timestamp,
+    format_output_filename,
+    get_legacy_filename,
+    save_excel_with_legacy_copy
+)
 
 app = typer.Typer()
 console = Console()
@@ -81,14 +87,16 @@ def get_previous_month_data(all_months_dir: Path, current_month: int, current_ye
 def get_all_historical_data(all_to_date_dir: Path) -> pd.DataFrame:
     """Get all historical data from the most recent All to Date file."""
     import pandas as pd
-    
-    # Find most recent All to Date file
-    all_to_date_files = list(all_to_date_dir.glob("Reformat All to Date *.xlsx"))
-    
+
+    # Find most recent All to Date file (check both old and new patterns)
+    all_to_date_files_new = list(all_to_date_dir.glob("*_Reformat_All_to_Date_*.xlsx"))
+    all_to_date_files_old = list(all_to_date_dir.glob("Reformat All to Date *.xlsx"))
+    all_to_date_files = all_to_date_files_new + all_to_date_files_old
+
     if all_to_date_files:
         latest_file = max(all_to_date_files, key=lambda p: p.stat().st_mtime)
         return pd.read_excel(latest_file)
-    
+
     return pd.DataFrame()
 
 
@@ -338,13 +346,20 @@ def run(
                 logger.warning(f"Failed to get property data for {address}: {e}")
                 continue
     
-    # 7. Create analysis output file
-    if month_num >= 10:
-        analysis_filename = f"{month_num}.{year_num % 100} Analysis.xlsx"
-    else:
-        analysis_filename = f"{month_num}.{year_num % 100} Analysis.xlsx"
-    
-    analysis_path = analysis_dir / analysis_filename
+    # 7. Create analysis output file with timestamp
+    # Generate timestamp (should ideally come from the session)
+    timestamp = get_standard_timestamp()
+    month_code = f"{month_num}.{year_num % 100}"
+
+    # Generate new format filename
+    new_analysis_filename = format_output_filename(month_code, "Analysis", timestamp)
+    new_analysis_path = analysis_dir / new_analysis_filename
+
+    # Generate legacy format filename
+    legacy_analysis_filename = get_legacy_filename(month_code, "Analysis")
+    legacy_analysis_path = analysis_dir / legacy_analysis_filename
+
+    analysis_path = new_analysis_path
     
     if not dry_run:
         # Create summary sheet - pass both Analysis and Reformat data for v300 compliance
@@ -443,8 +458,12 @@ def run(
                 
         except Exception as e:
             logger.warning(f"Could not set permissions for {analysis_path}: {e}")
-        
+
+        # Create legacy copy for backward compatibility
+        save_excel_with_legacy_copy(analysis_path, legacy_analysis_path)
+
         logger.info(f"Created Analysis file: {analysis_path}")
+        logger.info(f"Created legacy copy: {legacy_analysis_path}")
         logger.info(f"  - {len(summary_df)} summary metrics")
         logger.info(f"  - {len(blanks_df)} provider types tracked")
         logger.info(f"  - {len(analysis_df)} providers analyzed")

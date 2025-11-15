@@ -11,10 +11,14 @@ Features:
 - Progress checkpointing for interruption recovery
 - In-memory caching to avoid duplicate lookups
 - Graceful handling of blank/missing owner names
+- Sequential record indexing (ECORP_INDEX_#)
+- Entity URL capture for reference tracking
 
 Output Files:
 - Ecorp Upload: 4 columns (FULL_ADDRESS, COUNTY, Owner_Ownership, OWNER_TYPE)
-- Ecorp Complete: 32 columns (Upload + 28 ACC entity fields)
+- Ecorp Complete: 93 columns (4 Upload + 1 Index + 1 Owner Type + 87 ACC + 1 URL)
+  * ECORP_INDEX_# - Sequential record number (1, 2, 3...)
+  * ECORP_URL - ACC entity detail page URL from ecorp.azcc.gov
 """
 
 import time
@@ -25,6 +29,28 @@ from typing import List, Dict, Optional, Tuple
 
 import pandas as pd
 from bs4 import BeautifulSoup
+
+# Import timestamp utilities for standardized naming
+try:
+    from .utils import (
+        get_standard_timestamp,
+        format_output_filename,
+        get_legacy_filename,
+        save_excel_with_legacy_copy,
+        extract_timestamp_from_filename
+    )
+except ImportError:
+    # For standalone script execution
+    import sys
+    from pathlib import Path
+    sys.path.insert(0, str(Path(__file__).parent))
+    from utils import (
+        get_standard_timestamp,
+        format_output_filename,
+        get_legacy_filename,
+        save_excel_with_legacy_copy,
+        extract_timestamp_from_filename
+    )
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
@@ -543,6 +569,9 @@ def search_entities(driver: webdriver.Chrome, name: str) -> List[Dict[str, str]]
             for i in range(1, 5):
                 record[f"IndividualName{i}"] = ''
 
+            # Add ECORP_URL
+            record["ECORP_URL"] = detail_url if detail_url else ''
+
             entities.append(record)
             # Close tab and switch back
             driver.close()
@@ -613,6 +642,9 @@ def get_blank_acc_record() -> dict:
     # Add Individual name fields (4 individuals)
     for i in range(1, 5):
         record[f'IndividualName{i}'] = ''
+
+    # Add ECORP_URL field
+    record['ECORP_URL'] = ''
 
     return record
 
@@ -727,18 +759,31 @@ def generate_ecorp_upload(month_code: str, mcao_complete_path: Path) -> Optional
         if blank_count > 0:
             print(f"   ⚠️  {blank_count} records have blank Owner_Ownership")
 
-        # Generate timestamp (12-hour format)
-        timestamp = datetime.now().strftime("%m.%d.%I-%M-%S")
+        # Generate timestamp using standard format
+        timestamp = get_standard_timestamp()
+
+        # Generate new format filename
+        new_filename = format_output_filename(month_code, "Ecorp_Upload", timestamp)
+
+        # Generate legacy format filename
+        legacy_filename = get_legacy_filename(month_code, "Ecorp_Upload", timestamp)
 
         # Save
         output_dir = Path("Ecorp/Upload")
         output_dir.mkdir(parents=True, exist_ok=True)
-        output_path = output_dir / f"{month_code}_Ecorp_Upload {timestamp}.xlsx"
 
-        upload_df.to_excel(output_path, index=False, engine='xlsxwriter')
-        print(f"✅ Created Ecorp Upload: {output_path}")
+        new_path = output_dir / new_filename
+        legacy_path = output_dir / legacy_filename
 
-        return output_path
+        upload_df.to_excel(new_path, index=False, engine='xlsxwriter')
+
+        # Create legacy copy for backward compatibility
+        save_excel_with_legacy_copy(new_path, legacy_path)
+
+        print(f"✅ Created Ecorp Upload: {new_path}")
+        print(f"✅ Created legacy copy: {legacy_path}")
+
+        return new_path
 
     except Exception as e:
         print(f"❌ Error creating Ecorp Upload: {e}")
@@ -755,10 +800,15 @@ def generate_ecorp_complete(month_code: str, upload_path: Path, headless: bool =
     - In-memory caching to avoid duplicate lookups
     - Ctrl+C interrupt handling with save
     - Graceful handling of blank Owner_Ownership
+    - Sequential record indexing (ECORP_INDEX_#)
+    - Entity URL capture (ECORP_URL)
 
-    Output has 32 columns:
-    - A-D: FULL_ADDRESS, COUNTY, Owner_Ownership, OWNER_TYPE (from Upload)
-    - E-AF: 28 ACC fields (Search Name, Type, Entity details, Principals)
+    Output has 93 columns:
+    - A-C: FULL_ADDRESS, COUNTY, Owner_Ownership (from Upload)
+    - D: ECORP_INDEX_# (sequential record number)
+    - E: OWNER_TYPE (from Upload)
+    - F-CN: 88 ACC fields (Search Name, Type, Entity details, Principals, Individual Names)
+    - CO: ECORP_URL (ACC entity detail page URL)
 
     Parameters
     ----------
@@ -808,18 +858,11 @@ def generate_ecorp_complete(month_code: str, upload_path: Path, headless: bool =
                     print(f"   Progress: {idx}/{total_records} ({idx*100//total_records}%) | "
                           f"Rate: {rate:.1f} rec/sec | ETA: {remaining/60:.1f} min", flush=True)
 
-                # Base record (columns A-D from Upload)
-                base = {
-                    'FULL_ADDRESS': row['FULL_ADDRESS'],
-                    'COUNTY': row['COUNTY'],
-                    'Owner_Ownership': row['Owner_Ownership'],
-                    'OWNER_TYPE': row['OWNER_TYPE']
-                }
-
-                # ACC lookup (columns E-Z)
+                # Get Upload data
                 owner_name = row['Owner_Ownership']
                 owner_type = row['OWNER_TYPE']
 
+                # ACC lookup (columns F-CO)
                 if pd.isna(owner_name) or str(owner_name).strip() == '':
                     # Blank owner - use empty ACC record
                     acc_data = get_blank_acc_record()
@@ -836,8 +879,16 @@ def generate_ecorp_complete(month_code: str, upload_path: Path, headless: bool =
                     acc_results = get_cached_or_lookup(cache, str(owner_name), driver)
                     acc_data = acc_results[0] if acc_results else get_blank_acc_record()
 
-                # Combine Upload cols (A-D) + ACC cols (E-Z)
-                complete_record = {**base, **acc_data}
+                # Build complete record in correct column order (93 columns: A-CO)
+                # A-C: Upload columns, D: Index, E: Owner Type, F-CO: ACC fields
+                complete_record = {
+                    'FULL_ADDRESS': row['FULL_ADDRESS'],        # A
+                    'COUNTY': row['COUNTY'],                     # B
+                    'Owner_Ownership': row['Owner_Ownership'],   # C
+                    'ECORP_INDEX_#': idx + 1,                    # D (sequential number)
+                    'OWNER_TYPE': row['OWNER_TYPE'],             # E
+                    **acc_data                                   # F-CO (ACC fields including ECORP_URL)
+                }
                 results.append(complete_record)
 
                 # Checkpoint every 50 records
@@ -845,17 +896,33 @@ def generate_ecorp_complete(month_code: str, upload_path: Path, headless: bool =
                     save_checkpoint(checkpoint_file, results, idx + 1)
                     print(f"   💾 Checkpoint saved at {idx + 1} records")
 
-            # Save final Complete file
-            timestamp = extract_timestamp_from_path(upload_path)
+            # Save final Complete file with new naming
+            # Extract timestamp from Upload file (or use current if not found)
+            timestamp = extract_timestamp_from_filename(upload_path.name)
+            if not timestamp:
+                timestamp = get_standard_timestamp()
+
+            # Generate new format filename
+            new_filename = format_output_filename(month_code, "Ecorp_Complete", timestamp)
+
+            # Generate legacy format filename
+            legacy_filename = get_legacy_filename(month_code, "Ecorp_Complete", timestamp)
+
             output_dir = Path("Ecorp/Complete")
             output_dir.mkdir(parents=True, exist_ok=True)
-            output_path = output_dir / f"{month_code}_Ecorp_Complete {timestamp}.xlsx"
+
+            new_path = output_dir / new_filename
+            legacy_path = output_dir / legacy_filename
 
             df_complete = pd.DataFrame(results)
-            df_complete.to_excel(output_path, index=False, engine='xlsxwriter')
+            df_complete.to_excel(new_path, index=False, engine='xlsxwriter')
+
+            # Create legacy copy for backward compatibility
+            save_excel_with_legacy_copy(new_path, legacy_path)
 
             elapsed_total = time.time() - start_time
-            print(f"\n✅ Created Ecorp Complete: {output_path}")
+            print(f"\n✅ Created Ecorp Complete: {new_path}")
+            print(f"✅ Created legacy copy: {legacy_path}")
             print(f"   Total time: {elapsed_total/60:.1f} minutes")
             print(f"   Cache hits: {total_records - len(cache)} lookups saved")
 
