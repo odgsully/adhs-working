@@ -221,7 +221,7 @@ class BatchDataClient:
         Returns:
             Tuple of (final_results_df, intermediate_results_list)
         """
-        timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+        timestamp = datetime.now().strftime("%m.%d.%I-%M-%S")
         intermediate_results = []
         
         # Import save_api_result for organized output

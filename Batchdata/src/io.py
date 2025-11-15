@@ -19,7 +19,7 @@ def get_timestamped_path(base_path: str, prefix: str, extension: str) -> str:
     Returns:
         Full path with timestamp
     """
-    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+    timestamp = datetime.now().strftime("%m.%d.%I-%M-%S")
     filename = f"{prefix}_{timestamp}.{extension}"
     return os.path.join(base_path, filename)
 
@@ -226,8 +226,8 @@ def get_template_filename(base_path: str, month_year: str) -> str:
     Returns:
         Full path with template naming format
     """
-    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-    filename = f"{month_year} batchdata_upload {timestamp}.xlsx"
+    timestamp = datetime.now().strftime("%m.%d.%I-%M-%S")
+    filename = f"{month_year}_batchdata_upload_{timestamp}.xlsx"
     return os.path.join(base_path, filename)
 
 

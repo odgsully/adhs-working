@@ -126,7 +126,7 @@ def run_pipeline(input_path: str, ecorp_path: str = None, dry_run: bool = False,
     
     # Ensure results directory exists
     results_dir = ensure_results_dir("results")
-    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+    timestamp = datetime.now().strftime("%m.%d.%I-%M-%S")
     
     try:
         # Load configuration and input data
