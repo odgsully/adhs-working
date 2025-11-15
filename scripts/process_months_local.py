@@ -46,6 +46,10 @@ from adhs_etl.utils import (
     save_excel_with_legacy_copy,
     extract_timestamp_from_filename
 )
+from adhs_etl.batchdata_bridge import (
+    create_batchdata_upload,
+    run_batchdata_enrichment
+)
 
 class Colors:
     GREEN = '\033[92m'
@@ -248,7 +252,7 @@ def get_confirmation(start_month, end_month, months_to_process):
                 process_ecorp = True
                 print_colored("  ✓ Will generate Ecorp Upload and Complete files", Colors.GREEN)
                 print_colored("    • Output: Ecorp/Upload/ (4 columns from MCAO)", Colors.WHITE)
-                print_colored("    • Output: Ecorp/Complete/ (26 columns with ACC data)", Colors.WHITE)
+                print_colored("    • Output: Ecorp/Complete/ (93 columns with ACC data)", Colors.WHITE)
                 break
             elif response in ['n', 'no', '']:
                 process_ecorp = False
@@ -257,12 +261,31 @@ def get_confirmation(start_month, end_month, months_to_process):
             else:
                 print_colored("Please enter 'y' for yes or 'n' for no", Colors.YELLOW)
 
+    # Only ask about BatchData if Ecorp processing is enabled
+    process_batchdata = False
+    if process_ecorp:
+        while True:
+            response = input(f"\n{Colors.BOLD}Run BatchData enrichment (contact discovery)? (y/N): {Colors.END}").strip().lower()
+            if response in ['y', 'yes']:
+                process_batchdata = True
+                print_colored("  ✓ Will run BatchData contact discovery pipeline", Colors.GREEN)
+                print_colored("    • Output: Batchdata/Upload/ (prepared for API)", Colors.WHITE)
+                print_colored("    • Output: Batchdata/Complete/ (enriched with phone/email)", Colors.WHITE)
+                print_colored("    • Note: Incurs API costs - estimate shown before processing", Colors.YELLOW)
+                break
+            elif response in ['n', 'no', '']:
+                process_batchdata = False
+                print_colored("  ✓ Skipping BatchData enrichment", Colors.YELLOW)
+                break
+            else:
+                print_colored("Please enter 'y' for yes or 'n' for no", Colors.YELLOW)
+
     while True:
         response = input(f"\n{Colors.BOLD}Ready to proceed? (y/N): {Colors.END}").strip().lower()
         if response in ['y', 'yes']:
-            return True, process_apn, process_mcao, process_ecorp
+            return True, process_apn, process_mcao, process_ecorp, process_batchdata
         elif response in ['n', 'no', '']:
-            return False, False, False, False
+            return False, False, False, False, False
         else:
             print_colored("Please enter 'y' for yes or 'n' for no", Colors.YELLOW)
 
@@ -962,7 +985,7 @@ def main():
     test_mode = get_test_mode()
 
     # Get confirmation
-    confirmed, process_apn, process_mcao, process_ecorp = get_confirmation(start_month, end_month, months_to_process)
+    confirmed, process_apn, process_mcao, process_ecorp, process_batchdata = get_confirmation(start_month, end_month, months_to_process)
     if not confirmed:
         print_colored("\n🚫 Processing cancelled by user", Colors.YELLOW)
         return
@@ -977,6 +1000,7 @@ def main():
     apn_errors = []
     mcao_errors = []
     ecorp_errors = []
+    batchdata_errors = []
 
     for month_code, folder_name, _, _ in months_to_process:
         try:
@@ -1045,6 +1069,50 @@ def main():
 
                                                         if generate_ecorp_complete(month_code, ecorp_upload_path):
                                                             print_colored(f"✅ Ecorp processing complete for {month_code}", Colors.GREEN)
+
+                                                            # Process BatchData if requested
+                                                            if process_batchdata:
+                                                                # Find most recent Ecorp_Complete file
+                                                                ecorp_complete_pattern = f"{month_code}_Ecorp_Complete*.xlsx"
+                                                                ecorp_complete_dir = Path("Ecorp/Complete")
+                                                                ecorp_matches = list(ecorp_complete_dir.glob(ecorp_complete_pattern))
+
+                                                                if ecorp_matches:
+                                                                    ecorp_complete_path = max(ecorp_matches, key=lambda p: p.stat().st_mtime)
+
+                                                                    print_colored(f"\n📞 Starting BatchData contact discovery for {month_code}...", Colors.CYAN)
+
+                                                                    try:
+                                                                        # Create BatchData Upload from Ecorp Complete
+                                                                        batchdata_upload_path = create_batchdata_upload(
+                                                                            ecorp_complete_path=str(ecorp_complete_path),
+                                                                            month_code=month_code,
+                                                                            timestamp=session_timestamp
+                                                                        )
+
+                                                                        if batchdata_upload_path:
+                                                                            # Run BatchData enrichment (with cost estimate and confirmation)
+                                                                            batchdata_complete_path = run_batchdata_enrichment(
+                                                                                upload_path=str(batchdata_upload_path),
+                                                                                month_code=month_code,
+                                                                                timestamp=session_timestamp,
+                                                                                dry_run=False,
+                                                                                dedupe=True,
+                                                                                consolidate_families=True,
+                                                                                filter_entities=True
+                                                                            )
+
+                                                                            if batchdata_complete_path:
+                                                                                print_colored(f"✅ BatchData enrichment complete for {month_code}", Colors.GREEN)
+                                                                            else:
+                                                                                batchdata_errors.append(f"{month_code} (enrichment failed or cancelled)")
+                                                                        else:
+                                                                            batchdata_errors.append(f"{month_code} (Upload creation failed)")
+                                                                    except Exception as e:
+                                                                        print_colored(f"❌ BatchData error for {month_code}: {e}", Colors.RED)
+                                                                        batchdata_errors.append(f"{month_code} (error: {str(e)})")
+                                                                else:
+                                                                    batchdata_errors.append(f"{month_code} (Ecorp_Complete not found)")
                                                         else:
                                                             ecorp_errors.append(f"{month_code} (ACC lookup interrupted)")
                                                     else:
@@ -1090,6 +1158,9 @@ def main():
     if ecorp_errors:
         print_colored(f"\n⚠️  Ecorp processing issues: {', '.join(ecorp_errors)}", Colors.YELLOW)
 
+    if batchdata_errors:
+        print_colored(f"\n⚠️  BatchData processing issues: {', '.join(batchdata_errors)}", Colors.YELLOW)
+
     print_colored("\n📁 Output directories:", Colors.BOLD)
     print_colored("  • Reformat/", Colors.WHITE)
     print_colored("  • All-to-Date/", Colors.WHITE)
@@ -1104,6 +1175,9 @@ def main():
     if process_ecorp:
         print_colored("  • Ecorp/Upload/ (filtered MCAO data)", Colors.WHITE)
         print_colored("  • Ecorp/Complete/ (with ACC entity details)", Colors.WHITE)
+    if process_batchdata:
+        print_colored("  • Batchdata/Upload/ (prepared for API)", Colors.WHITE)
+        print_colored("  • Batchdata/Complete/ (enriched with contact data)", Colors.WHITE)
 
 if __name__ == "__main__":
     main()

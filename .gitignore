@@ -81,3 +81,7 @@ MCAO/Complete/
 MCAO/Upload/
 Ecorp/Complete/
 Ecorp/Upload/
+Batchdata/Upload/*.xlsx
+Batchdata/Complete/*.xlsx
+!Batchdata/Upload/.gitkeep
+!Batchdata/Complete/.gitkeep
