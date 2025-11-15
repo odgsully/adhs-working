@@ -26,8 +26,8 @@ def test_field_mapping():
     print("Testing MCAO Field Mapping")
     print("="*60)
 
-    # Check we have 84 columns
-    assert len(MCAO_MAX_HEADERS) == 84, f"Expected 84 columns, got {len(MCAO_MAX_HEADERS)}"
+    # Check we have 106 columns (84 original + 22 new)
+    assert len(MCAO_MAX_HEADERS) == 106, f"Expected 106 columns, got {len(MCAO_MAX_HEADERS)}"
     print(f"✅ Confirmed {len(MCAO_MAX_HEADERS)} columns in MAX_HEADERS")
 
     # Check first and last columns
@@ -38,7 +38,7 @@ def test_field_mapping():
 
     # Test empty record generation
     empty_record = get_empty_mcao_record()
-    assert len(empty_record) == 84, f"Empty record should have 84 fields, got {len(empty_record)}"
+    assert len(empty_record) == 106, f"Empty record should have 106 fields, got {len(empty_record)}"
     assert all(v == '' for v in empty_record.values()), "All values should be empty strings"
     print("✅ Empty record generation works correctly")
 
@@ -51,7 +51,7 @@ def test_field_mapping():
         'INVALID_COLUMN': 'Should be ignored'
     }
     validated = validate_mcao_record(test_record)
-    assert len(validated) == 84, f"Validated record should have 84 fields, got {len(validated)}"
+    assert len(validated) == 106, f"Validated record should have 106 fields, got {len(validated)}"
     assert validated['FULL_ADDRESS'] == '123 Main St'
     assert validated['Owner_OwnerName'] == 'Test Owner'
     assert 'INVALID_COLUMN' not in validated

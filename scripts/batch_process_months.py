@@ -21,6 +21,15 @@ from datetime import datetime
 from pathlib import Path
 from typing import List, Tuple, Optional
 
+# Add src to path for imports
+sys.path.insert(0, 'src')
+
+from adhs_etl.utils import (
+    get_standard_timestamp,
+    format_output_filename,
+    get_legacy_filename
+)
+
 # Color codes for better output formatting
 class Colors:
     GREEN = '\033[92m'

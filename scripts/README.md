@@ -21,7 +21,7 @@ This script automates processing multiple months of ADHS data. Perfect for junio
 
 2. **Run the script**:
    ```bash
-   python scripts/batch_process_months.py
+   poetry run python scripts/batch_process_months.py
    ```
 
 3. **Follow the prompts**:

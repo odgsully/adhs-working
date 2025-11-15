@@ -51,8 +51,8 @@ def test_mapping():
     empty = [(k, v) for k, v in mapped.items() if not v or not str(v).strip()]
 
     print(f"\nResults:")
-    print(f"  Populated fields: {len(populated)} out of 84")
-    print(f"  Empty fields: {len(empty)} out of 84")
+    print(f"  Populated fields: {len(populated)} out of 106")
+    print(f"  Empty fields: {len(empty)} out of 106")
 
     print(f"\nSample populated fields:")
     for key, value in populated[:20]:

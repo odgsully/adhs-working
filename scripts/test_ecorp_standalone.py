@@ -10,6 +10,11 @@ Features:
 - Multiple processing modes (full, sample, test directory, dry run)
 - Progress tracking and checkpointing
 - Graceful interrupt handling
+- Generates 93-column Ecorp Complete files with ECORP_INDEX_# and ECORP_URL
+
+Output:
+- Ecorp Upload: 4 columns (FULL_ADDRESS, COUNTY, Owner_Ownership, OWNER_TYPE)
+- Ecorp Complete: 93 columns (Upload + Index + ACC Entity + URL)
 
 Usage:
     python scripts/test_ecorp_standalone.py

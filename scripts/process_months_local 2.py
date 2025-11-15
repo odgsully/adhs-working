@@ -38,6 +38,14 @@ from adhs_etl.mcao_field_mapping import (
     get_empty_mcao_record,
     validate_mcao_record
 )
+from adhs_etl.utils import (
+    get_standard_timestamp,
+    format_output_filename,
+    get_legacy_filename,
+    save_with_legacy_copy,
+    save_excel_with_legacy_copy,
+    extract_timestamp_from_filename
+)
 
 class Colors:
     GREEN = '\033[92m'
@@ -145,6 +153,38 @@ def get_month_selection(months, prompt):
         except ValueError:
             print_colored("❌ Invalid input. Please enter a number", Colors.RED)
 
+def get_test_mode():
+    """Get test mode selection from user.
+
+    Returns:
+        str: 'full', 'first5', or 'random5'
+    """
+    print_colored("\n" + "=" * 60, Colors.CYAN)
+    print_colored("🧪 TEST MODE SELECTION", Colors.BOLD + Colors.CYAN)
+    print_colored("=" * 60, Colors.CYAN)
+
+    print_colored("\nChoose processing mode:", Colors.YELLOW)
+    print_colored("  1. Full processing (all records)", Colors.WHITE)
+    print_colored("  2. Test mode - First 5 records", Colors.WHITE)
+    print_colored("  3. Test mode - Random 5 records", Colors.WHITE)
+
+    while True:
+        try:
+            selection = input(f"\n{Colors.BOLD}Enter mode (1-3): {Colors.END}").strip()
+            if selection == '1':
+                print_colored("  ✓ Full processing selected", Colors.GREEN)
+                return 'full'
+            elif selection == '2':
+                print_colored("  ✓ Test mode (First 5) selected", Colors.YELLOW)
+                return 'first5'
+            elif selection == '3':
+                print_colored("  ✓ Test mode (Random 5) selected", Colors.YELLOW)
+                return 'random5'
+            else:
+                print_colored("❌ Please enter 1, 2, or 3", Colors.RED)
+        except ValueError:
+            print_colored("❌ Invalid input. Please enter 1, 2, or 3", Colors.RED)
+
 def get_confirmation(start_month, end_month, months_to_process):
     """Get user confirmation before processing."""
     print_colored("\n" + "=" * 60, Colors.BLUE)
@@ -190,7 +230,7 @@ def get_confirmation(start_month, end_month, months_to_process):
                 process_mcao = True
                 print_colored("  ✓ Will enrich data with MCAO API", Colors.GREEN)
                 print_colored("    • Output: MCAO/Upload/ (filtered APNs)", Colors.WHITE)
-                print_colored("    • Output: MCAO/Complete/ (enriched with 84 fields)", Colors.WHITE)
+                print_colored("    • Output: MCAO/Complete/ (enriched with 106 fields)", Colors.WHITE)
                 break
             elif response in ['n', 'no', '']:
                 process_mcao = False
@@ -226,11 +266,25 @@ def get_confirmation(start_month, end_month, months_to_process):
         else:
             print_colored("Please enter 'y' for yes or 'n' for no", Colors.YELLOW)
 
-def process_single_month(month_code: str, folder_name: str):
-    """Process a single month directly. (UNCHANGED FROM ORIGINAL)"""
+def process_single_month(month_code: str, folder_name: str, test_mode: str = 'full', session_timestamp: str = None):
+    """Process a single month directly.
+
+    Args:
+        month_code: Month code (e.g., "1.25")
+        folder_name: Folder name in ALL-MONTHS directory
+        test_mode: 'full', 'first5', or 'random5'
+        session_timestamp: Optional session timestamp for consistent naming across all outputs
+    """
     print_colored(f"\n{'='*60}", Colors.BLUE)
     print_colored(f"Processing {month_code}", Colors.BOLD + Colors.PURPLE)
+    if test_mode != 'full':
+        mode_label = "First 5" if test_mode == 'first5' else "Random 5"
+        print_colored(f"🧪 TEST MODE: {mode_label} records", Colors.YELLOW)
     print_colored(f"{'='*60}", Colors.BLUE)
+
+    # Generate session timestamp for consistent naming across all outputs
+    if session_timestamp is None:
+        session_timestamp = get_standard_timestamp()
 
     # Add timestamp for debugging
     from datetime import datetime
@@ -275,26 +329,66 @@ def process_single_month(month_code: str, folder_name: str):
     log_step(f"Processed {len(current_month_df)} records")
     print_colored(f"✅ Processed {len(current_month_df)} records", Colors.GREEN)
 
+    # Apply test mode filtering if requested
+    selected_rows = None
+    if test_mode != 'full' and len(current_month_df) > 0:
+        original_count = len(current_month_df)
+
+        if test_mode == 'first5':
+            # Take first 5 records
+            current_month_df = current_month_df.head(5).copy()
+            selected_rows = list(range(min(5, original_count)))
+            print_colored(f"🧪 Test mode: Selected first {len(current_month_df)} records (rows 0-{len(current_month_df)-1})", Colors.YELLOW)
+
+        elif test_mode == 'random5':
+            # Take random 5 records
+            import random
+            num_to_select = min(5, original_count)
+            random.seed()  # Use system time for randomness
+            selected_indices = sorted(random.sample(range(original_count), num_to_select))
+            current_month_df = current_month_df.iloc[selected_indices].copy()
+            selected_rows = selected_indices
+            print_colored(f"🧪 Test mode: Selected {len(current_month_df)} random records", Colors.YELLOW)
+            print_colored(f"   Selected rows: {selected_rows}", Colors.CYAN)
+
+        print_colored(f"   (Original dataset had {original_count} records)", Colors.CYAN)
+
     # Create output directories
     Path("Reformat").mkdir(exist_ok=True)
     Path("All-to-Date").mkdir(exist_ok=True)
     Path("Analysis").mkdir(exist_ok=True)
 
-    # 1. Save Reformat
-    reformat_path = Path("Reformat") / f"{month_code} Reformat.xlsx"
-    log_step(f"Creating Reformat file at {reformat_path}...")
+    # 1. Save Reformat (new format + legacy copy)
+    reformat_new_filename = format_output_filename(month_code, "Reformat", session_timestamp)
+    reformat_legacy_filename = get_legacy_filename(month_code, "Reformat")
+    reformat_new_path = Path("Reformat") / reformat_new_filename
+    reformat_legacy_path = Path("Reformat") / reformat_legacy_filename
+
+    log_step(f"Creating Reformat file at {reformat_new_path}...")
     print_colored("Creating Reformat file...", Colors.BLUE)
-    if not safe_write_excel(current_month_df, reformat_path):
+
+    # Save with legacy copy
+    if not safe_write_excel(current_month_df, reformat_new_path):
         return False, None
 
-    # 2. Create All-to-Date
+    # Create legacy copy
+    save_excel_with_legacy_copy(reformat_new_path, reformat_legacy_path)
+    print_colored(f"✅ Created legacy copy: {reformat_legacy_path.name}", Colors.GREEN)
+
+    # 2. Create All-to-Date (new format + legacy copy)
     log_step("Starting All-to-Date creation...")
     print_colored("Creating All-to-Date file...", Colors.BLUE)
-    all_to_date_path = Path("All-to-Date") / f"Reformat All to Date {month_code}.xlsx"
 
-    # Get previous All-to-Date if exists
+    all_to_date_new_filename = format_output_filename(month_code, "Reformat_All_to_Date", session_timestamp)
+    all_to_date_legacy_filename = get_legacy_filename(month_code, "Reformat_All_to_Date")
+    all_to_date_new_path = Path("All-to-Date") / all_to_date_new_filename
+    all_to_date_legacy_path = Path("All-to-Date") / all_to_date_legacy_filename
+
+    # Get previous All-to-Date if exists (support both old and new formats)
     all_to_date_dir = Path("All-to-Date")
-    existing_files = list(all_to_date_dir.glob("Reformat All to Date *.xlsx"))
+    old_format_files = list(all_to_date_dir.glob("Reformat All to Date *.xlsx"))
+    new_format_files = list(all_to_date_dir.glob("*_Reformat_All_to_Date_*.xlsx"))
+    existing_files = old_format_files + new_format_files
 
     if existing_files:
         # Find the most recent file before this month
@@ -323,8 +417,13 @@ def process_single_month(month_code: str, folder_name: str):
     else:
         combined_df = current_month_df
 
-    if not safe_write_excel(combined_df, all_to_date_path):
+    # Save with both new and legacy format
+    if not safe_write_excel(combined_df, all_to_date_new_path):
         return False, None
+
+    # Create legacy copy
+    save_excel_with_legacy_copy(all_to_date_new_path, all_to_date_legacy_path)
+    print_colored(f"✅ Created legacy copy: {all_to_date_legacy_path.name}", Colors.GREEN)
 
     # 3. Create Analysis
     log_step("Starting Analysis creation...")
@@ -372,10 +471,13 @@ def process_single_month(month_code: str, folder_name: str):
 
     # Perform analysis with proper historical data (excluding current month)
     log_step("Calling analyzer.analyze_month_changes...")
+    # Skip lost license processing in test mode to avoid bloating the dataset
+    skip_lost = (test_mode != 'full')
     analysis_df = analyzer.analyze_month_changes(
         current_month_df,
         previous_month_df,
-        historical_df  # Pass truly historical data, not combined_df
+        historical_df,  # Pass truly historical data, not combined_df
+        skip_lost_licenses=skip_lost
     )
 
     # Add required columns
@@ -432,29 +534,38 @@ def process_single_month(month_code: str, folder_name: str):
     else:
         print_colored(f"✅ Column count validated: {actual_columns} columns match v300Track_this.xlsx", Colors.GREEN)
 
-    # Save Analysis with all sheets
-    analysis_path = Path("Analysis") / f"{month_code} Analysis.xlsx"
-    log_step(f"Saving analysis to {analysis_path}...")
+    # Save Analysis with all sheets (new format + legacy copy)
+    analysis_new_filename = format_output_filename(month_code, "Analysis", session_timestamp)
+    analysis_legacy_filename = get_legacy_filename(month_code, "Analysis")
+    analysis_new_path = Path("Analysis") / analysis_new_filename
+    analysis_legacy_path = Path("Analysis") / analysis_legacy_filename
+
+    log_step(f"Saving analysis to {analysis_new_path}...")
     sheet_data = {
         'Summary': summary_df,
         'Blanks Count': blanks_df,
         'Analysis': analysis_df
     }
 
-    if not safe_write_excel(None, analysis_path, sheet_data):
+    if not safe_write_excel(None, analysis_new_path, sheet_data):
         return False, None
+
+    # Create legacy copy
+    save_excel_with_legacy_copy(analysis_new_path, analysis_legacy_path)
+    print_colored(f"✅ Created legacy copy: {analysis_legacy_path.name}", Colors.GREEN)
 
     print_colored(f"✅ Successfully processed {month_code}", Colors.GREEN)
 
     # Return analysis_df so we can extract APN data from it
     return True, analysis_df
 
-def extract_apn_upload(month_code: str, analysis_df: pd.DataFrame):
+def extract_apn_upload(month_code: str, analysis_df: pd.DataFrame, session_timestamp: str = None):
     """Extract MARICOPA-only records from Analysis file for APN processing.
 
     Args:
         month_code: Month code (e.g., "1.25")
         analysis_df: The Analysis dataframe with all columns
+        session_timestamp: Optional session timestamp for consistent naming
 
     Returns:
         Path to the created Upload file, or None if failed
@@ -479,18 +590,23 @@ def extract_apn_upload(month_code: str, analysis_df: pd.DataFrame):
 
         print_colored(f"📊 Found {len(maricopa_df)} MARICOPA records out of {len(analysis_df)} total", Colors.CYAN)
 
-        # Generate timestamp
-        now = datetime.now()
-        timestamp = now.strftime("%m.%d.%I-%M-%S")  # M.DD.HH-MM-SS (12-hour format)
+        # Use session timestamp for consistency
+        if session_timestamp is None:
+            session_timestamp = get_standard_timestamp()
 
-        # Create output filename
-        output_filename = f"{month_code}_APN_Upload {timestamp}.xlsx"
-        output_path = upload_dir / output_filename
+        # Create output filenames (new format + legacy)
+        new_filename = format_output_filename(month_code, "APN_Upload", session_timestamp)
+        legacy_filename = get_legacy_filename(month_code, "APN_Upload", session_timestamp)
+        new_path = upload_dir / new_filename
+        legacy_path = upload_dir / legacy_filename
 
-        # Write to Excel
-        if safe_write_excel(maricopa_df, output_path):
-            print_colored(f"✅ Created APN Upload file: {output_path}", Colors.GREEN)
-            return output_path
+        # Write to Excel (new format)
+        if safe_write_excel(maricopa_df, new_path):
+            print_colored(f"✅ Created APN Upload file: {new_path}", Colors.GREEN)
+            # Create legacy copy
+            save_excel_with_legacy_copy(new_path, legacy_path)
+            print_colored(f"✅ Created legacy copy: {legacy_path.name}", Colors.GREEN)
+            return new_path
         else:
             return None
 
@@ -540,28 +656,28 @@ def extract_mcao_upload(month_code: str, apn_complete_path: Path):
             return None
 
         # Extract timestamp from APN_Complete filename for consistency
-        # Expected format: M.YY_APN_Complete MM.DD.HH-MM-SS.xlsx
-        timestamp = None
-        if "_APN_Complete" in apn_complete_path.stem:
-            parts = apn_complete_path.stem.split("_APN_Complete")
-            if len(parts) > 1 and parts[1].strip():
-                timestamp = parts[1].strip()
+        timestamp = extract_timestamp_from_filename(apn_complete_path.name)
 
         # If no timestamp found, generate new one
         if not timestamp:
-            now = datetime.now()
-            timestamp = now.strftime("%m.%d.%I-%M-%S")
+            timestamp = get_standard_timestamp()
 
-        # Create output filename with same timestamp
-        output_filename = f"{month_code}_MCAO_Upload {timestamp}.xlsx"
-        output_path = upload_dir / output_filename
+        # Create output filenames (new format + legacy)
+        new_filename = format_output_filename(month_code, "MCAO_Upload", timestamp)
+        legacy_filename = get_legacy_filename(month_code, "MCAO_Upload", timestamp)
+        new_path = upload_dir / new_filename
+        legacy_path = upload_dir / legacy_filename
 
         # Save filtered data (only first 3 columns for Upload)
         df_upload = df_filtered[['FULL_ADDRESS', 'COUNTY', 'APN']].copy()
 
-        if safe_write_excel(df_upload, output_path):
-            print_colored(f"✅ Created MCAO Upload file: {output_path}", Colors.GREEN)
-            return output_path
+        # Save with both new and legacy format
+        if safe_write_excel(df_upload, new_path):
+            print_colored(f"✅ Created MCAO Upload file: {new_path}", Colors.GREEN)
+            # Create legacy copy
+            save_excel_with_legacy_copy(new_path, legacy_path)
+            print_colored(f"✅ Created legacy copy: {legacy_path.name}", Colors.GREEN)
+            return new_path
         else:
             return None
 
@@ -679,22 +795,24 @@ def process_mcao_complete(month_code: str, mcao_upload_path: Path):
             # Create DataFrame with all columns in correct order
             df_complete = pd.DataFrame(results, columns=MCAO_MAX_HEADERS)
 
-            # Extract timestamp from upload filename
-            timestamp = None
-            if "_MCAO_Upload" in mcao_upload_path.stem:
-                parts = mcao_upload_path.stem.split("_MCAO_Upload")
-                if len(parts) > 1 and parts[1].strip():
-                    timestamp = parts[1].strip()
+            # Extract timestamp from upload filename for consistency
+            timestamp = extract_timestamp_from_filename(mcao_upload_path.name)
 
             if not timestamp:
-                timestamp = datetime.now().strftime("%m.%d.%I-%M-%S")
+                timestamp = get_standard_timestamp()
 
-            # Save MCAO_Complete
-            complete_filename = f"{month_code}_MCAO_Complete {timestamp}.xlsx"
-            complete_path = complete_dir / complete_filename
+            # Create output filenames (new format + legacy)
+            new_filename = format_output_filename(month_code, "MCAO_Complete", timestamp)
+            legacy_filename = get_legacy_filename(month_code, "MCAO_Complete", timestamp)
+            new_path = complete_dir / new_filename
+            legacy_path = complete_dir / legacy_filename
 
-            if safe_write_excel(df_complete, complete_path):
-                print_colored(f"✅ Created MCAO Complete file: {complete_path}", Colors.GREEN)
+            # Save with both new and legacy format
+            if safe_write_excel(df_complete, new_path):
+                print_colored(f"✅ Created MCAO Complete file: {new_path}", Colors.GREEN)
+                # Create legacy copy
+                save_excel_with_legacy_copy(new_path, legacy_path)
+                print_colored(f"✅ Created legacy copy: {legacy_path.name}", Colors.GREEN)
             else:
                 print_colored(f"❌ Failed to save MCAO Complete file", Colors.RED)
                 return False
@@ -840,6 +958,9 @@ def main():
     # Get months to process
     months_to_process = months[start_idx:end_idx + 1]
 
+    # Get test mode selection
+    test_mode = get_test_mode()
+
     # Get confirmation
     confirmed, process_apn, process_mcao, process_ecorp = get_confirmation(start_month, end_month, months_to_process)
     if not confirmed:
@@ -859,7 +980,10 @@ def main():
 
     for month_code, folder_name, _, _ in months_to_process:
         try:
-            result = process_single_month(month_code, folder_name)
+            # Generate session timestamp once per month for consistency across all outputs
+            session_timestamp = get_standard_timestamp()
+
+            result = process_single_month(month_code, folder_name, test_mode, session_timestamp)
             if isinstance(result, tuple):
                 success, analysis_df = result
             else:
@@ -873,7 +997,7 @@ def main():
                 # Extract APN data if we have analysis_df
                 if analysis_df is not None:
                     print_colored(f"\n📋 Extracting APN data for {month_code}...", Colors.CYAN)
-                    upload_path = extract_apn_upload(month_code, analysis_df)
+                    upload_path = extract_apn_upload(month_code, analysis_df, session_timestamp)
 
                     # Run APN lookup if requested
                     if upload_path and process_apn:
