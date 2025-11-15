@@ -37,7 +37,7 @@ pip3 install usaddress
 The main entry point for processing ADHS data is the interactive script:
 
 ```bash
-python scripts/process_months_local.py
+poetry run python scripts/process_months_local.py
 ```
 
 This will:
@@ -92,27 +92,113 @@ Unknown columns are automatically added to `field_map.TODO.yml`.
 
 ## Output Files
 
-The pipeline generates multiple output types:
+The pipeline generates multiple output types with standardized naming: `M.YY_{Stage}_{timestamp}.xlsx`
 
-- **Reformat**: Standardized provider data with MONTH, YEAR, ADDRESS, COORDINATES, etc.
-- **All-to-Date**: Cumulative data across all processed months
-- **Analysis**: Full business analysis with Summary, Blanks Count, and lost license detection
-- **APN Upload**: MARICOPA-only records extracted for parcel number lookup
-- **APN Complete**: APN Upload enriched with Assessor Parcel Numbers
-- **MCAO Upload**: Filtered APNs ready for property data enrichment
-- **MCAO Complete**: Full property data with 84 fields from Maricopa County Assessor
-- **Ecorp Upload**: Filtered MCAO data prepared for ACC entity lookup (4 columns)
-- **Ecorp Complete**: Full entity details with principals and registration data (26 columns)
+Where:
+- `M.YY` is the month code (e.g., `1.25` for January 2025)
+- `{Stage}` is the processing stage (Reformat, Analysis, APN_Upload, etc.)
+- `{timestamp}` is `MM.DD.HH-MM-SS` format (12-hour, no AM/PM)
 
-## Optional: BatchData Enrichment
+### Core Pipeline Outputs
 
-For additional contact discovery via skip-trace APIs, see the BatchData pipeline in `/Batchdata/`. This optional post-processing step can enrich Ecorp Complete files with:
-- Phone number discovery
-- Email discovery
-- DNC/TCPA compliance filtering
-- Phone verification
+- **Reformat**: `M.YY_Reformat_{timestamp}.xlsx`
+  - Standardized provider data with MONTH, YEAR, ADDRESS, COORDINATES, etc.
 
-See `/Batchdata/README.md` for setup and usage instructions.
+- **All-to-Date**: `M.YY_Reformat_All_to_Date_{timestamp}.xlsx`
+  - Cumulative data across all processed months
+
+- **Analysis**: `M.YY_Analysis_{timestamp}.xlsx`
+  - Full business analysis with Summary, Blanks Count, and lost license detection
+
+### Optional Enrichment Stages
+
+- **APN Upload**: `M.YY_APN_Upload_{timestamp}.xlsx`
+  - MARICOPA-only records extracted for parcel number lookup
+
+- **APN Complete**: `M.YY_APN_Complete_{timestamp}.xlsx`
+  - APN Upload enriched with Assessor Parcel Numbers
+
+- **MCAO Upload**: `M.YY_MCAO_Upload_{timestamp}.xlsx`
+  - Filtered APNs ready for property data enrichment
+
+- **MCAO Complete**: `M.YY_MCAO_Complete_{timestamp}.xlsx`
+  - Full property data with 84 fields from Maricopa County Assessor
+
+- **Ecorp Upload**: `M.YY_Ecorp_Upload_{timestamp}.xlsx`
+  - Filtered MCAO data prepared for ACC entity lookup (4 columns)
+
+- **Ecorp Complete**: `M.YY_Ecorp_Complete_{timestamp}.xlsx`
+  - Full entity details with principals and registration data (93 columns)
+  - Includes ECORP_INDEX_# (sequential record number) and ECORP_URL (ACC entity detail page)
+
+- **BatchData Upload**: `M.YY_BatchData_Upload_{timestamp}.xlsx`
+  - Ecorp Complete data prepared for contact discovery APIs
+
+- **BatchData Complete**: `M.YY_BatchData_Complete_{timestamp}.xlsx`
+  - Enriched with phone numbers, emails, DNC/TCPA compliance, phone verification
+
+### Backward Compatibility
+
+During the transition period, the pipeline creates both:
+- New format: `1.25_Reformat_01.15.03-45-30.xlsx`
+- Legacy format: `1.25 Reformat.xlsx` (for compatibility)
+
+## Individual Stage Commands
+
+### ETL-Integrated Commands
+
+The main processing script handles the full pipeline:
+
+```bash
+# Interactive menu (recommended)
+poetry run python scripts/process_months_local.py
+
+# Single month via CLI
+poetry run adhs-etl run --month 1.25 --raw-dir ./ALL-MONTHS/Raw\ 1.25
+```
+
+### Standalone Stage Commands
+
+Each enrichment stage can also be run independently for testing or reprocessing:
+
+#### APN Lookup (Standalone)
+
+```bash
+# Process a single APN Upload file
+python3 APN/apn_lookup.py -i APN/Upload/1.25_APN_Upload_{timestamp}.xlsx --rate 5.0
+```
+
+#### MCAO Enrichment (Standalone)
+
+```bash
+# Test MCAO API integration
+poetry run python scripts/test_mcao_standalone.py
+```
+
+#### Ecorp Entity Lookup (Standalone)
+
+```bash
+# Run Ecorp processing on MCAO Complete file
+poetry run python scripts/test_ecorp_standalone.py
+```
+
+#### BatchData Enrichment (Standalone)
+
+```bash
+# Using the local test input (includes CONFIG, INPUT_MASTER, BLACKLIST_NAMES)
+cd Batchdata
+python3 src/run.py --input tests/batchdata_local_input.xlsx --dry-run
+
+# Using ETL-generated Upload file
+python3 src/run.py --input Upload/1.25_BatchData_Upload_{timestamp}.xlsx --template-output --dedupe --consolidate-families --filter-entities
+```
+
+**Note**: For BatchData standalone usage, the input file must contain three sheets:
+- `CONFIG`: API keys and settings
+- `INPUT_MASTER`: Records to process
+- `BLACKLIST_NAMES`: Names to filter out
+
+See `Batchdata/tests/batchdata_local_input.xlsx` for the complete structure.
 
 ## Development
 

@@ -49,7 +49,7 @@ python -m src.run --input batchdata_local_input.xlsx
 
 Transform and process eCorp Complete files from the main pipeline:
 ```bash
-python -m src.run --input template.xlsx --ecorp "../Ecorp/Complete/M.YY_Ecorp_Complete.xlsx"
+python -m src.run --input template.xlsx --ecorp "../Ecorp/Complete/M.YY_Ecorp_Complete_{timestamp}.xlsx"
 ```
 
 ### Dry Run (Cost Estimation)

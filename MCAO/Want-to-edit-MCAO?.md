@@ -18,7 +18,7 @@ You CAN safely add new columns from the MCAO API. The system handles additional 
 ### Requirements for Adding New Columns
 
 1. **Verify API Support**: Ensure the MCAO API actually returns the fields you want to add
-2. **Append Only**: New columns must be added AFTER the existing 84 columns (starting at column CG/position 84)
+2. **Append Only**: New columns must be added AFTER the existing 106 columns (starting at column DC/position 106)
 3. **Update Three Files**:
    - `src/adhs_etl/mcao_field_mapping.py` - Add to MCAO_MAX_HEADERS list
    - `src/adhs_etl/mcao_client.py` - Add mapping logic in map_to_max_headers()
@@ -29,7 +29,7 @@ You CAN safely add new columns from the MCAO API. The system handles additional 
 Use this exact prompt template to successfully add new MCAO columns:
 
 ```
-I need to add new MCAO API fields to the pipeline. Please add the following columns AFTER the existing 84 columns (starting at position 84/column CG):
+I need to add new MCAO API fields to the pipeline. Please add the following columns AFTER the existing 106 columns (starting at position 106/column DC):
 
 New columns to add:
 - [ColumnName1]: Maps from API field [api.field.path1]
@@ -38,7 +38,7 @@ New columns to add:
 
 Requirements:
 1. Add these column names to the END of MCAO_MAX_HEADERS list in src/adhs_etl/mcao_field_mapping.py
-2. Update the assertion to check for the new total (currently 84 + number of new columns)
+2. Update the assertion to check for the new total (currently 106 +number of new columns)
 3. In src/adhs_etl/mcao_client.py, add mapping logic in the map_to_max_headers() function to map the API response fields to these new columns
 4. Ensure all new mappings handle None/missing values by converting to empty strings
 5. Verify the column order is preserved and no existing columns are moved
@@ -64,10 +64,10 @@ When adding a new field, the code should follow this pattern:
 ```python
 # In mcao_field_mapping.py - Add to end of list
 MCAO_MAX_HEADERS = [
-    # ... existing 84 columns ...
-    'Improvements_Other',                        # Column CF (position 83)
-    'YourNewField1',                             # Column CG (position 84)
-    'YourNewField2',                             # Column CH (position 85)
+    # ... existing 106 columns ...
+    'Valuations_0_AssessmentRatioPercentage',    # Column DB (position 105)
+    'YourNewField1',                             # Column DC (position 106)
+    'YourNewField2',                             # Column DD (position 107)
 ]
 
 # In mcao_client.py - Add mapping logic
@@ -86,14 +86,14 @@ def map_to_max_headers(self, api_data: Dict[str, Any]) -> Dict[str, Any]:
 ### Downstream Impact Checklist
 
 Before deploying changes, verify:
-- [ ] Total column count matches new expected value (84 + additions)
+- [ ] Total column count matches new expected value (106 +additions)
 - [ ] Ecorp Upload still generates correctly with 4 columns
 - [ ] MCAO_Complete files generate with all columns in order
 - [ ] No existing scripts using positional indexing are affected
 - [ ] Column names don't conflict with existing names
 - [ ] All new columns handle null/missing values gracefully
 - [ ] **Update all hardcoded "84" references** in test files and comments
-- [ ] **Test script assertions** pass (multiple scripts assert exactly 84 columns)
+- [ ] **Test script assertions** pass (multiple scripts assert exactly 106 columns)
 - [ ] **Console output messages** updated (process_months_local.py mentions "84 fields")
 - [ ] **Column count validation** in ecorp.py still works (checks for minimum 5 columns)
 
@@ -102,13 +102,12 @@ Before deploying changes, verify:
 When adding new columns, these files contain hardcoded references to "84" that must be updated:
 
 1. **Core Files** (MUST update):
-   - `src/adhs_etl/mcao_field_mapping.py` - Line 122: assertion for exactly 84 columns
+   - `src/adhs_etl/mcao_field_mapping.py` - Line 146: assertion for exactly 106 columns (already updated)
    - `scripts/test_mcao_integration.py` - Lines 30, 41, 54: assertions for 84 columns
    - `scripts/test_mcao_mapping.py` - Lines 54-55: references to "out of 84"
 
 2. **Display Messages** (should update for accuracy):
    - `scripts/process_months_local.py` - Line 225: mentions "enriched with 84 fields"
-   - `scripts/process_months_local 2.py` - Line 193: mentions "enriched with 84 fields"
 
 3. **Documentation** (update for completeness):
    - `PIPELINE_FLOW.md` - References to 84 property fields

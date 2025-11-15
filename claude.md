@@ -5,7 +5,7 @@
    *Never* import `os.environ` directly inside business logic.
 3. **Primary entry point** — Interactive month processor for batch processing:
    ```bash
-   python scripts/process_months_local.py
+   poetry run python scripts/process_months_local.py
    ```
    * Provides interactive menu for selecting month ranges
    * Processes from `ALL-MONTHS/Raw M.YY/` directories
@@ -25,21 +25,28 @@
 10. **Folder structure** — Updated to use hyphens:
    * `Raw-New-Month/` — Input files for current month processing
    * `ALL-MONTHS/` — Historical data organized by month folders
-   * `Reformat/` — M.YY Reformat.xlsx output files
-   * `All-to-Date/` — Reformat All to Date M.YY.xlsx cumulative files
-   * `Analysis/` — M.YY Analysis.xlsx files with full business analysis
-   * `APN/Upload/` — MARICOPA-only extracts for parcel lookup
-   * `APN/Complete/` — APN Upload enriched with Assessor Parcel Numbers
-   * `MCAO/Upload/` — Filtered APNs for property data enrichment
-   * `MCAO/Complete/` — Full property data (84 columns) from Maricopa County Assessor
-   * `Ecorp/Upload/` — M.YY_Ecorp_Upload *.xlsx files for ACC entity lookup
-   * `Ecorp/Complete/` — M.YY_Ecorp_Complete *.xlsx with full entity data
-11. **Output Files** — Pipeline generates multiple types:
+   * `Reformat/` — `M.YY_Reformat_{timestamp}.xlsx` output files
+   * `All-to-Date/` — `M.YY_Reformat_All_to_Date_{timestamp}.xlsx` cumulative files
+   * `Analysis/` — `M.YY_Analysis_{timestamp}.xlsx` files with full business analysis
+   * `APN/Upload/` — `M.YY_APN_Upload_{timestamp}.xlsx` MARICOPA-only extracts for parcel lookup
+   * `APN/Complete/` — `M.YY_APN_Complete_{timestamp}.xlsx` enriched with Assessor Parcel Numbers
+   * `MCAO/Upload/` — `M.YY_MCAO_Upload_{timestamp}.xlsx` filtered APNs for property data enrichment
+   * `MCAO/Complete/` — `M.YY_MCAO_Complete_{timestamp}.xlsx` full property data (84 columns) from Maricopa County Assessor
+   * `Ecorp/Upload/` — `M.YY_Ecorp_Upload_{timestamp}.xlsx` files for ACC entity lookup
+   * `Ecorp/Complete/` — `M.YY_Ecorp_Complete_{timestamp}.xlsx` with full entity data
+   * `Batchdata/Upload/` — `M.YY_BatchData_Upload_{timestamp}.xlsx` prepared for contact discovery APIs
+   * `Batchdata/Complete/` — `M.YY_BatchData_Complete_{timestamp}.xlsx` enriched with phone/email data
+11. **Output Files** — Pipeline generates multiple types with standardized naming `M.YY_{Stage}_{timestamp}.xlsx`:
+    * **Naming format**: `{timestamp}` is `MM.DD.HH-MM-SS` (12-hour, no AM/PM). Example: `1.25_Reformat_01.15.03-45-30.xlsx`
     * **Reformat**: Standardized data with MONTH, YEAR, PROVIDER_TYPE, PROVIDER, ADDRESS, CITY, ZIP, FULL_ADDRESS, CAPACITY, LONGITUDE, LATITUDE, COUNTY, PROVIDER_GROUP_INDEX_#
     * **All-to-Date**: Cumulative data across all months processed
     * **Analysis**: Full business analysis with 3 sheets (Summary, Blanks Count, Analysis) including lost license detection, MCAO property data, and extended tracking per v300Track_this.md
-    * **APN Processing** (optional): For MARICOPA records, generates Upload files and Complete files with Assessor Parcel Numbers
+    * **APN Processing** (optional): For MARICOPA records, generates Upload and Complete files with Assessor Parcel Numbers
     * **MCAO Processing** (optional): Enriches APN data with 84 property fields from Maricopa County Assessor API
     * **Ecorp Upload**: 4 columns (FULL_ADDRESS, COUNTY, Owner_Ownership, OWNER_TYPE) extracted from MCAO_Complete
-    * **Ecorp Complete**: Upload columns + 22 ACC entity fields (entity details, principals, registration data) - Generated via `src/adhs_etl/ecorp.py`
-    * **BatchData Enrichment** (optional post-processing): Additional contact discovery available in `/Batchdata/` for skip-trace and phone verification
+    * **Ecorp Complete**: 93 columns (4 Upload + 89 entity fields) - Generated via `src/adhs_etl/ecorp.py`
+      - ECORP_INDEX_# — Sequential record number (1, 2, 3...)
+      - ECORP_URL — ACC entity detail page URL from ecorp.azcc.gov
+      - Full entity details, principals, statutory agents, and registration data
+    * **BatchData Enrichment** (optional, 5th stage): Contact discovery via `src/adhs_etl/batchdata_bridge.py` for skip-trace, phone/email enrichment, and DNC/TCPA compliance
+    * **Backward compatibility**: During transition, both new format (underscores + timestamp) and legacy format (spaces, no timestamp) are created
