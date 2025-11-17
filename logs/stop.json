@@ -1926,5 +1926,45 @@
     "permission_mode": "default",
     "hook_event_name": "Stop",
     "stop_hook_active": false
+  },
+  {
+    "session_id": "8b07f3b6-b673-47b5-8f65-e427b57bfc25",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/8b07f3b6-b673-47b5-8f65-e427b57bfc25.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "plan",
+    "hook_event_name": "Stop",
+    "stop_hook_active": false
+  },
+  {
+    "session_id": "8b07f3b6-b673-47b5-8f65-e427b57bfc25",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/8b07f3b6-b673-47b5-8f65-e427b57bfc25.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "acceptEdits",
+    "hook_event_name": "Stop",
+    "stop_hook_active": false
+  },
+  {
+    "session_id": "626c3444-5765-460b-b9b6-0e2cfc8fea04",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/626c3444-5765-460b-b9b6-0e2cfc8fea04.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "acceptEdits",
+    "hook_event_name": "Stop",
+    "stop_hook_active": false
+  },
+  {
+    "session_id": "8b07f3b6-b673-47b5-8f65-e427b57bfc25",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/8b07f3b6-b673-47b5-8f65-e427b57bfc25.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "acceptEdits",
+    "hook_event_name": "Stop",
+    "stop_hook_active": false
+  },
+  {
+    "session_id": "8b07f3b6-b673-47b5-8f65-e427b57bfc25",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/8b07f3b6-b673-47b5-8f65-e427b57bfc25.jsonl",
+    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
+    "permission_mode": "acceptEdits",
+    "hook_event_name": "Stop",
+    "stop_hook_active": false
   }
 ]

@@ -1,147 +1,26 @@
 [
   {
-    "session_id": "626c3444-5765-460b-b9b6-0e2cfc8fea04",
-    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/626c3444-5765-460b-b9b6-0e2cfc8fea04.jsonl",
+    "session_id": "8b07f3b6-b673-47b5-8f65-e427b57bfc25",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/8b07f3b6-b673-47b5-8f65-e427b57bfc25.jsonl",
     "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
-    "permission_mode": "default",
+    "permission_mode": "acceptEdits",
     "hook_event_name": "PreToolUse",
-    "tool_name": "Read",
+    "tool_name": "Bash",
     "tool_input": {
-      "file_path": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy/README.md"
+      "command": "grep -l \"\\.env\\|BD_\\|BATCHDATA\" Batchdata/docs/examples/*.md 2>/dev/null | head -5",
+      "description": "Find BatchData example docs with env references"
     }
   },
   {
-    "session_id": "626c3444-5765-460b-b9b6-0e2cfc8fea04",
-    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/626c3444-5765-460b-b9b6-0e2cfc8fea04.jsonl",
+    "session_id": "8b07f3b6-b673-47b5-8f65-e427b57bfc25",
+    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/8b07f3b6-b673-47b5-8f65-e427b57bfc25.jsonl",
     "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
-    "permission_mode": "default",
+    "permission_mode": "acceptEdits",
     "hook_event_name": "PreToolUse",
-    "tool_name": "Read",
+    "tool_name": "Write",
     "tool_input": {
-      "file_path": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy/ai_docs/anthropic_docs_subagents.md"
-    }
-  },
-  {
-    "session_id": "626c3444-5765-460b-b9b6-0e2cfc8fea04",
-    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/626c3444-5765-460b-b9b6-0e2cfc8fea04.jsonl",
-    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
-    "permission_mode": "default",
-    "hook_event_name": "PreToolUse",
-    "tool_name": "Read",
-    "tool_input": {
-      "file_path": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy/ai_docs/anthropic_custom_slash_commands.md"
-    }
-  },
-  {
-    "session_id": "626c3444-5765-460b-b9b6-0e2cfc8fea04",
-    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/626c3444-5765-460b-b9b6-0e2cfc8fea04.jsonl",
-    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
-    "permission_mode": "default",
-    "hook_event_name": "PreToolUse",
-    "tool_name": "Read",
-    "tool_input": {
-      "file_path": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy/.gitignore"
-    }
-  },
-  {
-    "session_id": "626c3444-5765-460b-b9b6-0e2cfc8fea04",
-    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/626c3444-5765-460b-b9b6-0e2cfc8fea04.jsonl",
-    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
-    "permission_mode": "default",
-    "hook_event_name": "PreToolUse",
-    "tool_name": "Edit",
-    "tool_input": {
-      "file_path": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy/.gitignore",
-      "old_string": "# Excel data files - exclude from Git\nv200Track_this_shit.xlsx\n~$*.xlsx\n~$*.xls\nALL-MONTHS/**/*.xlsx\nALL-MONTHS/**/*.xls\nALL MONTHS/**/*.xlsx\nALL MONTHS/**/*.xls\nReformat/**/*.xlsx\nReformat/**/*.xls\nAll-to-Date/**/*.xlsx\nAll-to-Date/**/*.xls\nRaw-New-Month/**/*.xlsx\nRaw-New-Month/**/*.xls\nAnalysis/**/*.xlsx\nAnalysis/**/*.xls\nold/**/*.xlsx\nold/**/*.xls\nMCAO/Complete/\nMCAO/Upload/\nEcorp/Complete/\nEcorp/Upload/\nBatchdata/Upload/*.xlsx\nBatchdata/Complete/*.xlsx\n!Batchdata/Upload/.gitkeep\n!Batchdata/Complete/.gitkeep",
-      "new_string": "# Excel data files - exclude from Git\nv200Track_this_shit.xlsx\n~$*.xlsx\n~$*.xls\nALL-MONTHS/**/*.xlsx\nALL-MONTHS/**/*.xls\nALL MONTHS/**/*.xlsx\nALL MONTHS/**/*.xls\nReformat/**/*.xlsx\nReformat/**/*.xls\nAll-to-Date/**/*.xlsx\nAll-to-Date/**/*.xls\nRaw-New-Month/**/*.xlsx\nRaw-New-Month/**/*.xls\nAnalysis/**/*.xlsx\nAnalysis/**/*.xls\nold/**/*.xlsx\nold/**/*.xls\n\n# Pipeline output files - ignore all Excel files\nAPN/Upload/*.xlsx\nAPN/Upload/*.xls\nAPN/Complete/*.xlsx\nAPN/Complete/*.xls\nMCAO/Upload/*.xlsx\nMCAO/Upload/*.xls\nMCAO/Complete/*.xlsx\nMCAO/Complete/*.xls\nEcorp/Upload/*.xlsx\nEcorp/Upload/*.xls\nEcorp/Complete/*.xlsx\nEcorp/Complete/*.xls\nBatchdata/Upload/*.xlsx\nBatchdata/Upload/*.xls\nBatchdata/Complete/*.xlsx\nBatchdata/Complete/*.xls\n\n# Keep .gitkeep files in pipeline directories\n!APN/Upload/.gitkeep\n!APN/Complete/.gitkeep\n!MCAO/Upload/.gitkeep\n!MCAO/Complete/.gitkeep\n!Ecorp/Upload/.gitkeep\n!Ecorp/Complete/.gitkeep\n!Batchdata/Upload/.gitkeep\n!Batchdata/Complete/.gitkeep"
-    }
-  },
-  {
-    "session_id": "626c3444-5765-460b-b9b6-0e2cfc8fea04",
-    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/626c3444-5765-460b-b9b6-0e2cfc8fea04.jsonl",
-    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
-    "permission_mode": "default",
-    "hook_event_name": "PreToolUse",
-    "tool_name": "Read",
-    "tool_input": {
-      "file_path": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy/src/adhs_etl/ecorp.py"
-    }
-  },
-  {
-    "session_id": "626c3444-5765-460b-b9b6-0e2cfc8fea04",
-    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/626c3444-5765-460b-b9b6-0e2cfc8fea04.jsonl",
-    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
-    "permission_mode": "plan",
-    "hook_event_name": "PreToolUse",
-    "tool_name": "Read",
-    "tool_input": {
-      "file_path": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy/pyproject.toml"
-    }
-  },
-  {
-    "session_id": "626c3444-5765-460b-b9b6-0e2cfc8fea04",
-    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/626c3444-5765-460b-b9b6-0e2cfc8fea04.jsonl",
-    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
-    "permission_mode": "plan",
-    "hook_event_name": "PreToolUse",
-    "tool_name": "Grep",
-    "tool_input": {
-      "pattern": "fuzzy|fuzz",
-      "output_mode": "files_with_matches",
-      "type": "py"
-    }
-  },
-  {
-    "session_id": "626c3444-5765-460b-b9b6-0e2cfc8fea04",
-    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/626c3444-5765-460b-b9b6-0e2cfc8fea04.jsonl",
-    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
-    "permission_mode": "plan",
-    "hook_event_name": "PreToolUse",
-    "tool_name": "AskUserQuestion",
-    "tool_input": {
-      "questions": [
-        {
-          "question": "Should the fuzzy matching group records based on Owner_Ownership (input names from MCAO) or Entity Name(s) (scraped names from ACC)?",
-          "header": "Match basis",
-          "options": [
-            {
-              "label": "Owner_Ownership (input)",
-              "description": "Group by the owner names in the upload file before scraping. Faster, works even when ACC lookup fails. Example: 'ABC Corp' and 'ABC Corporation' in input would get same index."
-            },
-            {
-              "label": "Entity Name(s) (scraped)",
-              "description": "Group by the entity names returned from ACC after scraping. More accurate for matching actual legal entities, but won't work for failed lookups."
-            },
-            {
-              "label": "Both (hybrid)",
-              "description": "Try Entity Name(s) first, fall back to Owner_Ownership if ACC lookup fails. Most comprehensive but more complex."
-            }
-          ],
-          "multiSelect": false
-        }
-      ]
-    }
-  },
-  {
-    "session_id": "626c3444-5765-460b-b9b6-0e2cfc8fea04",
-    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/626c3444-5765-460b-b9b6-0e2cfc8fea04.jsonl",
-    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
-    "permission_mode": "plan",
-    "hook_event_name": "PreToolUse",
-    "tool_name": "Read",
-    "tool_input": {
-      "file_path": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy/src/adhs_etl/grouping.py"
-    }
-  },
-  {
-    "session_id": "626c3444-5765-460b-b9b6-0e2cfc8fea04",
-    "transcript_path": "/Users/garrettsullivan/.claude/projects/-Users-garrettsullivan-Desktop-BHRF-Data-Recourses-LANDSCRAPE-adhs-restore-28-Jul-2025-copy/626c3444-5765-460b-b9b6-0e2cfc8fea04.jsonl",
-    "cwd": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy",
-    "permission_mode": "plan",
-    "hook_event_name": "PreToolUse",
-    "tool_name": "ExitPlanMode",
-    "tool_input": {
-      "plan": "# Plan: Add Individual-Based Grouping to ECORP_INDEX_#\n\n## Objective\nModify Ecorp Complete processing to assign the same ECORP_INDEX_# to records that share significant overlap in key individuals (managers, members, statutory agents), regardless of entity name differences. This identifies corporate families and related entities under common control.\n\n## Implementation Strategy\n\n### 1. Add Grouping Functions to `src/adhs_etl/ecorp.py`\n\n**Function 1: `extract_individual_names(record: dict) -> Set[str]`**\n- Extract all individual names from:\n  - Manager1_Name through Manager5_Name (5 managers)\n  - Member1_Name through Member5_Name (5 members)  \n  - Manager/Member1_Name through Manager/Member5_Name (5 manager/members)\n  - StatutoryAgent1_Name through StatutoryAgent3_Name (3 agents)\n  - IndividualName1 through IndividualName4 (4 individuals)\n- Return normalized set (uppercase, stripped)\n\n**Function 2: `calculate_person_overlap(names1: Set[str], names2: Set[str], threshold: float = 85.0) -> float`**\n- Use rapidfuzz.fuzz.token_sort_ratio for fuzzy name matching\n- For each name in set1, find best match in set2\n- Count matches where similarity >= 85%\n- Return Jaccard-style similarity: (matched_count / total_unique_names) \u00d7 100\n\n**Function 3: `assign_grouped_indexes_by_individuals(results: List[dict], threshold: float = 85.0) -> List[int]`**\n- Process records sequentially\n- For each record, extract individual names\n- Compare with existing groups using person overlap\n- If overlap >= 85%, assign to existing group\n- Otherwise, create new group with next sequential index\n- Return list of ECORP_INDEX_# assignments\n\n### 2. Modify `generate_ecorp_complete()` Function\n\n**Location:** After line 930 (after scraping loop completes, before saving)\n\n**Changes:**\n```python\n# Add grouping logic before saving\nprint(f\"\\n\ud83d\udd0d Grouping records by individual overlap...\")\nindex_assignments = assign_grouped_indexes_by_individuals(results, threshold=85.0)\n\n# Update ECORP_INDEX_# in all records\nfor idx, record in enumerate(results):\n    record['ECORP_INDEX_#'] = index_assignments[idx]\n\nprint(f\"   Grouped {len(results)} records into {max(index_assignments)} unique groups\")\n```\n\n## Example Outcomes\n\n**Scenario 1:** Records with same managers\n- Record 1: Managers = [\"JOHN SMITH\", \"JANE DOE\"] \u2192 Entity \"ABC Properties LLC\"\n- Record 2: Managers = [\"JOHN SMITH\", \"JANE DOE\"] \u2192 Entity \"XYZ Holdings Inc\"\n- **Result:** Both get ECORP_INDEX_# = 1 (100% person overlap)\n\n**Scenario 2:** Partial overlap below threshold\n- Record 1: Managers = [\"JOHN SMITH\", \"JANE DOE\", \"BOB JONES\"]\n- Record 2: Managers = [\"JOHN SMITH\", \"ALICE WILLIAMS\"]  \n- **Result:** Different indexes (only 25-33% overlap)\n\n**Scenario 3:** Fuzzy name matching\n- Record 1: Manager = \"JOHN A SMITH\"\n- Record 2: Manager = \"JOHN SMITH\"\n- **Result:** Treated as same person (95%+ fuzzy match)\n\n## Benefits\n1. **Identify Corporate Families:** Detect related entities under common control\n2. **Track Principal Activity:** See all entities a person/group is involved with\n3. **Enhanced Analysis:** Enable relationship mapping and network analysis\n4. **Maintain Sequential Order:** Indexes still assigned in processing order, just grouped by relationships"
+      "file_path": "/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-restore-28-Jul-2025 copy/consolidate-envs.md",
+      "content": "# Environment File Consolidation Plan\n\n**Goal**: SIMPLE, CONSERVATIVE, CLEAN - One `.env.sample`, one `.env`, BatchData points to root.\n\n---\n\n## Current State \u2192 Target State\n\n```\nBEFORE (5 files):                    AFTER (2 files):\n\u251c\u2500\u2500 .env \u2705                           \u251c\u2500\u2500 .env \u2705 (enhanced)\n\u251c\u2500\u2500 .env.sample                       \u251c\u2500\u2500 .env.sample (consolidated)\n\u251c\u2500\u2500 .env.example \u274c\n\u251c\u2500\u2500 Batchdata/.env.sample \u274c\n\u2514\u2500\u2500 Ecorp/agent_ecorp/.env.sample \u274c\n```\n\n**Problem**:\n- Batchdata violates CLAUDE.md rule #2 (should use centralized config)\n- 4 redundant template files\n- BD_* keys not in root config\n\n---\n\n## Prerequisites Verification\n\n**Run before starting**:\n\n```bash\n# 1. Verify current state matches assumptions\nls -la .env .env.sample .env.example Batchdata/.env.sample Ecorp/agent_ecorp/.env.sample\n\n# 2. Verify NO local Batchdata/.env exists (should fail)\nls -la Batchdata/.env  # Should error: No such file\n\n# 3. Compare sample files for conflicts\ndiff .env.sample .env.example\n# Note any conflicts (same key, different values)\n\n# 4. Verify .gitignore coverage\ngrep \"^\\.env$\" .gitignore  # Should exist\n\n# 5. Create feature branch\ngit checkout -b chore/consolidate-env-files\n```\n\n**Conflict Resolution Strategy**:\n- If `.env.sample` and `.env.example` have **same key, different values**: Keep `.env.sample` value (it's the Python standard)\n- Document any conflicts in commit message\n\n---\n\n## Changes At-a-Glance\n\n### Files to Delete (3)\n| File | Reason |\n|------|--------|\n| `.env.example` | Redundant - merged into .env.sample |\n| `Batchdata/.env.sample` | Redundant - keys in root .env.sample |\n| `Ecorp/agent_ecorp/.env.sample` | Redundant - Ecorp uses no API keys |\n\n### Files to Modify (8)\n\n| File | Lines | Change | Type |\n|------|-------|--------|------|\n| `.env.sample` | Add section | Add BatchData keys + merge .env.example | Config |\n| `Batchdata/src/run.py` | 1-10, 125 | Add `Path` import, explicit .env path | Code |\n| `README.md` | 69-79 | Add BatchData keys to env vars | Docs |\n| `Batchdata/README.md` | 20-38 | Reference root .env | Docs |\n| `Batchdata/docs/BATCHDATA.md` | 26-38 | Update config instructions | Docs |\n| `Batchdata/docs/examples/PRD_BatchData_Bulk_Pipeline.md` | Throughout | Reference root .env | Docs |\n| `Batchdata/docs/examples/claude_code_prompt.md` | Throughout | Update env var instructions | Docs |\n| `PIPELINE_FLOW.md` | 180-185 | Include BatchData keys | Docs |\n| `ADHS-ETL-INDEX.md` | 10 | Note BatchData keys available | Docs |\n\n---\n\n## Execution Steps\n\n### Step 1: Consolidate Sample Files\n\n```bash\n# 1.1 Review differences\ndiff .env.sample .env.example > /tmp/env-diff.txt\ncat /tmp/env-diff.txt\n# Manually review and note any unique variables\n\n# 1.2 Add BatchData section to .env.sample\n# (See code block below)\n\n# 1.3 Delete redundant files\nrm .env.example\nrm Batchdata/.env.sample\nrm Ecorp/agent_ecorp/.env.sample\n```\n\n**Add to `.env.sample`** (after existing MCAO keys):\n\n```bash\n# ======================\n# BatchData API Keys (Optional - Stage 5)\n# ======================\n# Required for contact discovery enrichment pipeline\n# See: Batchdata/README.md for API details and costs\n\n# Skip-trace API: $0.07 per record\nBD_SKIPTRACE_KEY=your-batchdata-skiptrace-key\n\n# Address verification API (optional)\nBD_ADDRESS_KEY=your-batchdata-address-key\n\n# Property search API (optional)\nBD_PROPERTY_KEY=your-batchdata-property-key\n\n# Phone verification/DNC/TCPA API: $0.007-0.002 per phone\nBD_PHONE_KEY=your-batchdata-phone-key\n```\n\n### Step 2: Fix BatchData Code\n\n**File**: `Batchdata/src/run.py`\n\n**Line 1-10** - Add import (Path not currently imported):\n```python\n\"\"\"\nrun.py - CLI entrypoint for BatchData pipeline\n\"\"\"\n\nimport argparse\nimport os\nimport sys\nfrom datetime import datetime\nfrom pathlib import Path  # ADD THIS LINE\nfrom dotenv import load_dotenv\nimport pandas as pd\n```\n\n**Line 125** - Change from:\n```python\n    # Load environment variables\n    load_dotenv()\n```\n\n**To**:\n```python\n    # Load environment variables from project root\n    load_dotenv(Path(__file__).parent.parent.parent / '.env')\n```\n\n### Step 3: Update Documentation (Batch)\n\n**Use multi-file search/replace** for efficiency:\n\n```bash\n# Update all docs to reference \"root .env\" instead of \"Batchdata/.env\"\n# Update all docs to remove \"cp .env.example .env\" instructions\n# Update all docs to add BatchData keys section\n```\n\n**Specific updates** (see detailed changes in Appendix A):\n1. `README.md` - Add BatchData keys to env vars section\n2. `Batchdata/README.md` - Remove \"cp .env.example\" step, reference root\n3. `Batchdata/docs/BATCHDATA.md` - Update configuration section\n4. `Batchdata/docs/examples/PRD_BatchData_Bulk_Pipeline.md` - Reference root .env\n5. `Batchdata/docs/examples/claude_code_prompt.md` - Update env instructions\n6. `PIPELINE_FLOW.md` - Add BatchData keys to config section\n7. `ADHS-ETL-INDEX.md` - Note BatchData keys available in .env\n\n---\n\n## Critical User Action\n\n\u26a0\ufe0f **IMPORTANT**: After deployment, users must MANUALLY add BatchData keys to their working `.env` file:\n\n```bash\n# Users with existing .env:\n# 1. Open your .env file\n# 2. Add the BD_* keys (copy from .env.sample)\n# 3. Fill in your actual API keys\n\n# New users:\ncp .env.sample .env\n# Edit .env with your keys\n```\n\n**The `.env.sample` is just a template - it doesn't automatically update your `.env`**\n\n---\n\n## Validation Checklist\n\n### Pre-Deployment\n- [ ] Prerequisites completed (branch created, files verified)\n- [ ] Conflicts in .env.sample vs .env.example resolved\n- [ ] `.env.sample` has BatchData keys section added\n- [ ] `Path` import added to `Batchdata/src/run.py`\n- [ ] `load_dotenv()` path fixed in `Batchdata/src/run.py:125`\n- [ ] All 7 docs updated to reference root .env\n- [ ] 3 files deleted (.env.example, 2x .env.sample)\n\n### Post-Deployment Tests\n\n```bash\n# 1. File structure verification\ntest -f .env && test -f .env.sample && echo \"\u2713 Core files exist\"\ntest ! -f .env.example && test ! -f Batchdata/.env.sample && echo \"\u2713 Deleted files gone\"\n\n# 2. Import test\ncd Batchdata\npython3 -c \"from src.run import load_dotenv; print('\u2713 Import successful')\"\n\n# 3. BatchData dry-run (requires test input file)\npython3 src/run.py --input tests/batchdata_local_input.xlsx --dry-run\n# Should output: \"Dry run complete - no processing performed\"\n\n# 4. Main ETL test\ncd ..\npoetry run pytest src/tests/test_transform.py -v\n# Should pass\n\n# 5. Documentation grep\ngrep -r \"Batchdata/\\.env\" . --include=\"*.md\" | grep -v consolidate-envs.md\n# Should return empty (no docs reference Batchdata/.env)\n\n# 6. Verify all docs updated\nfor doc in README.md Batchdata/README.md Batchdata/docs/BATCHDATA.md \\\n  Batchdata/docs/examples/PRD_BatchData_Bulk_Pipeline.md \\\n  Batchdata/docs/examples/claude_code_prompt.md \\\n  PIPELINE_FLOW.md ADHS-ETL-INDEX.md; do\n  echo \"Checking $doc...\"\n  grep -q \"root.*\\.env\\|project.*\\.env\\|BD_SKIPTRACE_KEY\" \"$doc\" && echo \"  \u2713\" || echo \"  \u2717 MISSING\"\ndone\n```\n\n---\n\n## Rollback Plan\n\n**If something breaks**:\n\n```bash\n# Before committing (if testing fails):\ngit checkout .\ngit clean -fd\n\n# After committing (if issues in production):\ngit revert HEAD\n# Or\ngit reset --hard HEAD~1\ngit push --force  # Only if not shared with team yet\n\n# Restore deleted files from git history:\ngit checkout HEAD~1 -- .env.example Batchdata/.env.sample Ecorp/agent_ecorp/.env.sample\n```\n\n---\n\n## Risk Assessment\n\n### What Could Break\n\n| Scenario | Risk | Impact | Mitigation |\n|----------|------|--------|------------|\n| User has local `Batchdata/.env` | Low | Ignored after change | Document in commit msg, CHANGELOG |\n| `.env.example` has unique keys | Low | Keys not merged | Step 1.1 manual review |\n| `Path` import conflict | Minimal | Runtime error | Verified not imported, will work |\n| Doc references missed | Medium | Confusion | Comprehensive grep in validation |\n\n### What Won't Break\n\n\u2705 **Existing `.env` file** - Unchanged, continues working\n\u2705 **Main ETL pipeline** - No changes to core code\n\u2705 **MCAO processing** - No changes\n\u2705 **Ecorp processing** - No changes\n\u2705 **CI/CD** - No env vars in `.github/workflows/ci.yml`\n\u2705 **Users without BatchData** - Optional Stage 5, no impact\n\n---\n\n## Commit & PR\n\n### Commit Message\n\n```\nchore: consolidate environment files to root .env\n\nConsolidates all environment configuration to single .env file at project root.\n\nChanges:\n- Merge .env.example into .env.sample, add BatchData keys\n- Delete 3 redundant files (.env.example, 2x module .env.sample)\n- Fix Batchdata/src/run.py to use explicit root .env path\n- Update 7 docs to reference centralized .env\n\nBenefits:\n- Single source of truth for environment configuration\n- Eliminates confusion from multiple sample files\n- Aligns with CLAUDE.md rule #2 (centralized config)\n- Simplifies setup for new developers\n\nBreaking changes: None (existing .env continues working)\n\nIMPORTANT: Users must manually add BD_* keys to their .env file\n(see consolidate-envs.md for details)\n\nConflicts resolved:\n- [List any .env.sample vs .env.example conflicts and resolutions]\n\nCloses #[issue-number]\n```\n\n### PR Checklist\n\n- [ ] All validation tests pass\n- [ ] Documentation updated (7 files)\n- [ ] Code changes minimal (1 file, 2 lines)\n- [ ] Rollback plan tested\n- [ ] User migration notes in PR description\n- [ ] No breaking changes to existing deployments\n\n---\n\n## Appendix A: Detailed Documentation Changes\n\n### A.1 README.md\n\n**Lines 69-79** - Update environment variables section:\n\n**Change from**:\n```markdown\nCopy `.env.example` to `.env` and configure:\n\n```bash\nMCAO_API_KEY=your-api-key\nFUZZY_THRESHOLD=80.0\nLOG_LEVEL=INFO\n```\n```\n\n**To**:\n```markdown\nCopy `.env.sample` to `.env` and configure:\n\n```bash\n# Main ETL Configuration\nMCAO_API_KEY=your-api-key\nFUZZY_THRESHOLD=80.0\nLOG_LEVEL=INFO\n\n# BatchData API Keys (Optional - Stage 5 enrichment)\nBD_SKIPTRACE_KEY=your-batchdata-key\nBD_ADDRESS_KEY=your-batchdata-key\nBD_PROPERTY_KEY=your-batchdata-key\nBD_PHONE_KEY=your-batchdata-key\n```\n```\n\n### A.2 Batchdata/README.md\n\n**Lines 20-38** - Update installation section:\n\n**Change from**:\n```markdown\n2. Copy environment template:\n```bash\ncp .env.example .env\n```\n\n3. Configure your BatchData API keys in `.env`:\n```bash\nBD_SKIPTRACE_KEY=your_skiptrace_api_key_here\n...\n```\n```\n\n**To**:\n```markdown\n2. Configure BatchData API keys in project root `.env`:\n```bash\n# See root .env.sample for complete configuration template\n# Add these keys to your root .env file:\n\nBD_SKIPTRACE_KEY=your_skiptrace_api_key_here\nBD_ADDRESS_KEY=your_address_verify_api_key_here\nBD_PROPERTY_KEY=your_property_api_key_here\nBD_PHONE_KEY=your_phone_verification_api_key_here\n```\n\n**Note**: BatchData uses the centralized `.env` file at the project root, not a local Batchdata/.env file.\n```\n\n### A.3-A.7 Other Documentation\n\nSimilar pattern: Replace references to \"Batchdata/.env\" or \"local .env\" with \"project root .env\" and note that BatchData keys should be added to the main `.env.sample`.\n\n---\n\n## Future Phase: Settings Class Integration (Deferred)\n\n**Not included in this plan** to keep it simple. Future work:\n\n```python\n# src/adhs_etl/config.py - Add BatchData fields\nclass Settings(BaseSettings):\n    # ... existing ...\n    bd_skiptrace_key: Optional[str] = Field(default=None)\n    bd_address_key: Optional[str] = Field(default=None)\n    bd_property_key: Optional[str] = Field(default=None)\n    bd_phone_key: Optional[str] = Field(default=None)\n\n# Batchdata/src/batchdata.py - Use Settings\nfrom adhs_etl.config import Settings\nsettings = Settings()\napi_keys = {'BD_SKIPTRACE_KEY': settings.bd_skiptrace_key, ...}\n```\n\n**Benefits**: Type checking, validation, better IDE support\n**Complexity**: Higher - separate PR recommended\n\n---\n\n## Summary\n\n**Simple**: 3 deletes, 8 updates, 2 line code change\n**Conservative**: Existing .env unchanged, no Settings refactor\n**Clean**: One .env.sample, explicit paths, zero redundancy\n\n**Time estimate**: 30 minutes execution + testing\n"
     }
   }
 ]

@@ -715,6 +715,193 @@ def get_cached_or_lookup(cache: dict, owner_name: str, driver: webdriver.Chrome)
     return results
 
 
+def extract_individual_names(record: dict) -> set:
+    """Extract all individual names from an Ecorp record.
+
+    Extracts names from all person-related fields:
+    - Manager1_Name through Manager5_Name
+    - Member1_Name through Member5_Name
+    - Manager/Member1_Name through Manager/Member5_Name
+    - StatutoryAgent1_Name through StatutoryAgent3_Name
+    - IndividualName1 through IndividualName4
+
+    Parameters
+    ----------
+    record : dict
+        Ecorp Complete record with ACC data
+
+    Returns
+    -------
+    set
+        Set of normalized individual names (uppercase, stripped)
+    """
+    names = set()
+
+    # Extract Manager names (5)
+    for i in range(1, 6):
+        name = record.get(f'Manager{i}_Name', '')
+        if name and str(name).strip():
+            names.add(str(name).strip().upper())
+
+    # Extract Member names (5)
+    for i in range(1, 6):
+        name = record.get(f'Member{i}_Name', '')
+        if name and str(name).strip():
+            names.add(str(name).strip().upper())
+
+    # Extract Manager/Member names (5)
+    for i in range(1, 6):
+        name = record.get(f'Manager/Member{i}_Name', '')
+        if name and str(name).strip():
+            names.add(str(name).strip().upper())
+
+    # Extract Statutory Agent names (3)
+    for i in range(1, 4):
+        name = record.get(f'StatutoryAgent{i}_Name', '')
+        if name and str(name).strip():
+            names.add(str(name).strip().upper())
+
+    # Extract Individual names (4)
+    for i in range(1, 5):
+        name = record.get(f'IndividualName{i}', '')
+        if name and str(name).strip():
+            names.add(str(name).strip().upper())
+
+    return names
+
+
+def calculate_person_overlap(names1: set, names2: set, threshold: float = 85.0) -> float:
+    """Calculate similarity between two sets of individual names using fuzzy matching.
+
+    Uses a bidirectional similarity metric that checks both directions:
+    - What percentage of names1 have a fuzzy match in names2?
+    - What percentage of names2 have a fuzzy match in names1?
+    Returns the average of both percentages.
+
+    Parameters
+    ----------
+    names1 : set
+        First set of individual names
+    names2 : set
+        Second set of individual names
+    threshold : float
+        Fuzzy matching threshold (0-100) for considering names as matching
+
+    Returns
+    -------
+    float
+        Similarity score (0-100) representing percentage of overlap
+    """
+    if not names1 or not names2:
+        return 0.0
+
+    from rapidfuzz import fuzz
+
+    # Count matches from names1 -> names2
+    matches_from_1 = 0
+    for name1 in names1:
+        best_match_score = 0
+        for name2 in names2:
+            # Use token_sort_ratio for better handling of name variations
+            similarity = fuzz.token_sort_ratio(name1, name2)
+            best_match_score = max(best_match_score, similarity)
+
+        if best_match_score >= threshold:
+            matches_from_1 += 1
+
+    # Count matches from names2 -> names1
+    matches_from_2 = 0
+    for name2 in names2:
+        best_match_score = 0
+        for name1 in names1:
+            similarity = fuzz.token_sort_ratio(name2, name1)
+            best_match_score = max(best_match_score, similarity)
+
+        if best_match_score >= threshold:
+            matches_from_2 += 1
+
+    # Calculate bidirectional average
+    # Average of: (matches_from_1 / len(names1)) and (matches_from_2 / len(names2))
+    similarity_1 = (matches_from_1 / len(names1)) * 100 if names1 else 0.0
+    similarity_2 = (matches_from_2 / len(names2)) * 100 if names2 else 0.0
+
+    return (similarity_1 + similarity_2) / 2.0
+
+
+def assign_grouped_indexes_by_individuals(
+    results: List[dict],
+    threshold: float = 85.0
+) -> List[int]:
+    """Assign ECORP_INDEX_# based on overlap of individual names.
+
+    Groups records that share significant overlap in key individuals
+    (managers, members, statutory agents). Records with >= threshold
+    person overlap get the same ECORP_INDEX_#.
+
+    This identifies corporate families and related entities under common control.
+
+    Parameters
+    ----------
+    results : List[dict]
+        List of Ecorp Complete records with ACC data
+    threshold : float
+        Overlap threshold (0-100) for grouping records together
+
+    Returns
+    -------
+    List[int]
+        List of ECORP_INDEX_# assignments, one per record
+
+    Examples
+    --------
+    Record 1: Managers=["JOHN SMITH", "JANE DOE"]
+    Record 2: Managers=["JOHN SMITH", "JANE DOE"]
+    → Both get ECORP_INDEX_# = 1 (100% overlap)
+
+    Record 3: Managers=["ALICE WILLIAMS"]
+    → Gets ECORP_INDEX_# = 2 (new group)
+    """
+    index_assignments = []
+    groups = []  # List of (representative_name_set, group_index) tuples
+    next_group_index = 1
+
+    for record in results:
+        # Extract all individual names from this record
+        individual_names = extract_individual_names(record)
+
+        # If no names found, assign unique index
+        if not individual_names:
+            index_assignments.append(next_group_index)
+            next_group_index += 1
+            continue
+
+        # Check if this set of individuals matches any existing group
+        matched_group_idx = None
+        best_similarity = 0
+
+        for group_names, group_idx in groups:
+            similarity = calculate_person_overlap(
+                individual_names,
+                group_names,
+                threshold=threshold
+            )
+
+            if similarity >= threshold and similarity > best_similarity:
+                matched_group_idx = group_idx
+                best_similarity = similarity
+
+        if matched_group_idx is not None:
+            # Assign to existing group
+            index_assignments.append(matched_group_idx)
+        else:
+            # Create new group with this set as representative
+            index_assignments.append(next_group_index)
+            groups.append((individual_names, next_group_index))
+            next_group_index += 1
+
+    return index_assignments
+
+
 def generate_ecorp_upload(month_code: str, mcao_complete_path: Path) -> Optional[Path]:
     """Generate Ecorp Upload file from MCAO_Complete data.
 
@@ -927,6 +1114,18 @@ def generate_ecorp_complete(month_code: str, upload_path: Path, headless: bool =
                 if (idx + 1) % 50 == 0:
                     save_checkpoint(checkpoint_file, results, idx + 1, total_records)
                     print(f"   💾 Checkpoint saved at {idx + 1} records")
+
+            # Group records by individual overlap and reassign ECORP_INDEX_#
+            print(f"\n🔍 Grouping records by individual overlap (threshold: 85%)...")
+            index_assignments = assign_grouped_indexes_by_individuals(results, threshold=85.0)
+
+            # Update ECORP_INDEX_# in all records
+            for idx, record in enumerate(results):
+                record['ECORP_INDEX_#'] = index_assignments[idx]
+
+            unique_groups = len(set(index_assignments))
+            print(f"   ✅ Grouped {len(results)} records into {unique_groups} unique groups")
+            print(f"   📊 Average group size: {len(results)/unique_groups:.1f} records per group")
 
             # Save final Complete file with new naming
             # Extract timestamp from Upload file (or use current if not found)
