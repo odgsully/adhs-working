@@ -77,11 +77,31 @@ Analysis/**/*.xlsx
 Analysis/**/*.xls
 old/**/*.xlsx
 old/**/*.xls
-MCAO/Complete/
-MCAO/Upload/
-Ecorp/Complete/
-Ecorp/Upload/
+
+# Pipeline output files - ignore all Excel files
+APN/Upload/*.xlsx
+APN/Upload/*.xls
+APN/Complete/*.xlsx
+APN/Complete/*.xls
+MCAO/Upload/*.xlsx
+MCAO/Upload/*.xls
+MCAO/Complete/*.xlsx
+MCAO/Complete/*.xls
+Ecorp/Upload/*.xlsx
+Ecorp/Upload/*.xls
+Ecorp/Complete/*.xlsx
+Ecorp/Complete/*.xls
 Batchdata/Upload/*.xlsx
+Batchdata/Upload/*.xls
 Batchdata/Complete/*.xlsx
+Batchdata/Complete/*.xls
+
+# Keep .gitkeep files in pipeline directories
+!APN/Upload/.gitkeep
+!APN/Complete/.gitkeep
+!MCAO/Upload/.gitkeep
+!MCAO/Complete/.gitkeep
+!Ecorp/Upload/.gitkeep
+!Ecorp/Complete/.gitkeep
 !Batchdata/Upload/.gitkeep
 !Batchdata/Complete/.gitkeep

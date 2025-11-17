@@ -649,7 +649,7 @@ def get_blank_acc_record() -> dict:
     return record
 
 
-def save_checkpoint(path: Path, results: list, idx: int) -> None:
+def save_checkpoint(path: Path, results: list, idx: int, total_records: int = None) -> None:
     """Save progress checkpoint to disk for resume capability.
 
     Parameters
@@ -660,10 +660,12 @@ def save_checkpoint(path: Path, results: list, idx: int) -> None:
         List of completed records
     idx : int
         Current index in processing
+    total_records : int, optional
+        Total number of records in current upload file (for validation)
     """
     path.parent.mkdir(parents=True, exist_ok=True)
     with open(path, 'wb') as f:
-        pickle.dump((results, idx), f)
+        pickle.dump((results, idx, total_records), f)
 
 
 def extract_timestamp_from_path(path: Path) -> str:
@@ -836,11 +838,41 @@ def generate_ecorp_complete(month_code: str, upload_path: Path, headless: bool =
         start_idx = 0
         cache = {}  # In-memory cache
 
-        # Load checkpoint if exists
+        # Load checkpoint if exists and validate it
         if checkpoint_file.exists():
-            with open(checkpoint_file, 'rb') as f:
-                results, start_idx = pickle.load(f)
-            print(f"📂 Resuming from checkpoint: record {start_idx + 1}/{total_records}")
+            try:
+                with open(checkpoint_file, 'rb') as f:
+                    checkpoint_data = pickle.load(f)
+
+                # Handle old format (results, idx) or new format (results, idx, total)
+                if len(checkpoint_data) == 3:
+                    results, start_idx, checkpoint_total = checkpoint_data
+
+                    # Validate checkpoint matches current upload file
+                    if checkpoint_total != total_records:
+                        print(f"⚠️  Checkpoint mismatch: checkpoint has {checkpoint_total} records, "
+                              f"but upload has {total_records} records")
+                        print(f"   Deleting stale checkpoint and starting fresh...")
+                        checkpoint_file.unlink()
+                        results = []
+                        start_idx = 0
+                    else:
+                        print(f"📂 Resuming from checkpoint: record {start_idx + 1}/{total_records}")
+                else:
+                    # Old format checkpoint - assume it's stale, start fresh
+                    results, start_idx = checkpoint_data
+                    print(f"⚠️  Old checkpoint format detected (no record count validation)")
+                    print(f"   Deleting old checkpoint and starting fresh...")
+                    checkpoint_file.unlink()
+                    results = []
+                    start_idx = 0
+
+            except Exception as e:
+                print(f"⚠️  Error loading checkpoint: {e}")
+                print(f"   Deleting corrupted checkpoint and starting fresh...")
+                checkpoint_file.unlink()
+                results = []
+                start_idx = 0
 
         # Initialize driver
         print(f"🌐 Initializing Chrome WebDriver...")
@@ -893,7 +925,7 @@ def generate_ecorp_complete(month_code: str, upload_path: Path, headless: bool =
 
                 # Checkpoint every 50 records
                 if (idx + 1) % 50 == 0:
-                    save_checkpoint(checkpoint_file, results, idx + 1)
+                    save_checkpoint(checkpoint_file, results, idx + 1, total_records)
                     print(f"   💾 Checkpoint saved at {idx + 1} records")
 
             # Save final Complete file with new naming
@@ -934,7 +966,7 @@ def generate_ecorp_complete(month_code: str, upload_path: Path, headless: bool =
 
         except KeyboardInterrupt:
             print(f"\n⚠️  Interrupted by user - saving progress...")
-            save_checkpoint(checkpoint_file, results, idx)
+            save_checkpoint(checkpoint_file, results, idx, total_records)
             print(f"💾 Progress saved to checkpoint. Run again to resume from record {idx + 1}")
             return False
 

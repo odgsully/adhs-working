@@ -115,11 +115,40 @@ MCAO_MAX_HEADERS = [
     # Columns CD-CF (Improvements)
     'Improvements_Pool',                         # Column CD
     'Improvements_Tennis',                       # Column CE
-    'Improvements_Other'                         # Column CF
+    'Improvements_Other',                        # Column CF
+
+    # Columns CG-DB (New fields - 22 additional columns added from MAX_HEADERS.xlsx)
+    'IsRental',                                              # Column CG (position 84)
+    'LocalJusidiction',                                      # Column CH (position 85) - Note: typo preserved to match Excel header
+    'MCR',                                                   # Column CI (position 86)
+    'MapIDs_Book/Map Maps_0_UpdateDate',                    # Column CJ (position 87)
+    'MapIDs_Book/Map Maps_0_Url',                           # Column CK (position 88)
+    'MapIDs_Book/Map Maps_1_UpdateDate',                    # Column CL (position 89)
+    'MapIDs_Book/Map Maps_1_Url',                           # Column CM (position 90)
+    'MapIDs_Book/Map Maps_2_UpdateDate',                    # Column CN (position 91)
+    'MapIDs_Book/Map Maps_2_Url',                           # Column CO (position 92)
+    'NumberOfParcelsInMCR',                                  # Column CP (position 93)
+    'NumberOfParcelsInSTR',                                  # Column CQ (position 94)
+    'NumberOfParcelsInSubdivision',                          # Column CR (position 95)
+    'Owner_DeedType',                                        # Column CS (position 96)
+    'Owner_SaleDate',                                        # Column CT (position 97)
+    'PEPropUseDesc',                                         # Column CU (position 98)
+    'PropertyAddress',                                       # Column CV (position 99)
+    'PropertyDescription',                                   # Column CW (position 100)
+    'ResidentialPropertyData_ConstructionYear',              # Column CX (position 101)
+    'ResidentialPropertyData_ExteriorWalls',                 # Column CY (position 102)
+    'ResidentialPropertyData_ImprovementQualityGrade',       # Column CZ (position 103)
+    'Valuations_0_AssessedLPV',                             # Column DA (position 104)
+    'Valuations_0_AssessmentRatioPercentage'                # Column DB (position 105)
 ]
 
-# Verify we have exactly 84 columns
-assert len(MCAO_MAX_HEADERS) == 84, f"Expected 84 columns, got {len(MCAO_MAX_HEADERS)}"
+# Verify we have exactly 106 columns (84 original + 22 new)
+assert len(MCAO_MAX_HEADERS) == 106, f"Expected 106 columns, got {len(MCAO_MAX_HEADERS)}"
+
+# Verify critical columns haven't moved (for Ecorp pipeline safety)
+assert MCAO_MAX_HEADERS[0] == 'FULL_ADDRESS', "Column A must be FULL_ADDRESS"
+assert MCAO_MAX_HEADERS[1] == 'COUNTY', "Column B must be COUNTY"
+assert MCAO_MAX_HEADERS[4] == 'Owner_Ownership', "Column E must be Owner_Ownership"
 
 # Create a set for quick lookup of valid column names
 MCAO_VALID_COLUMNS = set(MCAO_MAX_HEADERS)

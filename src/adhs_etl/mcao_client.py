@@ -406,4 +406,89 @@ class MCAAOAPIClient:
         mapped['Improvements_Tennis'] = ''
         mapped['Improvements_Other'] = ''
 
+        # ===== NEW FIELDS (22 columns added from MAX_HEADERS.xlsx) =====
+
+        # Property Classification Fields
+        if 'parcel' in api_data and api_data['parcel']:
+            parcel = api_data['parcel']
+
+            # Basic property classification
+            mapped['IsRental'] = str(parcel.get('IsRental', '')) if parcel.get('IsRental') is not None else ''
+            mapped['LocalJusidiction'] = str(parcel.get('LocalJurisdiction', ''))  # Note: typo in header, correct in API
+            mapped['MCR'] = str(parcel.get('MCR', ''))
+
+            # Parcel statistics
+            mapped['NumberOfParcelsInMCR'] = str(parcel.get('NumberOfParcelsInMCR', '')) if parcel.get('NumberOfParcelsInMCR') is not None else ''
+            mapped['NumberOfParcelsInSTR'] = str(parcel.get('NumberOfParcelsInSTR', '')) if parcel.get('NumberOfParcelsInSTR') is not None else ''
+            mapped['NumberOfParcelsInSubdivision'] = str(parcel.get('NumberOfParcelsInSubdivision', '')) if parcel.get('NumberOfParcelsInSubdivision') is not None else ''
+
+            # Property information
+            mapped['PropertyAddress'] = str(parcel.get('PropertyAddress', ''))
+            mapped['PropertyDescription'] = str(parcel.get('PropertyDescription', ''))
+            mapped['PEPropUseDesc'] = str(parcel.get('PEPropUseDesc', ''))
+
+            # Owner details (additional fields)
+            if 'Owner' in parcel:
+                owner = parcel['Owner']
+                # Handle case where Owner is a list instead of dict
+                if isinstance(owner, list):
+                    owner = owner[0] if owner else {}
+                if isinstance(owner, dict):
+                    mapped['Owner_DeedType'] = str(owner.get('DeedType', ''))
+                    mapped['Owner_SaleDate'] = str(owner.get('SaleDate', '')) if owner.get('SaleDate') else ''
+
+            # Residential property data (additional fields)
+            if 'ResidentialPropertyData' in parcel:
+                res_data = parcel['ResidentialPropertyData']
+                mapped['ResidentialPropertyData_ConstructionYear'] = str(res_data.get('ConstructionYear', ''))
+                mapped['ResidentialPropertyData_ExteriorWalls'] = str(res_data.get('ExteriorWalls', ''))
+                mapped['ResidentialPropertyData_ImprovementQualityGrade'] = str(res_data.get('ImprovementQualityGrade', ''))
+
+            # Valuations (additional fields)
+            if 'Valuations' in parcel and isinstance(parcel['Valuations'], list) and len(parcel['Valuations']) > 0:
+                val_0 = parcel['Valuations'][0]  # Most recent valuation
+                mapped['Valuations_0_AssessedLPV'] = str(val_0.get('AssessedLPV', '')) if val_0.get('AssessedLPV') is not None else ''
+                mapped['Valuations_0_AssessmentRatioPercentage'] = str(val_0.get('AssessmentRatioPercentage', '')) if val_0.get('AssessmentRatioPercentage') is not None else ''
+            else:
+                mapped['Valuations_0_AssessedLPV'] = ''
+                mapped['Valuations_0_AssessmentRatioPercentage'] = ''
+
+            # MapIDs fields (complex array handling)
+            # Safe array access with bounds checking
+            map_ids = []
+            if 'MapIDs' in parcel and isinstance(parcel['MapIDs'], dict):
+                if 'Book/Map Maps' in parcel['MapIDs'] and isinstance(parcel['MapIDs']['Book/Map Maps'], list):
+                    map_ids = parcel['MapIDs']['Book/Map Maps']
+
+            # Always create 3 sets of MapID fields (indexes 0, 1, 2)
+            for i in range(3):
+                if i < len(map_ids) and isinstance(map_ids[i], dict):
+                    mapped[f'MapIDs_Book/Map Maps_{i}_UpdateDate'] = str(map_ids[i].get('UpdateDate', ''))
+                    mapped[f'MapIDs_Book/Map Maps_{i}_Url'] = str(map_ids[i].get('Url', ''))
+                else:
+                    # No data for this index - set to empty
+                    mapped[f'MapIDs_Book/Map Maps_{i}_UpdateDate'] = ''
+                    mapped[f'MapIDs_Book/Map Maps_{i}_Url'] = ''
+        else:
+            # No parcel data - set all new fields to empty
+            mapped['IsRental'] = ''
+            mapped['LocalJusidiction'] = ''
+            mapped['MCR'] = ''
+            mapped['NumberOfParcelsInMCR'] = ''
+            mapped['NumberOfParcelsInSTR'] = ''
+            mapped['NumberOfParcelsInSubdivision'] = ''
+            mapped['Owner_DeedType'] = ''
+            mapped['Owner_SaleDate'] = ''
+            mapped['PEPropUseDesc'] = ''
+            mapped['PropertyAddress'] = ''
+            mapped['PropertyDescription'] = ''
+            mapped['ResidentialPropertyData_ConstructionYear'] = ''
+            mapped['ResidentialPropertyData_ExteriorWalls'] = ''
+            mapped['ResidentialPropertyData_ImprovementQualityGrade'] = ''
+            mapped['Valuations_0_AssessedLPV'] = ''
+            mapped['Valuations_0_AssessmentRatioPercentage'] = ''
+            for i in range(3):
+                mapped[f'MapIDs_Book/Map Maps_{i}_UpdateDate'] = ''
+                mapped[f'MapIDs_Book/Map Maps_{i}_Url'] = ''
+
         return mapped

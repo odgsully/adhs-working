@@ -11,14 +11,14 @@ from typing import Optional, Dict, Any
 import pandas as pd
 import shutil
 
-# Add Batchdata to path for imports
-batchdata_path = Path(__file__).parent.parent.parent / "Batchdata" / "src"
+# Add Batchdata to path for imports (as a package)
+batchdata_path = Path(__file__).parent.parent.parent / "Batchdata"
 sys.path.insert(0, str(batchdata_path))
 
 try:
-    from transform import prepare_ecorp_for_batchdata
-    from run import run_pipeline
-    from io import load_workbook_sheets, load_config_dict, load_blacklist_set
+    from Batchdata.src.transform import prepare_ecorp_for_batchdata
+    from Batchdata.src.run import run_pipeline
+    from Batchdata.src.io import load_workbook_sheets, load_config_dict, load_blacklist_set
 except ImportError as e:
     print(f"Warning: Could not import BatchData modules: {e}")
     print(f"BatchData path: {batchdata_path}")

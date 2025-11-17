@@ -1,6 +1,6 @@
 {
   "apn": "165-28-054",
-  "retrieval_timestamp": "2025-09-24T11:39:57.250252",
+  "retrieval_timestamp": "2025-11-14T20:37:30.475003",
   "data_complete": true,
   "errors": [],
   "parcel": {
@@ -52,7 +52,7 @@
     "IsRental": false,
     "IsPending": false,
     "McrTransitionUrl": "https://recorder.maricopa.gov/recording/map-results.html?book=096&page=41",
-    "TreasurersTransitionUrl": "https://treasurer.maricopa.gov/parcel/default.aspx?Parcel=16528054",
+    "TreasurersTransitionUrl": "https://treasurer.maricopa.gov/PropertyTaxInformation/?Parcel=16528054",
     "DeedTransitionUrl": "https://recorder.maricopa.gov/recording/document-details.html?recordingNumber=20180142724&suffix=",
     "IsCancelled": false,
     "NumberOfParcelsInSubdivision": 98,
