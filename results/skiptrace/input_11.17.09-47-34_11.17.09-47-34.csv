@@ -1,0 +1,6 @@
+record_id,source_type,source_entity_name,source_entity_id,title_role,target_first_name,target_last_name,owner_name_full,address_line1,address_line2,city,state,zip,county,apn,mailing_line1,mailing_city,mailing_state,mailing_zip,notes,has_valid_name,has_valid_address
+ecorp_nan_1_bf35e40a,Entity,,,Individual,ANDREA,SOTO,ANDREA SOTO,,,,,,,,,,,,Derived from eCorp search: nan,True,False
+ecorp_23679191_3_5e97160b,Entity,"House Divided Holdings, LLC",23679191,Member,Bailee,Dawson,Bailee  Dawson,9340 N 92Nd Street Unit 214,,Scottsdale,,85258,Maricopa,,,,,,Derived from eCorp search: HOUSE DIVIDED HOLDINGS LLC,True,False
+ecorp_23730274_1_4e9198e5,Entity,Creed Health Holdings LLC,23730274,Manager,Chad,Keetch,Chad  Keetch,29222 Rancho Viejo Rd.,Ste. 127,San Juan Capistrano,,29222,Maricopa,,,,,,Derived from eCorp search: CREED HEALTH HOLDINGS LLC,True,False
+ecorp_23679191_2_3bf84979,Entity,"House Divided Holdings, LLC",23679191,Member,Robert,Wasieko,Robert  Wasieko,1402 E San Miguel Ave,,Phoenix,,85014,Maricopa,,,,,,Derived from eCorp search: HOUSE DIVIDED HOLDINGS LLC,True,False
+ecorp_23679191_1_9ae61f41,Entity,"House Divided Holdings, LLC",23679191,Member,Traci,Tartaglio,Traci  Tartaglio,1402 E San Miguel Ave,,Phoenix,,85014,Maricopa,,,,,,Derived from eCorp search: HOUSE DIVIDED HOLDINGS LLC,True,False

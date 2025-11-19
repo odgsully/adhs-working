@@ -179,9 +179,16 @@ Single month processing with optional dry-run mode
 
 ### Environment Variables
 ```bash
+# Main ETL
 MCAO_API_KEY=<maricopa-county-assessor-api-key>
 FUZZY_THRESHOLD=80.0
 LOG_LEVEL=INFO
+
+# BatchData (Optional - Stage 5)
+BD_SKIPTRACE_KEY=<batchdata-skiptrace-api-key>
+BD_ADDRESS_KEY=<batchdata-address-api-key>
+BD_PROPERTY_KEY=<batchdata-property-api-key>
+BD_PHONE_KEY=<batchdata-phone-api-key>
 ```
 
 ### Field Mapping

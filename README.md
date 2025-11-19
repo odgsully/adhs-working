@@ -70,12 +70,19 @@ poetry run adhs-etl validate --field-map field_map.yml
 
 ### Environment Variables
 
-Copy `.env.example` to `.env` and configure:
+Copy `.env.sample` to `.env` and configure:
 
 ```bash
+# Main ETL Configuration
 MCAO_API_KEY=your-api-key
 FUZZY_THRESHOLD=80.0
 LOG_LEVEL=INFO
+
+# BatchData API Keys (Optional - Stage 5 enrichment)
+BD_SKIPTRACE_KEY=your-batchdata-key
+BD_ADDRESS_KEY=your-batchdata-key
+BD_PROPERTY_KEY=your-batchdata-key
+BD_PHONE_KEY=your-batchdata-key
 ```
 
 ### Field Mapping

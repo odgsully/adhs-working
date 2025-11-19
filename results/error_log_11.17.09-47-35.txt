@@ -1,0 +1,4 @@
+Pipeline Error: 2025-11-17 09:47:35.351933
+Input: Batchdata/Upload/9.24_BatchData_Upload_11.17.09-46-21.xlsx
+eCorp: None
+Error: 404 Client Error: Not Found for url: https://api.batchdata.com/property-skip-trace-async

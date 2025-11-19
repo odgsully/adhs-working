@@ -1,0 +1,5 @@
+record_id,source_type,source_entity_name,source_entity_id,title_role,target_first_name,target_last_name,owner_name_full,address_line1,address_line2,city,state,zip,county,apn,mailing_line1,mailing_city,mailing_state,mailing_zip,notes,has_valid_name,has_valid_address
+ecorp_nan_1_c151c9b5,Entity,,,Individual,ERIC,MAUGHAN,ERIC MAUGHAN,,,,,,,,,,,,Derived from eCorp search: nan,True,False
+ecorp_1211250.0_1_a4c80d3d,Entity,"ABC-HMO, INC.",1211250.0,Manager,BRUCE,GRIMM,BRUCE  GRIMM,8888 E Raintree Drive,,Scottsdale,AZ,85260,Maricopa,,,,,,Derived from eCorp search: CIGNA HEALTH PLAN OF ARIZONA INC,True,True
+ecorp_1211250.0_2_11dd550a,Entity,"ABC-HMO, INC.",1211250.0,Manager,KATHLEEN,O'NEIL,KATHLEEN  O'NEIL,8888 E Raintree Drive,,Scottsdale,AZ,85260,Maricopa,,,,,,Derived from eCorp search: CIGNA HEALTH PLAN OF ARIZONA INC,True,True
+ecorp_1211250.0_3_5d56457d,Entity,"ABC-HMO, INC.",1211250.0,Manager,BRUCE,GRIMM,BRUCE  GRIMM,8888 E Raintree Drive,,Scottsdale,AZ,85260,Maricopa,,,,,,Derived from eCorp search: CIGNA HEALTH PLAN OF ARIZONA INC,True,True

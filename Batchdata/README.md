@@ -23,18 +23,57 @@ This is an **OPTIONAL** post-processing pipeline that enriches Arizona Corporati
 pip install -r requirements.txt
 ```
 
-2. Copy environment template:
+2. Configure BatchData API keys in project root `.env`:
 ```bash
-cp .env.example .env
-```
+# See root .env.sample for complete configuration template
+# Add these keys to your root .env file:
 
-3. Configure your BatchData API keys in `.env`:
-```bash
-BD_SKIPTRACE_KEY=your_skiptrace_api_key_here
+BD_PROPERTY_KEY=your_property_and_skiptrace_api_key_here
 BD_ADDRESS_KEY=your_address_verify_api_key_here
-BD_PROPERTY_KEY=your_property_api_key_here
 BD_PHONE_KEY=your_phone_verification_api_key_here
 ```
+
+**Note**: BatchData uses the centralized `.env` file at the project root, not a local Batchdata/.env file.
+
+## API Key Permissions
+
+Each API key requires specific permissions enabled in the BatchData dashboard. Create 3 keys:
+
+### Permission Categories
+
+| API Key | Category | Required Permissions |
+|---------|----------|----------------------|
+| `BD_PROPERTY_KEY` | **Property & Skip-trace** | `property-skip-trace`, `property-skip-trace-async`, `property-lookup-all-attributes`, `property-search`, `property-search-async`, `property-lookup-async` |
+| `BD_ADDRESS_KEY` | **Address** | `address-geocode`, `address-reverse-geocode`, `address-verify`, `address-autocomplete` |
+| `BD_PHONE_KEY` | **Phone** | `phone-dnc`, `phone-tcpa`, `phone-verification`, `phone-verification-async`, `phone-dnc-async`, `phone-tcpa-async` |
+
+### Dashboard Setup Steps
+
+1. **Log into BatchData Dashboard** at https://app.batchdata.com
+2. **Create 3 API keys** (one per category)
+3. **Enable permissions** for each key:
+   - **Property Key**: Enable all 6 Property permissions (skip-trace + lookup/search)
+   - **Address Key**: Enable all 4 Address permissions
+   - **Phone Key**: Enable all 6 Phone permissions
+4. **Fund each key's wallet** with appropriate credits
+
+### Permission Details
+
+#### Property Permissions (BD_PROPERTY_KEY)
+- `property-skip-trace` / `property-skip-trace-async` - Contact discovery (phones, emails) - **$0.07/record**
+- `property-lookup-all-attributes` / `property-lookup-async` - Detailed property data
+- `property-search` / `property-search-async` - Search properties by criteria
+
+#### Address Permissions (BD_ADDRESS_KEY)
+- `address-geocode` - Convert addresses to coordinates
+- `address-reverse-geocode` - Convert coordinates to addresses
+- `address-verify` - Standardize and validate addresses
+- `address-autocomplete` - Address suggestion API
+
+#### Phone Permissions (BD_PHONE_KEY)
+- `phone-verification` / `phone-verification-async` - Validate phone numbers, check line type - **$0.007/phone**
+- `phone-dnc` / `phone-dnc-async` - Do-Not-Call registry compliance - **$0.002/phone**
+- `phone-tcpa` / `phone-tcpa-async` - TCPA litigation risk screening - **$0.002/phone**
 
 ## Usage
 
@@ -99,17 +138,25 @@ All outputs are saved to the `results/` directory with timestamps:
 
 **Note**: API inputs are saved as CSV (required by BatchData APIs), while processed outputs use XLSX format.
 
-## API Endpoints
+## API Endpoints (V1)
 
-The pipeline supports these BatchData endpoints:
+The pipeline uses BatchData V1 API endpoints:
 
-- **property-skip-trace-async**: Core skip-trace functionality
-- **phone-verification-async**: Phone number verification
-- **phone-dnc-async**: Do-Not-Call checking
-- **phone-tcpa-async**: TCPA litigation checking
-- **address-verify**: Address standardization (optional)
-- **property-search-async**: Property search (optional)
-- **property-lookup-async**: Property lookup (optional)
+### Skip-Trace
+- **Sync**: `POST /api/v1/property/skip-trace`
+- **Async**: `POST /api/v1/property/skip-trace/async` (Core functionality)
+
+### Phone Operations
+- **Verification**: `POST /api/v1/phone/verification/async`
+- **DNC Check**: `POST /api/v1/phone/dnc/async`
+- **TCPA Check**: `POST /api/v1/phone/tcpa/async`
+
+### Address & Property (Optional)
+- **Address Verify**: `POST /api/v1/address/verify`
+- **Property Search**: `POST /api/v1/property/search/async`
+- **Property Lookup**: `POST /api/v1/property/lookup/async`
+
+**Note**: See `V1_API_REFERENCE.md` for complete API documentation
 
 ## Cost Structure
 

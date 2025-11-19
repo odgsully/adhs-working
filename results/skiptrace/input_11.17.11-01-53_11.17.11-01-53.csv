@@ -1,0 +1,7 @@
+record_id,source_type,source_entity_name,source_entity_id,title_role,target_first_name,target_last_name,owner_name_full,address_line1,address_line2,city,state,zip,county,apn,mailing_line1,mailing_city,mailing_state,mailing_zip,notes,has_valid_name,has_valid_address
+ecorp_nan_2_486726db,Entity,,,Individual,AMANFO,THERESA AMPOFO,AMANFO THERESA AMPOFO,,,,,,,,,,,,Derived from eCorp search: nan,True,False
+ecorp_L19043847_1_2e0656da,Entity,PHOENIX INTERNAL DB PENSION LLC,L19043847,Manager,Dr.,Muhammad Alam,Dr. Muhammad  Alam,3750 East Huber Street,,Mesa,,85205,Maricopa,,,,,,Derived from eCorp search: PHOENIX INTERNAL DB PENSION LLC,True,False
+ecorp_nan_1_c2af8f8c,Entity,,,Individual,GODFRED,AMPOFO,GODFRED AMPOFO,,,,,,,,,,,,Derived from eCorp search: nan,True,False
+ecorp_23274410_1_371aff88,Entity,"VIL HOLDINGS, LLC",23274410,Manager/Member,Ion,Vicovan,Ion  Vicovan,11420 N. 122Nd Place,,Scottsdale,,11420,Maricopa,,,,,,Derived from eCorp search: VIL HOLDINGS LLC,True,False
+ecorp_23274410_2_03de61a0,Entity,"VIL HOLDINGS, LLC",23274410,Manager/Member,Ligia,Cristina Vicovan,Ligia Cristina Vicovan,11420 N. 122Nd Place,,Scottsdale,,11420,Maricopa,,,,,,Derived from eCorp search: VIL HOLDINGS LLC,True,False
+ecorp_L19043847_2_58266446,Entity,PHOENIX INTERNAL DB PENSION LLC,L19043847,Member,VANTAGE,IRA FBO MUHAMMAD ALAM,VANTAGE IRA FBO MUHAMMAD ALAM,3750 E Hubert St,,Mesa,,85205,Maricopa,,,,,,Derived from eCorp search: PHOENIX INTERNAL DB PENSION LLC,True,False

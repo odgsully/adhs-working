@@ -8,6 +8,7 @@
 ## Configuration & Settings
 - **Settings Class**: `src/adhs_etl/config.py:8` → Pydantic-based configuration
 - **Environment Variables**: `.env` file support via pydantic-settings
+- **BatchData Keys**: BD_SKIPTRACE_KEY, BD_ADDRESS_KEY, BD_PROPERTY_KEY, BD_PHONE_KEY (optional Stage 5)
 
 ## Data Transformation Pipeline
 

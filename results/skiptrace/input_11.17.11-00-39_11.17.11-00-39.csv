@@ -1,0 +1,9 @@
+record_id,source_type,source_entity_name,source_entity_id,title_role,target_first_name,target_last_name,owner_name_full,address_line1,address_line2,city,state,zip,county,apn,mailing_line1,mailing_city,mailing_state,mailing_zip,notes,has_valid_name,has_valid_address
+ecorp_23332983.0_entity_1e94ad36,Entity,JinYsis LLC,23332983.0,Statutory Agent,Alaeldin,O Mohamed,Alaeldin O Mohamed,15196 W Westview Dr,,Goodyear,AZ,15196,Maricopa,,,,,,Derived from eCorp search: JINYSIS LLC,True,True
+ecorp_nan_2_d9da9328,Entity,,,Individual,BABETI,MARYANN HUSU,BABETI MARYANN HUSU,,,,,,,,,,,,Derived from eCorp search: nan,True,False
+ecorp_19964087.0_1_0727fe2b,Entity,LEGACY TRADITIONAL SCHOOL- PEORIA,19964087.0,Manager,DIEGO,GETTLER,DIEGO  GETTLER,3201 S. Gilbert Rd. Bldg. A,,Gilbert,,85286,Maricopa,,,,,,Derived from eCorp search: LEGACY TRADITIONAL SCHOOL - PEORIA,True,False
+ecorp_19964087.0_2_45122cc9,Entity,LEGACY TRADITIONAL SCHOOL- PEORIA,19964087.0,Manager,James,Beaudoin,James  Beaudoin,3201 S Gilbert Rd Bldg A,,Chandler,,85286,Maricopa,,,,,,Derived from eCorp search: LEGACY TRADITIONAL SCHOOL - PEORIA,True,False
+ecorp_19964087.0_3_94407e9c,Entity,LEGACY TRADITIONAL SCHOOL- PEORIA,19964087.0,Manager,JENNI,FERRIN,JENNI  FERRIN,3201 S Gilbert Rd Bldg A,,Chandler,,85286,Maricopa,,,,,,Derived from eCorp search: LEGACY TRADITIONAL SCHOOL - PEORIA,True,False
+ecorp_nan_1_64a281da,Entity,,,Individual,JONATHAN,A HUSU,JONATHAN A HUSU,,,,,,,,,,,,Derived from eCorp search: nan,True,False
+ecorp_1877900.0_1_5e19731c,Entity,"Corona Partners, LLC",1877900.0,Member,Peter,Moosbrugger,Peter  Moosbrugger,3411 E. Corona,Suite 105,Phoenix,,85040,Maricopa,,,,,,Derived from eCorp search: CORONA PARTNERS LP,True,False
+ecorp_23472167.0_entity_4681a2ca,Entity,Villa Ocotillo ALC LLC,23472167.0,Statutory Agent,Steven,Shawn Tacey,Steven Shawn Tacey,6363 N. Swan Avenue,,151,AZ,85718,Pima,,,,,,Derived from eCorp search: VILLA OCOTILLO ALC LLC,True,True

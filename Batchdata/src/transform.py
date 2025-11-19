@@ -140,11 +140,31 @@ def ecorp_to_batchdata_records(ecorp_row: pd.Series) -> List[Dict[str, Any]]:
 
     if agent_address:
         address_parts = parse_address(agent_address)
+        # Use parsed state or fallback to Domicile State from ecorp data
+        parsed_state = address_parts.get('state', '')
+        domicile_state = ecorp_row.get('Domicile State', '')
+        state_field = ecorp_row.get('State', '')
+
+        # Convert to strings and handle NaN/None values
+        parsed_state = str(parsed_state) if pd.notna(parsed_state) else ''
+        domicile_state = str(domicile_state) if pd.notna(domicile_state) else ''
+        state_field = str(state_field) if pd.notna(state_field) else ''
+
+        # Properly handle empty strings and None values, normalize state names
+        state = ''
+        if parsed_state and parsed_state.strip():
+            state = normalize_state(parsed_state)
+        elif domicile_state and domicile_state.strip():
+            state = normalize_state(domicile_state)
+        elif state_field and state_field.strip():
+            state = normalize_state(state_field)
+        else:
+            state = ''
         base_info.update({
             'address_line1': address_parts['line1'],
             'address_line2': address_parts['line2'],
             'city': address_parts['city'],
-            'state': address_parts['state'],
+            'state': state,
             'zip': address_parts['zip'],
             'county': ecorp_row.get('County', '') or ecorp_row.get('COUNTY', '')
         })
@@ -181,6 +201,31 @@ def ecorp_to_batchdata_records(ecorp_row: pd.Series) -> List[Dict[str, Any]]:
                 'zip': base_info.get('zip', '')
             }
         
+        # Use parsed state or fallback to Domicile State/State from ecorp data
+        parsed_state = addr_parts.get('state', '')
+        domicile_state = ecorp_row.get('Domicile State', '')
+        state_field = ecorp_row.get('State', '')
+        base_state = base_info.get('state', '')
+
+        # Convert to strings and handle NaN/None values
+        parsed_state = str(parsed_state) if pd.notna(parsed_state) else ''
+        domicile_state = str(domicile_state) if pd.notna(domicile_state) else ''
+        state_field = str(state_field) if pd.notna(state_field) else ''
+        base_state = str(base_state) if pd.notna(base_state) else ''
+
+        # Properly handle empty strings and None values - check each in order, normalize state names
+        state = ''
+        if parsed_state and parsed_state.strip():
+            state = normalize_state(parsed_state)
+        elif domicile_state and domicile_state.strip():
+            state = normalize_state(domicile_state)
+        elif state_field and state_field.strip():
+            state = normalize_state(state_field)
+        elif base_state and base_state.strip():
+            state = normalize_state(base_state)
+        else:
+            state = ''
+
         record = {
             'record_id': record_id,
             'source_type': base_info['source_type'],
@@ -193,7 +238,7 @@ def ecorp_to_batchdata_records(ecorp_row: pd.Series) -> List[Dict[str, Any]]:
             'address_line1': addr_parts['line1'],
             'address_line2': addr_parts['line2'],
             'city': addr_parts['city'],
-            'state': normalize_state(addr_parts['state']),
+            'state': normalize_state(state) if state else '',
             'zip': normalize_zip_code(addr_parts['zip']),
             'county': base_info.get('county', ''),
             'apn': '',  # Not available in eCorp data
@@ -242,6 +287,27 @@ def ecorp_to_batchdata_records(ecorp_row: pd.Series) -> List[Dict[str, Any]]:
         
         record_id = f"ecorp_{ecorp_row.get('Entity ID(s)', 'unknown')}_entity_{str(uuid.uuid4())[:8]}"
         
+        # Use state from base_info or fallback to Domicile State from ecorp data
+        base_state = base_info.get('state', '')
+        domicile_state = ecorp_row.get('Domicile State', '')
+        state_field = ecorp_row.get('State', '')
+
+        # Convert to strings and handle NaN/None values
+        base_state = str(base_state) if pd.notna(base_state) else ''
+        domicile_state = str(domicile_state) if pd.notna(domicile_state) else ''
+        state_field = str(state_field) if pd.notna(state_field) else ''
+
+        # Properly handle empty strings and None values, normalize state names
+        state = ''
+        if base_state and base_state.strip():
+            state = normalize_state(base_state)
+        elif domicile_state and domicile_state.strip():
+            state = normalize_state(domicile_state)
+        elif state_field and state_field.strip():
+            state = normalize_state(state_field)
+        else:
+            state = ''
+
         record = {
             'record_id': record_id,
             'source_type': base_info['source_type'],
@@ -254,7 +320,7 @@ def ecorp_to_batchdata_records(ecorp_row: pd.Series) -> List[Dict[str, Any]]:
             'address_line1': base_info.get('address_line1', ''),
             'address_line2': base_info.get('address_line2', ''),
             'city': base_info.get('city', ''),
-            'state': base_info.get('state', ''),
+            'state': state,
             'zip': base_info.get('zip', ''),
             'county': base_info.get('county', ''),
             'apn': '',
@@ -400,7 +466,8 @@ def transform_ecorp_to_batchdata(ecorp_df: pd.DataFrame) -> pd.DataFrame:
 
     for _, row in ecorp_df.iterrows():
         # Skip "Not found" records
-        if row.get('Status', '').strip().lower() in ['not found', 'error']:
+        status = row.get('Status', '')
+        if pd.notna(status) and str(status).strip().lower() in ['not found', 'error']:
             continue
 
         records = ecorp_to_batchdata_records(row)

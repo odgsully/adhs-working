@@ -6,6 +6,7 @@ import argparse
 import os
 import sys
 from datetime import datetime
+from pathlib import Path
 from dotenv import load_dotenv
 import pandas as pd
 
@@ -121,8 +122,8 @@ def run_pipeline(input_path: str, ecorp_path: str = None, dry_run: bool = False,
         consolidate_families: If True, consolidate principals across entity families
         filter_entities: If True, remove entity-only records with no individual names
     """
-    # Load environment variables
-    load_dotenv()
+    # Load environment variables from project root
+    load_dotenv(Path(__file__).parent.parent.parent / '.env')
     
     # Ensure results directory exists
     results_dir = ensure_results_dir("results")

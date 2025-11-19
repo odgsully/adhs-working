@@ -1,0 +1,4 @@
+record_id,source_type,source_entity_name,source_entity_id,title_role,target_first_name,target_last_name,owner_name_full,address_line1,address_line2,city,state,zip,county,apn,mailing_line1,mailing_city,mailing_state,mailing_zip,notes,has_valid_name,has_valid_address
+ecorp_2065540.0_2_cd9ee506,Entity,"SERENITY ENTERPRISES, INC.",2065540.0,Manager,JULIE,L BURKE,JULIE L BURKE,31049 N Rancho Moreno,,Cave Creek,,31049,,,,,,,Derived from eCorp search: SERENITY ENTERPRISES LLC,True,False
+ecorp_23305721.0_1_dec91a1e,Entity,CAPGROW HOLDINGS JV SUB VIII LLC,23305721.0,Manager,MATT,PETTINELLII,MATT  PETTINELLII,320 W Ohio Street,SUITE 650,Chicago,,60654,Maricopa,,,,,,Derived from eCorp search: CAPGROW HOLDINGS JV SUB VIII LLC,True,False
+ecorp_2065540.0_1_90690560,Entity,"SERENITY ENTERPRISES, INC.",2065540.0,Manager,STEPHEN,P BURKE,STEPHEN P BURKE,31049 N Rancho Moreno,,Cave Creek,,31049,,,,,,,Derived from eCorp search: SERENITY ENTERPRISES LLC,True,False

@@ -8,7 +8,7 @@ DELIVERABLES
    - src/transform.py (explode phones to long; apply scrubs; aggregate top-10 phones by confidence)
    - src/run.py (CLI: python -m src.run --input batchdata_local_input.xlsx)
 2) Read / write exactly the columns defined in the Excel template’s INPUT_MASTER and EXPECTED_FIELDS.
-3) Environment variables: BD_SKIPTRACE_KEY, BD_ADDRESS_KEY, BD_PROPERTY_KEY, BD_PHONE_KEY.
+3) Environment variables (in project root .env file): BD_SKIPTRACE_KEY, BD_ADDRESS_KEY, BD_PROPERTY_KEY, BD_PHONE_KEY.
 4) Write outputs under /results as described in the PRD.
 
 IMPLEMENTATION NOTES

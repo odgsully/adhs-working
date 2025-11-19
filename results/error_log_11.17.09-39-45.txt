@@ -1,0 +1,4 @@
+Pipeline Error: 2025-11-17 09:39:45.925870
+Input: Batchdata/Upload/10.24_BatchData_Upload_11.17.09-39-20.xlsx
+eCorp: None
+Error: 'target_first_name'

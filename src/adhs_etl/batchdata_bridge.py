@@ -16,9 +16,9 @@ batchdata_path = Path(__file__).parent.parent.parent / "Batchdata"
 sys.path.insert(0, str(batchdata_path))
 
 try:
-    from Batchdata.src.transform import prepare_ecorp_for_batchdata
-    from Batchdata.src.run import run_pipeline
-    from Batchdata.src.io import load_workbook_sheets, load_config_dict, load_blacklist_set
+    from src.transform import transform_ecorp_to_batchdata
+    from src.run import run_pipeline
+    from src.io import load_workbook_sheets, load_config_dict, load_blacklist_set
 except ImportError as e:
     print(f"Warning: Could not import BatchData modules: {e}")
     print(f"BatchData path: {batchdata_path}")
@@ -37,7 +37,7 @@ def create_batchdata_upload(
 
     This function:
     1. Loads Ecorp Complete Excel file
-    2. Transforms it to BatchData format using prepare_ecorp_for_batchdata()
+    2. Transforms it to BatchData format using transform_ecorp_to_batchdata()
     3. Loads CONFIG and BLACKLIST_NAMES from template
     4. Saves as new Upload file with standardized naming
 
@@ -81,7 +81,7 @@ def create_batchdata_upload(
 
     # Transform to BatchData format
     print(f"\nTransforming to BatchData format...")
-    batchdata_df = prepare_ecorp_for_batchdata(ecorp_df)
+    batchdata_df = transform_ecorp_to_batchdata(ecorp_df)
     print(f"  Transformed to {len(batchdata_df)} BatchData records")
 
     # Load template sheets (CONFIG, BLACKLIST_NAMES)
@@ -128,12 +128,14 @@ def run_batchdata_enrichment(
     dry_run: bool = False,
     dedupe: bool = True,
     consolidate_families: bool = True,
-    filter_entities: bool = True
+    filter_entities: bool = True,
+    use_sync: bool = True,  # NEW: Default to sync
+    stage_config: Optional[Dict] = None  # NEW: Stage selection
 ) -> Optional[Path]:
     """Run BatchData enrichment pipeline on Upload file.
 
     This function:
-    1. Runs the BatchData API enrichment pipeline
+    1. Runs the BatchData API enrichment pipeline (sync or async)
     2. Saves results with standardized naming to Complete directory
     3. Optionally runs in dry-run mode for cost estimation
 
@@ -146,6 +148,9 @@ def run_batchdata_enrichment(
         dedupe: Remove duplicate records to reduce API costs (default: True)
         consolidate_families: Consolidate principals across entity families (default: True)
         filter_entities: Remove entity-only records with no individuals (default: True)
+        use_sync: If True, use synchronous API client; else use async (default: True)
+        stage_config: Optional dict specifying which enrichment stages to run
+                     {'skip_trace': True, 'phone_verify': False, 'dnc': False, 'tcpa': False}
 
     Returns:
         Path to created Complete file, or None if dry-run or user cancelled
@@ -178,6 +183,9 @@ def run_batchdata_enrichment(
     print(f"Dedupe: {dedupe}")
     print(f"Consolidate families: {consolidate_families}")
     print(f"Filter entities: {filter_entities}")
+    print(f"Use sync client: {use_sync}")
+    if stage_config:
+        print(f"Stage config: {stage_config}")
 
     # Create output directory
     output_path = Path(output_dir)
@@ -189,7 +197,156 @@ def run_batchdata_enrichment(
 
     print(f"\nExpected output: {complete_filename}")
 
+    # Choose between sync and async implementation
+    if use_sync:
+        # Use the new synchronous client
+        print(f"\nUsing synchronous API client...")
+        return _run_sync_enrichment(
+            upload_file,
+            expected_output,
+            month_code,
+            timestamp,
+            dry_run,
+            stage_config
+        )
+    else:
+        # Use the legacy async client (may still have 404 issues)
+        print(f"\nUsing async API client (legacy)...")
+        return _run_async_enrichment(
+            upload_file,
+            expected_output,
+            dry_run,
+            dedupe,
+            consolidate_families,
+            filter_entities
+        )
+
+
+def _run_sync_enrichment(
+    upload_file: Path,
+    expected_output: Path,
+    month_code: str,
+    timestamp: str,
+    dry_run: bool,
+    stage_config: Optional[Dict]
+) -> Optional[Path]:
+    """Run synchronous BatchData enrichment using JSON API.
+
+    Internal function for sync client implementation.
+    """
+    import os
+    from src.batchdata_sync import BatchDataSyncClient
+    from src.io import load_workbook_sheets
+
+    # Default stage configuration
+    if stage_config is None:
+        stage_config = {
+            'skip_trace': True,
+            'phone_verify': True,
+            'dnc': True,
+            'tcpa': True
+        }
+
+    print(f"\nLoading input data from Upload file...")
+    sheets = load_workbook_sheets(str(upload_file))
+
+    # Validate required sheets
+    required_sheets = ['CONFIG', 'INPUT_MASTER', 'BLACKLIST_NAMES']
+    for sheet in required_sheets:
+        if sheet not in sheets:
+            raise ValueError(f"Required sheet '{sheet}' not found in upload file")
+
+    config_df = sheets['CONFIG']
+    input_df = sheets['INPUT_MASTER']
+    blacklist_df = sheets['BLACKLIST_NAMES']
+
+    print(f"  - INPUT_MASTER: {len(input_df)} records")
+    print(f"  - CONFIG: {len(config_df)} settings")
+    print(f"  - BLACKLIST_NAMES: {len(blacklist_df)} entries")
+
+    # Extract API keys from CONFIG sheet
+    api_keys = {}
+    for _, row in config_df.iterrows():
+        key = row.get('key', '')
+        value = row.get('value', '')
+        if 'api.key' in key:
+            # Map config keys to expected format
+            if 'skiptrace' in key:
+                api_keys['BD_SKIPTRACE_KEY'] = value
+            elif 'address' in key:
+                api_keys['BD_ADDRESS_KEY'] = value
+            elif 'property' in key:
+                api_keys['BD_PROPERTY_KEY'] = value
+            elif 'phone' in key:
+                api_keys['BD_PHONE_KEY'] = value
+
+    # Check for environment variable overrides
+    for key in ['BD_SKIPTRACE_KEY', 'BD_ADDRESS_KEY', 'BD_PROPERTY_KEY', 'BD_PHONE_KEY']:
+        env_value = os.getenv(key)
+        if env_value:
+            api_keys[key] = env_value
+
+    if dry_run:
+        # Calculate cost estimates
+        record_count = len(input_df)
+        skip_trace_cost = record_count * 0.07 if stage_config.get('skip_trace') else 0
+        phone_verify_cost = record_count * 2 * 0.007 if stage_config.get('phone_verify') else 0
+        dnc_cost = record_count * 2 * 0.002 if stage_config.get('dnc') else 0
+        tcpa_cost = record_count * 2 * 0.002 if stage_config.get('tcpa') else 0
+        total_cost = skip_trace_cost + phone_verify_cost + dnc_cost + tcpa_cost
+
+        print(f"\n{'='*40}")
+        print(f"DRY RUN - Cost Estimate")
+        print(f"{'='*40}")
+        print(f"Records to process: {record_count}")
+        if stage_config.get('skip_trace'):
+            print(f"Skip-trace: ${skip_trace_cost:.2f}")
+        if stage_config.get('phone_verify'):
+            print(f"Phone verification: ${phone_verify_cost:.2f}")
+        if stage_config.get('dnc'):
+            print(f"DNC screening: ${dnc_cost:.2f}")
+        if stage_config.get('tcpa'):
+            print(f"TCPA screening: ${tcpa_cost:.2f}")
+        print(f"{'='*40}")
+        print(f"TOTAL ESTIMATED COST: ${total_cost:.2f}")
+        print(f"{'='*40}\n")
+        return None
+
+    # Initialize sync client
+    client = BatchDataSyncClient(api_keys)
+
+    # Run enrichment pipeline
+    print(f"\nRunning enrichment pipeline with stages: {stage_config}")
+    result_df = client.run_enrichment_pipeline(input_df, stage_config)
+
+    # Save results
+    print(f"\nSaving results to: {expected_output}")
+    with pd.ExcelWriter(expected_output, engine='openpyxl') as writer:
+        config_df.to_excel(writer, sheet_name='CONFIG', index=False)
+        result_df.to_excel(writer, sheet_name='OUTPUT_MASTER', index=False)
+        blacklist_df.to_excel(writer, sheet_name='BLACKLIST_NAMES', index=False)
+
+    print(f"✓ Created BatchData Complete: {expected_output}")
+    print(f"  - OUTPUT_MASTER: {len(result_df)} records")
+
+    return expected_output
+
+
+def _run_async_enrichment(
+    upload_file: Path,
+    expected_output: Path,
+    dry_run: bool,
+    dedupe: bool,
+    consolidate_families: bool,
+    filter_entities: bool
+) -> Optional[Path]:
+    """Run legacy async BatchData enrichment (may have 404 issues).
+
+    Internal function for backward compatibility.
+    """
     # Create a temporary results directory for the pipeline
+    output_path = expected_output.parent
+    timestamp = expected_output.stem.split('_')[-1]
     temp_results_dir = output_path / f"temp_results_{timestamp}"
     temp_results_dir.mkdir(exist_ok=True)
 

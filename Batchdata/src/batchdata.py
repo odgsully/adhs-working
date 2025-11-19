@@ -15,12 +15,12 @@ import json
 class BatchDataClient:
     """Client for BatchData API endpoints with async job management."""
     
-    def __init__(self, api_keys: Dict[str, str], base_url: str = "https://api.batchdata.com"):
+    def __init__(self, api_keys: Dict[str, str], base_url: str = "https://api.batchdata.com/api/v2"):
         """Initialize BatchData client.
-        
+
         Args:
             api_keys: Dictionary of API keys for different services
-            base_url: Base API URL
+            base_url: Base API URL (defaults to v2 API for wallet credit accounts)
         """
         self.base_url = base_url.rstrip('/')
         self.api_keys = api_keys
@@ -236,7 +236,7 @@ class BatchDataClient:
         # Process skip-trace
         skiptrace_output = os.path.join(results_dir, 'skiptrace', f"results_{timestamp}.xlsx")
         skiptrace_df = self.process_batch_async(
-            skiptrace_input_path, 'property-skip-trace-async', 'skiptrace', skiptrace_output
+            skiptrace_input_path, 'property/skip-trace/async', 'property', skiptrace_output
         )
         
         # Save complete results with ALL fields
@@ -259,7 +259,7 @@ class BatchDataClient:
                 
                 verification_output = os.path.join(results_dir, 'phoneverify', f"results_{timestamp}.xlsx")
                 verification_df = self.process_batch_async(
-                    phone_input_path, 'phone-verification-async', 'phone', verification_output
+                    phone_input_path, 'phone/verification/async', 'phone', verification_output
                 )
                 
                 # Save complete results
@@ -280,7 +280,7 @@ class BatchDataClient:
                 
                 dnc_output = os.path.join(results_dir, 'dnc', f"results_{timestamp}.xlsx")
                 dnc_df = self.process_batch_async(
-                    dnc_input_path, 'phone-dnc-async', 'phone', dnc_output
+                    dnc_input_path, 'phone/dnc/async', 'phone', dnc_output
                 )
                 
                 # Save complete results
@@ -301,7 +301,7 @@ class BatchDataClient:
                 
                 tcpa_output = os.path.join(results_dir, 'tcpa', f"results_{timestamp}.xlsx")
                 tcpa_df = self.process_batch_async(
-                    tcpa_input_path, 'phone-tcpa-async', 'phone', tcpa_output
+                    tcpa_input_path, 'phone/tcpa/async', 'phone', tcpa_output
                 )
                 
                 # Save complete results

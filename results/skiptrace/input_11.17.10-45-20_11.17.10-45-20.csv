@@ -1,0 +1,7 @@
+record_id,source_type,source_entity_name,source_entity_id,title_role,target_first_name,target_last_name,owner_name_full,address_line1,address_line2,city,state,zip,county,apn,mailing_line1,mailing_city,mailing_state,mailing_zip,notes,has_valid_name,has_valid_address
+ecorp_L14574664_2_40db0b7a,Entity,MODULAR SYSTEMS GROUP LLC,L14574664,Member,DANIEL,HOFSTADTER,DANIEL  HOFSTADTER,10 N Norton Ave Ste 120,,Tucson,,85719,,,,,,,Derived from eCorp search: MODULAR SYSTEMS INC,True,False
+ecorp_nan_2_190e3a33,Entity,,,Individual,DIADEMA,NANQUILADA LAWRENCE,DIADEMA NANQUILADA LAWRENCE,,,,,,,,,,,,Derived from eCorp search: nan,True,False
+ecorp_nan_2_f2c18ee0,Entity,,,Individual,FAISAL,FARHAT ILVAS,FAISAL FARHAT ILVAS,,,,,,,,,,,,Derived from eCorp search: nan,True,False
+ecorp_nan_1_ff6d108b,Entity,,,Individual,MARK,WILLIAM LAWRENCE,MARK WILLIAM LAWRENCE,,,,,,,,,,,,Derived from eCorp search: nan,True,False
+ecorp_L14574664_1_7df3089d,Entity,MODULAR SYSTEMS GROUP LLC,L14574664,Manager,MARTIN,KELBER,MARTIN  KELBER,8701 S Kolb Rd #2-226,,Tucson,,85756,,,,,,,Derived from eCorp search: MODULAR SYSTEMS INC,True,False
+ecorp_nan_1_b587f116,Entity,,,Individual,MOHAMMAD,ILVAS,MOHAMMAD ILVAS,,,,,,,,,,,,Derived from eCorp search: nan,True,False

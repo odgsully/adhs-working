@@ -6,16 +6,16 @@ Build a deterministic local script that ingests one workbook (`template_batchdat
 
 ## Scope
 - Inputs: `INPUT_MASTER` sheet (one row per person+address or address-only).
-- Optional upstream helpers: `address-verify`, `property-search-async`, `property-lookup-async`.
-- Core: `property-skip-trace-async`.
-- Optional downstream scrubs: `phone-verification-async`, `phone-dnc-async`, `phone-tcpa-async`.
+- Optional upstream helpers: `/api/v1/address/verify`, `/api/v1/property/search/async`, `/api/v1/property/lookup/async`.
+- Core: `/api/v1/property/skip-trace/async`.
+- Optional downstream scrubs: `/api/v1/phone/verification/async`, `/api/v1/phone/dnc/async`, `/api/v1/phone/tcpa/async`.
 
 ## Non-Goals
 - No web scraping. No synchronous endpoints needed.
 - No persistence beyond local CSV/Parquet + Excel output.
 
 ## Configuration
-Read `CONFIG` sheet (key-value). Environment variables for API tokens:
+Read `CONFIG` sheet (key-value). Environment variables for API tokens (in project root `.env` file):
 - `BD_SKIPTRACE_KEY`, `BD_ADDRESS_KEY`, `BD_PROPERTY_KEY`, `BD_PHONE_KEY`.
 
 ## Input Contract (INPUT_MASTER)
@@ -34,14 +34,14 @@ Rules:
 
 **Note**: Raw API inputs/outputs may use CSV format as required by BatchData APIs, but processed results use XLSX.
 
-## Endpoints
-- Skip Trace (async): Property → `property-skip-trace-async`
-- Address Verify (opt): Address → `address-verify`
-- Property Search (opt): Property → `property-search-async`
-- Property Lookup (opt): Property → `property-lookup-async`
-- Phone Verification (opt): Phone → `phone-verification-async`
-- Phone DNC (opt): Phone → `phone-dnc-async`
-- Phone TCPA (opt): Phone → `phone-tcpa-async`
+## Endpoints (V1 API)
+- Skip Trace (async): `POST /api/v1/property/skip-trace/async`
+- Address Verify (opt): `POST /api/v1/address/verify`
+- Property Search (opt): `POST /api/v1/property/search/async`
+- Property Lookup (opt): `POST /api/v1/property/lookup/async`
+- Phone Verification (opt): `POST /api/v1/phone/verification/async`
+- Phone DNC (opt): `POST /api/v1/phone/dnc/async`
+- Phone TCPA (opt): `POST /api/v1/phone/tcpa/async`
 
 ## Processing Flow
 1. Load Excel → read `CONFIG`, `INPUT_MASTER`, `BLACKLIST_NAMES`.
