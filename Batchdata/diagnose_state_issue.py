@@ -65,11 +65,11 @@ try:
 
     # Test with sample data
     sample_ecorp = pd.DataFrame({
-        'Entity Name(s)': ['Test Corp'],
-        'Entity ID(s)': ['12345'],
-        'Search Name': ['Test Search'],
+        'ECORP_NAME_S': ['Test Corp'],
+        'ECORP_ENTITY_ID_S': ['12345'],
+        'ECORP_SEARCH_NAME': ['Test Search'],
         'Agent Address': ['123 Main St, Phoenix, AZ 85001'],  # Full address with state
-        'County': ['MARICOPA'],
+        'ECORP_COUNTY': ['MARICOPA'],
         'COUNTY': ['MARICOPA'],
         'Title1': ['Manager'],
         'Name1': ['John Doe'],

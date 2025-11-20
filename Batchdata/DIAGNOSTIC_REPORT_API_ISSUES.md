@@ -97,16 +97,16 @@ Sample request being sent:
 ```
 
 ### Root Cause
-The Ecorp data has state in a separate "Domicile State" column, but the transformation is looking for state within the address string.
+The Ecorp data has state in a separate "ECORP_STATE" column, but the transformation is looking for state within the address string.
 
 **Data Flow Issue**:
-1. Ecorp Complete has: `Domicile State: Arizona`
+1. Ecorp Complete has: `ECORP_STATE: Arizona`
 2. Ecorp Complete has: `Address: 8888 E Raintree Drive` (no state)
 3. Transform tries to parse state from address string
 4. No state found → empty state field
 5. API receives invalid request
 
-### Solution: Fix Transform to Use Domicile State
+### Solution: Fix Transform to Use ECORP_STATE
 
 **File to modify**: `Batchdata/src/transform.py`
 
@@ -124,9 +124,9 @@ def ecorp_to_batchdata_records(ecorp_row: pd.Series) -> List[Dict[str, Any]]:
     if agent_address:
         address_parts = parse_address(agent_address)
 
-        # FIX: Use Domicile State if state not found in address
+        # FIX: Use ECORP_STATE if state not found in address
         if not address_parts['state'] or address_parts['state'] == '':
-            domicile_state = ecorp_row.get('Domicile State', '')
+            domicile_state = ecorp_row.get('ECORP_STATE', '')
             if domicile_state:
                 # Convert full state name to abbreviation
                 address_parts['state'] = normalize_state(domicile_state)
@@ -135,9 +135,9 @@ def ecorp_to_batchdata_records(ecorp_row: pd.Series) -> List[Dict[str, Any]]:
             'address_line1': address_parts['line1'],
             'address_line2': address_parts['line2'],
             'city': address_parts['city'],
-            'state': address_parts['state'],  # Now will have state from Domicile State
+            'state': address_parts['state'],  # Now will have state from ECORP_STATE
             'zip': address_parts['zip'],
-            'county': ecorp_row.get('County', '') or ecorp_row.get('COUNTY', '')
+            'county': ecorp_row.get('ECORP_COUNTY', '') or ecorp_row.get('COUNTY', '')
         })
 ```
 
@@ -196,7 +196,7 @@ Here's what's actually being processed:
 
 2. ✅ **Fix State Field**
    - Apply the transform.py modification
-   - Use Domicile State column as fallback
+   - Use ECORP_STATE column as fallback
 
 3. ✅ **Test with Fixed Data**
    - Re-run with corrected API key
@@ -215,7 +215,7 @@ Here's what's actually being processed:
 
 **Two fixes needed**:
 1. **API Key**: Get skip-trace enabled API key from BatchData
-2. **State Field**: Modify transform.py to use Domicile State column
+2. **State Field**: Modify transform.py to use ECORP_STATE column
 
 Once both are fixed, the integration should work correctly. The code itself is functioning properly - it's an authentication and data quality issue.
 

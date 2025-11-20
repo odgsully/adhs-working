@@ -1,0 +1,39 @@
+{
+  "counter": {
+    "CORPORATION SERVICE COMPANY": 1,
+    "CT CORPORATION SYSTEM": 1,
+    "ABC REGISTERED AGENT SERVICES": 1,
+    "XYZ STATUTORY AGENT GROUP": 1,
+    "PROFESSIONAL AGENT LLC": 1,
+    "BUSINESS SERVICES INC": 1,
+    "CORPORATE FILING SERVICE": 1,
+    "JOHN SMITH": 1,
+    "MARY JOHNSON": 1,
+    "ABC REAL ESTATE AGENT": 1,
+    "SMITH INSURANCE AGENT": 1
+  },
+  "unknown": {
+    "JOHN SMITH": {
+      "first_seen": "2025-11-20T09:59:00.250516",
+      "count": 1,
+      "suggested": false
+    },
+    "MARY JOHNSON": {
+      "first_seen": "2025-11-20T09:59:00.250665",
+      "count": 1,
+      "suggested": false
+    },
+    "ABC REAL ESTATE AGENT": {
+      "first_seen": "2025-11-20T09:59:00.250822",
+      "count": 1,
+      "suggested": false
+    },
+    "SMITH INSURANCE AGENT": {
+      "first_seen": "2025-11-20T09:59:00.250971",
+      "count": 1,
+      "suggested": false
+    }
+  },
+  "suggested": [],
+  "last_updated": "2025-11-20T09:59:00.250981"
+}

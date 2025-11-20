@@ -16,11 +16,11 @@ Current situation:
 - Documentation: Read Batchdata/V2_QUICK_START.md for current status
 
 Issues to fix:
-1. State field is empty in all records - need to use "Domicile State" column from Ecorp data
+1. State field is empty in all records - need to use "ECORP_STATE" column from Ecorp data
 2. Need to test V2 async flow with wallet credits
 
 Please help me:
-1. Apply the state field fix in Batchdata/src/transform.py (use Domicile State as fallback)
+1. Apply the state field fix in Batchdata/src/transform.py (use ECORP_STATE as fallback)
 2. Test the V2 async pipeline with CSV upload/polling
 3. Verify the Complete file has enriched phone/email data
 
@@ -50,7 +50,7 @@ Current Status (read these files for details):
 Immediate Tasks:
 1. Fix missing state field issue:
    - Problem: State is empty in all records
-   - Solution: Use "Domicile State" column from Ecorp data
+   - Solution: Use "ECORP_STATE" column from Ecorp data
    - File: Batchdata/src/transform.py (around line 140)
    - Code fix is provided in V2_QUICK_START.md
 

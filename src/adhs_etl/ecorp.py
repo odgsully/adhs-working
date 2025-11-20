@@ -493,17 +493,17 @@ def search_entities(driver: webdriver.Chrome, name: str) -> List[Dict[str, str]]
 
             # Build the record with new structure
             record = {
-                "Search Name": name,
-                "Type": classify_name_type(name),
-                "Entity Name(s)": entity_name if entity_name else "",
-                "Entity ID(s)": entity_id if entity_id else "",
-                "Entity Type": entity_type if entity_type else "",
-                "Status": status if status else "",
-                "Formation Date": formation_date if formation_date else "",
-                "Business Type": business_type if business_type else "",
-                "Domicile State": domicile_state if domicile_state else "",
-                "County": county if county else "",
-                "Comments": ""
+                "ECORP_SEARCH_NAME": name,
+                "ECORP_TYPE": classify_name_type(name),
+                "ECORP_NAME_S": entity_name if entity_name else "",
+                "ECORP_ENTITY_ID_S": entity_id if entity_id else "",
+                "ECORP_ENTITY_TYPE": entity_type if entity_type else "",
+                "ECORP_STATUS": status if status else "",
+                "ECORP_FORMATION_DATE": formation_date if formation_date else "",
+                "ECORP_BUSINESS_TYPE": business_type if business_type else "",
+                "ECORP_STATE": domicile_state if domicile_state else "",
+                "ECORP_COUNTY": county if county else "",
+                "ECORP_COMMENTS": ""
             }
 
             # Add statutory agent fields (up to 3)
@@ -585,7 +585,7 @@ def search_entities(driver: webdriver.Chrome, name: str) -> List[Dict[str, str]]
     except Exception as e:
         # In the event of unexpected errors, return a blank record with error comment
         blank = get_blank_acc_record()
-        blank["Comments"] = f"Lookup error: {e}"
+        blank["ECORP_COMMENTS"] = f"Lookup error: {e}"
         return [blank]
 
 
@@ -598,17 +598,17 @@ def get_blank_acc_record() -> dict:
         Dictionary with all ACC field keys set to empty strings
     """
     record = {
-        'Search Name': '',
-        'Type': '',
-        'Entity Name(s)': '',
-        'Entity ID(s)': '',
-        'Entity Type': '',
-        'Status': '',
-        'Formation Date': '',
-        'Business Type': '',
-        'Domicile State': '',
-        'County': '',
-        'Comments': ''
+        'ECORP_SEARCH_NAME': '',
+        'ECORP_TYPE': '',
+        'ECORP_NAME_S': '',
+        'ECORP_ENTITY_ID_S': '',
+        'ECORP_ENTITY_TYPE': '',
+        'ECORP_STATUS': '',
+        'ECORP_FORMATION_DATE': '',
+        'ECORP_BUSINESS_TYPE': '',
+        'ECORP_STATE': '',
+        'ECORP_COUNTY': '',
+        'ECORP_COMMENTS': ''
     }
 
     # Add StatutoryAgent fields (3 agents)
@@ -996,7 +996,7 @@ def generate_ecorp_complete(month_code: str, upload_path: Path, headless: bool =
     - A-C: FULL_ADDRESS, COUNTY, Owner_Ownership (from Upload)
     - D: ECORP_INDEX_# (sequential record number)
     - E: OWNER_TYPE (from Upload)
-    - F-CN: 88 ACC fields (Search Name, Type, Entity details, Principals, Individual Names)
+    - F-CN: 88 ACC fields (ECORP_SEARCH_NAME, ECORP_TYPE, Entity details, Principals, Individual Names)
     - CO: ECORP_URL (ACC entity detail page URL)
 
     Parameters

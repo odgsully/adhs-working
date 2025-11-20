@@ -70,21 +70,21 @@ def test_entity_individual_logic():
     # Create test eCorp records with problematic statutory agents
     test_records = [
         {
-            'Entity Name(s)': 'CC/PDR SILVERSTONE LLC',
-            'Entity ID(s)': 'L12222688',
+            'ECORP_NAME_S': 'CC/PDR SILVERSTONE LLC',
+            'ECORP_ENTITY_ID_S': 'L12222688',
             'Statutory Agent': 'CC/PDR SILVERSTONE, L.L.C.',
             'Agent Address': '7955 S Priest Dr.,,AZ 85284,USA',
-            'County': 'Maricopa',
+            'ECORP_COUNTY': 'Maricopa',
             'Title1': '', 'Name1': '', 'Address1': '',
             'Title2': '', 'Name2': '', 'Address2': '',
             'Title3': '', 'Name3': '', 'Address3': ''
         },
         {
-            'Entity Name(s)': 'Test Individual Entity',
-            'Entity ID(s)': 'TEST001',
+            'ECORP_NAME_S': 'Test Individual Entity',
+            'ECORP_ENTITY_ID_S': 'TEST001',
             'Statutory Agent': 'John Doe',
             'Agent Address': '123 Main St, Phoenix, AZ 85001, USA',
-            'County': 'Maricopa',
+            'ECORP_COUNTY': 'Maricopa',
             'Title1': '', 'Name1': '', 'Address1': '',
             'Title2': '', 'Name2': '', 'Address2': '',
             'Title3': '', 'Name3': '', 'Address3': ''

@@ -51,12 +51,12 @@ def test_v2_async_pipeline():
     print(f"   Loaded {len(ecorp_df)} Ecorp records")
 
     # Check if Domicile State column exists
-    if 'Domicile State' in ecorp_df.columns:
-        print(f"✓ Found 'Domicile State' column")
-        non_empty_states = ecorp_df['Domicile State'].notna().sum()
+    if 'ECORP_STATE' in ecorp_df.columns:
+        print(f"✓ Found 'ECORP_STATE' column")
+        non_empty_states = ecorp_df['ECORP_STATE'].notna().sum()
         print(f"   {non_empty_states} records have Domicile State values")
     else:
-        print("⚠️  'Domicile State' column not found in Ecorp data")
+        print("⚠️  'ECORP_STATE' column not found in Ecorp data")
 
     # Transform to BatchData format (with state field fix)
     print("\n🔄 Transforming to BatchData format with state field fix...")

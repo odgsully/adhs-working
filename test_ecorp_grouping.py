@@ -110,34 +110,34 @@ def test_assign_grouped_indexes():
     rec1 = get_blank_acc_record()
     rec1['Manager1_Name'] = 'JOHN SMITH'
     rec1['Manager2_Name'] = 'JANE DOE'
-    rec1['Entity Name(s)'] = 'ABC PROPERTIES LLC'
+    rec1['ECORP_NAME_S'] = 'ABC PROPERTIES LLC'
     records.append(rec1)
 
     # Record 2: JOHN SMITH & JANE DOE (Should be Group 1 - same people)
     rec2 = get_blank_acc_record()
     rec2['Manager1_Name'] = 'JOHN SMITH'
     rec2['Manager2_Name'] = 'JANE DOE'
-    rec2['Entity Name(s)'] = 'XYZ HOLDINGS INC'
+    rec2['ECORP_NAME_S'] = 'XYZ HOLDINGS INC'
     records.append(rec2)
 
     # Record 3: ALICE WILLIAMS (Group 2 - different person)
     rec3 = get_blank_acc_record()
     rec3['Manager1_Name'] = 'ALICE WILLIAMS'
-    rec3['Entity Name(s)'] = 'WILLIAMS VENTURES LLC'
+    rec3['ECORP_NAME_S'] = 'WILLIAMS VENTURES LLC'
     records.append(rec3)
 
     # Record 4: BOB JONES & CHARLIE BROWN (Group 3)
     rec4 = get_blank_acc_record()
     rec4['Manager1_Name'] = 'BOB JONES'
     rec4['Member1_Name'] = 'CHARLIE BROWN'
-    rec4['Entity Name(s)'] = 'JONES & BROWN ASSOCIATES'
+    rec4['ECORP_NAME_S'] = 'JONES & BROWN ASSOCIATES'
     records.append(rec4)
 
     # Record 5: JOHN A SMITH & JANE DOE (Should be Group 1 - fuzzy match)
     rec5 = get_blank_acc_record()
     rec5['Manager1_Name'] = 'JOHN A SMITH'
     rec5['Manager2_Name'] = 'JANE DOE'
-    rec5['Entity Name(s)'] = 'SMITH DOE ENTERPRISES'
+    rec5['ECORP_NAME_S'] = 'SMITH DOE ENTERPRISES'
     records.append(rec5)
 
     # Assign indexes
@@ -145,7 +145,7 @@ def test_assign_grouped_indexes():
 
     print(f"\nAssigned indexes for {len(records)} records:")
     for i, (rec, idx) in enumerate(zip(records, indexes)):
-        entity = rec.get('Entity Name(s)', 'N/A')
+        entity = rec.get('ECORP_NAME_S', 'N/A')
         names = extract_individual_names(rec)
         print(f"  Record {i+1}: ECORP_INDEX_# = {idx}")
         print(f"    Entity: {entity}")

@@ -1,0 +1,68 @@
+# Statutory Agent Professional Service Blacklist
+# Generated from Ecorp Complete file analysis
+# Total professional services: 57
+# Total occurrences: 434
+#
+# These are registered agent/statutory agent service companies
+# that should be filtered out when looking for actual owner contacts.
+#
+# Format: One name per line (exact match, case-insensitive)
+#
+
+ANDERSON REGISTERED AGENTS INC
+ANDERSON REGISTERED AGENTS, INC.
+ARIZONA STATUTORY AGENT LLC
+ARIZONA STATUTORY AGENT SERVIC
+ARIZONA STATUTORY AGENT SERVICES, LLC
+AZ Entity Services LLC
+AZNV AGENTS LLC
+Anderson Registered Agents, Inc.
+Arizona Legal Document Services LLC
+BUSINESS FILINGS INCORPORATED
+Business Filings Incorporated
+C T CORPORATION SERVICE
+CAPITOL CORPORATE SERVICES INC
+CLG SERVICES LLC
+COGENCY GLOBAL INC
+COGENCY GLOBAL INC.
+CORPORATION SERVICE COMPANY
+CR PROPERTY SERVICES INC
+CT CORPORATION SYSTEM
+CT Corporation System
+Cogency Global Inc
+Cogency Global Inc.
+Corporation Service Company
+ERESIDENTAGENT, INC.
+Entity Protect Registered Agent Services LLC
+FSL Real Estate Services
+GKL Registered Agents, Inc.
+GLF STATUTORY AGENT LLC
+GLF STATUTORY AGENT, LLC
+INCORP SERVICES INC
+InCorp Services, Inc
+InCorp Services, Inc.
+K&R Tax Accounting Services LLC
+LITIGATION AGENT SERVICES LLC
+LITIGATION AGENT SERVICES, LLC
+Litigation Agent Services, LLC
+MJM CORPORATE SERVICES INC
+NATIONAL REGISTERED AGENTS INC
+NATIONAL REGISTERED AGENTS, INC.
+Northwest Registered Agent LLC
+Northwest Registered Agent, LLC
+Northwest Registered Agent, LLC.
+PACIFIC REGISTERED AGENTS, INC.
+PARACORP INCORPORATED
+PL Statutory Agents, LLC
+Paracorp Incorporated
+REGISTERED AGENT SOLUTIONS, INC.
+REGISTERED AGENTS INC
+REPUBLIC REGISTERED AGENT LLC
+Registered Agent Solutions, Inc.
+Registered Agents Inc
+Registered Agents Inc.
+Stat Agent Servies USA, LLC
+UNITED AGENT GROUP INC
+United Agent Group Inc.
+Universal Registered Agents, Inc.
+V CORP AGENT SERVICES, INC

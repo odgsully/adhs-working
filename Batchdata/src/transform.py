@@ -5,14 +5,28 @@ transform.py - Data transformation between eCorp and BatchData formats
 import pandas as pd
 import uuid
 from typing import List, Dict, Any
+from pathlib import Path
+import sys
+
+# Add Ecorp directory to path for blacklist import
+ecorp_path = Path(__file__).parent.parent.parent / "Ecorp"
+if str(ecorp_path) not in sys.path:
+    sys.path.insert(0, str(ecorp_path))
+
+try:
+    from professional_services_blacklist import StatutoryAgentBlacklist
+except ImportError:
+    print("⚠️ Warning: Could not import StatutoryAgentBlacklist - statutory agents will not be filtered")
+    StatutoryAgentBlacklist = None
+
 try:
     from .normalize import (
-        split_full_name, normalize_state, clean_address_line, 
+        split_full_name, normalize_state, clean_address_line,
         normalize_zip_code, extract_title_role, normalize_phone_e164
     )
 except ImportError:
     from normalize import (
-        split_full_name, normalize_state, clean_address_line, 
+        split_full_name, normalize_state, clean_address_line,
         normalize_zip_code, extract_title_role, normalize_phone_e164
     )
 
@@ -39,6 +53,15 @@ def prepare_ecorp_for_batchdata(ecorp_df: pd.DataFrame) -> pd.DataFrame:
         # New structure detected - need to transform
         print("📊 Detected new Ecorp_Complete structure - transforming for batchdata compatibility...")
 
+        # Initialize blacklist if available
+        blacklist = None
+        if StatutoryAgentBlacklist:
+            try:
+                blacklist = StatutoryAgentBlacklist()
+                print(f"   ✅ Loaded statutory agent blacklist with {len(blacklist.blacklist)} entries")
+            except Exception as e:
+                print(f"   ⚠️ Could not load blacklist: {e}")
+
         # Map statutory agent fields
         if 'StatutoryAgent1_Name' in df.columns:
             df['Statutory Agent'] = df['StatutoryAgent1_Name']
@@ -49,7 +72,7 @@ def prepare_ecorp_for_batchdata(ecorp_df: pd.DataFrame) -> pd.DataFrame:
         for idx, row in df.iterrows():
             principals = []
 
-            # Priority order: Manager/Member > Manager > Member > Individual
+            # Priority order: Manager/Member > Manager > Member > Statutory Agent > Individual
             # Collect Manager/Member entries
             for i in range(1, 6):
                 name = row.get(f'Manager/Member{i}_Name', '')
@@ -78,6 +101,22 @@ def prepare_ecorp_for_batchdata(ecorp_df: pd.DataFrame) -> pd.DataFrame:
                         'title': 'Member',
                         'name': name,
                         'address': row.get(f'Member{i}_Address', '')
+                    })
+
+            # NEW: Collect Statutory Agent entries (if not blacklisted)
+            for i in range(1, 4):  # Up to 3 statutory agents
+                name = row.get(f'StatutoryAgent{i}_Name', '')
+                if name and pd.notna(name) and str(name).strip():
+                    # Check blacklist if available
+                    if blacklist and blacklist.is_blacklisted(name):
+                        # Skip professional service companies
+                        continue
+
+                    # Include individual statutory agents
+                    principals.append({
+                        'title': 'Statutory Agent',
+                        'name': name,
+                        'address': row.get(f'StatutoryAgent{i}_Address', '')
                     })
 
             # Collect Individual entries
@@ -127,9 +166,9 @@ def ecorp_to_batchdata_records(ecorp_row: pd.Series) -> List[Dict[str, Any]]:
     # Base information from eCorp record
     base_info = {
         'source_type': 'Entity',
-        'source_entity_name': ecorp_row.get('Entity Name(s)', ''),
-        'source_entity_id': ecorp_row.get('Entity ID(s)', ''),
-        'notes': f"Derived from eCorp search: {ecorp_row.get('Search Name', '')}"
+        'source_entity_name': ecorp_row.get('ECORP_NAME_S', ''),
+        'source_entity_id': ecorp_row.get('ECORP_ENTITY_ID_S', ''),
+        'notes': f"Derived from eCorp search: {ecorp_row.get('ECORP_SEARCH_NAME', '')}"
     }
 
     # Extract address information with fallback for new structure
@@ -140,9 +179,9 @@ def ecorp_to_batchdata_records(ecorp_row: pd.Series) -> List[Dict[str, Any]]:
 
     if agent_address:
         address_parts = parse_address(agent_address)
-        # Use parsed state or fallback to Domicile State from ecorp data
+        # Use parsed state or fallback to ECORP_STATE from ecorp data
         parsed_state = address_parts.get('state', '')
-        domicile_state = ecorp_row.get('Domicile State', '')
+        domicile_state = ecorp_row.get('ECORP_STATE', '')
         state_field = ecorp_row.get('State', '')
 
         # Convert to strings and handle NaN/None values
@@ -166,7 +205,7 @@ def ecorp_to_batchdata_records(ecorp_row: pd.Series) -> List[Dict[str, Any]]:
             'city': address_parts['city'],
             'state': state,
             'zip': address_parts['zip'],
-            'county': ecorp_row.get('County', '') or ecorp_row.get('COUNTY', '')
+            'county': ecorp_row.get('ECORP_COUNTY', '') or ecorp_row.get('COUNTY', '')
         })
 
     # Process up to 3 principals
@@ -184,7 +223,7 @@ def ecorp_to_batchdata_records(ecorp_row: pd.Series) -> List[Dict[str, Any]]:
             continue
         
         # Generate unique record ID
-        record_id = f"ecorp_{ecorp_row.get('Entity ID(s)', 'unknown')}_{i}_{str(uuid.uuid4())[:8]}"
+        record_id = f"ecorp_{ecorp_row.get('ECORP_ENTITY_ID_S', 'unknown')}_{i}_{str(uuid.uuid4())[:8]}"
         
         # Split name into first/last
         first_name, last_name = split_full_name(name)
@@ -201,9 +240,9 @@ def ecorp_to_batchdata_records(ecorp_row: pd.Series) -> List[Dict[str, Any]]:
                 'zip': base_info.get('zip', '')
             }
         
-        # Use parsed state or fallback to Domicile State/State from ecorp data
+        # Use parsed state or fallback to ECORP_STATE/State from ecorp data
         parsed_state = addr_parts.get('state', '')
-        domicile_state = ecorp_row.get('Domicile State', '')
+        domicile_state = ecorp_row.get('ECORP_STATE', '')
         state_field = ecorp_row.get('State', '')
         base_state = base_info.get('state', '')
 
@@ -285,11 +324,11 @@ def ecorp_to_batchdata_records(ecorp_row: pd.Series) -> List[Dict[str, Any]]:
             owner_name = base_info['source_entity_name']
             title_role = 'Entity'
         
-        record_id = f"ecorp_{ecorp_row.get('Entity ID(s)', 'unknown')}_entity_{str(uuid.uuid4())[:8]}"
-        
-        # Use state from base_info or fallback to Domicile State from ecorp data
+        record_id = f"ecorp_{ecorp_row.get('ECORP_ENTITY_ID_S', 'unknown')}_entity_{str(uuid.uuid4())[:8]}"
+
+        # Use state from base_info or fallback to ECORP_STATE from ecorp data
         base_state = base_info.get('state', '')
-        domicile_state = ecorp_row.get('Domicile State', '')
+        domicile_state = ecorp_row.get('ECORP_STATE', '')
         state_field = ecorp_row.get('State', '')
 
         # Convert to strings and handle NaN/None values
@@ -466,7 +505,7 @@ def transform_ecorp_to_batchdata(ecorp_df: pd.DataFrame) -> pd.DataFrame:
 
     for _, row in ecorp_df.iterrows():
         # Skip "Not found" records
-        status = row.get('Status', '')
+        status = row.get('ECORP_STATUS', '')
         if pd.notna(status) and str(status).strip().lower() in ['not found', 'error']:
             continue
 

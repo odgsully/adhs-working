@@ -378,7 +378,7 @@ If issues arise at any phase:
 ```python
 # Line 167 - Replace existing record_id generation
 record = {
-    'record_id': f"ecorp_{ecorp_row.get('Entity ID(s)', 'unknown')}_{i}_{str(uuid.uuid4())[:8]}",
+    'record_id': f"ecorp_{ecorp_row.get('ECORP_ENTITY_ID_S', 'unknown')}_{i}_{str(uuid.uuid4())[:8]}",
     'ecorp_index': str(ecorp_row.get('ECORP_INDEX_#', '')),  # NEW
     'ecorp_index_rank': i,  # NEW - position within entity
     'source_type': base_info['source_type'],

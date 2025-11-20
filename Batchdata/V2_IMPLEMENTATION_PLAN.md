@@ -114,7 +114,7 @@ The existing `BatchDataClient` in `batchdata.py` is already built for this! We j
 ### Issue #1: Missing State Field
 
 **Problem**: State field is empty in all records
-**Solution**: Use "Domicile State" column from Ecorp data
+**Solution**: Use "ECORP_STATE" column from Ecorp data
 
 **File**: `Batchdata/src/transform.py` (line ~140)
 
@@ -123,12 +123,12 @@ The existing `BatchDataClient` in `batchdata.py` is already built for this! We j
 if agent_address:
     address_parts = parse_address(agent_address)
 
-    # FIX: Add state from Domicile State column
+    # FIX: Add state from ECORP_STATE column
     if not address_parts.get('state') or address_parts['state'] == '':
-        domicile_state = ecorp_row.get('Domicile State', '')
+        domicile_state = ecorp_row.get('ECORP_STATE', '')
         if domicile_state:
             address_parts['state'] = normalize_state(domicile_state)
-        elif 'MARICOPA' in str(ecorp_row.get('County', '')).upper():
+        elif 'MARICOPA' in str(ecorp_row.get('ECORP_COUNTY', '')).upper():
             address_parts['state'] = 'AZ'  # Default for Maricopa
 ```
 
@@ -200,7 +200,7 @@ python3 src/run.py --input tests/batchdata_local_input.xlsx --dry-run
    ```
 
 2. **Fix state field in transform.py** (10 minutes)
-   - Apply the Domicile State fix
+   - Apply the ECORP_STATE fix
 
 3. **Test with your wallet credits** (5 minutes)
    - Upload small CSV

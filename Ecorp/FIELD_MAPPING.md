@@ -49,17 +49,17 @@ These columns contain basic entity information scraped from the Arizona Corporat
 
 | Column | Field Name | Source | Population Logic | Data Type | Example |
 |--------|------------|--------|------------------|-----------|---------|
-| **F** | Search Name | Owner_Ownership value used for search | Copy of Owner_Ownership (Column C) | Text | "SMITH PROPERTIES LLC" |
-| **G** | Type | Classification result | `classify_name_type(Owner_Ownership)`<br/>Returns "Entity" or "Individual(s)" | Text | "Entity" |
-| **H** | Entity Name(s) | ACC entity search result | Entity name from ACC search results table<br/>Blank if not found | Text | "SMITH PROPERTIES, LLC" |
-| **I** | Entity ID(s) | ACC entity ID | Entity ID/File Number from ACC<br/>Blank if not found | Text | "L12345678" |
-| **J** | Entity Type | ACC detail page | Scraped from "Entity Type:" field<br/>Blank if not found | Text | "LLC" |
-| **K** | Status | ACC detail page | Scraped from "Entity Status:" field<br/>Blank if not found | Text | "Active" |
-| **L** | Formation Date | ACC detail page | Scraped from "Formation Date:" field<br/>Blank if not found | Date/Text | "01/15/2020" |
-| **M** | Business Type | ACC detail page | Scraped from "Business Type:" field<br/>Blank if not found | Text | "Domestic" |
-| **N** | Domicile State | ACC detail page | Scraped from "Domicile State:" field<br/>Blank if not found | Text | "Arizona" |
-| **O** | County | ACC detail page | Scraped from "County:" field for entity<br/>Different from Column B (property county) | Text | "MARICOPA" |
-| **P** | Comments | Error tracking | Populated only if lookup error occurs<br/>Otherwise blank | Text | "Lookup error: timeout" |
+| **F** | ECORP_SEARCH_NAME | Owner_Ownership value used for search | Copy of Owner_Ownership (Column C) | Text | "SMITH PROPERTIES LLC" |
+| **G** | ECORP_TYPE | Classification result | `classify_name_type(Owner_Ownership)`<br/>Returns "Entity" or "Individual(s)" | Text | "Entity" |
+| **H** | ECORP_NAME_S | ACC entity search result | Entity name from ACC search results table<br/>Blank if not found | Text | "SMITH PROPERTIES, LLC" |
+| **I** | ECORP_ENTITY_ID_S | ACC entity ID | Entity ID/File Number from ACC<br/>Blank if not found | Text | "L12345678" |
+| **J** | ECORP_ENTITY_TYPE | ACC detail page | Scraped from "ECORP_ENTITY_TYPE:" field<br/>Blank if not found | Text | "LLC" |
+| **K** | ECORP_STATUS | ACC detail page | Scraped from "Entity Status:" field<br/>Blank if not found | Text | "Active" |
+| **L** | ECORP_FORMATION_DATE | ACC detail page | Scraped from "ECORP_FORMATION_DATE:" field<br/>Blank if not found | Date/Text | "01/15/2020" |
+| **M** | ECORP_BUSINESS_TYPE | ACC detail page | Scraped from "ECORP_BUSINESS_TYPE:" field<br/>Blank if not found | Text | "Domestic" |
+| **N** | ECORP_STATE | ACC detail page | Scraped from "ECORP_STATE:" field<br/>Blank if not found | Text | "Arizona" |
+| **O** | ECORP_COUNTY | ACC detail page | Scraped from "County:" field for entity<br/>Different from Column B (property county) | Text | "MARICOPA" |
+| **P** | ECORP_COMMENTS | Error tracking | Populated only if lookup error occurs<br/>Otherwise blank | Text | "Lookup error: timeout" |
 
 **Population Conditions**:
 - **BUSINESS owners**: Full ACC lookup performed, fields populated from search results

@@ -80,7 +80,7 @@ Ecorp Upload (4 cols) → Ecorp Complete (93 cols)
 - **ECORP_INDEX_#** - Sequential record number (1, 2, 3...)
 
 **ACC Entity Columns (F-P)** - 11 fields
-- Search Name, Type, Entity Name, Entity ID, Entity Type, Status, Formation Date, Business Type, Domicile State, County, Comments
+- ECORP_SEARCH_NAME, ECORP_TYPE, ECORP_NAME_S, ECORP_ENTITY_ID_S, ECORP_ENTITY_TYPE, ECORP_STATUS, ECORP_FORMATION_DATE, ECORP_BUSINESS_TYPE, ECORP_STATE, ECORP_COUNTY, ECORP_COMMENTS
 
 **Statutory Agent Columns (Q-AB)** - 12 fields
 - StatutoryAgent1-3: Name, Address, Phone, Mail (4 fields × 3 agents)

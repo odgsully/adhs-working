@@ -22,7 +22,7 @@ def demo_transformation():
     
     print("\n📋 Sample eCorp Record:")
     sample = ecorp_df.iloc[0]
-    for col in ['Entity Name(s)', 'Entity ID(s)', 'Title1', 'Name1', 'Address1']:
+    for col in ['ECORP_NAME_S', 'ECORP_ENTITY_ID_S', 'Title1', 'Name1', 'Address1']:
         print(f"  {col}: {sample.get(col, 'N/A')}")
     
     # Transform

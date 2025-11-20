@@ -17,7 +17,7 @@ This script shows the exact changes needed in transform.py
             'city': address_parts['city'],
             'state': address_parts['state'],
             'zip': address_parts['zip'],
-            'county': ecorp_row.get('County', '') or ecorp_row.get('COUNTY', '')
+            'county': ecorp_row.get('ECORP_COUNTY', '') or ecorp_row.get('COUNTY', '')
         })
 """
 
@@ -29,13 +29,13 @@ This script shows the exact changes needed in transform.py
         # FIX: Use Domicile State if state not found in address
         if not address_parts.get('state') or address_parts['state'] == '':
             # Try Domicile State column first
-            domicile_state = ecorp_row.get('Domicile State', '')
+            domicile_state = ecorp_row.get('ECORP_STATE', '')
             if domicile_state and str(domicile_state).strip():
                 # normalize_state handles both full names and abbreviations
                 address_parts['state'] = normalize_state(domicile_state)
             else:
                 # Default to AZ if in Maricopa county
-                county = ecorp_row.get('County', '') or ecorp_row.get('COUNTY', '')
+                county = ecorp_row.get('ECORP_COUNTY', '') or ecorp_row.get('COUNTY', '')
                 if 'MARICOPA' in str(county).upper():
                     address_parts['state'] = 'AZ'
 
@@ -45,7 +45,7 @@ This script shows the exact changes needed in transform.py
             'city': address_parts['city'],
             'state': address_parts['state'],  # Now populated from Domicile State
             'zip': address_parts['zip'],
-            'county': ecorp_row.get('County', '') or ecorp_row.get('COUNTY', '')
+            'county': ecorp_row.get('ECORP_COUNTY', '') or ecorp_row.get('COUNTY', '')
         })
 """
 
@@ -79,7 +79,7 @@ This script shows the exact changes needed in transform.py
                     addr_parts['state'] = base_info['state']
                 else:
                     # Then try Domicile State directly
-                    domicile_state = ecorp_row.get('Domicile State', '')
+                    domicile_state = ecorp_row.get('ECORP_STATE', '')
                     if domicile_state and str(domicile_state).strip():
                         addr_parts['state'] = normalize_state(domicile_state)
                     # Finally default to AZ for Maricopa
@@ -110,7 +110,7 @@ State Field Fix Instructions
 
 4. The key changes:
    - Check if state is empty after parse_address
-   - Use 'Domicile State' column as fallback
+   - Use 'ECORP_STATE' column as fallback
    - Default to 'AZ' for Maricopa county records
 
 5. After applying fix:

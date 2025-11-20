@@ -30,7 +30,7 @@ if agent_address:
         'city': address_parts['city'],
         'state': address_parts['state'],
         'zip': address_parts['zip'],
-        'county': ecorp_row.get('County', '') or ecorp_row.get('COUNTY', '')
+        'county': ecorp_row.get('ECORP_COUNTY', '') or ecorp_row.get('COUNTY', '')
     })
 ```
 
@@ -39,12 +39,12 @@ if agent_address:
 if agent_address:
     address_parts = parse_address(agent_address)
 
-    # FIX: Use Domicile State if state not found in address
+    # FIX: Use ECORP_STATE if state not found in address
     if not address_parts.get('state') or address_parts['state'] == '':
-        domicile_state = ecorp_row.get('Domicile State', '')
+        domicile_state = ecorp_row.get('ECORP_STATE', '')
         if domicile_state and str(domicile_state).strip():
             address_parts['state'] = normalize_state(domicile_state)
-        elif 'MARICOPA' in str(ecorp_row.get('County', '')).upper():
+        elif 'MARICOPA' in str(ecorp_row.get('ECORP_COUNTY', '')).upper():
             address_parts['state'] = 'AZ'
 
     base_info.update({
@@ -53,7 +53,7 @@ if agent_address:
         'city': address_parts['city'],
         'state': address_parts['state'],  # Now populated!
         'zip': address_parts['zip'],
-        'county': ecorp_row.get('County', '') or ecorp_row.get('COUNTY', '')
+        'county': ecorp_row.get('ECORP_COUNTY', '') or ecorp_row.get('COUNTY', '')
     })
 ```
 

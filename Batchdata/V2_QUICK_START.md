@@ -33,10 +33,10 @@ if agent_address:
 
     # ADD THIS FIX:
     if not address_parts.get('state') or address_parts['state'] == '':
-        domicile_state = ecorp_row.get('Domicile State', '')
+        domicile_state = ecorp_row.get('ECORP_STATE', '')
         if domicile_state:
             address_parts['state'] = normalize_state(domicile_state)
-        elif 'MARICOPA' in str(ecorp_row.get('County', '')).upper():
+        elif 'MARICOPA' in str(ecorp_row.get('ECORP_COUNTY', '')).upper():
             address_parts['state'] = 'AZ'
 
     base_info.update({
@@ -45,7 +45,7 @@ if agent_address:
         'city': address_parts['city'],
         'state': address_parts['state'],  # Now will be populated!
         'zip': address_parts['zip'],
-        'county': ecorp_row.get('County', '') or ecorp_row.get('COUNTY', '')
+        'county': ecorp_row.get('ECORP_COUNTY', '') or ecorp_row.get('COUNTY', '')
     })
 ```
 
@@ -123,7 +123,7 @@ Check your dashboard for current balance. With V2:
 
 ### If state field still empty:
 - Apply the transform.py fix above
-- Check Ecorp data has "Domicile State" column
+- Check Ecorp data has "ECORP_STATE" column
 
 ### If job polling times out:
 - Large batches take longer
@@ -152,5 +152,5 @@ You'll know it's working when:
 
 **Good luck!** The V2 implementation should work with your wallet credits. The main changes were:
 - Base URL: `/api/v3` → `/api/v2`
-- Fix state field using Domicile State
+- Fix state field using ECORP_STATE
 - Use existing async code (it was already built for V2 pattern!)

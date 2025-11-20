@@ -268,10 +268,10 @@ def test_ecorp_transformation():
     # Create test eCorp data
     ecorp_data = pd.DataFrame([
         {
-            'Entity Name(s)': 'Test Company LLC',
-            'Entity ID(s)': 'L12345',
+            'ECORP_NAME_S': 'Test Company LLC',
+            'ECORP_ENTITY_ID_S': 'L12345',
             'Agent Address': '123 Main St, Phoenix, AZ 85001',
-            'County': 'Maricopa',
+            'ECORP_COUNTY': 'Maricopa',
             'Title1': 'Manager',
             'Name1': 'John Doe',
             'Address1': '456 Oak Ave, Scottsdale, AZ 85251',
@@ -281,13 +281,13 @@ def test_ecorp_transformation():
             'Title3': '',
             'Name3': '',
             'Address3': '',
-            'Status': 'Active'
+            'ECORP_STATUS': 'Active'
         },
         {
-            'Entity Name(s)': 'Another Corp',
-            'Entity ID(s)': 'C67890',
+            'ECORP_NAME_S': 'Another Corp',
+            'ECORP_ENTITY_ID_S': 'C67890',
             'Agent Address': '789 Pine Rd, Tucson, AZ 85701',
-            'County': 'Pima',
+            'ECORP_COUNTY': 'Pima',
             'Title1': '',
             'Name1': '',
             'Address1': '',
@@ -297,7 +297,7 @@ def test_ecorp_transformation():
             'Title3': '',
             'Name3': '',
             'Address3': '',
-            'Status': 'Active',
+            'ECORP_STATUS': 'Active',
             'Statutory Agent': 'Agent Services Inc'
         }
     ])
