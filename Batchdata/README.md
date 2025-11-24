@@ -75,13 +75,60 @@ Each API key requires specific permissions enabled in the BatchData dashboard. C
 - `phone-dnc` / `phone-dnc-async` - Do-Not-Call registry compliance - **$0.002/phone**
 - `phone-tcpa` / `phone-tcpa-async` - TCPA litigation risk screening - **$0.002/phone**
 
+## Column Naming Convention (BD_ Prefix)
+
+All BatchData columns use the `BD_` prefix to ensure clear namespace separation and prevent naming conflicts with other pipeline stages.
+
+### Input Columns (Required)
+- `BD_RECORD_ID` - Unique identifier for each record
+- `BD_TARGET_FIRST_NAME` - Contact first name
+- `BD_TARGET_LAST_NAME` - Contact last name
+- `BD_OWNER_NAME_FULL` - Full name (used if first/last unavailable)
+- `BD_ADDRESS` - Primary street address
+- `BD_CITY` - City name
+- `BD_STATE` - 2-letter state code
+- `BD_ZIP` - 5-digit ZIP code
+
+### Input Columns (Optional)
+- `BD_SOURCE_TYPE` - Entity type (e.g., "Entity")
+- `BD_ENTITY_NAME` - Source entity name from Ecorp
+- `BD_SOURCE_ENTITY_ID` - Entity ID from Ecorp
+- `BD_TITLE_ROLE` - Role/position of person
+- `BD_ADDRESS_2` - Secondary address (suite, apt, etc.)
+- `BD_COUNTY` - County name
+- `BD_APN` - Assessor Parcel Number
+- `BD_MAILING_LINE1` - Mailing address
+- `BD_MAILING_CITY` - Mailing city
+- `BD_MAILING_STATE` - Mailing state
+- `BD_MAILING_ZIP` - Mailing ZIP
+- `BD_NOTES` - Additional notes
+
+### Output Columns (Enrichment)
+The pipeline adds these columns while preserving all input columns:
+- `BD_PHONE_1` through `BD_PHONE_10` - Phone numbers (E.164 format)
+- `BD_PHONE_[1-10]_TYPE` - Phone type (mobile/landline/voip)
+- `BD_PHONE_[1-10]_CARRIER` - Carrier information
+- `BD_PHONE_[1-10]_CONFIDENCE` - Confidence score (0.0-1.0)
+- `BD_PHONE_[1-10]_DNC` - Do-Not-Call status (true/false)
+- `BD_PHONE_[1-10]_TCPA` - TCPA litigator flag (true/false)
+- `BD_EMAIL_1` through `BD_EMAIL_10` - Email addresses
+- `BD_EMAIL_[1-10]_TESTED` - Email validation status
+- `BD_API_STATUS` - API call status (success/no_match/error)
+- `BD_API_RESPONSE_TIME` - Timestamp of API response
+- `BD_PERSONS_FOUND` - Count of persons found
+- `BD_PHONES_FOUND` - Count of phone numbers found
+- `BD_EMAILS_FOUND` - Count of emails found
+- `BD_PIPELINE_VERSION` - Version of the pipeline used (2.0)
+- `BD_PIPELINE_TIMESTAMP` - Processing timestamp
+- `BD_STAGES_APPLIED` - List of enrichment stages applied
+
 ## Usage
 
 ### Basic Usage
 
 Process a template file with INPUT_MASTER data:
 ```bash
-python -m src.run --input batchdata_local_input.xlsx
+python -m src.run --input Batchdata_Template.xlsx
 ```
 
 ### Transform eCorp Data
@@ -95,7 +142,7 @@ python -m src.run --input template.xlsx --ecorp "../Ecorp/Complete/M.YY_Ecorp_Co
 
 Estimate costs without processing:
 ```bash
-python -m src.run --input batchdata_local_input.xlsx --dry-run
+python -m src.run --input Batchdata_Template.xlsx --dry-run
 ```
 
 ## Input File Format
@@ -184,7 +231,7 @@ python create_test_input.py
 
 Test with small dataset:
 ```bash
-python -m src.run --input batchdata_local_input.xlsx --dry-run
+python -m src.run --input Batchdata_Template.xlsx --dry-run
 ```
 
 ### Module Structure

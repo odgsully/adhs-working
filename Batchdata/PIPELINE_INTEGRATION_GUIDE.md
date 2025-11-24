@@ -204,21 +204,21 @@ api_keys = {
 The `INPUT_MASTER` sheet must have these columns:
 
 **Required:**
-- `record_id` - Unique identifier
-- `target_first_name` - Contact first name
-- `target_last_name` - Contact last name
-- `owner_name_full` - Full name for fallback
-- `address_line1` - Street address
-- `city` - City name
-- `state` - 2-letter state code
-- `zip` - 5-digit ZIP code
+- `BD_RECORD_ID` - Unique identifier
+- `BD_TARGET_FIRST_NAME` - Contact first name
+- `BD_TARGET_LAST_NAME` - Contact last name
+- `BD_OWNER_NAME_FULL` - Full name for fallback
+- `BD_ADDRESS` - Street address
+- `BD_CITY` - City name
+- `BD_STATE` - 2-letter state code
+- `BD_ZIP` - 5-digit ZIP code
 
 **Optional but recommended:**
-- `address_line2` - Apt/Suite number
-- `county` - County name
-- `apn` - Assessor Parcel Number
-- `source_entity_name` - Entity name from Ecorp
-- `source_entity_id` - Entity ID from Ecorp
+- `BD_ADDRESS_2` - Apt/Suite number
+- `BD_COUNTY` - County name
+- `BD_APN` - Assessor Parcel Number
+- `BD_ENTITY_NAME` - Entity name from Ecorp
+- `BD_SOURCE_ENTITY_ID` - Entity ID from Ecorp
 
 #### Transformation Process
 
@@ -252,15 +252,19 @@ complete_path = run_batchdata_enrichment(
 
 **BatchData Complete** includes:
 
-- All input columns
-- `phones[0-9].number` - Phone numbers in E.164 format
-- `phones[0-9].type` - mobile/landline/voip
-- `phones[0-9].score` - Quality score (0-100)
-- `phones[0-9].is_active` - Phone verification status
-- `phones[0-9].on_dnc` - Do-Not-Call registry status
-- `phones[0-9].is_litigator` - TCPA litigator flag
-- `emails[0-9].address` - Email addresses
-- `emails[0-9].type` - Email type
+- All input columns (with BD_ prefix preserved)
+- `BD_PHONE_1` through `BD_PHONE_10` - Phone numbers in E.164 format
+- `BD_PHONE_1_TYPE` through `BD_PHONE_10_TYPE` - mobile/landline/voip
+- `BD_PHONE_1_CONFIDENCE` through `BD_PHONE_10_CONFIDENCE` - Quality score (0-100)
+- `BD_PHONE_1_CARRIER` through `BD_PHONE_10_CARRIER` - Carrier information
+- `BD_PHONE_1_DNC` through `BD_PHONE_10_DNC` - Do-Not-Call registry status
+- `BD_PHONE_1_TCPA` through `BD_PHONE_10_TCPA` - TCPA litigator flag
+- `BD_EMAIL_1` through `BD_EMAIL_10` - Email addresses
+- `BD_EMAIL_1_TESTED` through `BD_EMAIL_10_TESTED` - Email validation status
+- `BD_API_STATUS` - API call status (success/no_match/error)
+- `BD_PERSONS_FOUND` - Count of persons found
+- `BD_PHONES_FOUND` - Count of phones found
+- `BD_EMAILS_FOUND` - Count of emails found
 
 ---
 

@@ -270,12 +270,12 @@ def write_template_excel(df: pd.DataFrame, output_path: str, config_dict: Dict[s
     
     # Create expected fields reference (static for now)
     expected_fields_df = pd.DataFrame([
-        {'endpoint': 'property/skip-trace/async', 'field': 'record_id', 'description': 'Echo of input row ID'},
-        {'endpoint': 'property/skip-trace/async', 'field': 'phones[i].number', 'description': '+1E164 format'},
-        {'endpoint': 'property/skip-trace/async', 'field': 'phones[i].type', 'description': 'mobile|landline|voip'},
-        {'endpoint': 'phone/verification/async', 'field': 'is_active', 'description': 'Phone active status'},
-        {'endpoint': 'phone/dnc/async', 'field': 'on_dnc', 'description': 'Do-Not-Call status'},
-        {'endpoint': 'phone/tcpa/async', 'field': 'is_litigator', 'description': 'TCPA litigator status'}
+        {'endpoint': 'property/skip-trace/async', 'field': 'BD_RECORD_ID', 'description': 'Echo of input row ID'},
+        {'endpoint': 'property/skip-trace/async', 'field': 'BD_PHONE_[i]', 'description': '+1E164 format'},
+        {'endpoint': 'property/skip-trace/async', 'field': 'BD_PHONE_[i]_TYPE', 'description': 'mobile|landline|voip'},
+        {'endpoint': 'phone/verification/async', 'field': 'BD_PHONE_[i]_VERIFIED', 'description': 'Phone active status'},
+        {'endpoint': 'phone/dnc/async', 'field': 'BD_PHONE_[i]_DNC', 'description': 'Do-Not-Call status'},
+        {'endpoint': 'phone/tcpa/async', 'field': 'BD_PHONE_[i]_TCPA', 'description': 'TCPA litigator status'}
     ])
     
     # Write multi-sheet Excel file

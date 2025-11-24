@@ -151,19 +151,19 @@ class BatchDataSyncClient:
         for _, row in df.iterrows():
             # Build individual request
             request_item = {
-                "requestId": str(row.get('record_id', '')),  # CRITICAL: enables merging
+                "requestId": str(row.get('BD_RECORD_ID', '')),  # CRITICAL: enables merging
                 "propertyAddress": {
-                    "street": str(row.get('address_line1', '')),
-                    "city": str(row.get('city', '')),
-                    "state": str(row.get('state', '')),
-                    "zip": str(row.get('zip', ''))
+                    "street": str(row.get('BD_ADDRESS', '')),
+                    "city": str(row.get('BD_CITY', '')),
+                    "state": str(row.get('BD_STATE', '')),
+                    "zip": str(row.get('BD_ZIP', ''))
                 }
             }
 
             # Add name if available (improves match rate)
-            first_name = row.get('target_first_name', '')
-            last_name = row.get('target_last_name', '')
-            full_name = row.get('owner_name_full', '')
+            first_name = row.get('BD_TARGET_FIRST_NAME', '')
+            last_name = row.get('BD_TARGET_LAST_NAME', '')
+            full_name = row.get('BD_OWNER_NAME_FULL', '')
 
             if first_name or last_name:
                 request_item["name"] = {
@@ -235,24 +235,24 @@ class BatchDataSyncClient:
         result_df = input_df.copy()
 
         # Add default enrichment columns
-        for i in range(1, 11):  # phone_1 through phone_10
-            result_df[f'phone_{i}'] = ''
-            result_df[f'phone_{i}_type'] = ''
-            result_df[f'phone_{i}_carrier'] = ''
-            result_df[f'phone_{i}_dnc'] = False
-            result_df[f'phone_{i}_tcpa'] = False
-            result_df[f'phone_{i}_confidence'] = 0.0
+        for i in range(1, 11):  # BD_PHONE_1 through BD_PHONE_10
+            result_df[f'BD_PHONE_{i}'] = ''
+            result_df[f'BD_PHONE_{i}_TYPE'] = ''
+            result_df[f'BD_PHONE_{i}_CARRIER'] = ''
+            result_df[f'BD_PHONE_{i}_DNC'] = False
+            result_df[f'BD_PHONE_{i}_TCPA'] = False
+            result_df[f'BD_PHONE_{i}_CONFIDENCE'] = 0.0
 
-        for i in range(1, 11):  # email_1 through email_10
-            result_df[f'email_{i}'] = ''
-            result_df[f'email_{i}_tested'] = False
+        for i in range(1, 11):  # BD_EMAIL_1 through BD_EMAIL_10
+            result_df[f'BD_EMAIL_{i}'] = ''
+            result_df[f'BD_EMAIL_{i}_TESTED'] = False
 
         # Add API status columns
-        result_df['api_status'] = 'success'
-        result_df['api_response_time'] = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-        result_df['persons_found'] = 0
-        result_df['phones_found'] = 0
-        result_df['emails_found'] = 0
+        result_df['BD_API_STATUS'] = 'success'
+        result_df['BD_API_RESPONSE_TIME'] = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+        result_df['BD_PERSONS_FOUND'] = 0
+        result_df['BD_PHONES_FOUND'] = 0
+        result_df['BD_EMAILS_FOUND'] = 0
 
         # Check for valid response - V1 uses 'results' not 'result'
         if not response:
@@ -285,19 +285,19 @@ class BatchDataSyncClient:
             else:
                 # V1 format: match by index to input row
                 if idx_item < len(result_df):
-                    record_id = str(result_df.iloc[idx_item].get('record_id', ''))
+                    record_id = str(result_df.iloc[idx_item].get('BD_RECORD_ID', ''))
                     response_by_id[record_id] = item
 
         # Update each row with response data
         for idx, row in result_df.iterrows():
-            record_id = str(row.get('record_id', ''))
+            record_id = str(row.get('BD_RECORD_ID', ''))
 
             if record_id in response_by_id:
                 item = response_by_id[record_id]
                 persons = item.get('persons', [])
 
                 # Count persons found
-                result_df.at[idx, 'persons_found'] = len(persons)
+                result_df.at[idx, 'BD_PERSONS_FOUND'] = len(persons)
 
                 # Collect all phones and emails from all persons
                 all_phones = []
@@ -327,23 +327,23 @@ class BatchDataSyncClient:
                         all_emails.append(email_data)
 
                 # Update phone columns (up to 10)
-                result_df.at[idx, 'phones_found'] = len(all_phones)
+                result_df.at[idx, 'BD_PHONES_FOUND'] = len(all_phones)
                 for i, phone in enumerate(all_phones[:10], 1):
-                    result_df.at[idx, f'phone_{i}'] = phone['number']
-                    result_df.at[idx, f'phone_{i}_type'] = phone['type']
-                    result_df.at[idx, f'phone_{i}_carrier'] = phone['carrier']
-                    result_df.at[idx, f'phone_{i}_dnc'] = phone['dnc']
-                    result_df.at[idx, f'phone_{i}_tcpa'] = phone['tcpa']
-                    result_df.at[idx, f'phone_{i}_confidence'] = phone['confidence']
+                    result_df.at[idx, f'BD_PHONE_{i}'] = phone['number']
+                    result_df.at[idx, f'BD_PHONE_{i}_TYPE'] = phone['type']
+                    result_df.at[idx, f'BD_PHONE_{i}_CARRIER'] = phone['carrier']
+                    result_df.at[idx, f'BD_PHONE_{i}_DNC'] = phone['dnc']
+                    result_df.at[idx, f'BD_PHONE_{i}_TCPA'] = phone['tcpa']
+                    result_df.at[idx, f'BD_PHONE_{i}_CONFIDENCE'] = phone['confidence']
 
                 # Update email columns (up to 10)
-                result_df.at[idx, 'emails_found'] = len(all_emails)
+                result_df.at[idx, 'BD_EMAILS_FOUND'] = len(all_emails)
                 for i, email in enumerate(all_emails[:10], 1):
-                    result_df.at[idx, f'email_{i}'] = email['address']
-                    result_df.at[idx, f'email_{i}_tested'] = email['tested']
+                    result_df.at[idx, f'BD_EMAIL_{i}'] = email['address']
+                    result_df.at[idx, f'BD_EMAIL_{i}_TESTED'] = email['tested']
             else:
                 # No response for this record
-                result_df.at[idx, 'api_status'] = 'no_match'
+                result_df.at[idx, 'BD_API_STATUS'] = 'no_match'
                 logger.debug(f"No match found for record_id: {record_id}")
 
         return result_df
@@ -378,10 +378,10 @@ class BatchDataSyncClient:
         phones_to_verify = []
         for _, row in input_df.iterrows():
             for i in range(1, 11):
-                phone = row.get(f'phone_{i}', '')
+                phone = row.get(f'BD_PHONE_{i}', '')
                 if phone and str(phone).strip():
                     phones_to_verify.append({
-                        'record_id': row['record_id'],
+                        'record_id': row['BD_RECORD_ID'],
                         'phone_index': i,
                         'phone': str(phone).strip()
                     })
@@ -413,16 +413,16 @@ class BatchDataSyncClient:
                 # Update DataFrame with results
                 results = response_data.get('result', {}).get('data', [])
                 for item, result in zip(batch, results):
-                    idx = result_df[result_df['record_id'] == item['record_id']].index[0]
-                    phone_col = f"phone_{item['phone_index']}"
+                    idx = result_df[result_df['BD_RECORD_ID'] == item['record_id']].index[0]
+                    phone_col = f"BD_PHONE_{item['phone_index']}"
 
                     # Update verification fields
                     if result.get('valid', False):
-                        result_df.at[idx, f"{phone_col}_verified"] = True
-                        result_df.at[idx, f"{phone_col}_type"] = result.get('type', '')
-                        result_df.at[idx, f"{phone_col}_carrier"] = result.get('carrier', '')
+                        result_df.at[idx, f"{phone_col}_VERIFIED"] = True
+                        result_df.at[idx, f"{phone_col}_TYPE"] = result.get('type', '')
+                        result_df.at[idx, f"{phone_col}_CARRIER"] = result.get('carrier', '')
                     else:
-                        result_df.at[idx, f"{phone_col}_verified"] = False
+                        result_df.at[idx, f"{phone_col}_VERIFIED"] = False
 
             except Exception as e:
                 logger.error(f"Error in phone verification: {e}")
@@ -446,10 +446,10 @@ class BatchDataSyncClient:
         phones_to_check = []
         for _, row in input_df.iterrows():
             for i in range(1, 11):
-                phone = row.get(f'phone_{i}', '')
+                phone = row.get(f'BD_PHONE_{i}', '')
                 if phone and str(phone).strip():
                     phones_to_check.append({
-                        'record_id': row['record_id'],
+                        'record_id': row['BD_RECORD_ID'],
                         'phone_index': i,
                         'phone': str(phone).strip()
                     })
@@ -479,9 +479,9 @@ class BatchDataSyncClient:
                 # Update DataFrame with DNC results
                 results = response_data.get('result', {}).get('data', [])
                 for item, result in zip(batch, results):
-                    idx = result_df[result_df['record_id'] == item['record_id']].index[0]
-                    phone_col = f"phone_{item['phone_index']}"
-                    result_df.at[idx, f"{phone_col}_dnc"] = result.get('dnc', False)
+                    idx = result_df[result_df['BD_RECORD_ID'] == item['record_id']].index[0]
+                    phone_col = f"BD_PHONE_{item['phone_index']}"
+                    result_df.at[idx, f"{phone_col}_DNC"] = result.get('dnc', False)
 
             except Exception as e:
                 logger.error(f"Error in DNC check: {e}")
@@ -505,10 +505,10 @@ class BatchDataSyncClient:
         phones_to_check = []
         for _, row in input_df.iterrows():
             for i in range(1, 11):
-                phone = row.get(f'phone_{i}', '')
+                phone = row.get(f'BD_PHONE_{i}', '')
                 if phone and str(phone).strip():
                     phones_to_check.append({
-                        'record_id': row['record_id'],
+                        'record_id': row['BD_RECORD_ID'],
                         'phone_index': i,
                         'phone': str(phone).strip()
                     })
@@ -538,9 +538,9 @@ class BatchDataSyncClient:
                 # Update DataFrame with TCPA results
                 results = response_data.get('result', {}).get('data', [])
                 for item, result in zip(batch, results):
-                    idx = result_df[result_df['record_id'] == item['record_id']].index[0]
-                    phone_col = f"phone_{item['phone_index']}"
-                    result_df.at[idx, f"{phone_col}_tcpa"] = result.get('tcpa', False)
+                    idx = result_df[result_df['BD_RECORD_ID'] == item['record_id']].index[0]
+                    phone_col = f"BD_PHONE_{item['phone_index']}"
+                    result_df.at[idx, f"{phone_col}_TCPA"] = result.get('tcpa', False)
 
             except Exception as e:
                 logger.error(f"Error in TCPA check: {e}")
@@ -595,26 +595,26 @@ class BatchDataSyncClient:
 if __name__ == "__main__":
     # Example: Create test DataFrame
     test_df = pd.DataFrame({
-        'record_id': ['ecorp_123_1_abc', 'ecorp_124_1_def'],
-        'source_type': ['Entity', 'Entity'],
-        'source_entity_name': ['Test Corp 1', 'Test Corp 2'],
-        'source_entity_id': ['123', '124'],
-        'title_role': ['Manager', 'Member'],
-        'target_first_name': ['John', 'Jane'],
-        'target_last_name': ['Smith', 'Doe'],
-        'owner_name_full': ['John Smith', 'Jane Doe'],
-        'address_line1': ['123 Main St', '456 Oak Ave'],
-        'address_line2': ['', 'Suite 200'],
-        'city': ['Phoenix', 'Scottsdale'],
-        'state': ['AZ', 'AZ'],
-        'zip': ['85001', '85250'],
-        'county': ['MARICOPA', 'MARICOPA'],
-        'apn': ['123-45-678', '987-65-432'],
-        'mailing_line1': ['', ''],
-        'mailing_city': ['', ''],
-        'mailing_state': ['', ''],
-        'mailing_zip': ['', ''],
-        'notes': ['Test note 1', 'Test note 2']
+        'BD_RECORD_ID': ['ecorp_123_1_abc', 'ecorp_124_1_def'],
+        'BD_SOURCE_TYPE': ['Entity', 'Entity'],
+        'BD_ENTITY_NAME': ['Test Corp 1', 'Test Corp 2'],
+        'BD_SOURCE_ENTITY_ID': ['123', '124'],
+        'BD_TITLE_ROLE': ['Manager', 'Member'],
+        'BD_TARGET_FIRST_NAME': ['John', 'Jane'],
+        'BD_TARGET_LAST_NAME': ['Smith', 'Doe'],
+        'BD_OWNER_NAME_FULL': ['John Smith', 'Jane Doe'],
+        'BD_ADDRESS': ['123 Main St', '456 Oak Ave'],
+        'BD_ADDRESS_2': ['', 'Suite 200'],
+        'BD_CITY': ['Phoenix', 'Scottsdale'],
+        'BD_STATE': ['AZ', 'AZ'],
+        'BD_ZIP': ['85001', '85250'],
+        'BD_COUNTY': ['MARICOPA', 'MARICOPA'],
+        'BD_APN': ['123-45-678', '987-65-432'],
+        'BD_MAILING_LINE1': ['', ''],
+        'BD_MAILING_CITY': ['', ''],
+        'BD_MAILING_STATE': ['', ''],
+        'BD_MAILING_ZIP': ['', ''],
+        'BD_NOTES': ['Test note 1', 'Test note 2']
     })
 
     # Example API keys (would come from environment)

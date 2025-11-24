@@ -262,12 +262,12 @@ def run_pipeline(input_path: str, ecorp_path: str = None, dry_run: bool = False,
                 
                 # Merge with original data - preserve ALL fields from both DataFrames
                 # Use outer merge to keep all data, then prefer skip-trace results
-                final_df = pd.merge(working_df, phones_wide, on='record_id', how='left', suffixes=('', '_phones'))
-                
+                final_df = pd.merge(working_df, phones_wide, on='BD_RECORD_ID', how='left', suffixes=('', '_phones'))
+
                 # Also merge the full skip-trace results to preserve all API fields
                 if not final_results.empty:
                     # Ensure we keep ALL fields from API response
-                    final_df = pd.merge(final_df, final_results, on='record_id', how='left', suffixes=('', '_api'))
+                    final_df = pd.merge(final_df, final_results, on='BD_RECORD_ID', how='left', suffixes=('', '_api'))
             else:
                 final_df = working_df
         else:

@@ -30,15 +30,14 @@ def create_batchdata_upload(
     ecorp_complete_path: str,
     month_code: str,
     output_dir: str = "Batchdata/Upload",
-    timestamp: Optional[str] = None,
-    config_template_path: str = "Batchdata/template_config.xlsx"
+    timestamp: Optional[str] = None
 ) -> Path:
     """Create BatchData Upload file from Ecorp Complete data.
 
     This function:
     1. Loads Ecorp Complete Excel file
     2. Transforms it to BatchData format using transform_ecorp_to_batchdata()
-    3. Loads CONFIG and BLACKLIST_NAMES from template
+    3. Creates CONFIG from environment variables
     4. Saves as new Upload file with standardized naming
 
     Args:
@@ -46,26 +45,23 @@ def create_batchdata_upload(
         month_code: Month code (e.g., "1.25" for January 2025)
         output_dir: Directory for Upload file (default: "Batchdata/Upload")
         timestamp: Optional timestamp string (MM.DD.HH-MM-SS). If None, generates new one.
-        config_template_path: Path to template config file with CONFIG and BLACKLIST_NAMES sheets
 
     Returns:
         Path object pointing to created Upload file
 
     Raises:
-        FileNotFoundError: If ecorp_complete_path or config_template_path doesn't exist
-        ValueError: If required sheets missing from template
+        FileNotFoundError: If ecorp_complete_path doesn't exist
     """
+    import os
+
     if timestamp is None:
         timestamp = get_standard_timestamp()
 
     # Validate inputs
     ecorp_path = Path(ecorp_complete_path)
-    template_path = Path(config_template_path)
 
     if not ecorp_path.exists():
         raise FileNotFoundError(f"Ecorp Complete file not found: {ecorp_complete_path}")
-    if not template_path.exists():
-        raise FileNotFoundError(f"Template config file not found: {config_template_path}")
 
     print(f"\n{'='*60}")
     print(f"Creating BatchData Upload from Ecorp Complete")
@@ -84,18 +80,36 @@ def create_batchdata_upload(
     batchdata_df = transform_ecorp_to_batchdata(ecorp_df)
     print(f"  Transformed to {len(batchdata_df)} BatchData records")
 
-    # Load template sheets (CONFIG, BLACKLIST_NAMES)
-    print(f"\nLoading template configuration...")
-    template_sheets = pd.read_excel(template_path, sheet_name=None)
+    # Create CONFIG from environment variables
+    print(f"\nCreating configuration from environment...")
+    config_data = []
 
-    required_sheets = ['CONFIG', 'BLACKLIST_NAMES']
-    for sheet in required_sheets:
-        if sheet not in template_sheets:
-            raise ValueError(f"Required sheet '{sheet}' not found in template")
+    # Check for BatchData API keys in environment
+    api_keys = {
+        'bd.api.key.skiptrace': os.getenv('BD_SKIPTRACE_KEY', os.getenv('BD_PROPERTY_KEY', '')),
+        'bd.api.key.address': os.getenv('BD_ADDRESS_KEY', ''),
+        'bd.api.key.property': os.getenv('BD_PROPERTY_KEY', ''),
+        'bd.api.key.phone': os.getenv('BD_PHONE_KEY', '')
+    }
 
-    config_df = template_sheets['CONFIG']
-    blacklist_df = template_sheets['BLACKLIST_NAMES']
-    print(f"  Loaded CONFIG and BLACKLIST_NAMES")
+    for key, value in api_keys.items():
+        if value:
+            config_data.append({'key': key, 'value': value})
+
+    # Add other config settings
+    config_data.extend([
+        {'key': 'bd.chunk.size', 'value': '100'},
+        {'key': 'bd.retry.max', 'value': '3'},
+        {'key': 'bd.timeout', 'value': '60'}
+    ])
+
+    config_df = pd.DataFrame(config_data)
+
+    # Create empty blacklist (using dynamic blacklist in code instead)
+    blacklist_df = pd.DataFrame(columns=['blacklist_name'])
+
+    print(f"  Created CONFIG with {len(config_df)} settings")
+    print(f"  Using dynamic blacklist from code")
 
     # Create output directory if needed
     output_path = Path(output_dir)
@@ -401,57 +415,6 @@ def _run_async_enrichment(
             shutil.rmtree(temp_results_dir, ignore_errors=True)
 
 
-def create_template_config(
-    source_input_path: str = "Batchdata/tests/batchdata_local_input.xlsx",
-    output_path: str = "Batchdata/template_config.xlsx"
-) -> Path:
-    """Create template config file from existing batchdata_local_input.xlsx.
-
-    Extracts CONFIG and BLACKLIST_NAMES sheets, creates empty INPUT_MASTER sheet.
-
-    Args:
-        source_input_path: Path to existing batchdata_local_input.xlsx
-        output_path: Path for new template file
-
-    Returns:
-        Path to created template file
-
-    Raises:
-        FileNotFoundError: If source file doesn't exist
-        ValueError: If required sheets missing
-    """
-    source_file = Path(source_input_path)
-
-    if not source_file.exists():
-        raise FileNotFoundError(f"Source file not found: {source_input_path}")
-
-    print(f"Creating template config from {source_file.name}...")
-
-    # Load sheets
-    sheets = pd.read_excel(source_file, sheet_name=None)
-
-    required_sheets = ['CONFIG', 'BLACKLIST_NAMES', 'INPUT_MASTER']
-    for sheet in required_sheets:
-        if sheet not in sheets:
-            raise ValueError(f"Required sheet '{sheet}' not found in source")
-
-    config_df = sheets['CONFIG']
-    blacklist_df = sheets['BLACKLIST_NAMES']
-    input_master_df = sheets['INPUT_MASTER']
-
-    # Create empty INPUT_MASTER with same structure (just headers)
-    empty_input = pd.DataFrame(columns=input_master_df.columns)
-
-    # Write template file
-    output_file = Path(output_path)
-    with pd.ExcelWriter(output_file, engine='openpyxl') as writer:
-        config_df.to_excel(writer, sheet_name='CONFIG', index=False)
-        empty_input.to_excel(writer, sheet_name='INPUT_MASTER', index=False)
-        blacklist_df.to_excel(writer, sheet_name='BLACKLIST_NAMES', index=False)
-
-    print(f"✓ Created template: {output_file}")
-    print(f"  - CONFIG: {len(config_df)} settings")
-    print(f"  - INPUT_MASTER: Empty (template structure)")
-    print(f"  - BLACKLIST_NAMES: {len(blacklist_df)} entries")
-
-    return output_file
+# Function removed - template_config.xlsx no longer used
+# CONFIG is now created from environment variables
+# BLACKLIST is handled by dynamic code logic
