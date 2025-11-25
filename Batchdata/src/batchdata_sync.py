@@ -237,6 +237,8 @@ class BatchDataSyncClient:
         # Add default enrichment columns
         for i in range(1, 11):  # BD_PHONE_1 through BD_PHONE_10
             result_df[f'BD_PHONE_{i}'] = ''
+            result_df[f'BD_PHONE_{i}_FIRST'] = ''  # Person first name
+            result_df[f'BD_PHONE_{i}_LAST'] = ''   # Person last name
             result_df[f'BD_PHONE_{i}_TYPE'] = ''
             result_df[f'BD_PHONE_{i}_CARRIER'] = ''
             result_df[f'BD_PHONE_{i}_DNC'] = False
@@ -245,6 +247,8 @@ class BatchDataSyncClient:
 
         for i in range(1, 11):  # BD_EMAIL_1 through BD_EMAIL_10
             result_df[f'BD_EMAIL_{i}'] = ''
+            result_df[f'BD_EMAIL_{i}_FIRST'] = ''  # Person first name
+            result_df[f'BD_EMAIL_{i}_LAST'] = ''   # Person last name
             result_df[f'BD_EMAIL_{i}_TESTED'] = False
 
         # Add API status columns
@@ -304,11 +308,18 @@ class BatchDataSyncClient:
                 all_emails = []
 
                 for person in persons:
+                    # Extract person name once per person (handles missing name gracefully)
+                    person_name = person.get('name', {}) or {}
+                    person_first = person_name.get('first', '') or ''
+                    person_last = person_name.get('last', '') or ''
+
                     # Process phones - V1 uses 'phoneNumbers', V2/V3 uses 'phones'
                     phones = person.get('phoneNumbers', person.get('phones', []))
                     for phone in phones:
                         phone_data = {
                             'number': phone.get('number', ''),
+                            'first': person_first,  # Denormalized person name
+                            'last': person_last,    # Denormalized person name
                             'type': phone.get('type', ''),
                             'carrier': phone.get('carrier', ''),
                             'dnc': phone.get('dnc', False),
@@ -322,6 +333,8 @@ class BatchDataSyncClient:
                     for email in emails:
                         email_data = {
                             'address': email.get('address', ''),
+                            'first': person_first,  # Denormalized person name
+                            'last': person_last,    # Denormalized person name
                             'tested': email.get('tested', False)
                         }
                         all_emails.append(email_data)
@@ -330,6 +343,8 @@ class BatchDataSyncClient:
                 result_df.at[idx, 'BD_PHONES_FOUND'] = len(all_phones)
                 for i, phone in enumerate(all_phones[:10], 1):
                     result_df.at[idx, f'BD_PHONE_{i}'] = phone['number']
+                    result_df.at[idx, f'BD_PHONE_{i}_FIRST'] = phone['first']
+                    result_df.at[idx, f'BD_PHONE_{i}_LAST'] = phone['last']
                     result_df.at[idx, f'BD_PHONE_{i}_TYPE'] = phone['type']
                     result_df.at[idx, f'BD_PHONE_{i}_CARRIER'] = phone['carrier']
                     result_df.at[idx, f'BD_PHONE_{i}_DNC'] = phone['dnc']
@@ -340,6 +355,8 @@ class BatchDataSyncClient:
                 result_df.at[idx, 'BD_EMAILS_FOUND'] = len(all_emails)
                 for i, email in enumerate(all_emails[:10], 1):
                     result_df.at[idx, f'BD_EMAIL_{i}'] = email['address']
+                    result_df.at[idx, f'BD_EMAIL_{i}_FIRST'] = email['first']
+                    result_df.at[idx, f'BD_EMAIL_{i}_LAST'] = email['last']
                     result_df.at[idx, f'BD_EMAIL_{i}_TESTED'] = email['tested']
             else:
                 # No response for this record

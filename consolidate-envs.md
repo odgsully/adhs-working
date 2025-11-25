@@ -395,34 +395,376 @@ Similar pattern: Replace references to "Batchdata/.env" or "local .env" with "pr
 
 ---
 
-## Future Phase: Settings Class Integration (Deferred)
+---
 
-**Not included in this plan** to keep it simple. Future work:
+# PHASE 1 STATUS: COMPLETED ✅
+
+Phase 1 (File Consolidation) has been executed:
+- ✅ `Batchdata/src/run.py:126` now loads from project root: `load_dotenv(Path(__file__).parent.parent.parent / '.env')`
+- ✅ BatchData keys documented in `.env.sample`
+- ⚠️ Redundant files may still exist (`.env.example`, subdirectory samples) - verify and clean up
+
+---
+
+# PHASE 2: Settings Class Centralization
+
+**Goal**: Eliminate direct `os.getenv()` calls in business logic, centralize all config through Pydantic Settings.
+
+## Problems Identified (8 Fragmentation Issues)
+
+### Code-Level Violations
+
+| # | File | Line(s) | Issue | Severity |
+|---|------|---------|-------|----------|
+| 1 | `src/adhs_etl/mcao_client.py` | 17, 21 | Module-level `load_dotenv()` - runs on every import | HIGH |
+| 2 | `src/adhs_etl/mcao_client.py` | 39 | `os.getenv("MCAO_API_KEY")` bypasses Settings | HIGH |
+| 3 | `src/adhs_etl/batchdata_bridge.py` | 284-287 | Direct `os.getenv()` for BD_* keys in business logic | MEDIUM |
+| 4 | `Batchdata/src/batchdata.py` | 344-347 | `create_client_from_env()` uses `os.getenv()` directly | MEDIUM |
+| 5 | `scripts/process_months_local.py` | - | Imports Settings but never instantiates it | LOW |
+| 6 | `src/adhs_etl/cli_enhanced.py` | - | Imports Settings but never instantiates it | LOW |
+
+### Configuration Mismatches
+
+| # | Issue | Details |
+|---|-------|---------|
+| 7 | Prefix mismatch | Settings expects `ADHS_MCAO_API_KEY`, .env has `MCAO_API_KEY` |
+| 8 | Missing fields | BatchData keys not in Settings class at all |
+
+### Architectural Issues
+
+- **3 separate `load_dotenv()` calls**: mcao_client.py, Batchdata/run.py, various scripts
+- **Settings imported but unused**: Entry points import Settings but use hardcoded paths
+- **No single source of truth**: Some config from Settings, some from os.getenv(), some from CONFIG sheet
+
+---
+
+## Implementation Steps
+
+### Step 1: Enhance Settings Class
+
+**File**: `src/adhs_etl/config.py`
+
+**1.1 Add AliasChoices import and update mcao_api_key field:**
 
 ```python
-# src/adhs_etl/config.py - Add BatchData fields
-class Settings(BaseSettings):
-    # ... existing ...
-    bd_skiptrace_key: Optional[str] = Field(default=None)
-    bd_address_key: Optional[str] = Field(default=None)
-    bd_property_key: Optional[str] = Field(default=None)
-    bd_phone_key: Optional[str] = Field(default=None)
+from pydantic import Field, AliasChoices  # Add AliasChoices to import
 
-# Batchdata/src/batchdata.py - Use Settings
-from adhs_etl.config import Settings
-settings = Settings()
-api_keys = {'BD_SKIPTRACE_KEY': settings.bd_skiptrace_key, ...}
+# Change mcao_api_key field (around line 59-62) from:
+mcao_api_key: Optional[str] = Field(default=None, description="MCAO API key")
+
+# To:
+mcao_api_key: Optional[str] = Field(
+    default=None,
+    description="MCAO API key for property data",
+    validation_alias=AliasChoices("MCAO_API_KEY", "ADHS_MCAO_API_KEY"),
+)
 ```
 
-**Benefits**: Type checking, validation, better IDE support
-**Complexity**: Higher - separate PR recommended
+**1.2 Add BatchData API key fields (after mcao fields):**
+
+```python
+# BatchData API Keys (Stage 5 - Optional)
+bd_skiptrace_key: Optional[str] = Field(
+    default=None,
+    description="BatchData skip-trace API key",
+    validation_alias=AliasChoices("BD_SKIPTRACE_KEY"),
+)
+bd_address_key: Optional[str] = Field(
+    default=None,
+    description="BatchData address verification API key",
+    validation_alias=AliasChoices("BD_ADDRESS_KEY"),
+)
+bd_property_key: Optional[str] = Field(
+    default=None,
+    description="BatchData property search API key",
+    validation_alias=AliasChoices("BD_PROPERTY_KEY"),
+)
+bd_phone_key: Optional[str] = Field(
+    default=None,
+    description="BatchData phone verification/DNC/TCPA API key",
+    validation_alias=AliasChoices("BD_PHONE_KEY"),
+)
+```
+
+**1.3 Add convenience property for BatchData client initialization:**
+
+```python
+@property
+def batchdata_api_keys(self) -> dict:
+    """Get all BatchData API keys as dict for client initialization."""
+    return {
+        'BD_SKIPTRACE_KEY': self.bd_skiptrace_key,
+        'BD_ADDRESS_KEY': self.bd_address_key,
+        'BD_PROPERTY_KEY': self.bd_property_key,
+        'BD_PHONE_KEY': self.bd_phone_key,
+    }
+```
+
+**1.4 Add backward compatibility layer (populates os.environ):**
+
+```python
+def model_post_init(self, __context) -> None:
+    """Populate os.environ for backward compatibility with legacy code."""
+    import os
+    env_mappings = {
+        'MCAO_API_KEY': self.mcao_api_key,
+        'BD_SKIPTRACE_KEY': self.bd_skiptrace_key,
+        'BD_ADDRESS_KEY': self.bd_address_key,
+        'BD_PROPERTY_KEY': self.bd_property_key,
+        'BD_PHONE_KEY': self.bd_phone_key,
+    }
+    for key, value in env_mappings.items():
+        if value is not None:
+            os.environ[key] = str(value)
+```
+
+---
+
+### Step 2: Fix mcao_client.py
+
+**File**: `src/adhs_etl/mcao_client.py`
+
+**2.1 Remove module-level load_dotenv (lines 17 and 21):**
+
+```python
+# DELETE these lines:
+from dotenv import load_dotenv  # line 17
+load_dotenv()                    # line 21
+```
+
+**2.2 Update constructor to use Settings (line 39):**
+
+```python
+# Change from:
+self.api_key = api_key or os.getenv("MCAO_API_KEY")
+
+# To:
+if api_key is None:
+    from .config import get_settings
+    api_key = get_settings().mcao_api_key
+self.api_key = api_key
+```
+
+**2.3 Remove unused os import if no longer needed**
+
+---
+
+### Step 3: Add load_dotenv to Primary Entry Point
+
+**File**: `scripts/process_months_local.py`
+
+**Add after shebang, before other imports (around line 8-10):**
+
+```python
+#!/usr/bin/env python3
+"""
+Enhanced Month Processing Script with Interactive Menu
+...
+"""
+
+# Load environment variables ONCE at application entry
+from pathlib import Path
+from dotenv import load_dotenv
+load_dotenv(Path(__file__).parent.parent / '.env')
+
+# Rest of imports...
+import os
+import shutil
+```
+
+---
+
+### Step 4: Update batchdata_bridge.py (Optional but Recommended)
+
+**File**: `src/adhs_etl/batchdata_bridge.py`
+
+**4.1 Replace direct os.getenv loop (lines 284-287):**
+
+```python
+# Change from:
+for key in ['BD_SKIPTRACE_KEY', 'BD_ADDRESS_KEY', 'BD_PROPERTY_KEY', 'BD_PHONE_KEY']:
+    env_value = os.getenv(key)
+    if env_value:
+        api_keys[key] = env_value
+
+# To:
+from .config import get_settings
+settings = get_settings()
+settings_keys = settings.batchdata_api_keys
+for key, value in settings_keys.items():
+    if value:
+        api_keys[key] = value
+```
+
+---
+
+## What Stays Unchanged
+
+| Component | Reason |
+|-----------|--------|
+| `Batchdata/` directory structure | Keep semi-independent, no subpackage migration |
+| `Batchdata/src/run.py` load_dotenv | Required for standalone operation |
+| `Batchdata/src/batchdata.py` create_client_from_env | Works with compat layer populating os.environ |
+| Test files using os.environ | Standard mocking pattern, works with compat layer |
+| Script files in Batchdata/ | No changes needed |
+
+---
+
+## Execution Order
+
+| Step | File | Changes | Est. Time |
+|------|------|---------|-----------|
+| 1 | `src/adhs_etl/config.py` | Add AliasChoices, BD fields, compat layer | 15 min |
+| 2 | `src/adhs_etl/mcao_client.py` | Remove load_dotenv, use Settings | 10 min |
+| 3 | `scripts/process_months_local.py` | Add entry point load_dotenv | 5 min |
+| 4 | `src/adhs_etl/batchdata_bridge.py` | Use Settings (optional) | 5 min |
+
+**Total**: ~35 minutes
+
+---
+
+## Testing & Validation
+
+### Test 1: Verify Settings loads all keys
+
+```bash
+poetry run python -c "
+from adhs_etl.config import get_settings
+s = get_settings(month='1.25')
+print(f'MCAO key: {bool(s.mcao_api_key)}')
+print(f'BD skip: {bool(s.bd_skiptrace_key)}')
+print(f'BD phone: {bool(s.bd_phone_key)}')
+print(f'API keys dict: {list(s.batchdata_api_keys.keys())}')
+"
+```
+
+### Test 2: Verify backward compat layer populates os.environ
+
+```bash
+poetry run python -c "
+import os
+from adhs_etl.config import get_settings
+s = get_settings(month='1.25')
+print(f'os.environ MCAO: {bool(os.environ.get(\"MCAO_API_KEY\"))}')
+print(f'os.environ BD_PHONE: {bool(os.environ.get(\"BD_PHONE_KEY\"))}')
+"
+```
+
+### Test 3: MCAO client works without module-level load_dotenv
+
+```bash
+poetry run python -c "
+from adhs_etl.mcao_client import MCAAOAPIClient
+try:
+    client = MCAAOAPIClient()
+    print(f'Client OK, has key: {bool(client.api_key)}')
+except ValueError as e:
+    print(f'No key: {e}')
+"
+```
+
+### Test 4: Full pipeline integration
+
+```bash
+poetry run python scripts/process_months_local.py
+# Select test mode, single month, verify MCAO enrichment works
+```
+
+### Test 5: Batchdata standalone still works
+
+```bash
+cd Batchdata && python -m src.run --help && cd ..
+```
+
+### Test 6: Existing tests pass
+
+```bash
+poetry run pytest src/tests/ -v
+cd Batchdata && python -m pytest tests/ -v && cd ..
+```
+
+---
+
+## Backward Compatibility Matrix
+
+| Change | Breaks Existing? | Notes |
+|--------|------------------|-------|
+| AliasChoices for MCAO key | No | Accepts both MCAO_API_KEY and ADHS_MCAO_API_KEY |
+| Add BD fields to Settings | No | Additive, optional fields |
+| Compat layer populating os.environ | No | Legacy code keeps working |
+| Remove load_dotenv from mcao_client | No | Entry point loads it first |
+| Entry point load_dotenv | No | Makes implicit explicit |
+
+---
+
+## Risk Assessment
+
+| Risk | Likelihood | Impact | Mitigation |
+|------|------------|--------|------------|
+| Script imports mcao_client before entry point runs | Low | MCAO key not found | Add load_dotenv to any direct script entry points |
+| Test mocking breaks | Low | Test failures | Compat layer populates os.environ, mocking works |
+| Batchdata standalone breaks | Very Low | BD pipeline fails | Batchdata/run.py unchanged, has own load_dotenv |
+
+---
+
+## Rollback Plan
+
+```bash
+# Before committing:
+git checkout .
+
+# After committing:
+git revert HEAD
+
+# Specific file rollback:
+git checkout HEAD~1 -- src/adhs_etl/config.py
+git checkout HEAD~1 -- src/adhs_etl/mcao_client.py
+```
+
+---
+
+## Commit Message Template
+
+```
+feat: centralize environment config through Settings class
+
+Phase 2 of environment consolidation - centralizes all config access
+through Pydantic Settings class with backward compatibility.
+
+Changes:
+- Add AliasChoices to Settings for MCAO_API_KEY flexibility
+- Add BatchData API keys (BD_*) to Settings class
+- Add batchdata_api_keys property for client initialization
+- Add compat layer that populates os.environ for legacy code
+- Remove module-level load_dotenv from mcao_client.py
+- Add explicit load_dotenv to process_months_local.py entry point
+
+Benefits:
+- Single source of truth for all configuration
+- Type checking and validation via Pydantic
+- Backward compatible (legacy os.getenv still works)
+- Aligns with CLAUDE.md rule #2 (centralized config)
+
+Breaking changes: None (compat layer ensures os.getenv works)
+
+Refs: consolidate-envs.md Phase 2
+```
 
 ---
 
 ## Summary
 
-**Simple**: 3 deletes, 8 updates, 2 line code change
-**Conservative**: Existing .env unchanged, no Settings refactor
-**Clean**: One .env.sample, explicit paths, zero redundancy
+**Phase 1** (File Consolidation): ✅ COMPLETED
+- Single .env at project root
+- Batchdata/run.py uses explicit path
 
-**Time estimate**: 30 minutes execution + testing
+**Phase 2** (Settings Centralization): READY TO IMPLEMENT
+- 4 files to modify
+- ~35 minutes implementation
+- Zero breaking changes via compat layer
+- Gradual migration path (legacy code keeps working)
+
+**Future Phase 3** (Deferred):
+- Remove compat layer once all code migrated to Settings
+- Consider making Batchdata a proper subpackage
+- Remove all direct os.getenv from business logic
