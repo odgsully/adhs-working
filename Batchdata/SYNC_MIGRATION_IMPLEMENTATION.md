@@ -144,30 +144,30 @@ class BatchDataSyncClient:
 
 **Critical Implementation Details**:
 
-1. **Use record_id as requestId** for round-trip tracking:
+1. **Use BD_RECORD_ID as requestId** for round-trip tracking:
 ```python
 request = {
-    "requestId": row['record_id'],  # CRITICAL - enables merging
+    "requestId": row['BD_RECORD_ID'],  # CRITICAL - enables merging
     "propertyAddress": {...}
 }
 ```
 
 2. **Flatten nested JSON to wide format** (backward compatibility):
 ```python
-# Convert: persons[0].phones[0-9] → phone_1 through phone_10
+# Convert: persons[0].phones[0-9] → BD_PHONE_1 through BD_PHONE_10
 for i, phone in enumerate(phones[:10], 1):
-    result[f'phone_{i}'] = phone.get('number')
-    result[f'phone_{i}_type'] = phone.get('type')
-    result[f'phone_{i}_carrier'] = phone.get('carrier')
-    result[f'phone_{i}_dnc'] = phone.get('dnc', False)
-    result[f'phone_{i}_tcpa'] = phone.get('tcpa', False)
+    result[f'BD_PHONE_{i}'] = phone.get('number')
+    result[f'BD_PHONE_{i}_TYPE'] = phone.get('type')
+    result[f'BD_PHONE_{i}_CARRIER'] = phone.get('carrier')
+    result[f'BD_PHONE_{i}_DNC'] = phone.get('dnc', False)
+    result[f'BD_PHONE_{i}_TCPA'] = phone.get('tcpa', False)
 ```
 
 3. **Preserve all INPUT_MASTER columns** (20 fields):
 ```python
 result = input_row.to_dict()  # Start with all input columns
 # Add API enrichment fields
-result[f'phone_{i}'] = ...
+result[f'BD_PHONE_{i}'] = ...
 ```
 
 #### Task 1.2: Update `src/adhs_etl/batchdata_bridge.py`
@@ -204,22 +204,22 @@ def run_batchdata_enrichment(
 
 **INPUT_MASTER (20 columns)** - ALL must be preserved:
 ```
-record_id, source_type, source_entity_name, source_entity_id,
-title_role, target_first_name, target_last_name, owner_name_full,
-address_line1, address_line2, city, state, zip, county, apn,
-mailing_line1, mailing_city, mailing_state, mailing_zip, notes
+BD_RECORD_ID, BD_SOURCE_TYPE, BD_ENTITY_NAME, BD_SOURCE_ENTITY_ID,
+BD_TITLE_ROLE, BD_TARGET_FIRST_NAME, BD_TARGET_LAST_NAME, BD_OWNER_NAME_FULL,
+BD_ADDRESS, BD_ADDRESS_2, BD_CITY, BD_STATE, BD_ZIP, BD_COUNTY, BD_APN,
+BD_MAILING_LINE1, BD_MAILING_CITY, BD_MAILING_STATE, BD_MAILING_ZIP, BD_NOTES
 ```
 
 **Enrichment fields (wide format)**:
 ```
-phone_1, phone_1_type, phone_1_carrier, phone_1_dnc, phone_1_tcpa, phone_1_confidence,
-phone_2, phone_2_type, phone_2_carrier, phone_2_dnc, phone_2_tcpa, phone_2_confidence,
+BD_PHONE_1, BD_PHONE_1_TYPE, BD_PHONE_1_CARRIER, BD_PHONE_1_DNC, BD_PHONE_1_TCPA, BD_PHONE_1_CONFIDENCE,
+BD_PHONE_2, BD_PHONE_2_TYPE, BD_PHONE_2_CARRIER, BD_PHONE_2_DNC, BD_PHONE_2_TCPA, BD_PHONE_2_CONFIDENCE,
 ...
-phone_10, phone_10_type, phone_10_carrier, phone_10_dnc, phone_10_tcpa, phone_10_confidence,
-email_1, email_1_tested,
-email_2, email_2_tested,
+BD_PHONE_10, BD_PHONE_10_TYPE, BD_PHONE_10_CARRIER, BD_PHONE_10_DNC, BD_PHONE_10_TCPA, BD_PHONE_10_CONFIDENCE,
+BD_EMAIL_1, BD_EMAIL_1_TESTED,
+BD_EMAIL_2, BD_EMAIL_2_TESTED,
 ...
-email_10, email_10_tested
+BD_EMAIL_10, BD_EMAIL_10_TESTED
 ```
 
 ### Testing Checklist
@@ -228,8 +228,8 @@ email_10, email_10_tested
 - [ ] Test with 10 records → verify all return
 - [ ] Test with 100 records → verify batching works
 - [ ] Test with 200 records → verify chunking (2 batches)
-- [ ] Verify record_id preserved through API
-- [ ] Verify wide-format phones (phone_1, phone_2, etc.)
+- [ ] Verify BD_RECORD_ID preserved through API
+- [ ] Verify wide-format phones (BD_PHONE_1, BD_PHONE_2, etc.)
 - [ ] Compare schema with existing Complete files
 
 ### API Keys
@@ -617,8 +617,8 @@ The existing async code should work - it just needs the state field fix and test
 
 ### DO NOT Break These Things
 
-1. **record_id Format**: `ecorp_{EntityID}_{index}_{uuid8}` - Must be preserved!
-2. **Wide Format Phones**: Must have phone_1 through phone_10 columns
+1. **BD_RECORD_ID Format**: `ecorp_{EntityID}_{index}_{uuid8}` - Must be preserved!
+2. **Wide Format Phones**: Must have BD_PHONE_1 through BD_PHONE_10 columns
 3. **INPUT_MASTER Columns**: All 20 must be in Complete file
 4. **Record Count**: Input 1000 records → Output 1000 records (dedup is internal optimization)
 5. **API Keys**: Same keys work for sync and async (service-specific, not pattern-specific)
@@ -628,15 +628,15 @@ The existing async code should work - it just needs the state field fix and test
 1. ❌ Don't remove async client yet - keep for fallback
 2. ❌ Don't assume ECORP_INDEX_# exists - add it in transform.py first
 3. ❌ Don't process >100 records per API request - will fail
-4. ❌ Don't lose record_id during API round-trip - use requestId
+4. ❌ Don't lose BD_RECORD_ID during API round-trip - use requestId
 5. ❌ Don't return nested JSON - flatten to wide format
 
 ### Success Criteria
 
 - [ ] Zero 404 errors
 - [ ] All existing Complete file columns present
-- [ ] record_id preserved through API
-- [ ] Phones in wide format (phone_1, phone_2, etc.)
+- [ ] BD_RECORD_ID preserved through API
+- [ ] Phones in wide format (BD_PHONE_1, BD_PHONE_2, etc.)
 - [ ] Smart indexing reduces API calls by 30-40%
 - [ ] Interactive stage selection works per month
 - [ ] Cost estimates accurate within 10%
@@ -655,13 +655,13 @@ The existing async code should work - it just needs the state field fix and test
 
 2. **Schema Doesn't Match**:
    - Read existing Complete file to see expected schema
-   - Verify wide-format conversion (phone_1, phone_2, etc.)
+   - Verify wide-format conversion (BD_PHONE_1, BD_PHONE_2, etc.)
    - Check all INPUT_MASTER columns preserved
 
-3. **record_id Lost**:
+3. **BD_RECORD_ID Lost**:
    - Verify using requestId in API request
    - Check response echoes requestId back
-   - Ensure merging on record_id, not index
+   - Ensure merging on BD_RECORD_ID, not index
 
 4. **Batch Size Issues**:
    - Max 100 properties per request

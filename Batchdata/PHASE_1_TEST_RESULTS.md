@@ -68,7 +68,7 @@ Sample request generated correctly:
 ```
 
 **Key Points:**
-- ✅ requestId preserves record_id for round-trip tracking
+- ✅ requestId preserves BD_RECORD_ID for round-trip tracking
 - ✅ propertyAddress structure matches V3 API spec
 - ✅ name field included when available
 
@@ -77,15 +77,15 @@ Sample request generated correctly:
 All required columns preserved:
 ```
 INPUT_MASTER (20 columns): ✓ All preserved
-- record_id, source_type, source_entity_name, source_entity_id
-- title_role, target_first_name, target_last_name, owner_name_full
-- address_line1, address_line2, city, state, zip, county, apn
-- mailing_line1, mailing_city, mailing_state, mailing_zip, notes
+- BD_RECORD_ID, BD_SOURCE_TYPE, BD_ENTITY_NAME, BD_SOURCE_ENTITY_ID
+- BD_TITLE_ROLE, BD_TARGET_FIRST_NAME, BD_TARGET_LAST_NAME, BD_OWNER_NAME_FULL
+- BD_ADDRESS, BD_ADDRESS_2, BD_CITY, BD_STATE, BD_ZIP, BD_COUNTY, BD_APN
+- BD_MAILING_LINE1, BD_MAILING_CITY, BD_MAILING_STATE, BD_MAILING_ZIP, BD_NOTES
 
 ENRICHMENT (wide format): ✓ All created
-- phone_1 through phone_10 (with type, carrier, dnc, tcpa, confidence)
-- email_1 through email_10 (with tested flag)
-- API metadata (status, response_time, persons_found, etc.)
+- BD_PHONE_1 through BD_PHONE_10 (with TYPE, CARRIER, DNC, TCPA, CONFIDENCE)
+- BD_EMAIL_1 through BD_EMAIL_10 (with TESTED flag)
+- API metadata (BD_API_STATUS, BD_API_RESPONSE_TIME, BD_PERSONS_FOUND, etc.)
 ```
 
 ### 4. Batching Logic ✅

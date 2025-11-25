@@ -65,7 +65,7 @@ def test_v2_async_pipeline():
 
     # Validate state field population
     print("\n📊 Validating state field population...")
-    states_populated = batchdata_df['state'].notna() & (batchdata_df['state'] != '')
+    states_populated = batchdata_df['BD_STATE'].notna() & (batchdata_df['BD_STATE'] != '')
     populated_count = states_populated.sum()
     total_count = len(batchdata_df)
     percentage = (populated_count / total_count * 100) if total_count > 0 else 0
@@ -74,7 +74,7 @@ def test_v2_async_pipeline():
 
     # Show state value distribution
     if populated_count > 0:
-        state_counts = batchdata_df[batchdata_df['state'] != '']['state'].value_counts().head(5)
+        state_counts = batchdata_df[batchdata_df['BD_STATE'] != '']['BD_STATE'].value_counts().head(5)
         print("   Top states:")
         for state, count in state_counts.items():
             print(f"     - {state}: {count} records")
@@ -102,7 +102,7 @@ def test_v2_async_pipeline():
 
     # Display sample of data being sent
     print("\n📋 Sample of data being sent to V2 API:")
-    display_cols = ['target_first_name', 'target_last_name', 'address_line1', 'city', 'state', 'zip']
+    display_cols = ['BD_TARGET_FIRST_NAME', 'BD_TARGET_LAST_NAME', 'BD_ADDRESS', 'BD_CITY', 'BD_STATE', 'BD_ZIP']
     available_cols = [col for col in display_cols if col in test_sample.columns]
     print(test_sample[available_cols].head(3).to_string())
 

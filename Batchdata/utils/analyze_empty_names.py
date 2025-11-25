@@ -13,17 +13,17 @@ def analyze_empty_name_records():
     print('=' * 60)
     
     # Check for records with empty individual names
-    empty_name_records = df[(df['target_first_name'].isna() | (df['target_first_name'] == '')) & 
-                           (df['target_last_name'].isna() | (df['target_last_name'] == ''))]
-    
+    empty_name_records = df[(df['BD_TARGET_FIRST_NAME'].isna() | (df['BD_TARGET_FIRST_NAME'] == '')) &
+                           (df['BD_TARGET_LAST_NAME'].isna() | (df['BD_TARGET_LAST_NAME'] == ''))]
+
     print(f'Records with empty first AND last names: {len(empty_name_records)}')
     print()
-    
+
     for i, (idx, row) in enumerate(empty_name_records.iterrows(), 1):
-        entity = str(row['source_entity_name'])[:50]
-        owner = str(row['owner_name_full'])[:40] 
-        role = str(row['title_role'])
-        address = str(row['address_line1'])[:30]
+        entity = str(row['BD_ENTITY_NAME'])[:50]
+        owner = str(row['BD_OWNER_NAME_FULL'])[:40]
+        role = str(row['BD_TITLE_ROLE'])
+        address = str(row['BD_ADDRESS'])[:30]
         
         print(f'{i}. Row {idx+1}: Entity: {entity}')
         print(f'   Owner: {owner} | Role: {role}')
@@ -50,15 +50,15 @@ def analyze_empty_name_records():
     print('3. Address only = LOW value (property-based lookup)')
     print('4. Neither = NO value (cannot process)')
     
-    useful_count = len(empty_name_records[empty_name_records['address_line1'].notna() & 
-                                         (empty_name_records['address_line1'] != '')])
-    
+    useful_count = len(empty_name_records[empty_name_records['BD_ADDRESS'].notna() &
+                                         (empty_name_records['BD_ADDRESS'] != '')])
+
     print(f'\nOf {len(empty_name_records)} entity-only records, {useful_count} have addresses')
     print(f'Potential savings by filtering these: ${len(empty_name_records) * 0.07:.2f}')
-    
+
     # Show what these records actually are
     print('\n📋 What these records represent:')
-    for role in empty_name_records['title_role'].value_counts().head(5).items():
+    for role in empty_name_records['BD_TITLE_ROLE'].value_counts().head(5).items():
         print(f'  {role[0]}: {role[1]} records')
     
     return empty_name_records

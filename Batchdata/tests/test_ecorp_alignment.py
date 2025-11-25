@@ -170,9 +170,9 @@ def test_batchdata_record_creation():
 
     # Check first record
     record = records_new[0]
-    assert record['source_entity_name'] == 'TEST LLC', f"Entity name mismatch: {record['source_entity_name']}"
-    assert record['source_entity_id'] == 'L123456', f"Entity ID mismatch: {record['source_entity_id']}"
-    assert 'Manager' in record.get('title_role', ''), f"Title role incorrect: {record.get('title_role', '')}"
+    assert record['BD_ENTITY_NAME'] == 'TEST LLC', f"Entity name mismatch: {record['BD_ENTITY_NAME']}"
+    assert record['BD_SOURCE_ENTITY_ID'] == 'L123456', f"Entity ID mismatch: {record['BD_SOURCE_ENTITY_ID']}"
+    assert 'Manager' in record.get('BD_TITLE_ROLE', ''), f"Title role incorrect: {record.get('BD_TITLE_ROLE', '')}"
 
     # Test with legacy format
     df_legacy = create_legacy_format_ecorp()
@@ -193,8 +193,8 @@ def test_full_pipeline():
     df_batchdata_new = transform_ecorp_to_batchdata(df_new)
 
     assert len(df_batchdata_new) > 0, "No BatchData records created from new format"
-    assert 'record_id' in df_batchdata_new.columns, "Missing record_id column"
-    assert 'source_entity_name' in df_batchdata_new.columns, "Missing source_entity_name column"
+    assert 'BD_RECORD_ID' in df_batchdata_new.columns, "Missing BD_RECORD_ID column"
+    assert 'BD_ENTITY_NAME' in df_batchdata_new.columns, "Missing BD_ENTITY_NAME column"
 
     # Test legacy format through full pipeline
     df_legacy = create_legacy_format_ecorp()

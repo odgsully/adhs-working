@@ -35,14 +35,14 @@ def test_template_output():
             # Mock pipeline execution with sample results
             mock_final_df = pd.DataFrame([
                 {
-                    'record_id': 'test_001', 
-                    'source_entity_name': 'Test LLC', 
-                    'target_first_name': 'John',
-                    'target_last_name': 'Doe',
-                    'owner_name_full': 'John Doe',
-                    'city': 'Phoenix',
-                    'state': 'AZ',
-                    'phone_1': '+14805551234'
+                    'BD_RECORD_ID': 'test_001',
+                    'BD_ENTITY_NAME': 'Test LLC',
+                    'BD_TARGET_FIRST_NAME': 'John',
+                    'BD_TARGET_LAST_NAME': 'Doe',
+                    'BD_OWNER_NAME_FULL': 'John Doe',
+                    'BD_CITY': 'Phoenix',
+                    'BD_STATE': 'AZ',
+                    'BD_PHONE_1': '+14805551234'
                 }
             ])
             mock_client.run_skip_trace_pipeline.return_value = (mock_final_df, [])

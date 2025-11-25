@@ -104,7 +104,7 @@ def test_async_endpoint():
     # Create test CSV file
     with tempfile.NamedTemporaryFile(mode='w', suffix='.csv', delete=False) as f:
         writer = csv.writer(f)
-        writer.writerow(['record_id', 'first_name', 'last_name', 'address', 'city', 'state', 'zip'])
+        writer.writerow(['BD_RECORD_ID', 'BD_TARGET_FIRST_NAME', 'BD_TARGET_LAST_NAME', 'BD_ADDRESS', 'BD_CITY', 'BD_STATE', 'BD_ZIP'])
         writer.writerow(['test_002', 'Jane', 'Smith', '456 Oak Ave', 'Tucson', 'AZ', '85701'])
         csv_path = f.name
 

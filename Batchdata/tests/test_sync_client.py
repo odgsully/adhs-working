@@ -38,26 +38,26 @@ class TestBatchDataSyncClient(unittest.TestCase):
 
         # Create sample input DataFrame
         self.sample_df = pd.DataFrame({
-            'record_id': ['ecorp_123_1_abc', 'ecorp_124_1_def', 'ecorp_125_1_ghi'],
-            'source_type': ['Entity', 'Entity', 'Entity'],
-            'source_entity_name': ['Test Corp 1', 'Test Corp 2', 'Test Corp 3'],
-            'source_entity_id': ['123', '124', '125'],
-            'title_role': ['Manager', 'Member', 'Manager/Member'],
-            'target_first_name': ['John', 'Jane', 'Bob'],
-            'target_last_name': ['Smith', 'Doe', 'Johnson'],
-            'owner_name_full': ['John Smith', 'Jane Doe', 'Bob Johnson'],
-            'address_line1': ['123 Main St', '456 Oak Ave', '789 Pine Rd'],
-            'address_line2': ['', 'Suite 200', 'Apt 3B'],
-            'city': ['Phoenix', 'Scottsdale', 'Tempe'],
-            'state': ['AZ', 'AZ', 'AZ'],
-            'zip': ['85001', '85250', '85281'],
-            'county': ['MARICOPA', 'MARICOPA', 'MARICOPA'],
-            'apn': ['123-45-678', '987-65-432', '456-78-901'],
-            'mailing_line1': ['', '', 'PO Box 123'],
-            'mailing_city': ['', '', 'Phoenix'],
-            'mailing_state': ['', '', 'AZ'],
-            'mailing_zip': ['', '', '85002'],
-            'notes': ['Test note 1', 'Test note 2', 'Test note 3']
+            'BD_RECORD_ID': ['ecorp_123_1_abc', 'ecorp_124_1_def', 'ecorp_125_1_ghi'],
+            'BD_SOURCE_TYPE': ['Entity', 'Entity', 'Entity'],
+            'BD_ENTITY_NAME': ['Test Corp 1', 'Test Corp 2', 'Test Corp 3'],
+            'BD_SOURCE_ENTITY_ID': ['123', '124', '125'],
+            'BD_TITLE_ROLE': ['Manager', 'Member', 'Manager/Member'],
+            'BD_TARGET_FIRST_NAME': ['John', 'Jane', 'Bob'],
+            'BD_TARGET_LAST_NAME': ['Smith', 'Doe', 'Johnson'],
+            'BD_OWNER_NAME_FULL': ['John Smith', 'Jane Doe', 'Bob Johnson'],
+            'BD_ADDRESS': ['123 Main St', '456 Oak Ave', '789 Pine Rd'],
+            'BD_ADDRESS_2': ['', 'Suite 200', 'Apt 3B'],
+            'BD_CITY': ['Phoenix', 'Scottsdale', 'Tempe'],
+            'BD_STATE': ['AZ', 'AZ', 'AZ'],
+            'BD_ZIP': ['85001', '85250', '85281'],
+            'BD_COUNTY': ['MARICOPA', 'MARICOPA', 'MARICOPA'],
+            'BD_APN': ['123-45-678', '987-65-432', '456-78-901'],
+            'BD_MAILING_LINE1': ['', '', 'PO Box 123'],
+            'BD_MAILING_CITY': ['', '', 'Phoenix'],
+            'BD_MAILING_STATE': ['', '', 'AZ'],
+            'BD_MAILING_ZIP': ['', '', '85002'],
+            'BD_NOTES': ['Test note 1', 'Test note 2', 'Test note 3']
         })
 
     def test_sync_request_format(self):
@@ -127,20 +127,20 @@ class TestBatchDataSyncClient(unittest.TestCase):
         result_df = self.client._parse_sync_response_to_schema(mock_response, input_df)
 
         # Verify phone data is flattened
-        self.assertEqual(result_df.iloc[0]['phone_1'], '555-1234')
-        self.assertEqual(result_df.iloc[0]['phone_1_type'], 'mobile')
-        self.assertEqual(result_df.iloc[0]['phone_1_carrier'], 'Verizon')
-        self.assertEqual(result_df.iloc[0]['phone_1_dnc'], False)
-        self.assertEqual(result_df.iloc[0]['phone_1_tcpa'], False)
-        self.assertEqual(result_df.iloc[0]['phone_1_confidence'], 0.95)
+        self.assertEqual(result_df.iloc[0]['BD_PHONE_1'], '555-1234')
+        self.assertEqual(result_df.iloc[0]['BD_PHONE_1_TYPE'], 'mobile')
+        self.assertEqual(result_df.iloc[0]['BD_PHONE_1_CARRIER'], 'Verizon')
+        self.assertEqual(result_df.iloc[0]['BD_PHONE_1_DNC'], False)
+        self.assertEqual(result_df.iloc[0]['BD_PHONE_1_TCPA'], False)
+        self.assertEqual(result_df.iloc[0]['BD_PHONE_1_CONFIDENCE'], 0.95)
 
-        self.assertEqual(result_df.iloc[0]['phone_2'], '555-5678')
-        self.assertEqual(result_df.iloc[0]['phone_2_type'], 'landline')
-        self.assertEqual(result_df.iloc[0]['phone_2_dnc'], True)
+        self.assertEqual(result_df.iloc[0]['BD_PHONE_2'], '555-5678')
+        self.assertEqual(result_df.iloc[0]['BD_PHONE_2_TYPE'], 'landline')
+        self.assertEqual(result_df.iloc[0]['BD_PHONE_2_DNC'], True)
 
         # Verify email data
-        self.assertEqual(result_df.iloc[0]['email_1'], 'john.smith@example.com')
-        self.assertEqual(result_df.iloc[0]['email_1_tested'], True)
+        self.assertEqual(result_df.iloc[0]['BD_EMAIL_1'], 'john.smith@example.com')
+        self.assertEqual(result_df.iloc[0]['BD_EMAIL_1_TESTED'], True)
 
     def test_record_id_preservation(self):
         """Test that record_id is preserved through the API round-trip."""
@@ -167,10 +167,10 @@ class TestBatchDataSyncClient(unittest.TestCase):
         result_df = self.client._parse_sync_response_to_schema(mock_response, self.sample_df)
 
         # Verify record_ids are preserved
-        self.assertEqual(list(result_df['record_id']), expected_ids)
+        self.assertEqual(list(result_df['BD_RECORD_ID']), expected_ids)
 
     def test_phone_wide_format_conversion(self):
-        """Test conversion of multiple phones to wide format (phone_1, phone_2, etc.)."""
+        """Test conversion of multiple phones to wide format (BD_PHONE_1, BD_PHONE_2, etc.)."""
         # Mock response with many phones
         mock_response = {
             'status': {'code': 200, 'text': 'OK'},
@@ -197,16 +197,16 @@ class TestBatchDataSyncClient(unittest.TestCase):
 
         # Verify only first 10 phones are stored
         for i in range(1, 11):
-            self.assertEqual(result_df.iloc[0][f'phone_{i}'], f'555-{999+i:04d}')
+            self.assertEqual(result_df.iloc[0][f'BD_PHONE_{i}'], f'555-{999+i:04d}')
 
-        # Verify phone_11 doesn't exist (only 10 phones max)
-        self.assertNotIn('phone_11', result_df.columns)
+        # Verify BD_PHONE_11 doesn't exist (only 10 phones max)
+        self.assertNotIn('BD_PHONE_11', result_df.columns)
 
     def test_batching_with_100_records(self):
         """Test that batching works correctly with exactly 100 records."""
         # Create DataFrame with 100 records
         large_df = pd.concat([self.sample_df] * 34, ignore_index=True)[:100]
-        large_df['record_id'] = [f'ecorp_{i}_1_xyz' for i in range(100)]
+        large_df['BD_RECORD_ID'] = [f'ecorp_{i}_1_xyz' for i in range(100)]
 
         # Test chunking
         chunks = list(self.client._chunk_dataframe(large_df, 100))
@@ -217,7 +217,7 @@ class TestBatchDataSyncClient(unittest.TestCase):
         """Test that batching works correctly with 200 records (should split into 2 batches)."""
         # Create DataFrame with 200 records
         large_df = pd.concat([self.sample_df] * 67, ignore_index=True)[:200]
-        large_df['record_id'] = [f'ecorp_{i}_1_xyz' for i in range(200)]
+        large_df['BD_RECORD_ID'] = [f'ecorp_{i}_1_xyz' for i in range(200)]
 
         # Test chunking with batch_size=100
         chunks = list(self.client._chunk_dataframe(large_df, 100))
@@ -270,10 +270,10 @@ class TestBatchDataSyncClient(unittest.TestCase):
         input_df = self.sample_df.iloc[:1]
         result_df = self.client._parse_sync_response_to_schema(mock_response, input_df)
 
-        self.assertEqual(result_df.iloc[0]['api_status'], 'success')
-        self.assertEqual(result_df.iloc[0]['persons_found'], 1)
-        self.assertEqual(result_df.iloc[0]['phones_found'], 0)
-        self.assertEqual(result_df.iloc[0]['emails_found'], 0)
+        self.assertEqual(result_df.iloc[0]['BD_API_STATUS'], 'success')
+        self.assertEqual(result_df.iloc[0]['BD_PERSONS_FOUND'], 1)
+        self.assertEqual(result_df.iloc[0]['BD_PHONES_FOUND'], 0)
+        self.assertEqual(result_df.iloc[0]['BD_EMAILS_FOUND'], 0)
 
         # Test no match
         mock_response_no_match = {
@@ -282,7 +282,7 @@ class TestBatchDataSyncClient(unittest.TestCase):
         }
 
         result_df = self.client._parse_sync_response_to_schema(mock_response_no_match, input_df)
-        self.assertEqual(result_df.iloc[0]['api_status'], 'no_match')
+        self.assertEqual(result_df.iloc[0]['BD_API_STATUS'], 'no_match')
 
     @patch('requests.Session.post')
     def test_api_error_handling(self, mock_post):
@@ -317,9 +317,9 @@ class TestBatchDataSyncClient(unittest.TestCase):
             mock_skip_trace.assert_called_once()
 
             # Verify result has pipeline metadata
-            self.assertIn('pipeline_version', result.columns)
-            self.assertIn('pipeline_timestamp', result.columns)
-            self.assertIn('stages_applied', result.columns)
+            self.assertIn('BD_PIPELINE_VERSION', result.columns)
+            self.assertIn('BD_PIPELINE_TIMESTAMP', result.columns)
+            self.assertIn('BD_STAGES_APPLIED', result.columns)
 
 
 if __name__ == '__main__':

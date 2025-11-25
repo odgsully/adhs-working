@@ -86,73 +86,73 @@ def test_consolidation_function():
     # Create test data mimicking the Legacy school scenario
     test_data = pd.DataFrame([
         {
-            'record_id': 'legacy_001',
-            'source_entity_name': 'LEGACY TRADITIONAL SCHOOL-GILBERT',
-            'target_first_name': 'DIEGO',
-            'target_last_name': 'GETTLER',
-            'owner_name_full': 'DIEGO GETTLER',
-            'address_line1': '3125 S GILBERT RD',
-            'city': '',
-            'state': '',
-            'zip': '85286',
-            'title_role': 'Director',
-            'notes': 'Original record from Gilbert'
+            'BD_RECORD_ID': 'legacy_001',
+            'BD_ENTITY_NAME': 'LEGACY TRADITIONAL SCHOOL-GILBERT',
+            'BD_TARGET_FIRST_NAME': 'DIEGO',
+            'BD_TARGET_LAST_NAME': 'GETTLER',
+            'BD_OWNER_NAME_FULL': 'DIEGO GETTLER',
+            'BD_ADDRESS': '3125 S GILBERT RD',
+            'BD_CITY': '',
+            'BD_STATE': '',
+            'BD_ZIP': '85286',
+            'BD_TITLE_ROLE': 'Director',
+            'BD_NOTES': 'Original record from Gilbert'
         },
         {
-            'record_id': 'legacy_002',
-            'source_entity_name': 'LEGACY TRADITIONAL SCHOOL-PEORIA',
-            'target_first_name': 'DIEGO',
-            'target_last_name': 'GETTLER',
-            'owner_name_full': 'DIEGO GETTLER',
-            'address_line1': '3125 S GILBERT RD',
-            'city': '',
-            'state': '',
-            'zip': '85286',
-            'title_role': 'Director',
-            'notes': 'Original record from Peoria'
+            'BD_RECORD_ID': 'legacy_002',
+            'BD_ENTITY_NAME': 'LEGACY TRADITIONAL SCHOOL-PEORIA',
+            'BD_TARGET_FIRST_NAME': 'DIEGO',
+            'BD_TARGET_LAST_NAME': 'GETTLER',
+            'BD_OWNER_NAME_FULL': 'DIEGO GETTLER',
+            'BD_ADDRESS': '3125 S GILBERT RD',
+            'BD_CITY': '',
+            'BD_STATE': '',
+            'BD_ZIP': '85286',
+            'BD_TITLE_ROLE': 'Director',
+            'BD_NOTES': 'Original record from Peoria'
         },
         {
-            'record_id': 'legacy_003',
-            'source_entity_name': 'LEGACY TRADITIONAL SCHOOL-GOODYEAR',
-            'target_first_name': 'DIEGO',
-            'target_last_name': 'GETTLER',
-            'owner_name_full': 'DIEGO GETTLER',
-            'address_line1': '3125 S GILBERT RD',
-            'city': '',
-            'state': '',
-            'zip': '85286',
-            'title_role': 'Secretary',
-            'notes': 'Original record from Goodyear'
+            'BD_RECORD_ID': 'legacy_003',
+            'BD_ENTITY_NAME': 'LEGACY TRADITIONAL SCHOOL-GOODYEAR',
+            'BD_TARGET_FIRST_NAME': 'DIEGO',
+            'BD_TARGET_LAST_NAME': 'GETTLER',
+            'BD_OWNER_NAME_FULL': 'DIEGO GETTLER',
+            'BD_ADDRESS': '3125 S GILBERT RD',
+            'BD_CITY': '',
+            'BD_STATE': '',
+            'BD_ZIP': '85286',
+            'BD_TITLE_ROLE': 'Secretary',
+            'BD_NOTES': 'Original record from Goodyear'
         },
         {
-            'record_id': 'other_001',
-            'source_entity_name': 'UNRELATED ENTITY LLC',
-            'target_first_name': 'Jane',
-            'target_last_name': 'Smith',
-            'owner_name_full': 'Jane Smith',
-            'address_line1': '456 Other St',
-            'city': 'Phoenix',
-            'state': 'AZ',
-            'zip': '85001',
-            'title_role': 'Manager',
-            'notes': 'Unrelated entity'
+            'BD_RECORD_ID': 'other_001',
+            'BD_ENTITY_NAME': 'UNRELATED ENTITY LLC',
+            'BD_TARGET_FIRST_NAME': 'Jane',
+            'BD_TARGET_LAST_NAME': 'Smith',
+            'BD_OWNER_NAME_FULL': 'Jane Smith',
+            'BD_ADDRESS': '456 Other St',
+            'BD_CITY': 'Phoenix',
+            'BD_STATE': 'AZ',
+            'BD_ZIP': '85001',
+            'BD_TITLE_ROLE': 'Manager',
+            'BD_NOTES': 'Unrelated entity'
         }
     ])
     
     print(f"Input: {len(test_data)} records")
     print("Records:")
     for _, row in test_data.iterrows():
-        print(f"  {row['record_id']}: {row['target_first_name']} {row['target_last_name']} at {row['source_entity_name']}")
-    
+        print(f"  {row['BD_RECORD_ID']}: {row['BD_TARGET_FIRST_NAME']} {row['BD_TARGET_LAST_NAME']} at {row['BD_ENTITY_NAME']}")
+
     # Apply consolidation
     consolidated = consolidate_entity_families(test_data)
-    
+
     print(f"\nOutput: {len(consolidated)} records")
     print("Consolidated records:")
     for _, row in consolidated.iterrows():
-        print(f"  {row['record_id']}: {row['target_first_name']} {row['target_last_name']}")
-        if 'Consolidated' in str(row.get('notes', '')):
-            print(f"    Notes: {row['notes'][:100]}...")
+        print(f"  {row['BD_RECORD_ID']}: {row['BD_TARGET_FIRST_NAME']} {row['BD_TARGET_LAST_NAME']}")
+        if 'Consolidated' in str(row.get('BD_NOTES', '')):
+            print(f"    Notes: {row['BD_NOTES'][:100]}...")
     
     # Verify consolidation worked
     expected_records = 2  # DIEGO consolidated + Jane separate

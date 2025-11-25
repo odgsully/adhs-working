@@ -65,7 +65,7 @@ def create_test_input():
     print(f"Created test input file: {output_path}")
     print(f"Test records: {len(batchdata_df)}")
     print("\nSample records:")
-    print(batchdata_df[['record_id', 'source_entity_name', 'target_first_name', 'target_last_name', 'city', 'state']].head())
+    print(batchdata_df[['BD_RECORD_ID', 'BD_ENTITY_NAME', 'BD_TARGET_FIRST_NAME', 'BD_TARGET_LAST_NAME', 'BD_CITY', 'BD_STATE']].head())
 
 if __name__ == "__main__":
     create_test_input()

@@ -206,7 +206,7 @@ def test_schema_compatibility(client: BatchDataSyncClient, sheets: Dict[str, pd.
             'status': {'code': 200, 'text': 'OK'},
             'result': {
                 'data': [{
-                    'input': {'requestId': test_df.iloc[0]['record_id']},
+                    'input': {'requestId': test_df.iloc[0]['BD_RECORD_ID']},
                     'persons': [{
                         'phones': [
                             {'number': '555-1234', 'type': 'mobile', 'carrier': 'Test'}
@@ -239,10 +239,10 @@ def test_schema_compatibility(client: BatchDataSyncClient, sheets: Dict[str, pd.
         enrichment_cols = []
         for i in range(1, 11):
             enrichment_cols.extend([
-                f'phone_{i}', f'phone_{i}_type', f'phone_{i}_carrier',
-                f'phone_{i}_dnc', f'phone_{i}_tcpa', f'phone_{i}_confidence'
+                f'BD_PHONE_{i}', f'BD_PHONE_{i}_TYPE', f'BD_PHONE_{i}_CARRIER',
+                f'BD_PHONE_{i}_DNC', f'BD_PHONE_{i}_TCPA', f'BD_PHONE_{i}_CONFIDENCE'
             ])
-            enrichment_cols.extend([f'email_{i}', f'email_{i}_tested'])
+            enrichment_cols.extend([f'BD_EMAIL_{i}', f'BD_EMAIL_{i}_TESTED'])
 
         found_enrichment = 0
         for col in enrichment_cols[:18]:  # Check first 3 phones/emails
@@ -271,11 +271,11 @@ def test_batching(client: BatchDataSyncClient):
     try:
         # Create test DataFrame with 150 records
         test_data = {
-            'record_id': [f'test_{i}' for i in range(150)],
-            'address_line1': [f'{i} Main St' for i in range(150)],
-            'city': ['Phoenix'] * 150,
-            'state': ['AZ'] * 150,
-            'zip': ['85001'] * 150
+            'BD_RECORD_ID': [f'test_{i}' for i in range(150)],
+            'BD_ADDRESS': [f'{i} Main St' for i in range(150)],
+            'BD_CITY': ['Phoenix'] * 150,
+            'BD_STATE': ['AZ'] * 150,
+            'BD_ZIP': ['85001'] * 150
         }
         test_df = pd.DataFrame(test_data)
 
@@ -435,9 +435,9 @@ def test_live_api_small(client: BatchDataSyncClient, sheets: Dict[str, pd.DataFr
         phones_found = 0
         emails_found = 0
         for _, row in result_df.iterrows():
-            if row.get('phone_1'):
+            if row.get('BD_PHONE_1'):
                 phones_found += 1
-            if row.get('email_1'):
+            if row.get('BD_EMAIL_1'):
                 emails_found += 1
 
         print(ColorOutput.info(f"Records with phones: {phones_found}/{len(result_df)}"))

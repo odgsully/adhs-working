@@ -1,0 +1,4 @@
+Pipeline Error: 2025-11-24 21:44:47.254653
+Input: batchdata_local_input.xlsx
+eCorp: None
+Error: [Errno 2] No such file or directory: 'batchdata_local_input.xlsx'

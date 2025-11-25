@@ -22,10 +22,10 @@ def analyze_duplicates():
     
     # Check duplicates by different field combinations
     duplicate_analyses = [
-        ('name_only', ['target_first_name', 'target_last_name']),
-        ('name_address', ['target_first_name', 'target_last_name', 'address_line1']),
-        ('name_entity', ['target_first_name', 'target_last_name', 'source_entity_name']),
-        ('full_comparison', ['target_first_name', 'target_last_name', 'owner_name_full', 'address_line1', 'city', 'state', 'zip', 'source_entity_name', 'title_role'])
+        ('name_only', ['BD_TARGET_FIRST_NAME', 'BD_TARGET_LAST_NAME']),
+        ('name_address', ['BD_TARGET_FIRST_NAME', 'BD_TARGET_LAST_NAME', 'BD_ADDRESS']),
+        ('name_entity', ['BD_TARGET_FIRST_NAME', 'BD_TARGET_LAST_NAME', 'BD_ENTITY_NAME']),
+        ('full_comparison', ['BD_TARGET_FIRST_NAME', 'BD_TARGET_LAST_NAME', 'BD_OWNER_NAME_FULL', 'BD_ADDRESS', 'BD_CITY', 'BD_STATE', 'BD_ZIP', 'BD_ENTITY_NAME', 'BD_TITLE_ROLE'])
     ]
     
     for analysis_name, fields in duplicate_analyses:
@@ -56,17 +56,17 @@ def analyze_duplicates():
     
     # Show specific examples of potential duplicates
     print(f"\n🔍 Detailed Duplicate Analysis:")
-    
+
     # Find records with same name but different record_ids
-    name_groups = df.groupby(['target_first_name', 'target_last_name'])
-    
+    name_groups = df.groupby(['BD_TARGET_FIRST_NAME', 'BD_TARGET_LAST_NAME'])
+
     for (first, last), group in name_groups:
         if len(group) > 1 and first and last and str(first) != 'nan' and str(last) != 'nan':
             print(f"\n👤 {first} {last} ({len(group)} records):")
             for _, record in group.iterrows():
-                entity = record['source_entity_name'][:30] if record['source_entity_name'] else 'N/A'
-                address = record['address_line1'][:30] if record['address_line1'] else 'N/A'
-                print(f"   {record['record_id']}: {entity} | {address}")
+                entity = record['BD_ENTITY_NAME'][:30] if record['BD_ENTITY_NAME'] else 'N/A'
+                address = record['BD_ADDRESS'][:30] if record['BD_ADDRESS'] else 'N/A'
+                print(f"   {record['BD_RECORD_ID']}: {entity} | {address}")
             
             # Check if these would be considered duplicates
             if len(group) > 1:

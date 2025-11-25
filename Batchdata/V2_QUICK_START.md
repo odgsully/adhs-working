@@ -40,12 +40,12 @@ if agent_address:
             address_parts['state'] = 'AZ'
 
     base_info.update({
-        'address_line1': address_parts['line1'],
-        'address_line2': address_parts['line2'],
-        'city': address_parts['city'],
-        'state': address_parts['state'],  # Now will be populated!
-        'zip': address_parts['zip'],
-        'county': ecorp_row.get('ECORP_COUNTY', '') or ecorp_row.get('COUNTY', '')
+        'BD_ADDRESS': address_parts['line1'],
+        'BD_ADDRESS_2': address_parts['line2'],
+        'BD_CITY': address_parts['city'],
+        'BD_STATE': address_parts['state'],  # Now will be populated!
+        'BD_ZIP': address_parts['zip'],
+        'BD_COUNTY': ecorp_row.get('ECORP_COUNTY', '') or ecorp_row.get('COUNTY', '')
     })
 ```
 

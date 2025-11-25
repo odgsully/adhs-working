@@ -19,58 +19,58 @@ def test_deduplication_function():
     # Create test data with known duplicates
     test_data = pd.DataFrame([
         {
-            'record_id': 'test_001',
-            'target_first_name': 'John',
-            'target_last_name': 'Doe',
-            'owner_name_full': 'John Doe',
-            'address_line1': '123 Main St',
-            'city': 'Phoenix',
-            'state': 'AZ',
-            'zip': '85001',
-            'source_entity_name': 'Test LLC',
-            'title_role': 'Member',
-            'notes': 'Original record'
+            'BD_RECORD_ID': 'test_001',
+            'BD_TARGET_FIRST_NAME': 'John',
+            'BD_TARGET_LAST_NAME': 'Doe',
+            'BD_OWNER_NAME_FULL': 'John Doe',
+            'BD_ADDRESS': '123 Main St',
+            'BD_CITY': 'Phoenix',
+            'BD_STATE': 'AZ',
+            'BD_ZIP': '85001',
+            'BD_ENTITY_NAME': 'Test LLC',
+            'BD_TITLE_ROLE': 'Member',
+            'BD_NOTES': 'Original record'
         },
         {
-            'record_id': 'test_002',
-            'target_first_name': 'John',
-            'target_last_name': 'Doe',
-            'owner_name_full': 'John Doe',
-            'address_line1': '123 Main St',
-            'city': 'Phoenix',
-            'state': 'AZ',
-            'zip': '85001',
-            'source_entity_name': 'Test LLC',
-            'title_role': 'Member',
-            'notes': 'Duplicate record with phone data'
+            'BD_RECORD_ID': 'test_002',
+            'BD_TARGET_FIRST_NAME': 'John',
+            'BD_TARGET_LAST_NAME': 'Doe',
+            'BD_OWNER_NAME_FULL': 'John Doe',
+            'BD_ADDRESS': '123 Main St',
+            'BD_CITY': 'Phoenix',
+            'BD_STATE': 'AZ',
+            'BD_ZIP': '85001',
+            'BD_ENTITY_NAME': 'Test LLC',
+            'BD_TITLE_ROLE': 'Member',
+            'BD_NOTES': 'Duplicate record with phone data'
         },
         {
-            'record_id': 'test_003',
-            'target_first_name': 'Jane',
-            'target_last_name': 'Smith',
-            'owner_name_full': 'Jane Smith',
-            'address_line1': '456 Oak Ave',
-            'city': 'Tempe',
-            'state': 'AZ',
-            'zip': '85282',
-            'source_entity_name': 'Another LLC',
-            'title_role': 'Manager',
-            'notes': 'Unique record'
+            'BD_RECORD_ID': 'test_003',
+            'BD_TARGET_FIRST_NAME': 'Jane',
+            'BD_TARGET_LAST_NAME': 'Smith',
+            'BD_OWNER_NAME_FULL': 'Jane Smith',
+            'BD_ADDRESS': '456 Oak Ave',
+            'BD_CITY': 'Tempe',
+            'BD_STATE': 'AZ',
+            'BD_ZIP': '85282',
+            'BD_ENTITY_NAME': 'Another LLC',
+            'BD_TITLE_ROLE': 'Manager',
+            'BD_NOTES': 'Unique record'
         }
     ])
     
     print(f"Input records: {len(test_data)}")
     print("Records:")
     for _, row in test_data.iterrows():
-        print(f"  {row['record_id']}: {row['target_first_name']} {row['target_last_name']} - {row['notes']}")
-    
+        print(f"  {row['BD_RECORD_ID']}: {row['BD_TARGET_FIRST_NAME']} {row['BD_TARGET_LAST_NAME']} - {row['BD_NOTES']}")
+
     # Apply deduplication
     deduplicated = deduplicate_batchdata_records(test_data)
-    
+
     print(f"\nOutput records: {len(deduplicated)}")
     print("Kept records:")
     for _, row in deduplicated.iterrows():
-        print(f"  {row['record_id']}: {row['target_first_name']} {row['target_last_name']} - {row['notes']}")
+        print(f"  {row['BD_RECORD_ID']}: {row['BD_TARGET_FIRST_NAME']} {row['BD_TARGET_LAST_NAME']} - {row['BD_NOTES']}")
     
     # Verify results
     expected_records = 2  # John Doe (1 kept) + Jane Smith (1 kept)

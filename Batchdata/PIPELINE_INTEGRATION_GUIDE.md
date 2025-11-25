@@ -204,21 +204,21 @@ api_keys = {
 The `INPUT_MASTER` sheet must have these columns:
 
 **Required:**
-- `record_id` - Unique identifier
-- `target_first_name` - Contact first name
-- `target_last_name` - Contact last name
-- `owner_name_full` - Full name for fallback
-- `address_line1` - Street address
-- `city` - City name
-- `state` - 2-letter state code
-- `zip` - 5-digit ZIP code
+- `BD_RECORD_ID` - Unique identifier
+- `BD_TARGET_FIRST_NAME` - Contact first name
+- `BD_TARGET_LAST_NAME` - Contact last name
+- `BD_OWNER_NAME_FULL` - Full name for fallback
+- `BD_ADDRESS` - Street address
+- `BD_CITY` - City name
+- `BD_STATE` - 2-letter state code
+- `BD_ZIP` - 5-digit ZIP code
 
 **Optional but recommended:**
-- `address_line2` - Apt/Suite number
-- `county` - County name
-- `apn` - Assessor Parcel Number
-- `source_entity_name` - Entity name from Ecorp
-- `source_entity_id` - Entity ID from Ecorp
+- `BD_ADDRESS_2` - Apt/Suite number
+- `BD_COUNTY` - County name
+- `BD_APN` - Assessor Parcel Number
+- `BD_ENTITY_NAME` - Entity name from Ecorp
+- `BD_SOURCE_ENTITY_ID` - Entity ID from Ecorp
 
 #### Transformation Process
 
@@ -321,7 +321,7 @@ curl -X POST https://api.batchdata.com/api/v1/property/skip-trace \
 
 **Error:**
 ```
-Missing fields: target_first_name, target_last_name, state
+Missing fields: BD_TARGET_FIRST_NAME, BD_TARGET_LAST_NAME, BD_STATE
 ```
 
 **Solution:**
@@ -331,7 +331,7 @@ The `transform_ecorp_to_batchdata()` function should handle this, but verify:
 # Check transformed data
 df = transform_ecorp_to_batchdata(ecorp_df)
 print(df.columns.tolist())
-print(df[['target_first_name', 'target_last_name', 'state']].head())
+print(df[['BD_TARGET_FIRST_NAME', 'BD_TARGET_LAST_NAME', 'BD_STATE']].head())
 ```
 
 #### 4. Webhook Issues (Async)
@@ -444,15 +444,15 @@ run_batchdata_enrichment(
 # Create test file with minimal data
 test_df = pd.DataFrame([
     {
-        'record_id': 'test_001',
-        'target_first_name': 'John',
-        'target_last_name': 'Doe',
-        'owner_name_full': 'John Doe',
-        'address_line1': '123 Main St',
-        'city': 'Phoenix',
-        'state': 'AZ',
-        'zip': '85001',
-        'county': 'MARICOPA'
+        'BD_RECORD_ID': 'test_001',
+        'BD_TARGET_FIRST_NAME': 'John',
+        'BD_TARGET_LAST_NAME': 'Doe',
+        'BD_OWNER_NAME_FULL': 'John Doe',
+        'BD_ADDRESS': '123 Main St',
+        'BD_CITY': 'Phoenix',
+        'BD_STATE': 'AZ',
+        'BD_ZIP': '85001',
+        'BD_COUNTY': 'MARICOPA'
     }
 ])
 ```

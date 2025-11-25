@@ -95,34 +95,34 @@ def test_field_validation():
     # Create test DataFrame
     test_data = pd.DataFrame([
         {
-            'record_id': '1',
-            'target_first_name': 'John',
-            'target_last_name': 'Doe',
-            'owner_name_full': 'John Doe',
-            'address_line1': '123 Main St',
-            'city': 'Phoenix',
-            'state': 'AZ',
-            'zip': '85001'
+            'BD_RECORD_ID': '1',
+            'BD_TARGET_FIRST_NAME': 'John',
+            'BD_TARGET_LAST_NAME': 'Doe',
+            'BD_OWNER_NAME_FULL': 'John Doe',
+            'BD_ADDRESS': '123 Main St',
+            'BD_CITY': 'Phoenix',
+            'BD_STATE': 'AZ',
+            'BD_ZIP': '85001'
         },
         {
-            'record_id': '2',
-            'target_first_name': '',
-            'target_last_name': '',
-            'owner_name_full': 'Jane Smith',
-            'address_line1': '456 Oak Ave',
-            'city': '',
-            'state': 'AZ',
-            'zip': '85251'
+            'BD_RECORD_ID': '2',
+            'BD_TARGET_FIRST_NAME': '',
+            'BD_TARGET_LAST_NAME': '',
+            'BD_OWNER_NAME_FULL': 'Jane Smith',
+            'BD_ADDRESS': '456 Oak Ave',
+            'BD_CITY': '',
+            'BD_STATE': 'AZ',
+            'BD_ZIP': '85251'
         },
         {
-            'record_id': '3',
-            'target_first_name': 'Bob',
-            'target_last_name': '',
-            'owner_name_full': '',
-            'address_line1': '',
-            'city': 'Tucson',
-            'state': '',
-            'zip': ''
+            'BD_RECORD_ID': '3',
+            'BD_TARGET_FIRST_NAME': 'Bob',
+            'BD_TARGET_LAST_NAME': '',
+            'BD_OWNER_NAME_FULL': '',
+            'BD_ADDRESS': '',
+            'BD_CITY': 'Tucson',
+            'BD_STATE': '',
+            'BD_ZIP': ''
         }
     ])
     
@@ -172,34 +172,34 @@ def test_field_optimization():
     # Create test DataFrame with missing/incomplete data
     test_data = pd.DataFrame([
         {
-            'record_id': '1',
-            'target_first_name': '',
-            'target_last_name': '',
-            'owner_name_full': 'John Michael Doe',
-            'address_line1': '  123 MAIN ST  ',
-            'city': 'phoenix',
-            'state': 'arizona',
-            'zip': '85001-1234'
+            'BD_RECORD_ID': '1',
+            'BD_TARGET_FIRST_NAME': '',
+            'BD_TARGET_LAST_NAME': '',
+            'BD_OWNER_NAME_FULL': 'John Michael Doe',
+            'BD_ADDRESS': '  123 MAIN ST  ',
+            'BD_CITY': 'phoenix',
+            'BD_STATE': 'arizona',
+            'BD_ZIP': '85001-1234'
         },
         {
-            'record_id': '2',
-            'target_first_name': 'Jane',
-            'target_last_name': '',
-            'owner_name_full': '',
-            'address_line1': '456 Oak Ave',
-            'city': '',
-            'state': 'AZ',
-            'zip': '85251'
+            'BD_RECORD_ID': '2',
+            'BD_TARGET_FIRST_NAME': 'Jane',
+            'BD_TARGET_LAST_NAME': '',
+            'BD_OWNER_NAME_FULL': '',
+            'BD_ADDRESS': '456 Oak Ave',
+            'BD_CITY': '',
+            'BD_STATE': 'AZ',
+            'BD_ZIP': '85251'
         },
         {
-            'record_id': '3',
-            'target_first_name': '',
-            'target_last_name': '',
-            'owner_name_full': 'Robert Johnson Jr',
-            'address_line1': '456 Oak Ave',  # Same as record 2
-            'city': '',
-            'state': '',
-            'zip': ''
+            'BD_RECORD_ID': '3',
+            'BD_TARGET_FIRST_NAME': '',
+            'BD_TARGET_LAST_NAME': '',
+            'BD_OWNER_NAME_FULL': 'Robert Johnson Jr',
+            'BD_ADDRESS': '456 Oak Ave',  # Same as record 2
+            'BD_CITY': '',
+            'BD_STATE': '',
+            'BD_ZIP': ''
         }
     ])
     
@@ -210,47 +210,47 @@ def test_field_optimization():
     tests_failed = 0
     
     # Test 1: Names should be extracted from full name
-    if optimized_df.iloc[0]['target_first_name'] == 'John':
+    if optimized_df.iloc[0]['BD_TARGET_FIRST_NAME'] == 'John':
         print("✅ PASS: First name extracted from full name")
         tests_passed += 1
     else:
-        print(f"❌ FAIL: Expected 'John', got '{optimized_df.iloc[0]['target_first_name']}'")
+        print(f"❌ FAIL: Expected 'John', got '{optimized_df.iloc[0]['BD_TARGET_FIRST_NAME']}'")
         tests_failed += 1
-    
+
     # Test 2: Address should be cleaned
-    if optimized_df.iloc[0]['address_line1'] == '123 Main St':
+    if optimized_df.iloc[0]['BD_ADDRESS'] == '123 Main St':
         print("✅ PASS: Address line cleaned and formatted")
         tests_passed += 1
     else:
-        print(f"❌ FAIL: Address not properly cleaned: '{optimized_df.iloc[0]['address_line1']}'")
+        print(f"❌ FAIL: Address not properly cleaned: '{optimized_df.iloc[0]['BD_ADDRESS']}'")
         tests_failed += 1
-    
+
     # Test 3: City should be title case
-    if optimized_df.iloc[0]['city'] == 'Phoenix':
+    if optimized_df.iloc[0]['BD_CITY'] == 'Phoenix':
         print("✅ PASS: City properly capitalized")
         tests_passed += 1
     else:
-        print(f"❌ FAIL: City not properly formatted: '{optimized_df.iloc[0]['city']}'")
+        print(f"❌ FAIL: City not properly formatted: '{optimized_df.iloc[0]['BD_CITY']}'")
         tests_failed += 1
-    
+
     # Test 4: State should be normalized to abbreviation
-    if optimized_df.iloc[0]['state'] == 'AZ':
+    if optimized_df.iloc[0]['BD_STATE'] == 'AZ':
         print("✅ PASS: State normalized to abbreviation")
         tests_passed += 1
     else:
-        print(f"❌ FAIL: State not normalized: '{optimized_df.iloc[0]['state']}'")
+        print(f"❌ FAIL: State not normalized: '{optimized_df.iloc[0]['BD_STATE']}'")
         tests_failed += 1
-    
+
     # Test 5: ZIP should be normalized to 5 digits
-    if optimized_df.iloc[0]['zip'] == '85001':
+    if optimized_df.iloc[0]['BD_ZIP'] == '85001':
         print("✅ PASS: ZIP normalized to 5 digits")
         tests_passed += 1
     else:
-        print(f"❌ FAIL: ZIP not normalized: '{optimized_df.iloc[0]['zip']}'")
+        print(f"❌ FAIL: ZIP not normalized: '{optimized_df.iloc[0]['BD_ZIP']}'")
         tests_failed += 1
-    
+
     # Test 6: Record 3 should inherit city/state/zip from Record 2 (same address)
-    if optimized_df.iloc[2]['city'] == 'AZ' or optimized_df.iloc[2]['state'] == 'AZ':
+    if optimized_df.iloc[2]['BD_CITY'] == 'AZ' or optimized_df.iloc[2]['BD_STATE'] == 'AZ':
         print("✅ PASS: Missing fields filled from matching address")
         tests_passed += 1
     else:
@@ -319,31 +319,31 @@ def test_ecorp_transformation():
     # Test 2: First record should have proper name splitting
     if len(batchdata_df) > 0:
         first_record = batchdata_df.iloc[0]
-        if first_record['target_first_name'] == 'John' and first_record['target_last_name'] == 'Doe':
+        if first_record['BD_TARGET_FIRST_NAME'] == 'John' and first_record['BD_TARGET_LAST_NAME'] == 'Doe':
             print("✅ PASS: Names properly split")
             tests_passed += 1
         else:
-            print(f"❌ FAIL: Name splitting failed: {first_record['target_first_name']} {first_record['target_last_name']}")
+            print(f"❌ FAIL: Name splitting failed: {first_record['BD_TARGET_FIRST_NAME']} {first_record['BD_TARGET_LAST_NAME']}")
             tests_failed += 1
-    
+
     # Test 3: Address parsing from principal address
     if len(batchdata_df) > 0:
         first_record = batchdata_df.iloc[0]
-        if first_record['city'] == 'Scottsdale' or first_record['city'] == 'Phoenix':
+        if first_record['BD_CITY'] == 'Scottsdale' or first_record['BD_CITY'] == 'Phoenix':
             print("✅ PASS: Address properly parsed")
             tests_passed += 1
         else:
-            print(f"❌ FAIL: Address parsing failed: city = '{first_record['city']}'")
+            print(f"❌ FAIL: Address parsing failed: city = '{first_record['BD_CITY']}'")
             tests_failed += 1
-    
+
     # Test 4: Entity with no principals should use statutory agent
-    entity_records = batchdata_df[batchdata_df['source_entity_id'] == 'C67890']
+    entity_records = batchdata_df[batchdata_df['BD_SOURCE_ENTITY_ID'] == 'C67890']
     if len(entity_records) > 0:
-        if 'Agent Services Inc' in entity_records.iloc[0]['owner_name_full']:
+        if 'Agent Services Inc' in entity_records.iloc[0]['BD_OWNER_NAME_FULL']:
             print("✅ PASS: Statutory agent used when no principals")
             tests_passed += 1
         else:
-            print(f"❌ FAIL: Statutory agent not used: '{entity_records.iloc[0]['owner_name_full']}'")
+            print(f"❌ FAIL: Statutory agent not used: '{entity_records.iloc[0]['BD_OWNER_NAME_FULL']}'")
             tests_failed += 1
     
     print(f"\neCorp Transformation Results: {tests_passed} passed, {tests_failed} failed")

@@ -32,11 +32,11 @@ def demo_transformation():
     print("\n📋 Sample BatchData Records:")
     for i, (_, row) in enumerate(batchdata_df.head(3).iterrows()):
         print(f"  Record {i+1}:")
-        print(f"    ID: {row['record_id']}")
-        print(f"    Entity: {row['source_entity_name']}")
-        print(f"    Name: {row['target_first_name']} {row['target_last_name']}")
-        print(f"    Role: {row['title_role']}")
-        print(f"    Location: {row['city']}, {row['state']}")
+        print(f"    ID: {row['BD_RECORD_ID']}")
+        print(f"    Entity: {row['BD_ENTITY_NAME']}")
+        print(f"    Name: {row['BD_TARGET_FIRST_NAME']} {row['BD_TARGET_LAST_NAME']}")
+        print(f"    Role: {row['BD_TITLE_ROLE']}")
+        print(f"    Location: {row['BD_CITY']}, {row['BD_STATE']}")
     
     return batchdata_df
 

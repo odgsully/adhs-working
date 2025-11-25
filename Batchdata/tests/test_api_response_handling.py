@@ -23,22 +23,22 @@ def test_phone_explosion_and_aggregation():
     # Create test data with various phone formats
     test_data = pd.DataFrame([
         {
-            'record_id': 'rec1',
-            'phone_1': '480-555-0001',
-            'phone_2': '(602) 555-0002',
-            'phone_3': '6235550003',
-            'phone_1_type': 'mobile',
-            'phone_2_type': 'landline',
-            'phone_3_type': 'mobile'
+            'BD_RECORD_ID': 'rec1',
+            'BD_PHONE_1': '480-555-0001',
+            'BD_PHONE_2': '(602) 555-0002',
+            'BD_PHONE_3': '6235550003',
+            'BD_PHONE_1_TYPE': 'mobile',
+            'BD_PHONE_2_TYPE': 'landline',
+            'BD_PHONE_3_TYPE': 'mobile'
         },
         {
-            'record_id': 'rec2',
-            'phone_1': '520-555-0004',
-            'phone_2': '',
-            'phone_3': '',
-            'phone_1_type': 'mobile',
-            'phone_2_type': '',
-            'phone_3_type': ''
+            'BD_RECORD_ID': 'rec2',
+            'BD_PHONE_1': '520-555-0004',
+            'BD_PHONE_2': '',
+            'BD_PHONE_3': '',
+            'BD_PHONE_1_TYPE': 'mobile',
+            'BD_PHONE_2_TYPE': '',
+            'BD_PHONE_3_TYPE': ''
         }
     ])
     
@@ -80,7 +80,7 @@ def test_phone_explosion_and_aggregation():
         tests_failed += 1
     
     # Test 4: Should preserve phone metadata
-    if 'phone_1_type' in phones_wide.columns:
+    if 'BD_PHONE_1_TYPE' in phones_wide.columns:
         print("✅ PASS: Phone metadata preserved")
         tests_passed += 1
     else:
@@ -97,10 +97,10 @@ def test_phone_scrubbing():
     
     # Create test phone data
     phones_df = pd.DataFrame([
-        {'record_id': 'rec1', 'phone': '+14805550001', 'type': 'mobile'},
-        {'record_id': 'rec1', 'phone': '+16025550002', 'type': 'landline'},
-        {'record_id': 'rec2', 'phone': '+16235550003', 'type': 'mobile'},
-        {'record_id': 'rec2', 'phone': '+15205550004', 'type': 'voip'}
+        {'BD_RECORD_ID': 'rec1', 'phone': '+14805550001', 'type': 'mobile'},
+        {'BD_RECORD_ID': 'rec1', 'phone': '+16025550002', 'type': 'landline'},
+        {'BD_RECORD_ID': 'rec2', 'phone': '+16235550003', 'type': 'mobile'},
+        {'BD_RECORD_ID': 'rec2', 'phone': '+15205550004', 'type': 'voip'}
     ])
     
     # Create verification results
@@ -172,64 +172,64 @@ def test_field_preservation_in_merge():
     # Create base data
     base_df = pd.DataFrame([
         {
-            'record_id': 'rec1',
-            'target_first_name': 'John',
-            'target_last_name': 'Doe',
-            'address_line1': '123 Main St',
+            'BD_RECORD_ID': 'rec1',
+            'BD_TARGET_FIRST_NAME': 'John',
+            'BD_TARGET_LAST_NAME': 'Doe',
+            'BD_ADDRESS': '123 Main St',
             'custom_field_1': 'value1'
         },
         {
-            'record_id': 'rec2',
-            'target_first_name': 'Jane',
-            'target_last_name': 'Smith',
-            'address_line1': '456 Oak Ave',
+            'BD_RECORD_ID': 'rec2',
+            'BD_TARGET_FIRST_NAME': 'Jane',
+            'BD_TARGET_LAST_NAME': 'Smith',
+            'BD_ADDRESS': '456 Oak Ave',
             'custom_field_1': 'value2'
         }
     ])
-    
+
     # Create API response with additional fields
     api_response = pd.DataFrame([
         {
-            'record_id': 'rec1',
+            'BD_RECORD_ID': 'rec1',
             'api_field_1': 'api_value1',
             'api_field_2': 'api_value2',
             'api_field_3': 'api_value3',
             'confidence_score': 0.95
         },
         {
-            'record_id': 'rec2',
+            'BD_RECORD_ID': 'rec2',
             'api_field_1': 'api_value4',
             'api_field_2': 'api_value5',
             'api_field_3': 'api_value6',
             'confidence_score': 0.87
         }
     ])
-    
+
     # Create phone data
     phone_data = pd.DataFrame([
         {
-            'record_id': 'rec1',
-            'phone_1': '+14805550001',
-            'phone_1_type': 'mobile',
-            'phone_1_confidence': 'high'
+            'BD_RECORD_ID': 'rec1',
+            'BD_PHONE_1': '+14805550001',
+            'BD_PHONE_1_TYPE': 'mobile',
+            'BD_PHONE_1_CONFIDENCE': 'high'
         },
         {
-            'record_id': 'rec2',
-            'phone_1': '+16025550002',
-            'phone_1_type': 'landline',
-            'phone_1_confidence': 'medium'
+            'BD_RECORD_ID': 'rec2',
+            'BD_PHONE_1': '+16025550002',
+            'BD_PHONE_1_TYPE': 'landline',
+            'BD_PHONE_1_CONFIDENCE': 'medium'
         }
     ])
-    
+
     # Perform merges as in the pipeline
-    merged_df = pd.merge(base_df, phone_data, on='record_id', how='left', suffixes=('', '_phones'))
-    merged_df = pd.merge(merged_df, api_response, on='record_id', how='left', suffixes=('', '_api'))
+    merged_df = pd.merge(base_df, phone_data, on='BD_RECORD_ID', how='left', suffixes=('', '_phones'))
+    merged_df = pd.merge(merged_df, api_response, on='BD_RECORD_ID', how='left', suffixes=('', '_api'))
     
     tests_passed = 0
     tests_failed = 0
     
     # Test 1: All original fields should be preserved
-    original_fields = ['target_first_name', 'target_last_name', 'address_line1', 'custom_field_1']
+    original_fields = ['BD_TARGET_FIRST_NAME', 'BD_TARGET_LAST_NAME', 'BD_ADDRESS', 'custom_field_1']
     missing_fields = [f for f in original_fields if f not in merged_df.columns]
     if not missing_fields:
         print("✅ PASS: All original fields preserved")
@@ -249,7 +249,7 @@ def test_field_preservation_in_merge():
         tests_failed += 1
     
     # Test 3: Phone fields should be preserved
-    phone_fields = ['phone_1', 'phone_1_type', 'phone_1_confidence']
+    phone_fields = ['BD_PHONE_1', 'BD_PHONE_1_TYPE', 'BD_PHONE_1_CONFIDENCE']
     missing_phone_fields = [f for f in phone_fields if f not in merged_df.columns]
     if not missing_phone_fields:
         print("✅ PASS: All phone fields preserved")
@@ -259,7 +259,7 @@ def test_field_preservation_in_merge():
         tests_failed += 1
     
     # Test 4: Total field count should be sum of all unique fields
-    expected_fields = len(set(list(base_df.columns) + list(api_response.columns) + list(phone_data.columns))) - 2  # -2 for duplicate record_id
+    expected_fields = len(set(list(base_df.columns) + list(api_response.columns) + list(phone_data.columns))) - 2  # -2 for duplicate BD_RECORD_ID
     actual_fields = len(merged_df.columns)
     if actual_fields >= expected_fields:
         print(f"✅ PASS: Expected field count preserved ({actual_fields} fields)")
