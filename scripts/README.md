@@ -21,7 +21,7 @@ This script automates processing multiple months of ADHS data. Perfect for junio
 
 2. **Run the script**:
    ```bash
-   poetry run python scripts/batch_process_months.py
+   python scripts/batch_process_months.py
    ```
 
 3. **Follow the prompts**:
@@ -95,13 +95,13 @@ For your specific case with 11 months of data:
 After processing all 11 months:
 
 **Reformat folder:** 11 files
-- `9.24_Reformat_{timestamp}.xlsx` through `7.25_Reformat_{timestamp}.xlsx`
+- `9.24 Reformat.xlsx` through `7.25 Reformat.xlsx`
 
 **All-to-Date folder:** 11 files
-- `7.25_Reformat_All_to_Date_{timestamp}.xlsx` (final file contains all 11 months)
+- `Reformat All to Date 7.25.xlsx` (final file contains all 11 months)
 
 **Analysis folder:** 11 files
-- `9.24_Analysis_{timestamp}.xlsx` through `7.25_Analysis_{timestamp}.xlsx`
+- `9.24 Analysis.xlsx` through `7.25 Analysis.xlsx`
 - Each shows lost licenses and seller leads for that month
 
 ### Tips for Success

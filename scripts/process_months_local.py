@@ -666,9 +666,12 @@ def extract_mcao_upload(month_code: str, apn_complete_path: Path):
         # Ensure columns are named correctly
         df.columns = ['FULL_ADDRESS', 'COUNTY', 'APN'] + list(df.columns[3:])
 
+        # Ensure APN column is string type for filtering (may be numeric from Excel)
+        df['APN'] = df['APN'].astype(str)
+
         # Filter out rows where APN is empty/null
         original_count = len(df)
-        df_filtered = df[df['APN'].notna() & (df['APN'] != '') & (~df['APN'].str.upper().isin(['NONE', 'NULL', 'NA', 'N/A']))].copy()
+        df_filtered = df[df['APN'].notna() & (df['APN'] != '') & (df['APN'] != 'nan') & (~df['APN'].str.upper().isin(['NONE', 'NULL', 'NA', 'N/A']))].copy()
         filtered_count = len(df_filtered)
         removed_count = original_count - filtered_count
 

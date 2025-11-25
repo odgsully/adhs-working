@@ -21,15 +21,6 @@ from datetime import datetime
 from pathlib import Path
 from typing import List, Tuple, Optional
 
-# Add src to path for imports
-sys.path.insert(0, 'src')
-
-from adhs_etl.utils import (
-    get_standard_timestamp,
-    format_output_filename,
-    get_legacy_filename
-)
-
 # Color codes for better output formatting
 class Colors:
     GREEN = '\033[92m'
@@ -179,7 +170,7 @@ def run_etl_pipeline(month_code: str, dry_run: bool = False) -> bool:
     try:
         # Use direct Python execution instead of Poetry
         cmd = [
-            "python3", "-m", "adhs_etl.cli_enhanced", "run",
+            "python", "-m", "adhs_etl.cli_enhanced", "run",
             "--month", month_code,
             "--raw-dir", "./Raw-New-Month"
         ]
@@ -240,14 +231,14 @@ def check_prerequisites() -> bool:
     
     # Check if Python is available
     try:
-        result = subprocess.run(["python3", "--version"], capture_output=True)
+        result = subprocess.run(["python", "--version"], capture_output=True)
         if result.returncode == 0:
-            print_success("Python 3 is available")
+            print_success("Python is available")
         else:
-            print_error("Python 3 is not available. Please install Python 3 first.")
+            print_error("Python is not available. Please install Python first.")
             return False
     except:
-        print_error("Python 3 is not available. Please install Python 3 first.")
+        print_error("Python is not available. Please install Python first.")
         return False
     
     # Check if Raw-New-Month directory exists

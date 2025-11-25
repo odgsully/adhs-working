@@ -10,17 +10,16 @@
 "YEAR": "YEAR"
 
 # Provider type mappings
-"Provider Type": "PROVIDER_TYPE"
-"PROVIDER TYPE": "PROVIDER_TYPE"
-"ProviderType": "PROVIDER_TYPE"
-"Provider_Type": "PROVIDER_TYPE"
-"PROVIDER_TYPE": "PROVIDER_TYPE"  # Preserve if already named correctly
+"Provider Type": "PROVIDER TYPE"
+"PROVIDER TYPE": "PROVIDER TYPE"
+"ProviderType": "PROVIDER TYPE"
+"Provider_Type": "PROVIDER TYPE"
 
 # Provider group index mappings
-"Provider Group Index": "PROVIDER_GROUP_INDEX_#"
-"PROVIDER GROUP INDEX #": "PROVIDER_GROUP_INDEX_#"
-"ProviderGroupIndex": "PROVIDER_GROUP_INDEX_#"
-"Group Index": "PROVIDER_GROUP_INDEX_#"
+"Provider Group Index": "PROVIDER GROUP INDEX #"
+"PROVIDER GROUP INDEX #": "PROVIDER GROUP INDEX #"
+"ProviderGroupIndex": "PROVIDER GROUP INDEX #"
+"Group Index": "PROVIDER GROUP INDEX #"
 
 # Provider name mappings
 "FACILITY_NAME": "PROVIDER"
@@ -74,13 +73,19 @@
 "Physical Latitude": "LATITUDE"
 "Latitude": "LATITUDE"
 
-# County mappings for different provider types
+# County mappings
+"COUNTY": "COUNTY"
 "County": "COUNTY"
-"BillingCounty__c": "COUNTY"
 "Physical County": "COUNTY"
+"Physical_County__c": "COUNTY"
+"BillingCountry": "COUNTY"
+
+# State mappings
+"STATE": "STATE"
+"State": "STATE"
+"Physical State/Province": "STATE"
 
 # Additional mappings from field_map.TODO.yml that should be mapped
 "Certificate Number": "LICENSE_NUMBER"
 "Certificate Effective Date": "LICENSE_EFFECTIVE_DATE"
 "Certificate Expiration Date": "LICENSE_EXPIRE_DATE"
-"Physical State/Province": "STATE"

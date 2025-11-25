@@ -2,7 +2,7 @@
 
 import logging
 from pathlib import Path
-from typing import Dict, Set
+from typing import Dict, List, Optional, Set, Tuple
 
 import pandas as pd
 import yaml
