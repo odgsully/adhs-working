@@ -219,8 +219,8 @@ def extract_title_role(title: str) -> str:
     return title_str.title()
 
 
-def apply_blacklist_filter(df: pd.DataFrame, blacklist: Set[str], 
-                          name_column: str = 'owner_name_full') -> pd.DataFrame:
+def apply_blacklist_filter(df: pd.DataFrame, blacklist: Set[str],
+                          name_column: str = 'BD_OWNER_NAME_FULL') -> pd.DataFrame:
     """Filter out blacklisted names from DataFrame.
     
     Args:

@@ -41,6 +41,12 @@
     * **Reformat**: Standardized data with MONTH, YEAR, PROVIDER_TYPE, PROVIDER, ADDRESS, CITY, ZIP, FULL_ADDRESS, CAPACITY, LONGITUDE, LATITUDE, COUNTY, PROVIDER_GROUP_INDEX_#
     * **All-to-Date**: Cumulative data across all months processed
     * **Analysis**: Full business analysis with 3 sheets (Summary, Blanks Count, Analysis) including lost license detection, MCAO property data, and extended tracking per v300Track_this.md
+12. **v300 Template Compliance** — Analysis output MUST match `v300Track_this.xlsx` template exactly:
+    * **Column naming**: Use underscores (`PROVIDER_TYPE`, `9.24_COUNT`, `10.24_TO_PREV`, `9.24_SUMMARY`)
+    * **Lead types**: Use Title Case (`Survey Lead`, `Seller Lead`, `Seller/Survey Lead`)
+    * **SUMMARY format**: Concatenate only columns M and N (`{ADDRESS_COUNT}, {DBA_Concat}`)
+    * **155 columns total**: A-P (16), Q-BD COUNT (40), BE-CQ TO_PREV (39), CR-EE SUMMARY (40), EF-EG (2), EH-EY tracking (18)
+    * See `v300Track_this.md` for complete field definitions
     * **APN Processing** (optional): For MARICOPA records, generates Upload and Complete files with Assessor Parcel Numbers
     * **MCAO Processing** (optional): Enriches APN data with 84 property fields from Maricopa County Assessor API
     * **Ecorp Upload**: 4 columns (FULL_ADDRESS, COUNTY, Owner_Ownership, OWNER_TYPE) extracted from MCAO_Complete

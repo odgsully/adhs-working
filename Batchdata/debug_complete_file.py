@@ -35,8 +35,8 @@ for sheet_name, df in sheets.items():
         print(f"\n   Column Analysis:")
 
         # Check for phone columns
-        phone_cols = [col for col in df.columns if col.startswith('phone_')]
-        email_cols = [col for col in df.columns if col.startswith('email_')]
+        phone_cols = [col for col in df.columns if col.startswith('BD_PHONE_')]
+        email_cols = [col for col in df.columns if col.startswith('BD_EMAIL_')]
 
         print(f"   - Phone columns found: {len(phone_cols)}")
         print(f"   - Email columns found: {len(email_cols)}")
@@ -46,30 +46,30 @@ for sheet_name, df in sheets.items():
         emails_populated = 0
 
         for col in phone_cols:
-            if col.endswith('_1') or col == 'phone_1':  # Check main phone columns
+            if col.endswith('_1') or col == 'BD_PHONE_1':  # Check main phone columns
                 non_empty = df[col].notna() & (df[col] != '')
                 if non_empty.any():
                     phones_populated += non_empty.sum()
 
         for col in email_cols:
-            if col.endswith('_1') or col == 'email_1':  # Check main email columns
+            if col.endswith('_1') or col == 'BD_EMAIL_1':  # Check main email columns
                 non_empty = df[col].notna() & (df[col] != '')
                 if non_empty.any():
                     emails_populated += non_empty.sum()
 
-        print(f"   - Records with phone_1: {phones_populated}/{len(df)}")
-        print(f"   - Records with email_1: {emails_populated}/{len(df)}")
+        print(f"   - Records with BD_PHONE_1: {phones_populated}/{len(df)}")
+        print(f"   - Records with BD_EMAIL_1: {emails_populated}/{len(df)}")
 
         # Check API status columns
-        if 'api_status' in df.columns:
+        if 'BD_API_STATUS' in df.columns:
             print(f"\n   API Status Distribution:")
-            status_counts = df['api_status'].value_counts()
+            status_counts = df['BD_API_STATUS'].value_counts()
             for status, count in status_counts.items():
                 print(f"   - {status}: {count}")
 
         # Check if persons_found column exists and has data
-        if 'persons_found' in df.columns:
-            persons_counts = df['persons_found'].value_counts()
+        if 'BD_PERSONS_FOUND' in df.columns:
+            persons_counts = df['BD_PERSONS_FOUND'].value_counts()
             print(f"\n   Persons Found Distribution:")
             for count, freq in persons_counts.items():
                 print(f"   - {count} persons: {freq} records")
@@ -78,15 +78,15 @@ for sheet_name, df in sheets.items():
         print(f"\n   Sample Data (first 3 rows):")
         print("   Key fields only:")
 
-        sample_cols = ['record_id', 'owner_name_full', 'address_line1', 'city', 'state']
-        if 'api_status' in df.columns:
-            sample_cols.append('api_status')
-        if 'persons_found' in df.columns:
-            sample_cols.append('persons_found')
-        if 'phone_1' in df.columns:
-            sample_cols.append('phone_1')
-        if 'email_1' in df.columns:
-            sample_cols.append('email_1')
+        sample_cols = ['BD_RECORD_ID', 'BD_OWNER_NAME_FULL', 'BD_ADDRESS', 'BD_CITY', 'BD_STATE']
+        if 'BD_API_STATUS' in df.columns:
+            sample_cols.append('BD_API_STATUS')
+        if 'BD_PERSONS_FOUND' in df.columns:
+            sample_cols.append('BD_PERSONS_FOUND')
+        if 'BD_PHONE_1' in df.columns:
+            sample_cols.append('BD_PHONE_1')
+        if 'BD_EMAIL_1' in df.columns:
+            sample_cols.append('BD_EMAIL_1')
 
         # Filter to existing columns
         sample_cols = [col for col in sample_cols if col in df.columns]

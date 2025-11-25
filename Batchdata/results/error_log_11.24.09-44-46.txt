@@ -1,0 +1,4 @@
+Pipeline Error: 2025-11-24 21:44:46.748408
+Input: ../batchdata_local_pack/template_batchdata_upload.xlsx
+eCorp: ../M.YY_Ecorp_Complete.xlsx
+Error: [Errno 2] No such file or directory: '../batchdata_local_pack/template_batchdata_upload.xlsx'

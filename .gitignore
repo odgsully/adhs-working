@@ -82,4 +82,23 @@ Analysis/**/*.xls
 old/**/*.xlsx
 old/**/*.xls
 APN/
+
+# MCAO enrichment files (property data from Maricopa County Assessor)
+MCAO/Upload/**/*.xlsx
+MCAO/Upload/**/*.xls
+MCAO/Complete/**/*.xlsx
+MCAO/Complete/**/*.xls
+
+# Ecorp enrichment files (ACC entity data)
+Ecorp/Upload/**/*.xlsx
+Ecorp/Upload/**/*.xls
+Ecorp/Complete/**/*.xlsx
+Ecorp/Complete/**/*.xls
+
+# BatchData enrichment files (contact discovery data)
+Batchdata/Upload/**/*.xlsx
+Batchdata/Upload/**/*.xls
+Batchdata/Complete/**/*.xlsx
+Batchdata/Complete/**/*.xls
+
 test-outputs/

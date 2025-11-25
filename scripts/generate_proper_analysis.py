@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Generate proper Analysis file matching v300Track_this.xlsx template as defined in v300Track_this.md.
+Generate proper Analysis file matching v100Track_this_shit.xlsx template.
 """
 
 import sys
@@ -20,7 +20,7 @@ from adhs_etl.transform_enhanced import (
 )
 
 def create_proper_summary_sheet(df: pd.DataFrame) -> pd.DataFrame:
-    """Create proper summary sheet matching v300Track_this.xlsx template."""
+    """Create proper summary sheet matching v100Track_this_shit.xlsx template."""
     
     # Follow exact structure from template
     summary_data = []
@@ -31,24 +31,24 @@ def create_proper_summary_sheet(df: pd.DataFrame) -> pd.DataFrame:
     # Row 2: Total PROVIDER (B3 i.e. Count of all PROVIDER)
     summary_data.append({"Metric": "Total PROVIDER", "Count": len(df['PROVIDER'].unique())})
     
-    # Row 3: Total PROVIDER GROUP (B4 i.e. highest PROVIDER_GROUP_INDEX_#)
-    summary_data.append({"Metric": "Total PROVIDER GROUP", "Count": df['PROVIDER_GROUP_INDEX_#'].max()})
+    # Row 3: Total PROVIDER GROUP (B4 i.e. highest PROVIDER GROUP INDEX #)
+    summary_data.append({"Metric": "Total PROVIDER GROUP", "Count": df['PROVIDER GROUP INDEX #'].max()})
     
     # Row 4: Total Blanks (B5 i.e. Count of all Blank records)
     blank_count = 0
-    for col in ['PROVIDER', 'ADDRESS', 'CITY', 'ZIP', 'FULL_ADDRESS', 'CAPACITY', 'LONGITUDE', 'LATITUDE', 'COUNTY']:
+    for col in ['PROVIDER', 'ADDRESS', 'CITY', 'ZIP', 'CAPACITY', 'LONGITUDE', 'LATITUDE']:
         if col in df.columns:
             blank_count += df[col].apply(lambda x: pd.isna(x) or str(x).strip() in ['', 'N/A', 'NAN']).sum()
     summary_data.append({"Metric": "Total Blanks", "Count": blank_count})
     
-    # Row 5: Total SOLO PROVIDER_TYPE PROVIDER (B6 i.e. count of 'Y' records)
-    summary_data.append({"Metric": "Total SOLO PROVIDER_TYPE PROVIDER", "Count": len(df)})
+    # Row 5: Total SOLO PROVIDER TYPE PROVIDER (B6 i.e. count of 'Y' records)
+    summary_data.append({"Metric": "Total SOLO PROVIDER TYPE PROVIDER", "Count": len(df)})
     
     # Row 6: Empty row
     summary_data.append({"Metric": "", "Count": ""})
     
-    # Rows 7-11: Status types (B8-B14 based on PROVIDER_TYPE & ADDRESS details)
-    summary_data.append({"Metric": "New PROVIDER_TYPE, New ADDRESS", "Count": len(df)})  # First month = all new
+    # Rows 7-11: Status types (B8-B14 based on PROVIDER TYPE & ADDRESS details)
+    summary_data.append({"Metric": "New PROVIDER TYPE, New ADDRESS", "Count": len(df)})  # First month = all new
     summary_data.append({"Metric": "New PROVIDER TYPE, Existing ADDRESS", "Count": 0})
     summary_data.append({"Metric": "Existing PROVIDER TYPE, New ADDRESS", "Count": 0})
     summary_data.append({"Metric": "Existing PROVIDER TYPE, Existing ADDRESS", "Count": 0})
@@ -62,26 +62,20 @@ def create_proper_summary_sheet(df: pd.DataFrame) -> pd.DataFrame:
     
     # Row 14: Lost PROVIDER TYPE, Lost ADDRESS (1+ remain)
     summary_data.append({"Metric": "Lost PROVIDER TYPE, Lost ADDRESS (1+ remain)", "Count": 0})
-
-    # Row 15: Reinstated PROVIDER TYPE, Existing ADDRESS (new in v300)
-    summary_data.append({"Metric": "Reinstated PROVIDER TYPE, Existing ADDRESS", "Count": 0})
-
-    # Row 16: Empty row
+    
+    # Row 15: Empty row
     summary_data.append({"Metric": "", "Count": ""})
-
-    # Row 17: Seller Leads (B17 i.e. 'Seller Lead', or 'Seller/Survey Lead')
+    
+    # Row 16: Seller Leads (B16 i.e. 'Seller Lead', or 'Seller/Survey Lead')
     summary_data.append({"Metric": "Seller Leads", "Count": 0})
     
     # Row 17: Survey Leads (B17 i.e. 'Survey Lead', or 'Seller/Survey Lead')
     summary_data.append({"Metric": "Survey Leads", "Count": len(df)})  # First month = all survey leads
     
-    # Row 19: Empty row
+    # Row 18: Empty row
     summary_data.append({"Metric": "", "Count": ""})
-
-    # Row 20: Total Record Count (TRC) - new in v300
-    summary_data.append({"Metric": "Total Record Count (TRC)", "Count": len(df)})
-
-    # Rows 21-32: Provider type counts with (TRC) suffix - Total records for each PROVIDER TYPE
+    
+    # Rows 19-30: Provider type counts (B19-B31 Total records for each PROVIDER TYPE)
     provider_types = [
         'ADULT_BEHAVIORAL_HEALTH_THERAPEUTIC_HOME',
         'ASSISTED_LIVING_CENTER',
@@ -99,7 +93,7 @@ def create_proper_summary_sheet(df: pd.DataFrame) -> pd.DataFrame:
     
     for provider_type in provider_types:
         count = len(df[df['PROVIDER TYPE'] == provider_type])
-        summary_data.append({"Metric": f"{provider_type} (TRC)", "Count": count})
+        summary_data.append({"Metric": provider_type, "Count": count})
     
     return pd.DataFrame(summary_data)
 
@@ -159,11 +153,11 @@ def create_proper_blanks_count_sheet(df: pd.DataFrame) -> pd.DataFrame:
     return pd.DataFrame(blanks_data)
 
 def create_proper_analysis_sheet(df: pd.DataFrame) -> pd.DataFrame:
-    """Create proper analysis sheet with all required columns from v300Track_this.xlsx."""
-
+    """Create proper analysis sheet with all required columns."""
+    
     analysis_df = df.copy()
-
-    # Add all required columns from v300Track_this.xlsx as defined in v300Track_this.md
+    
+    # Add all required columns from v100Track_this_shit.xlsx
     required_columns = [
         'SOLO PROVIDER TYPE PROVIDER [Y, #]',
         'PROVIDER TYPE', 'PROVIDER', 'ADDRESS', 'CITY', 'ZIP', 'CAPACITY',

@@ -31,14 +31,14 @@ for upload_file in upload_files[:2]:  # Check latest 2 files
 
             # Check critical fields
             print("\nField Analysis:")
-            fields_to_check = ['address_line1', 'city', 'state', 'zip', 'county']
+            fields_to_check = ['BD_ADDRESS', 'BD_CITY', 'BD_STATE', 'BD_ZIP', 'BD_COUNTY']
             for field in fields_to_check:
                 if field in df.columns:
                     non_empty = df[field].notna() & (df[field] != '') & (df[field] != 'nan')
                     print(f"  {field}: {non_empty.sum()}/{len(df)} populated")
 
                     # Show unique values for state
-                    if field == 'state' and field in df.columns:
+                    if field == 'BD_STATE' and field in df.columns:
                         unique_states = df[field].dropna().unique()
                         if len(unique_states) > 0:
                             print(f"    Unique values: {unique_states[:5]}")
@@ -50,12 +50,12 @@ for upload_file in upload_files[:2]:  # Check latest 2 files
             for idx in range(min(3, len(df))):
                 row = df.iloc[idx]
                 print(f"\n  Record {idx + 1}:")
-                print(f"    owner_name: {row.get('owner_name_full', 'N/A')}")
-                print(f"    address: {row.get('address_line1', 'N/A')}")
-                print(f"    city: {row.get('city', 'N/A')}")
-                print(f"    state: {row.get('state', 'N/A')}")
-                print(f"    zip: {row.get('zip', 'N/A')}")
-                print(f"    county: {row.get('county', 'N/A')}")
+                print(f"    BD_OWNER_NAME_FULL: {row.get('BD_OWNER_NAME_FULL', 'N/A')}")
+                print(f"    BD_ADDRESS: {row.get('BD_ADDRESS', 'N/A')}")
+                print(f"    BD_CITY: {row.get('BD_CITY', 'N/A')}")
+                print(f"    BD_STATE: {row.get('BD_STATE', 'N/A')}")
+                print(f"    BD_ZIP: {row.get('BD_ZIP', 'N/A')}")
+                print(f"    BD_COUNTY: {row.get('BD_COUNTY', 'N/A')}")
 
     except Exception as e:
         print(f"  Error reading file: {e}")

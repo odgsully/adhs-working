@@ -110,18 +110,18 @@ Configuration options (key-value pairs):
 - `batch.size`: Number of records per batch (e.g., 5000)
 - `batch.poll_seconds`: Polling interval (e.g., 15)
 
-### INPUT_MASTER Sheet  
+### INPUT_MASTER Sheet
 Required columns:
-- `record_id`: Unique identifier
-- `source_entity_name`: Entity name
-- `source_entity_id`: Entity ID
-- `target_first_name`: Contact first name
-- `target_last_name`: Contact last name
-- `owner_name_full`: Full contact name
-- `address_line1`: Street address
-- `city`: City
-- `state`: State (2-letter code)
-- `zip`: ZIP code
+- `BD_RECORD_ID`: Unique identifier
+- `BD_ENTITY_NAME`: Entity name
+- `BD_SOURCE_ENTITY_ID`: Entity ID
+- `BD_TARGET_FIRST_NAME`: Contact first name
+- `BD_TARGET_LAST_NAME`: Contact last name
+- `BD_OWNER_NAME_FULL`: Full contact name
+- `BD_ADDRESS`: Street address
+- `BD_CITY`: City
+- `BD_STATE`: State (2-letter code)
+- `BD_ZIP`: ZIP code
 
 ### BLACKLIST_NAMES Sheet
 Names to filter out (e.g., registered agents):

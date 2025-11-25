@@ -20,23 +20,23 @@ df = pd.read_excel(complete_file, sheet_name='OUTPUT_MASTER')
 # Display all records with their errors
 for idx, row in df.iterrows():
     print(f"Record {idx + 1}:")
-    print(f"  record_id: {row['record_id']}")
-    print(f"  owner_name: {row['owner_name_full']}")
-    print(f"  address: {row['address_line1']}")
-    print(f"  city: {row['city']}")
-    print(f"  state: {row['state'] if pd.notna(row['state']) else '[EMPTY]'}")
-    print(f"  zip: {row['zip'] if pd.notna(row['zip']) else '[EMPTY]'}")
-    print(f"  api_status: {row['api_status']}")
+    print(f"  BD_RECORD_ID: {row['BD_RECORD_ID']}")
+    print(f"  BD_OWNER_NAME_FULL: {row['BD_OWNER_NAME_FULL']}")
+    print(f"  BD_ADDRESS: {row['BD_ADDRESS']}")
+    print(f"  BD_CITY: {row['BD_CITY']}")
+    print(f"  BD_STATE: {row['BD_STATE'] if pd.notna(row['BD_STATE']) else '[EMPTY]'}")
+    print(f"  BD_ZIP: {row['BD_ZIP'] if pd.notna(row['BD_ZIP']) else '[EMPTY]'}")
+    print(f"  BD_API_STATUS: {row['BD_API_STATUS']}")
 
-    if 'api_error' in row and pd.notna(row['api_error']):
-        print(f"  api_error: {row['api_error']}")
+    if 'BD_API_ERROR' in row and pd.notna(row['BD_API_ERROR']):
+        print(f"  BD_API_ERROR: {row['BD_API_ERROR']}")
 
-    if 'stages_applied' in row and pd.notna(row['stages_applied']):
+    if 'BD_STAGES_APPLIED' in row and pd.notna(row['BD_STAGES_APPLIED']):
         try:
-            stages = json.loads(row['stages_applied'])
-            print(f"  stages_applied: {stages}")
+            stages = json.loads(row['BD_STAGES_APPLIED'])
+            print(f"  BD_STAGES_APPLIED: {stages}")
         except:
-            print(f"  stages_applied: {row['stages_applied']}")
+            print(f"  BD_STAGES_APPLIED: {row['BD_STAGES_APPLIED']}")
 
     print()
 
@@ -45,7 +45,7 @@ print(f"\n{'='*60}")
 print("Missing Critical Fields Analysis")
 print(f"{'='*60}\n")
 
-critical_fields = ['address_line1', 'city', 'state', 'zip']
+critical_fields = ['BD_ADDRESS', 'BD_CITY', 'BD_STATE', 'BD_ZIP']
 for field in critical_fields:
     missing = df[field].isna() | (df[field] == '')
     missing_count = missing.sum()
@@ -58,20 +58,20 @@ print(f"{'='*60}\n")
 
 for idx, row in df.head(2).iterrows():
     print(f"Record {idx + 1} would send:")
-    print(f"  requestId: {row['record_id']}")
+    print(f"  requestId: {row['BD_RECORD_ID']}")
     print(f"  propertyAddress:")
-    print(f"    street: {row['address_line1'] if pd.notna(row['address_line1']) else ''}")
-    print(f"    city: {row['city'] if pd.notna(row['city']) else ''}")
-    print(f"    state: {row['state'] if pd.notna(row['state']) else ''}")
-    print(f"    zip: {row['zip'] if pd.notna(row['zip']) else ''}")
+    print(f"    street: {row['BD_ADDRESS'] if pd.notna(row['BD_ADDRESS']) else ''}")
+    print(f"    city: {row['BD_CITY'] if pd.notna(row['BD_CITY']) else ''}")
+    print(f"    state: {row['BD_STATE'] if pd.notna(row['BD_STATE']) else ''}")
+    print(f"    zip: {row['BD_ZIP'] if pd.notna(row['BD_ZIP']) else ''}")
 
-    if pd.notna(row.get('target_first_name')) or pd.notna(row.get('target_last_name')):
+    if pd.notna(row.get('BD_TARGET_FIRST_NAME')) or pd.notna(row.get('BD_TARGET_LAST_NAME')):
         print(f"  name:")
-        print(f"    first: {row.get('target_first_name', '')}")
-        print(f"    last: {row.get('target_last_name', '')}")
-    elif pd.notna(row.get('owner_name_full')):
+        print(f"    first: {row.get('BD_TARGET_FIRST_NAME', '')}")
+        print(f"    last: {row.get('BD_TARGET_LAST_NAME', '')}")
+    elif pd.notna(row.get('BD_OWNER_NAME_FULL')):
         # Would parse full name
-        name = str(row['owner_name_full']).strip()
+        name = str(row['BD_OWNER_NAME_FULL']).strip()
         parts = name.split(' ', 1)
         if len(parts) == 2:
             print(f"  name:")

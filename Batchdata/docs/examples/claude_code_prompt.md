@@ -15,9 +15,9 @@ IMPLEMENTATION NOTES
 - Use requests for HTTP, pandas for ETL, python-dotenv to load .env.
 - CSV uploads: use multipart/form-data; generate temp CSVs for batches of size from CONFIG['batch.size'].
 - Poll GET /jobs/{id} until status==completed; then GET /jobs/{id}/download to fetch results.
-- Robust join key is `record_id`. Preserve row order via a stable index.
+- Robust join key is `BD_RECORD_ID`. Preserve row order via a stable index.
 - Scrubs: retain only phones with (is_active==True AND line_type=='mobile') and not on DNC and not litigators.
-- Normalize phone output to E.164 (+1XXXXXXXXXX). Deduplicate by (record_id, phone).
+- Normalize phone output to E.164 (+1XXXXXXXXXX). Deduplicate by (BD_RECORD_ID, phone).
 
 ACCEPTANCE TEST
 - Create a small test Excel (3 rows) and run full pipeline with all toggles TRUE using mocked responses. Verify output shapes and columns.

@@ -92,7 +92,7 @@ try:
     if records:
         first_record = records[0]
         print(f"\nFirst record fields:")
-        for key in ['address_line1', 'city', 'state', 'zip']:
+        for key in ['BD_ADDRESS', 'BD_CITY', 'BD_STATE', 'BD_ZIP']:
             if key in first_record:
                 print(f"  {key}: {first_record[key]}")
             else:

@@ -27,8 +27,8 @@ def test_data_transformation():
     
     # Validate required columns
     required_columns = [
-        'record_id', 'source_entity_name', 'target_first_name', 
-        'target_last_name', 'owner_name_full', 'address_line1', 'city', 'state'
+        'BD_RECORD_ID', 'BD_ENTITY_NAME', 'BD_TARGET_FIRST_NAME',
+        'BD_TARGET_LAST_NAME', 'BD_OWNER_NAME_FULL', 'BD_ADDRESS', 'BD_CITY', 'BD_STATE'
     ]
     
     missing_cols = [col for col in required_columns if col not in batchdata_df.columns]
@@ -39,12 +39,12 @@ def test_data_transformation():
         print("✅ All required columns present")
     
     # Check data quality
-    print(f"Records with names: {len(batchdata_df[batchdata_df['owner_name_full'].notna()])}")
-    print(f"Records with addresses: {len(batchdata_df[batchdata_df['address_line1'].notna()])}")
-    
+    print(f"Records with names: {len(batchdata_df[batchdata_df['BD_OWNER_NAME_FULL'].notna()])}")
+    print(f"Records with addresses: {len(batchdata_df[batchdata_df['BD_ADDRESS'].notna()])}")
+
     print("\nSample transformed record:")
     sample = batchdata_df.iloc[0]
-    for col in ['record_id', 'source_entity_name', 'owner_name_full', 'city', 'state']:
+    for col in ['BD_RECORD_ID', 'BD_ENTITY_NAME', 'BD_OWNER_NAME_FULL', 'BD_CITY', 'BD_STATE']:
         print(f"  {col}: {sample[col]}")
     
     return True
@@ -65,10 +65,10 @@ def test_blacklist_filtering():
     
     # Create test data with some blacklisted names
     test_data = pd.DataFrame([
-        {'record_id': '1', 'owner_name_full': 'John Doe'},
-        {'record_id': '2', 'owner_name_full': 'CT Corporation System'},
-        {'record_id': '3', 'owner_name_full': 'Jane Smith'},
-        {'record_id': '4', 'owner_name_full': 'LegalZoom Service'}
+        {'BD_RECORD_ID': '1', 'BD_OWNER_NAME_FULL': 'John Doe'},
+        {'BD_RECORD_ID': '2', 'BD_OWNER_NAME_FULL': 'CT Corporation System'},
+        {'BD_RECORD_ID': '3', 'BD_OWNER_NAME_FULL': 'Jane Smith'},
+        {'BD_RECORD_ID': '4', 'BD_OWNER_NAME_FULL': 'LegalZoom Service'}
     ])
     
     print(f"Test data before filtering: {len(test_data)} records")
@@ -147,8 +147,8 @@ def test_phone_processing():
     
     # Test with sample data that might have phones
     test_df = pd.DataFrame([
-        {'record_id': '1', 'phone_1': '480-555-1234', 'phone_2': '602-555-5678'},
-        {'record_id': '2', 'phone_1': '520-555-9999', 'phone_2': ''}
+        {'BD_RECORD_ID': '1', 'BD_PHONE_1': '480-555-1234', 'BD_PHONE_2': '602-555-5678'},
+        {'BD_RECORD_ID': '2', 'BD_PHONE_1': '520-555-9999', 'BD_PHONE_2': ''}
     ])
     
     phones_long = explode_phones_to_long(test_df)
@@ -181,7 +181,7 @@ def run_full_mock_test():
             
             # Mock pipeline execution
             mock_final_df = pd.DataFrame([
-                {'record_id': '1', 'source_entity_name': 'Test LLC', 'phone_1': '+14805551234'}
+                {'BD_RECORD_ID': '1', 'BD_ENTITY_NAME': 'Test LLC', 'BD_PHONE_1': '+14805551234'}
             ])
             mock_client.run_skip_trace_pipeline.return_value = (mock_final_df, [])
             

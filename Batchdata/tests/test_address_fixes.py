@@ -104,9 +104,9 @@ def test_entity_individual_logic():
             result = results[0]  # Should only be one record for these tests
             
             statutory_agent = test_record['Statutory Agent']
-            first_name = result.get('target_first_name', '')
-            last_name = result.get('target_last_name', '')
-            title_role = result.get('title_role', '')
+            first_name = result.get('BD_TARGET_FIRST_NAME', '')
+            last_name = result.get('BD_TARGET_LAST_NAME', '')
+            title_role = result.get('BD_TITLE_ROLE', '')
             
             print(f"   Statutory Agent: {statutory_agent}")
             print(f"   First Name: '{first_name}'")
@@ -155,30 +155,30 @@ def test_with_real_data():
         issues = []
         
         # Check for 'USA' in state column
-        usa_states = batchdata_df[batchdata_df['state'] == 'USA']
+        usa_states = batchdata_df[batchdata_df['BD_STATE'] == 'USA']
         if len(usa_states) > 0:
             issues.append(f"{len(usa_states)} records have 'USA' in state column")
-        
+
         # Check for ZIP codes in city column
-        zip_in_city = batchdata_df[batchdata_df['city'].str.match(r'^\d{5}$', na=False)]
+        zip_in_city = batchdata_df[batchdata_df['BD_CITY'].str.match(r'^\d{5}$', na=False)]
         if len(zip_in_city) > 0:
             issues.append(f"{len(zip_in_city)} records have ZIP codes in city column")
-        
+
         # Check for empty ZIP codes where we should have them
-        empty_zips = batchdata_df[batchdata_df['zip'] == '']
+        empty_zips = batchdata_df[batchdata_df['BD_ZIP'] == '']
         print(f"Records with empty ZIP codes: {len(empty_zips)}")
-        
+
         # Check for entity names in individual fields
         entity_keywords = ['LLC', 'INC', 'CORP', 'COMPANY']
         entity_in_first_name = batchdata_df[
-            batchdata_df['target_first_name'].str.contains('|'.join(entity_keywords), case=False, na=False)
+            batchdata_df['BD_TARGET_FIRST_NAME'].str.contains('|'.join(entity_keywords), case=False, na=False)
         ]
         if len(entity_in_first_name) > 0:
             issues.append(f"{len(entity_in_first_name)} records have entity names in first name field")
-        
+
         print(f"\n📋 Sample transformed record:")
         sample = batchdata_df.iloc[0]
-        for col in ['record_id', 'target_first_name', 'target_last_name', 'city', 'state', 'zip']:
+        for col in ['BD_RECORD_ID', 'BD_TARGET_FIRST_NAME', 'BD_TARGET_LAST_NAME', 'BD_CITY', 'BD_STATE', 'BD_ZIP']:
             print(f"   {col}: '{sample[col]}'")
         
         if issues:

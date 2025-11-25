@@ -2,6 +2,8 @@
 
 from pathlib import Path
 
+import pandas as pd
+import pytest
 from typer.testing import CliRunner
 
 from adhs_etl.cli import app

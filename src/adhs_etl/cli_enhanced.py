@@ -3,6 +3,8 @@
 import logging
 from pathlib import Path
 from typing import Optional
+from datetime import datetime
+import gc
 
 import pandas as pd
 import typer
@@ -25,12 +27,6 @@ from .analysis import (
     create_blanks_count_sheet
 )
 from .mca_api import MCAPGeocoder
-from .utils import (
-    get_standard_timestamp,
-    format_output_filename,
-    get_legacy_filename,
-    save_excel_with_legacy_copy
-)
 
 app = typer.Typer()
 console = Console()
@@ -87,16 +83,14 @@ def get_previous_month_data(all_months_dir: Path, current_month: int, current_ye
 def get_all_historical_data(all_to_date_dir: Path) -> pd.DataFrame:
     """Get all historical data from the most recent All to Date file."""
     import pandas as pd
-
-    # Find most recent All to Date file (check both old and new patterns)
-    all_to_date_files_new = list(all_to_date_dir.glob("*_Reformat_All_to_Date_*.xlsx"))
-    all_to_date_files_old = list(all_to_date_dir.glob("Reformat All to Date *.xlsx"))
-    all_to_date_files = all_to_date_files_new + all_to_date_files_old
-
+    
+    # Find most recent All to Date file
+    all_to_date_files = list(all_to_date_dir.glob("Reformat All to Date *.xlsx"))
+    
     if all_to_date_files:
         latest_file = max(all_to_date_files, key=lambda p: p.stat().st_mtime)
         return pd.read_excel(latest_file)
-
+    
     return pd.DataFrame()
 
 
@@ -167,7 +161,7 @@ def run(
         parts = month.split('.')
         month_num = int(parts[0])
         year_num = 2000 + int(parts[1])
-    except Exception:
+    except:
         logger.error(f"Invalid month format: {month}. Use MM.YY or M.YY")
         raise typer.Exit(code=1)
     
@@ -266,41 +260,18 @@ def run(
         all_historical_df
     )
     
-    # Ensure CAPACITY is formatted as integers (no decimals)
-    if 'CAPACITY' in analysis_df.columns:
-        analysis_df['CAPACITY'] = pd.to_numeric(analysis_df['CAPACITY'], errors='coerce')
-        # Convert to integers where not null, then to string
-        mask = analysis_df['CAPACITY'].notna() & (analysis_df['CAPACITY'] != 0)
-        analysis_df.loc[mask, 'CAPACITY'] = analysis_df.loc[mask, 'CAPACITY'].astype(int).astype(str)
-        # Set null/0 values to empty string
-        analysis_df.loc[~mask, 'CAPACITY'] = ''
-
     # Add provider group information
     analysis_df = analyzer.calculate_provider_groups(analysis_df)
-
+    
     # Add monthly counts and movements
     if not all_historical_df.empty:
         months_data = analyzer.create_monthly_counts(all_historical_df, month_num, year_num)
         analysis_df = analyzer.create_movement_columns(analysis_df, months_data)
-
-    # Add summary columns AFTER provider groups are calculated (needs Column M and N)
-    analysis_df = analyzer.create_summary_columns(analysis_df)
-
-    # Calculate enhanced tracking fields (EH:EY columns)
-    analysis_df = analyzer.calculate_enhanced_tracking_fields(analysis_df, previous_month_df)
-
-    # Ensure all columns from v300Track_this.xlsx as defined in v300Track_this.md are present
+        analysis_df = analyzer.create_summary_columns(analysis_df)
+    
+    # Ensure all 63 columns from v100Track_this_shit.xlsx are present
     analysis_df = analyzer.ensure_all_analysis_columns(analysis_df, month_num, year_num)
-
-    # Ensure CAPACITY is formatted as integers (no decimals) - MOVED AFTER ensure_all_analysis_columns
-    if 'CAPACITY' in analysis_df.columns:
-        analysis_df['CAPACITY'] = pd.to_numeric(analysis_df['CAPACITY'], errors='coerce')
-        # Convert to integers where not null, then to string
-        mask = analysis_df['CAPACITY'].notna() & (analysis_df['CAPACITY'] != 0)
-        analysis_df.loc[mask, 'CAPACITY'] = analysis_df.loc[mask, 'CAPACITY'].astype(int).astype(str)
-        # Set null/0 values to empty string
-        analysis_df.loc[~mask, 'CAPACITY'] = ''
-
+    
     # Fix MONTH and YEAR columns to only show the processing month/year
     analysis_df['MONTH'] = month_num
     analysis_df['YEAR'] = year_num
@@ -346,97 +317,50 @@ def run(
                 logger.warning(f"Failed to get property data for {address}: {e}")
                 continue
     
-    # 7. Create analysis output file with timestamp
-    # Generate timestamp (should ideally come from the session)
-    timestamp = get_standard_timestamp()
-    month_code = f"{month_num}.{year_num % 100}"
-
-    # Generate new format filename
-    new_analysis_filename = format_output_filename(month_code, "Analysis", timestamp)
-    new_analysis_path = analysis_dir / new_analysis_filename
-
-    # Generate legacy format filename
-    legacy_analysis_filename = get_legacy_filename(month_code, "Analysis")
-    legacy_analysis_path = analysis_dir / legacy_analysis_filename
-
-    analysis_path = new_analysis_path
+    # 7. Create analysis output file
+    if month_num >= 10:
+        analysis_filename = f"{month_num}.{year_num % 100} Analysis.xlsx"
+    else:
+        analysis_filename = f"{month_num}.{year_num % 100} Analysis.xlsx"
+    
+    analysis_path = analysis_dir / analysis_filename
     
     if not dry_run:
-        # Create summary sheet - pass both Analysis and Reformat data for v300 compliance
-        summary_df = create_analysis_summary_sheet(analysis_df, current_month_df)
+        # Create summary sheet
+        summary_df = create_analysis_summary_sheet(analysis_df)
         
-        # Create blanks count sheet - pass month and year for v300 compliance
-        blanks_df = create_blanks_count_sheet(current_month_df, month_num, year_num)
+        # Create blanks count sheet
+        blanks_df = create_blanks_count_sheet(current_month_df)
         
-        # Optimize Analysis dataframe before writing - FIXED: Clean 'N/A' while preserving v300 column structure
-        logger.info("Optimizing Analysis dataframe for faster writing...")
-        analysis_df_optimized = analysis_df.copy()
-
-        # Replace 'N/A' strings - FIXED: Use empty strings instead of pd.NA to prevent column dropping
-        for col in analysis_df_optimized.columns:
-            if analysis_df_optimized[col].dtype == 'object':
-                analysis_df_optimized[col] = analysis_df_optimized[col].replace('N/A', '')
-                # Don't replace empty strings - they're already correct
-
-        # Validate column count for v300Track_this.xlsx 1:1 alignment
-        expected_columns = 155  # v300Track_this.xlsx has columns A through EY (155 columns)
-        actual_columns = len(analysis_df_optimized.columns)
-
-        logger.info(f"Column validation: {actual_columns} columns (expected: {expected_columns})")
-        logger.info(f"First 5 columns: {list(analysis_df_optimized.columns[:5])}")
-        logger.info(f"Last 5 columns: {list(analysis_df_optimized.columns[-5:])}")
-
-        if actual_columns != expected_columns:
-            logger.error(f"❌ COLUMN COUNT MISMATCH: Expected {expected_columns} columns, got {actual_columns}")
-            logger.error(f"❌ NOT CONSISTENT WITH v300Track_this.xlsx - BLOCKING OUTPUT")
-            logger.error(f"❌ NO FILES WILL BE WRITTEN UNTIL COLUMN STRUCTURE MATCHES v300")
-            return  # Block processing completely - don't write any files
-        else:
-            logger.info(f"✅ Column count validated: {actual_columns} columns match v300Track_this.xlsx")
-
-        # Write all sheets to Excel using xlsxwriter for better performance
-        try:
-            # Try xlsxwriter first (5-10x faster for large files)
-            engine = 'xlsxwriter'
-            engine_kwargs = {
-                'options': {
-                    'strings_to_urls': False,  # Don't convert strings to URLs
-                    'nan_inf_to_errors': True,  # Handle NaN/Inf properly
-                    'strings_to_formulas': False,  # Don't interpret strings as formulas
-                    'constant_memory': False  # FIXED: Disable to prevent column dropping for v300 compliance
-                }
-            }
-
-            logger.info(f"Writing Excel file using {engine} engine for better performance...")
-
-            with pd.ExcelWriter(analysis_path, engine=engine, engine_kwargs=engine_kwargs) as writer:
-                # Sheet 1: Summary
-                summary_df.to_excel(writer, sheet_name='Summary', index=False)
-
-                # Sheet 2: Blanks Count
-                blanks_df.to_excel(writer, sheet_name='Blanks Count', index=False)
-
-                # Sheet 3: Analysis (optimized)
-                analysis_df_optimized.to_excel(writer, sheet_name='Analysis', index=False)
-
-                logger.info(f"Successfully wrote Excel file with {engine} engine")
-
-        except ImportError:
-            # Fallback to openpyxl if xlsxwriter not available
-            logger.warning("xlsxwriter not available, falling back to openpyxl (slower)")
-
-            with pd.ExcelWriter(analysis_path, engine='openpyxl') as writer:
-                # Sheet 1: Summary
-                summary_df.to_excel(writer, sheet_name='Summary', index=False)
-
-                # Sheet 2: Blanks Count
-                blanks_df.to_excel(writer, sheet_name='Blanks Count', index=False)
-
-                # Sheet 3: Analysis (optimized)
-                analysis_df_optimized.to_excel(writer, sheet_name='Analysis', index=False)
-
-                # Skip column formatting for now to speed up writing
-                logger.info("Wrote Excel file with openpyxl (formatting skipped for performance)")
+        # Write all sheets to Excel
+        with pd.ExcelWriter(analysis_path, engine='openpyxl') as writer:
+            # Sheet 1: Summary
+            summary_df.to_excel(writer, sheet_name='Summary', index=False)
+            
+            # Sheet 2: Blanks Count
+            blanks_df.to_excel(writer, sheet_name='Blanks Count', index=False)
+            
+            # Sheet 3: Analysis
+            analysis_df.to_excel(writer, sheet_name='Analysis', index=False)
+            
+            # Format columns
+            for sheet_name in ['Summary', 'Blanks Count', 'Analysis']:
+                worksheet = writer.sheets[sheet_name]
+                
+                # Auto-adjust column widths
+                for column in worksheet.columns:
+                    max_length = 0
+                    column_letter = column[0].column_letter
+                    
+                    for cell in column:
+                        try:
+                            if len(str(cell.value)) > max_length:
+                                max_length = len(str(cell.value))
+                        except:
+                            pass
+                    
+                    adjusted_width = min(max_length + 2, 50)
+                    worksheet.column_dimensions[column_letter].width = adjusted_width
         
         # Ensure file is visible and accessible
         import os
@@ -458,12 +382,8 @@ def run(
                 
         except Exception as e:
             logger.warning(f"Could not set permissions for {analysis_path}: {e}")
-
-        # Create legacy copy for backward compatibility
-        save_excel_with_legacy_copy(analysis_path, legacy_analysis_path)
-
+        
         logger.info(f"Created Analysis file: {analysis_path}")
-        logger.info(f"Created legacy copy: {legacy_analysis_path}")
         logger.info(f"  - {len(summary_df)} summary metrics")
         logger.info(f"  - {len(blanks_df)} provider types tracked")
         logger.info(f"  - {len(analysis_df)} providers analyzed")
@@ -502,7 +422,7 @@ def validate(
         logger.info(f"Field map validated: {len(mapping)} mappings found")
         
         # Show required fields
-        required_fields = ['PROVIDER', 'ADDRESS', 'CITY', 'ZIP', 'FULL_ADDRESS', 'CAPACITY', 'LONGITUDE', 'LATITUDE', 'COUNTY']
+        required_fields = ['PROVIDER', 'ADDRESS', 'CITY', 'ZIP', 'CAPACITY', 'LONGITUDE', 'LATITUDE']
         for field in required_fields:
             mappings = [k for k, v in mapping.items() if v == field]
             logger.info(f"  {field}: {len(mappings)} mappings")
