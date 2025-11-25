@@ -116,6 +116,9 @@ Where:
 
 - **Analysis**: `M.YY_Analysis_{timestamp}.xlsx`
   - Full business analysis with Summary, Blanks Count, and lost license detection
+  - **v300 Template Compliance**: Must match `v300Track_this.xlsx` exactly (155 columns)
+  - Column naming uses underscores (`PROVIDER_TYPE`, `9.24_COUNT`, `10.24_TO_PREV`)
+  - See `v300Track_this.md` for complete field definitions
 
 ### Optional Enrichment Stages
 

@@ -1,5 +1,24 @@
 # v300Track Analysis Sheet - Complete Field Definitions
 
+> **TEMPLATE REFERENCE**: This documentation defines the official column naming and structure for `v300Track_this.xlsx`. All Analysis output files MUST match this template exactly.
+
+## Column Naming Convention
+
+**IMPORTANT**: All column names use **underscores** (`_`) instead of spaces for v300 compliance:
+- `PROVIDER_TYPE` (not `PROVIDER TYPE`)
+- `PROVIDER_GROUP_INDEX_#` (not `PROVIDER GROUP INDEX #`)
+- `THIS_MONTH_STATUS` (not `THIS MONTH STATUS`)
+- `9.24_COUNT` (not `9.24 COUNT`)
+- `10.24_TO_PREV` (not `10.24 TO PREV`)
+- `9.24_SUMMARY` (not `9.24 SUMMARY`)
+
+This ensures:
+1. Consistent column parsing across the codebase
+2. Excel formula compatibility
+3. Reliable data matching between months
+
+---
+
 ## Project Overview and Goal
 
 **Objective**: Have a simple clean functioning database with exceptional mapping & attention to detail. I have a monthly recurring number of datasets to download. The goal is to have a singular script that gives Reformatting capabilities and Analysis with perfect data execution.
@@ -758,6 +777,32 @@ For each cell in the matrix:
 
 ---
 
+## Column Structure Reference (155 columns)
+
+| Range | Columns | Content | Naming Pattern |
+|-------|---------|---------|----------------|
+| A-P | 16 | Core identification fields | `PROVIDER_TYPE`, `THIS_MONTH_STATUS`, etc. |
+| Q-BD | 40 | Monthly COUNT fields | `9.24_COUNT` through `12.27_COUNT` |
+| BE-CQ | 39 | Monthly TO PREV fields | `10.24_TO_PREV` through `12.27_TO_PREV` |
+| CR-EE | 40 | Monthly SUMMARY fields | `9.24_SUMMARY` through `12.27_SUMMARY` |
+| EF-EG | 2 | Metadata | `MONTH`, `YEAR` |
+| EH-EY | 18 | Enhanced tracking fields | `PREVIOUS_MONTH_STATUS` through `RELOCATION_FLAG` |
+
+### Lead Type Values (Title Case)
+Per v300 spec, lead types use Title Case:
+- `Survey Lead`
+- `Seller Lead`
+- `Seller/Survey Lead`
+
+### SUMMARY Column Format
+SUMMARY columns concatenate only columns M and N:
+```
+{PROVIDER_GROUP,_ADDRESS_COUNT}, {PROVIDER_GROUP_(DBA_Concat)}
+```
+Example: `"7, SAGUARO FOUNDATION COMMUNITY LIVING PROGRAM (2783 S MARY AVENUE)"`
+
+---
+
 *Version: v300Track*
 *Last Updated: Analysis for extended historical tracking and regional insights*
-*09.18.25*
+*11.25.25*
