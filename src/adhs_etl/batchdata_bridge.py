@@ -28,6 +28,70 @@ except ImportError as e:
 from .utils import get_standard_timestamp, format_output_filename
 
 
+# Canonical template path for output validation
+BATCHDATA_COMPLETE_TEMPLATE = "Batchdata_Template.xlsx"
+
+
+def validate_output_against_template(
+    df: pd.DataFrame,
+    template_path: str = BATCHDATA_COMPLETE_TEMPLATE,
+    strict: bool = True
+) -> bool:
+    """Validate DataFrame columns against canonical template.
+
+    Args:
+        df: DataFrame to validate
+        template_path: Path to template Excel file
+        strict: If True, raise ValueError on mismatch. If False, log warning only.
+
+    Returns:
+        True if columns match template exactly, False otherwise.
+
+    Raises:
+        ValueError: If strict=True and columns don't match template.
+        FileNotFoundError: If template file doesn't exist.
+    """
+    template_file = Path(template_path)
+    if not template_file.exists():
+        if strict:
+            raise FileNotFoundError(f"Template file not found: {template_path}")
+        print(f"⚠️ Warning: Template file not found for validation: {template_path}")
+        return False
+
+    # Read template columns
+    template_df = pd.read_excel(template_path, nrows=0)
+    template_cols = list(template_df.columns)
+    output_cols = list(df.columns)
+
+    if output_cols == template_cols:
+        print(f"✓ Output schema matches template ({len(template_cols)} columns)")
+        return True
+
+    # Find differences
+    missing = set(template_cols) - set(output_cols)
+    extra = set(output_cols) - set(template_cols)
+
+    msg = (
+        f"Output schema mismatch!\n"
+        f"  Expected: {len(template_cols)} columns\n"
+        f"  Got: {len(output_cols)} columns\n"
+    )
+    if missing:
+        msg += f"  Missing: {sorted(missing)}\n"
+    if extra:
+        msg += f"  Extra: {sorted(extra)}\n"
+
+    # Check order if sets match
+    if not missing and not extra:
+        msg += f"  Note: Column sets match but ORDER differs from template\n"
+
+    if strict:
+        raise ValueError(msg)
+    else:
+        print(f"⚠️ Warning: {msg}")
+        return False
+
+
 def create_batchdata_upload(
     ecorp_complete_path: str,
     month_code: str,
@@ -81,10 +145,10 @@ def create_batchdata_upload(
     ecorp_df = pd.read_excel(ecorp_path)
     print(f"  Loaded {len(ecorp_df)} records")
 
-    # Transform to BatchData format
+    # Transform to BatchData format (with ECORP passthrough for traceability)
     print(f"\nTransforming to BatchData format...")
-    batchdata_df = transform_ecorp_to_batchdata(ecorp_df)
-    print(f"  Transformed to {len(batchdata_df)} BatchData records")
+    batchdata_df = transform_ecorp_to_batchdata(ecorp_df, preserve_ecorp_context=True)
+    print(f"  Transformed to {len(batchdata_df)} BatchData records ({len(batchdata_df.columns)} columns)")
 
     # Load template sheets (CONFIG, BLACKLIST_NAMES)
     print(f"\nLoading template configuration...")
@@ -116,7 +180,7 @@ def create_batchdata_upload(
 
     print(f"✓ Created BatchData Upload: {output_file}")
     print(f"  - CONFIG: {len(config_df)} settings")
-    print(f"  - INPUT_MASTER: {len(batchdata_df)} records")
+    print(f"  - INPUT_MASTER: {len(batchdata_df)} records x {len(batchdata_df.columns)} columns (17 ECORP + 16 BD)")
     print(f"  - BLACKLIST_NAMES: {len(blacklist_df)} entries")
 
     return output_file
@@ -327,18 +391,34 @@ def _run_sync_enrichment(
     print(f"\nRunning enrichment pipeline with stages: {stage_config}")
     result_df = client.run_enrichment_pipeline(input_df, stage_config)
 
-    # Apply Ecorp-to-Batchdata name matching if ecorp_file provided
-    if ecorp_file and apply_name_matching is not None:
-        ecorp_path = Path(ecorp_file)
-        if ecorp_path.exists():
-            print(f"\nComputing Ecorp-to-Batchdata name matching...")
-            ecorp_complete_df = pd.read_excel(ecorp_path)
-            result_df = apply_name_matching(result_df, ecorp_complete_df)
-            print(f"  Added ECORP_TO_BATCH_MATCH_% and MISSING_1-8_FULL_NAME columns")
+    # Apply Ecorp-to-Batchdata name matching
+    # NOTE: ecorp_file is REQUIRED - BD_OWNER_NAME_FULL fallback has been removed
+    if apply_name_matching is not None:
+        print(f"\nComputing Ecorp-to-Batchdata name matching...")
+        ecorp_complete_df = None
+        if ecorp_file:
+            ecorp_path = Path(ecorp_file)
+            if ecorp_path.exists():
+                ecorp_complete_df = pd.read_excel(ecorp_path)
+                print(f"  Using full Ecorp Complete for 22-field matching")
+            else:
+                print(f"  WARNING: Ecorp file not found: {ecorp_file}")
+                print(f"  Name matching will set ECORP_TO_BATCH_MATCH_% to 'N/A' for all records")
         else:
-            print(f"\nWarning: Ecorp file not found for name matching: {ecorp_file}")
-    elif ecorp_file and apply_name_matching is None:
+            print(f"  WARNING: No Ecorp_Complete file provided")
+            print(f"  Name matching will set ECORP_TO_BATCH_MATCH_% to 'N/A' for all records")
+        result_df = apply_name_matching(result_df, ecorp_complete_df)
+        print(f"  Added ECORP_TO_BATCH_MATCH_% and MISSING_1-8_FULL_NAME columns")
+    else:
         print(f"\nWarning: name_matching module not available, skipping name matching")
+
+    # Validate output against canonical template before saving
+    print(f"\nValidating output schema against template...")
+    try:
+        validate_output_against_template(result_df, BATCHDATA_COMPLETE_TEMPLATE, strict=True)
+    except (ValueError, FileNotFoundError) as e:
+        print(f"⚠️ Schema validation error: {e}")
+        print(f"  Proceeding with save despite mismatch (set strict=False to suppress)")
 
     # Save results
     print(f"\nSaving results to: {expected_output}")
@@ -348,7 +428,7 @@ def _run_sync_enrichment(
         blacklist_df.to_excel(writer, sheet_name='BLACKLIST_NAMES', index=False)
 
     print(f"✓ Created BatchData Complete: {expected_output}")
-    print(f"  - OUTPUT_MASTER: {len(result_df)} records")
+    print(f"  - OUTPUT_MASTER: {len(result_df)} records x {len(result_df.columns)} columns")
 
     return expected_output
 

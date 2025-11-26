@@ -17,10 +17,11 @@ from .io import (
     save_api_result
 )
 from .transform import (
-    transform_ecorp_to_batchdata, explode_phones_to_long, aggregate_top_phones, 
-    deduplicate_batchdata_records, consolidate_entity_families, filter_entity_only_records,
-    validate_input_fields, optimize_for_api
+    transform_ecorp_to_batchdata, explode_phones_to_long, aggregate_top_phones,
+    deduplicate_batchdata_records, consolidate_entity_families,
+    validate_input_fields
 )
+# NOTE: filter_entity_only_records and optimize_for_api removed (Nov 2025)
 from .normalize import apply_blacklist_filter
 from .batchdata import create_client_from_env
 
@@ -153,12 +154,9 @@ def run_pipeline(input_path: str, ecorp_path: str = None, dry_run: bool = False,
             print("No records remaining after blacklist filter. Exiting.")
             return
         
-        # Validate and optimize input fields for better API results
+        # Validate input fields for better API results
         print("\nValidating input data quality...")
         working_df = validate_input_fields(working_df)
-        
-        print("\nOptimizing fields for API...")
-        working_df = optimize_for_api(working_df)
         
         # Apply deduplication if requested
         if dedupe:
@@ -180,14 +178,9 @@ def run_pipeline(input_path: str, ecorp_path: str = None, dry_run: bool = False,
                 print("No records remaining after consolidation. Exiting.")
                 return
         
-        # Apply entity-only filter if requested
+        # NOTE: filter_entity_only_records removed (Nov 2025) - address-only API lookups
         if filter_entities:
-            print("Applying entity-only record filter...")
-            working_df = filter_entity_only_records(working_df, filter_enabled=True)
-            
-            if working_df.empty:
-                print("No records remaining after entity filter. Exiting.")
-                return
+            print("WARNING: --filter-entities is deprecated (name fields removed from pipeline)")
         
         # Save filtered input
         suffix_parts = ["filtered_input", timestamp]

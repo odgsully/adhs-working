@@ -9,16 +9,17 @@ import tempfile
 from pathlib import Path
 
 # Add src to path for imports
-sys.path.insert(0, str(Path(__file__).parent))
+sys.path.insert(0, str(Path(__file__).parent.parent))
 
 from src.io import (
     ensure_results_dir, save_api_result, load_config_dict, load_blacklist_set,
     get_timestamped_path
 )
 from src.transform import (
-    transform_ecorp_to_batchdata, validate_input_fields, optimize_for_api,
-    deduplicate_batchdata_records, filter_entity_only_records
+    transform_ecorp_to_batchdata, validate_input_fields,
+    deduplicate_batchdata_records
 )
+# NOTE: optimize_for_api and filter_entity_only_records removed (Nov 2025)
 from src.normalize import apply_blacklist_filter
 
 
@@ -119,46 +120,38 @@ def test_end_to_end_pipeline():
                 print("  ✅ No blacklisted records found (expected)")
                 tests_passed += 1
             
-            # Step 4: Validate and optimize input fields
-            print("  Step 4: Validating and optimizing fields...")
+            # Step 4: Validate input fields (optimization removed Nov 2025)
+            print("  Step 4: Validating fields...")
             validated_df = validate_input_fields(filtered_df)
-            optimized_df = optimize_for_api(validated_df)
-            
-            if 'has_valid_name' in validated_df.columns and len(optimized_df) > 0:
-                print("  ✅ Field validation and optimization successful")
+
+            if 'has_valid_address' in validated_df.columns and len(validated_df) > 0:
+                print("  ✅ Field validation successful")
                 tests_passed += 1
             else:
-                print("  ❌ Field validation or optimization failed")
+                print("  ❌ Field validation failed")
                 tests_failed += 1
-            
+
             # Step 5: Apply deduplication
             print("  Step 5: Applying deduplication...")
-            deduped_df = deduplicate_batchdata_records(optimized_df)
+            deduped_df = deduplicate_batchdata_records(validated_df)
             
-            if len(deduped_df) <= len(optimized_df):
+            if len(deduped_df) <= len(validated_df):
                 print("  ✅ Deduplication successful")
                 tests_passed += 1
             else:
                 print("  ❌ Deduplication failed")
                 tests_failed += 1
-            
-            # Step 6: Filter entity-only records
-            print("  Step 6: Filtering entity-only records...")
-            entity_filtered_df = filter_entity_only_records(deduped_df, filter_enabled=True)
-            
-            if len(entity_filtered_df) <= len(deduped_df):
-                print("  ✅ Entity filtering successful")
-                tests_passed += 1
-            else:
-                print("  ❌ Entity filtering failed")
-                tests_failed += 1
-            
+
+            # Step 6: (Entity filtering removed Nov 2025 - address-only API)
+            print("  Step 6: Skipped (filter_entity_only_records removed)")
+            tests_passed += 1
+
             # Step 7: Create organized output structure
             print("  Step 7: Creating organized output structure...")
             results_dir = ensure_results_dir(os.path.join(temp_dir, "results"))
-            
+
             # Save in different subfolders
-            input_path = save_api_result(entity_filtered_df, results_dir, 'input', 'processed_input')
+            input_path = save_api_result(deduped_df, results_dir, 'input', 'processed_input')
             
             # Verify subfolder structure
             expected_subfolders = ['input']
@@ -173,14 +166,13 @@ def test_end_to_end_pipeline():
             
             # Step 8: Verify final data quality
             print("  Step 8: Verifying final data quality...")
-            
+
             # Check that we have valid records
-            final_record_count = len(entity_filtered_df)
-            valid_name_count = entity_filtered_df['has_valid_name'].sum()
-            valid_address_count = entity_filtered_df['has_valid_address'].sum()
-            
-            if final_record_count > 0 and valid_name_count > 0:
-                print(f"  ✅ Final data quality: {final_record_count} records, {valid_name_count} with valid names")
+            final_record_count = len(deduped_df)
+            valid_address_count = deduped_df['has_valid_address'].sum()
+
+            if final_record_count > 0 and valid_address_count > 0:
+                print(f"  ✅ Final data quality: {final_record_count} records, {valid_address_count} with valid addresses")
                 tests_passed += 1
             else:
                 print("  ❌ Final data quality check failed")

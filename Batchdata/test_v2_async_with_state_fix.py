@@ -12,7 +12,8 @@ from pathlib import Path
 # Add src to path
 sys.path.insert(0, str(Path(__file__).parent / 'src'))
 
-from transform import transform_ecorp_to_batchdata, validate_input_fields, optimize_for_api
+from transform import transform_ecorp_to_batchdata, validate_input_fields
+# NOTE: optimize_for_api removed (Nov 2025) - address-only API lookups
 from batchdata import BatchDataClient
 from dotenv import load_dotenv
 
@@ -82,13 +83,10 @@ def test_v2_async_pipeline():
     # Validate all input fields
     print("\n📊 Validating all input fields...")
     validated_df = validate_input_fields(batchdata_df)
-
-    # Optimize fields for better API results
-    print("\n🔧 Optimizing fields for API...")
-    optimized_df = optimize_for_api(validated_df)
+    # NOTE: optimize_for_api removed (Nov 2025) - address-only API lookups
 
     # Take a sample for testing (first 10 records)
-    test_sample = optimized_df.head(10)
+    test_sample = validated_df.head(10)
     print(f"\n📝 Using {len(test_sample)} sample records for V2 API test")
 
     # Save test input

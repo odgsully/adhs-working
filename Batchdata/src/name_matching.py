@@ -177,7 +177,7 @@ def calculate_match_percentage(
 
 def apply_name_matching(
     batchdata_df: pd.DataFrame,
-    ecorp_complete_df: pd.DataFrame
+    ecorp_complete_df: pd.DataFrame = None
 ) -> pd.DataFrame:
     """Add ECORP_TO_BATCH_MATCH_% and MISSING_1-8_FULL_NAME columns.
 
@@ -185,15 +185,21 @@ def apply_name_matching(
     to calculate match percentage and identify missing names.
 
     Args:
-        batchdata_df: Batchdata Complete DataFrame (after API enrichment)
-        ecorp_complete_df: Original Ecorp_Complete DataFrame (has name fields)
+        batchdata_df: Batchdata Complete DataFrame (after API enrichment).
+                      Should have ECORP passthrough columns (FULL_ADDRESS, BD_OWNER_NAME_FULL, etc.)
+        ecorp_complete_df: Original Ecorp_Complete DataFrame (has all 22 principal name fields).
+                          If None, uses BD_OWNER_NAME_FULL from passthrough as fallback.
 
     Returns:
         DataFrame with 9 new columns added:
         - ECORP_TO_BATCH_MATCH_%
         - MISSING_1_FULL_NAME through MISSING_8_FULL_NAME
 
-    Join Key: FULL_ADDRESS (present in both DataFrames as passthrough)
+    Join Key: ECORP_ENTITY_ID_S (Ecorp) ↔ BD_SOURCE_ENTITY_ID (BatchData)
+
+    Note: ecorp_complete_df is REQUIRED for proper name matching.
+          If not provided or lookup fails, match is set to "N/A".
+          BD_OWNER_NAME_FULL fallback has been removed.
     """
     df = batchdata_df.copy()
 
@@ -202,24 +208,30 @@ def apply_name_matching(
     for i in range(1, 9):
         df[f'MISSING_{i}_FULL_NAME'] = ''
 
-    # Create lookup dict from Ecorp_Complete by FULL_ADDRESS
+    # Create lookup dict from Ecorp_Complete by ECORP_ENTITY_ID_S (unique key)
+    # NOTE: Changed from FULL_ADDRESS to avoid collision when multiple entities share same address
     ecorp_lookup = {}
-    for idx, ecorp_row in ecorp_complete_df.iterrows():
-        addr = str(ecorp_row.get('FULL_ADDRESS', '')).strip().upper()
-        if addr:
-            ecorp_lookup[addr] = ecorp_row
+    if ecorp_complete_df is not None:
+        for _, ecorp_row in ecorp_complete_df.iterrows():
+            entity_id = str(ecorp_row.get('ECORP_ENTITY_ID_S', '')).strip()
+            if entity_id:
+                ecorp_lookup[entity_id] = ecorp_row
 
     for idx, row in df.iterrows():
-        # Get matching Ecorp_Complete row
-        addr = str(row.get('FULL_ADDRESS', '')).strip().upper()
-        ecorp_row = ecorp_lookup.get(addr)
+        ecorp_names = []
 
-        if ecorp_row is not None:
-            ecorp_names = extract_ecorp_names_from_complete(ecorp_row)
-        else:
-            # Fallback: use BD_OWNER_NAME_FULL from current row
-            owner = str(row.get('BD_OWNER_NAME_FULL', '')).strip()
-            ecorp_names = [owner] if owner else []
+        if ecorp_lookup:
+            # Get matching Ecorp_Complete row using BD_SOURCE_ENTITY_ID
+            entity_id = str(row.get('BD_SOURCE_ENTITY_ID', '')).strip()
+            ecorp_row = ecorp_lookup.get(entity_id)
+
+            if ecorp_row is not None:
+                ecorp_names = extract_ecorp_names_from_complete(ecorp_row)
+
+        # No fallback - if lookup fails, set to "N/A"
+        if not ecorp_names:
+            df.at[idx, 'ECORP_TO_BATCH_MATCH_%'] = 'N/A'
+            continue  # Skip to next row
 
         batch_names = extract_batch_names(row)
         pct, missing = calculate_match_percentage(ecorp_names, batch_names)

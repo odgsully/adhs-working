@@ -111,17 +111,22 @@ Configuration options (key-value pairs):
 - `batch.poll_seconds`: Polling interval (e.g., 15)
 
 ### INPUT_MASTER Sheet
-Required columns:
+Required columns (16 total - API uses ADDRESS ONLY for skip-trace):
 - `BD_RECORD_ID`: Unique identifier
+- `BD_SOURCE_TYPE`: Always "Entity"
 - `BD_ENTITY_NAME`: Entity name
 - `BD_SOURCE_ENTITY_ID`: Entity ID
-- `BD_TARGET_FIRST_NAME`: Contact first name
-- `BD_TARGET_LAST_NAME`: Contact last name
-- `BD_OWNER_NAME_FULL`: Full contact name
+- `BD_TITLE_ROLE`: Principal's role (Manager, Member, etc.)
 - `BD_ADDRESS`: Street address
 - `BD_CITY`: City
 - `BD_STATE`: State (2-letter code)
 - `BD_ZIP`: ZIP code
+- `BD_COUNTY`: County name
+- `BD_APN`: Assessor Parcel Number
+- `BD_MAILING_LINE1`, `BD_MAILING_CITY`, `BD_MAILING_STATE`, `BD_MAILING_ZIP`: Mailing address
+- `BD_NOTES`: Processing notes
+
+**Removed**: BD_TARGET_FIRST_NAME, BD_TARGET_LAST_NAME, BD_OWNER_NAME_FULL, BD_ADDRESS_2
 
 ### BLACKLIST_NAMES Sheet
 Names to filter out (e.g., registered agents):

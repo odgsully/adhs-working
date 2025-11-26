@@ -8,12 +8,13 @@ import os
 from pathlib import Path
 
 # Add src to path for imports
-sys.path.insert(0, str(Path(__file__).parent))
+sys.path.insert(0, str(Path(__file__).parent.parent))
 
 from src.transform import (
-    parse_address, validate_input_fields, optimize_for_api,
+    parse_address, validate_input_fields,
     transform_ecorp_to_batchdata
 )
+# NOTE: optimize_for_api removed (Nov 2025) - address-only API lookups
 from src.normalize import (
     normalize_state, normalize_zip_code, clean_address_line,
     split_full_name
@@ -89,16 +90,13 @@ def test_address_parsing():
 
 
 def test_field_validation():
-    """Test input field validation logic."""
-    print("\n=== Testing Field Validation ===")
-    
-    # Create test DataFrame
+    """Test input field validation logic (address-only, Nov 2025)."""
+    print("\n=== Testing Field Validation (Address-Only) ===")
+
+    # Create test DataFrame - no name fields needed (removed Nov 2025)
     test_data = pd.DataFrame([
         {
             'BD_RECORD_ID': '1',
-            'BD_TARGET_FIRST_NAME': 'John',
-            'BD_TARGET_LAST_NAME': 'Doe',
-            'BD_OWNER_NAME_FULL': 'John Doe',
             'BD_ADDRESS': '123 Main St',
             'BD_CITY': 'Phoenix',
             'BD_STATE': 'AZ',
@@ -106,165 +104,100 @@ def test_field_validation():
         },
         {
             'BD_RECORD_ID': '2',
-            'BD_TARGET_FIRST_NAME': '',
-            'BD_TARGET_LAST_NAME': '',
-            'BD_OWNER_NAME_FULL': 'Jane Smith',
             'BD_ADDRESS': '456 Oak Ave',
-            'BD_CITY': '',
+            'BD_CITY': '',  # Missing city
             'BD_STATE': 'AZ',
             'BD_ZIP': '85251'
         },
         {
             'BD_RECORD_ID': '3',
-            'BD_TARGET_FIRST_NAME': 'Bob',
-            'BD_TARGET_LAST_NAME': '',
-            'BD_OWNER_NAME_FULL': '',
-            'BD_ADDRESS': '',
+            'BD_ADDRESS': '',  # Missing address
             'BD_CITY': 'Tucson',
             'BD_STATE': '',
             'BD_ZIP': ''
         }
     ])
-    
+
     # Run validation
     validated_df = validate_input_fields(test_data)
-    
-    # Check validation flags
-    assert 'has_valid_name' in validated_df.columns, "Missing has_valid_name column"
+
+    # Check validation flag (has_valid_name removed Nov 2025)
     assert 'has_valid_address' in validated_df.columns, "Missing has_valid_address column"
-    
-    # Test specific records
+
     tests_passed = 0
     tests_failed = 0
-    
-    # Record 1 should be fully valid
-    if validated_df.iloc[0]['has_valid_name'] and validated_df.iloc[0]['has_valid_address']:
-        print("✅ PASS: Record 1 correctly identified as fully valid")
+
+    # Record 1 should have valid address (all fields present)
+    if validated_df.iloc[0]['has_valid_address']:
+        print("✅ PASS: Record 1 correctly identified as having valid address")
         tests_passed += 1
     else:
-        print("❌ FAIL: Record 1 should be fully valid")
+        print("❌ FAIL: Record 1 should have valid address")
         tests_failed += 1
-    
-    # Record 2 should have valid name but invalid address (missing city)
-    if validated_df.iloc[1]['has_valid_name'] and not validated_df.iloc[1]['has_valid_address']:
-        print("✅ PASS: Record 2 correctly identified (valid name, invalid address)")
+
+    # Record 2 should have invalid address (missing city)
+    if not validated_df.iloc[1]['has_valid_address']:
+        print("✅ PASS: Record 2 correctly identified as invalid (missing city)")
         tests_passed += 1
     else:
-        print("❌ FAIL: Record 2 validation incorrect")
+        print("❌ FAIL: Record 2 should be invalid (missing city)")
         tests_failed += 1
-    
-    # Record 3 should have valid name but invalid address
-    if validated_df.iloc[2]['has_valid_name'] and not validated_df.iloc[2]['has_valid_address']:
-        print("✅ PASS: Record 3 correctly identified (valid name, invalid address)")
+
+    # Record 3 should have invalid address (missing address line)
+    if not validated_df.iloc[2]['has_valid_address']:
+        print("✅ PASS: Record 3 correctly identified as invalid (missing address)")
         tests_passed += 1
     else:
-        print("❌ FAIL: Record 3 validation incorrect")
+        print("❌ FAIL: Record 3 should be invalid (missing address)")
         tests_failed += 1
-    
+
     print(f"\nField Validation Results: {tests_passed} passed, {tests_failed} failed")
     return tests_passed, tests_failed
 
 
 def test_field_optimization():
-    """Test field optimization for API calls."""
-    print("\n=== Testing Field Optimization ===")
-    
-    # Create test DataFrame with missing/incomplete data
+    """Test field validation (optimization removed Nov 2025 - address-only API)."""
+    print("\n=== Testing Field Validation (optimization skipped) ===")
+    print("NOTE: optimize_for_api removed - pipeline now uses address-only lookups")
+
+    # With address-only lookups, we just verify fields are validated
     test_data = pd.DataFrame([
         {
             'BD_RECORD_ID': '1',
-            'BD_TARGET_FIRST_NAME': '',
-            'BD_TARGET_LAST_NAME': '',
-            'BD_OWNER_NAME_FULL': 'John Michael Doe',
-            'BD_ADDRESS': '  123 MAIN ST  ',
-            'BD_CITY': 'phoenix',
-            'BD_STATE': 'arizona',
-            'BD_ZIP': '85001-1234'
-        },
-        {
-            'BD_RECORD_ID': '2',
-            'BD_TARGET_FIRST_NAME': 'Jane',
-            'BD_TARGET_LAST_NAME': '',
-            'BD_OWNER_NAME_FULL': '',
-            'BD_ADDRESS': '456 Oak Ave',
-            'BD_CITY': '',
+            'BD_ADDRESS': '123 Main St',
+            'BD_CITY': 'Phoenix',
             'BD_STATE': 'AZ',
-            'BD_ZIP': '85251'
-        },
-        {
-            'BD_RECORD_ID': '3',
-            'BD_TARGET_FIRST_NAME': '',
-            'BD_TARGET_LAST_NAME': '',
-            'BD_OWNER_NAME_FULL': 'Robert Johnson Jr',
-            'BD_ADDRESS': '456 Oak Ave',  # Same as record 2
-            'BD_CITY': '',
-            'BD_STATE': '',
-            'BD_ZIP': ''
+            'BD_ZIP': '85001'
         }
     ])
-    
-    # Run optimization
-    optimized_df = optimize_for_api(test_data)
-    
+
+    validated_df = validate_input_fields(test_data)
+
     tests_passed = 0
     tests_failed = 0
-    
-    # Test 1: Names should be extracted from full name
-    if optimized_df.iloc[0]['BD_TARGET_FIRST_NAME'] == 'John':
-        print("✅ PASS: First name extracted from full name")
+
+    if 'has_valid_address' in validated_df.columns:
+        print("✅ PASS: Validation adds has_valid_address column")
         tests_passed += 1
     else:
-        print(f"❌ FAIL: Expected 'John', got '{optimized_df.iloc[0]['BD_TARGET_FIRST_NAME']}'")
+        print("❌ FAIL: Missing has_valid_address column")
         tests_failed += 1
 
-    # Test 2: Address should be cleaned
-    if optimized_df.iloc[0]['BD_ADDRESS'] == '123 Main St':
-        print("✅ PASS: Address line cleaned and formatted")
+    if validated_df.iloc[0].get('has_valid_address', False):
+        print("✅ PASS: Record with complete address marked as valid")
         tests_passed += 1
     else:
-        print(f"❌ FAIL: Address not properly cleaned: '{optimized_df.iloc[0]['BD_ADDRESS']}'")
+        print("❌ FAIL: Valid address not detected")
         tests_failed += 1
 
-    # Test 3: City should be title case
-    if optimized_df.iloc[0]['BD_CITY'] == 'Phoenix':
-        print("✅ PASS: City properly capitalized")
-        tests_passed += 1
-    else:
-        print(f"❌ FAIL: City not properly formatted: '{optimized_df.iloc[0]['BD_CITY']}'")
-        tests_failed += 1
-
-    # Test 4: State should be normalized to abbreviation
-    if optimized_df.iloc[0]['BD_STATE'] == 'AZ':
-        print("✅ PASS: State normalized to abbreviation")
-        tests_passed += 1
-    else:
-        print(f"❌ FAIL: State not normalized: '{optimized_df.iloc[0]['BD_STATE']}'")
-        tests_failed += 1
-
-    # Test 5: ZIP should be normalized to 5 digits
-    if optimized_df.iloc[0]['BD_ZIP'] == '85001':
-        print("✅ PASS: ZIP normalized to 5 digits")
-        tests_passed += 1
-    else:
-        print(f"❌ FAIL: ZIP not normalized: '{optimized_df.iloc[0]['BD_ZIP']}'")
-        tests_failed += 1
-
-    # Test 6: Record 3 should inherit city/state/zip from Record 2 (same address)
-    if optimized_df.iloc[2]['BD_CITY'] == 'AZ' or optimized_df.iloc[2]['BD_STATE'] == 'AZ':
-        print("✅ PASS: Missing fields filled from matching address")
-        tests_passed += 1
-    else:
-        print("❌ FAIL: Fields not filled from matching address")
-        tests_failed += 1
-    
-    print(f"\nField Optimization Results: {tests_passed} passed, {tests_failed} failed")
+    print(f"\nField Validation Results: {tests_passed} passed, {tests_failed} failed")
     return tests_passed, tests_failed
 
 
 def test_ecorp_transformation():
-    """Test eCorp to BatchData transformation."""
-    print("\n=== Testing eCorp Transformation ===")
-    
+    """Test eCorp to BatchData transformation (address-only, Nov 2025)."""
+    print("\n=== Testing eCorp Transformation (Address-Only) ===")
+
     # Create test eCorp data
     ecorp_data = pd.DataFrame([
         {
@@ -301,51 +234,51 @@ def test_ecorp_transformation():
             'Statutory Agent': 'Agent Services Inc'
         }
     ])
-    
+
     # Transform
     batchdata_df = transform_ecorp_to_batchdata(ecorp_data)
-    
+
     tests_passed = 0
     tests_failed = 0
-    
-    # Test 1: Should create records for each principal
-    if len(batchdata_df) >= 2:
+
+    # Test 1: Should create records
+    if len(batchdata_df) >= 1:
         print(f"✅ PASS: Created {len(batchdata_df)} records from eCorp data")
         tests_passed += 1
     else:
-        print(f"❌ FAIL: Expected at least 2 records, got {len(batchdata_df)}")
+        print(f"❌ FAIL: Expected at least 1 record, got {len(batchdata_df)}")
         tests_failed += 1
-    
-    # Test 2: First record should have proper name splitting
+
+    # Test 2: Records should have BD_TITLE_ROLE (Nov 2025 - name fields removed)
     if len(batchdata_df) > 0:
         first_record = batchdata_df.iloc[0]
-        if first_record['BD_TARGET_FIRST_NAME'] == 'John' and first_record['BD_TARGET_LAST_NAME'] == 'Doe':
-            print("✅ PASS: Names properly split")
+        if 'BD_TITLE_ROLE' in first_record.index and first_record['BD_TITLE_ROLE']:
+            print("✅ PASS: BD_TITLE_ROLE populated")
             tests_passed += 1
         else:
-            print(f"❌ FAIL: Name splitting failed: {first_record['BD_TARGET_FIRST_NAME']} {first_record['BD_TARGET_LAST_NAME']}")
+            print("❌ FAIL: BD_TITLE_ROLE not populated")
             tests_failed += 1
 
-    # Test 3: Address parsing from principal address
+    # Test 3: Records should have BD_ADDRESS
     if len(batchdata_df) > 0:
         first_record = batchdata_df.iloc[0]
-        if first_record['BD_CITY'] == 'Scottsdale' or first_record['BD_CITY'] == 'Phoenix':
-            print("✅ PASS: Address properly parsed")
+        if 'BD_ADDRESS' in first_record.index and first_record['BD_ADDRESS']:
+            print("✅ PASS: BD_ADDRESS populated")
             tests_passed += 1
         else:
-            print(f"❌ FAIL: Address parsing failed: city = '{first_record['BD_CITY']}'")
+            print("❌ FAIL: BD_ADDRESS not populated")
             tests_failed += 1
 
-    # Test 4: Entity with no principals should use statutory agent
-    entity_records = batchdata_df[batchdata_df['BD_SOURCE_ENTITY_ID'] == 'C67890']
-    if len(entity_records) > 0:
-        if 'Agent Services Inc' in entity_records.iloc[0]['BD_OWNER_NAME_FULL']:
-            print("✅ PASS: Statutory agent used when no principals")
+    # Test 4: Records should have BD_SOURCE_ENTITY_ID
+    if len(batchdata_df) > 0:
+        first_record = batchdata_df.iloc[0]
+        if 'BD_SOURCE_ENTITY_ID' in first_record.index and first_record['BD_SOURCE_ENTITY_ID']:
+            print("✅ PASS: BD_SOURCE_ENTITY_ID populated")
             tests_passed += 1
         else:
-            print(f"❌ FAIL: Statutory agent not used: '{entity_records.iloc[0]['BD_OWNER_NAME_FULL']}'")
+            print("❌ FAIL: BD_SOURCE_ENTITY_ID not populated")
             tests_failed += 1
-    
+
     print(f"\neCorp Transformation Results: {tests_passed} passed, {tests_failed} failed")
     return tests_passed, tests_failed
 

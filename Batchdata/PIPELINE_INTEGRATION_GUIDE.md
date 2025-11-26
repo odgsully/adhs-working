@@ -201,24 +201,26 @@ api_keys = {
 
 #### Input Requirements
 
-The `INPUT_MASTER` sheet must have these columns:
+The `INPUT_MASTER` sheet must have these **16 columns** (API uses ADDRESS ONLY for skip-trace):
 
 **Required:**
 - `BD_RECORD_ID` - Unique identifier
-- `BD_TARGET_FIRST_NAME` - Contact first name
-- `BD_TARGET_LAST_NAME` - Contact last name
-- `BD_OWNER_NAME_FULL` - Full name for fallback
+- `BD_SOURCE_TYPE` - Always "Entity"
+- `BD_ENTITY_NAME` - Entity name from Ecorp
+- `BD_SOURCE_ENTITY_ID` - Entity ID from Ecorp
+- `BD_TITLE_ROLE` - Principal's role (Manager, Member, etc.)
 - `BD_ADDRESS` - Street address
 - `BD_CITY` - City name
 - `BD_STATE` - 2-letter state code
 - `BD_ZIP` - 5-digit ZIP code
-
-**Optional but recommended:**
-- `BD_ADDRESS_2` - Apt/Suite number
 - `BD_COUNTY` - County name
 - `BD_APN` - Assessor Parcel Number
-- `BD_ENTITY_NAME` - Entity name from Ecorp
-- `BD_SOURCE_ENTITY_ID` - Entity ID from Ecorp
+- `BD_MAILING_LINE1`, `BD_MAILING_CITY`, `BD_MAILING_STATE`, `BD_MAILING_ZIP` - Mailing address
+- `BD_NOTES` - Processing notes
+
+**REMOVED (November 2025):**
+- BD_TARGET_FIRST_NAME, BD_TARGET_LAST_NAME, BD_OWNER_NAME_FULL, BD_ADDRESS_2
+- API uses address-only for lookups; names returned in API response
 
 #### Transformation Process
 
@@ -321,7 +323,7 @@ curl -X POST https://api.batchdata.com/api/v1/property/skip-trace \
 
 **Error:**
 ```
-Missing fields: BD_TARGET_FIRST_NAME, BD_TARGET_LAST_NAME, BD_STATE
+Missing fields: BD_ADDRESS, BD_CITY, BD_STATE
 ```
 
 **Solution:**
@@ -331,7 +333,7 @@ The `transform_ecorp_to_batchdata()` function should handle this, but verify:
 # Check transformed data
 df = transform_ecorp_to_batchdata(ecorp_df)
 print(df.columns.tolist())
-print(df[['BD_TARGET_FIRST_NAME', 'BD_TARGET_LAST_NAME', 'BD_STATE']].head())
+print(df[['BD_ADDRESS', 'BD_CITY', 'BD_STATE', 'BD_ZIP']].head())
 ```
 
 #### 4. Webhook Issues (Async)
@@ -445,9 +447,10 @@ run_batchdata_enrichment(
 test_df = pd.DataFrame([
     {
         'BD_RECORD_ID': 'test_001',
-        'BD_TARGET_FIRST_NAME': 'John',
-        'BD_TARGET_LAST_NAME': 'Doe',
-        'BD_OWNER_NAME_FULL': 'John Doe',
+        'BD_SOURCE_TYPE': 'Entity',
+        'BD_ENTITY_NAME': 'TEST ENTITY LLC',
+        'BD_SOURCE_ENTITY_ID': 'L12345678',
+        'BD_TITLE_ROLE': 'Manager',
         'BD_ADDRESS': '123 Main St',
         'BD_CITY': 'Phoenix',
         'BD_STATE': 'AZ',

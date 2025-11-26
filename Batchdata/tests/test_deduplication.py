@@ -17,40 +17,38 @@ def test_deduplication_function():
     from src.transform import deduplicate_batchdata_records
     
     # Create test data with known duplicates
+    # NOTE: Nov 2025 - deduplication now uses BD_TITLE_ROLE + BD_SOURCE_ENTITY_ID instead of names
     test_data = pd.DataFrame([
         {
             'BD_RECORD_ID': 'test_001',
-            'BD_TARGET_FIRST_NAME': 'John',
-            'BD_TARGET_LAST_NAME': 'Doe',
-            'BD_OWNER_NAME_FULL': 'John Doe',
             'BD_ADDRESS': '123 Main St',
             'BD_CITY': 'Phoenix',
             'BD_STATE': 'AZ',
             'BD_ZIP': '85001',
+            'BD_TITLE_ROLE': 'Manager',
+            'BD_SOURCE_ENTITY_ID': 'L12345',
             'BD_ENTITY_NAME': 'Test LLC',
             'BD_NOTES': 'Original record'
         },
         {
             'BD_RECORD_ID': 'test_002',
-            'BD_TARGET_FIRST_NAME': 'John',
-            'BD_TARGET_LAST_NAME': 'Doe',
-            'BD_OWNER_NAME_FULL': 'John Doe',
             'BD_ADDRESS': '123 Main St',
             'BD_CITY': 'Phoenix',
             'BD_STATE': 'AZ',
             'BD_ZIP': '85001',
+            'BD_TITLE_ROLE': 'Manager',
+            'BD_SOURCE_ENTITY_ID': 'L12345',
             'BD_ENTITY_NAME': 'Test LLC',
-            'BD_NOTES': 'Duplicate record with phone data'
+            'BD_NOTES': 'Duplicate (same role, same entity)'
         },
         {
             'BD_RECORD_ID': 'test_003',
-            'BD_TARGET_FIRST_NAME': 'Jane',
-            'BD_TARGET_LAST_NAME': 'Smith',
-            'BD_OWNER_NAME_FULL': 'Jane Smith',
             'BD_ADDRESS': '456 Oak Ave',
             'BD_CITY': 'Tempe',
             'BD_STATE': 'AZ',
             'BD_ZIP': '85282',
+            'BD_TITLE_ROLE': 'Member',
+            'BD_SOURCE_ENTITY_ID': 'C67890',
             'BD_ENTITY_NAME': 'Another LLC',
             'BD_NOTES': 'Unique record'
         }
@@ -59,7 +57,7 @@ def test_deduplication_function():
     print(f"Input records: {len(test_data)}")
     print("Records:")
     for _, row in test_data.iterrows():
-        print(f"  {row['BD_RECORD_ID']}: {row['BD_TARGET_FIRST_NAME']} {row['BD_TARGET_LAST_NAME']} - {row['BD_NOTES']}")
+        print(f"  {row['BD_RECORD_ID']}: {row['BD_TITLE_ROLE']} @ {row['BD_ADDRESS']} - {row['BD_NOTES']}")
 
     # Apply deduplication
     deduplicated = deduplicate_batchdata_records(test_data)
@@ -67,7 +65,7 @@ def test_deduplication_function():
     print(f"\nOutput records: {len(deduplicated)}")
     print("Kept records:")
     for _, row in deduplicated.iterrows():
-        print(f"  {row['BD_RECORD_ID']}: {row['BD_TARGET_FIRST_NAME']} {row['BD_TARGET_LAST_NAME']} - {row['BD_NOTES']}")
+        print(f"  {row['BD_RECORD_ID']}: {row['BD_TITLE_ROLE']} @ {row['BD_ADDRESS']} - {row['BD_NOTES']}")
     
     # Verify results
     expected_records = 2  # John Doe (1 kept) + Jane Smith (1 kept)

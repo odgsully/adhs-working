@@ -8,8 +8,8 @@ import sys
 import os
 from pathlib import Path
 
-# Add src to path for imports
-sys.path.insert(0, str(Path(__file__).parent))
+# Add Batchdata directory to path for imports
+sys.path.insert(0, str(Path(__file__).parent.parent))
 
 from src.transform import (
     explode_phones_to_long, aggregate_top_phones, apply_phone_scrubs
