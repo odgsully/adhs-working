@@ -22,12 +22,12 @@ except ImportError:
 try:
     from .normalize import (
         split_full_name, normalize_state, clean_address_line,
-        normalize_zip_code, extract_title_role, normalize_phone_e164
+        normalize_zip_code, normalize_phone_e164
     )
 except ImportError:
     from normalize import (
         split_full_name, normalize_state, clean_address_line,
-        normalize_zip_code, extract_title_role, normalize_phone_e164
+        normalize_zip_code, normalize_phone_e164
     )
 
 
@@ -270,7 +270,6 @@ def ecorp_to_batchdata_records(ecorp_row: pd.Series) -> List[Dict[str, Any]]:
             'BD_SOURCE_TYPE': base_info['BD_SOURCE_TYPE'],
             'BD_ENTITY_NAME': base_info['BD_ENTITY_NAME'],
             'BD_SOURCE_ENTITY_ID': base_info['BD_SOURCE_ENTITY_ID'],
-            'BD_TITLE_ROLE': extract_title_role(title),
             'BD_TARGET_FIRST_NAME': first_name,
             'BD_TARGET_LAST_NAME': last_name,
             'BD_OWNER_NAME_FULL': str(name).strip(),
@@ -301,28 +300,25 @@ def ecorp_to_batchdata_records(ecorp_row: pd.Series) -> List[Dict[str, Any]]:
             # Check if statutory agent is an entity (contains business keywords)
             agent_upper = str(statutory_agent).upper()
             entity_keywords = [
-                'LLC', 'L.L.C.', 'CORP', 'CORPORATION', 'INC', 'INCORPORATED', 
+                'LLC', 'L.L.C.', 'CORP', 'CORPORATION', 'INC', 'INCORPORATED',
                 'LTD', 'LIMITED', 'LP', 'L.P.', 'COMPANY', 'CO.', 'SERVICES',
                 'SYSTEM', 'SOLUTIONS', 'GROUP', 'ASSOCIATES'
             ]
-            
+
             is_entity_agent = any(keyword in agent_upper for keyword in entity_keywords)
-            
+
             if is_entity_agent:
                 # Statutory agent is an entity, don't split name
                 first_name, last_name = '', ''
                 owner_name = statutory_agent
-                title_role = 'Statutory Agent (Entity)'
             else:
                 # Statutory agent appears to be an individual
                 first_name, last_name = split_full_name(statutory_agent)
                 owner_name = statutory_agent
-                title_role = 'Statutory Agent'
         else:
             # Fall back to entity name
             first_name, last_name = '', ''
             owner_name = base_info['BD_ENTITY_NAME']
-            title_role = 'Entity'
 
         record_id = f"ecorp_{ecorp_row.get('ECORP_ENTITY_ID_S', 'unknown')}_entity_{str(uuid.uuid4())[:8]}"
 
@@ -352,7 +348,6 @@ def ecorp_to_batchdata_records(ecorp_row: pd.Series) -> List[Dict[str, Any]]:
             'BD_SOURCE_TYPE': base_info['BD_SOURCE_TYPE'],
             'BD_ENTITY_NAME': base_info['BD_ENTITY_NAME'],
             'BD_SOURCE_ENTITY_ID': base_info['BD_SOURCE_ENTITY_ID'],
-            'BD_TITLE_ROLE': title_role,
             'BD_TARGET_FIRST_NAME': first_name,
             'BD_TARGET_LAST_NAME': last_name,
             'BD_OWNER_NAME_FULL': owner_name,
@@ -875,17 +870,10 @@ def filter_entity_only_records(df: pd.DataFrame, filter_enabled: bool = False) -
         # Calculate potential savings
         cost_per_record = 0.07  # Typical API cost per record
         potential_savings = entity_only_count * cost_per_record
-        
+
         print(f"   Potential cost savings: ${potential_savings:.2f}")
         print(f"   Records removed: {entity_only_count} ({(entity_only_count/original_count)*100:.1f}%)")
-        
-        # Show what types of records are being filtered
-        if not entity_only_records.empty:
-            role_counts = entity_only_records['BD_TITLE_ROLE'].value_counts()
-            print(f"   Record types being filtered:")
-            for role, count in role_counts.head(3).items():
-                print(f"     - {role}: {count} records")
-    
+
     return individual_records.reset_index(drop=True)
 
 
@@ -1108,10 +1096,7 @@ def consolidate_entity_families(df: pd.DataFrame, similarity_threshold: float = 
             entities_info = []
             for _, row in group.iterrows():
                 entity = row['BD_ENTITY_NAME']
-                role = row.get('BD_TITLE_ROLE', '')
-                if entity and role:
-                    entities_info.append(f"{entity} ({role})")
-                elif entity:
+                if entity:
                     entities_info.append(entity)
 
             # Create consolidated notes

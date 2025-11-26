@@ -19,9 +19,11 @@ try:
     from src.transform import transform_ecorp_to_batchdata
     from src.run import run_pipeline
     from src.io import load_workbook_sheets, load_config_dict, load_blacklist_set
+    from src.name_matching import apply_name_matching
 except ImportError as e:
     print(f"Warning: Could not import BatchData modules: {e}")
     print(f"BatchData path: {batchdata_path}")
+    apply_name_matching = None  # Fallback if import fails
 
 from .utils import get_standard_timestamp, format_output_filename
 
@@ -130,7 +132,8 @@ def run_batchdata_enrichment(
     consolidate_families: bool = True,
     filter_entities: bool = True,
     use_sync: bool = True,  # NEW: Default to sync
-    stage_config: Optional[Dict] = None  # NEW: Stage selection
+    stage_config: Optional[Dict] = None,  # NEW: Stage selection
+    ecorp_file: Optional[str] = None  # Ecorp Complete file for name matching
 ) -> Optional[Path]:
     """Run BatchData enrichment pipeline on Upload file.
 
@@ -138,6 +141,7 @@ def run_batchdata_enrichment(
     1. Runs the BatchData API enrichment pipeline (sync or async)
     2. Saves results with standardized naming to Complete directory
     3. Optionally runs in dry-run mode for cost estimation
+    4. Computes Ecorp-to-Batchdata name matching (if ecorp_file provided)
 
     Args:
         upload_path: Path to BatchData Upload Excel file
@@ -151,6 +155,7 @@ def run_batchdata_enrichment(
         use_sync: If True, use synchronous API client; else use async (default: True)
         stage_config: Optional dict specifying which enrichment stages to run
                      {'skip_trace': True, 'phone_verify': False, 'dnc': False, 'tcpa': False}
+        ecorp_file: Optional path to Ecorp Complete file for name matching calculation
 
     Returns:
         Path to created Complete file, or None if dry-run or user cancelled
@@ -207,7 +212,8 @@ def run_batchdata_enrichment(
             month_code,
             timestamp,
             dry_run,
-            stage_config
+            stage_config,
+            ecorp_file
         )
     else:
         # Use the legacy async client (may still have 404 issues)
@@ -228,11 +234,13 @@ def _run_sync_enrichment(
     month_code: str,
     timestamp: str,
     dry_run: bool,
-    stage_config: Optional[Dict]
+    stage_config: Optional[Dict],
+    ecorp_file: Optional[str] = None
 ) -> Optional[Path]:
     """Run synchronous BatchData enrichment using JSON API.
 
     Internal function for sync client implementation.
+    Includes Ecorp-to-Batchdata name matching if ecorp_file is provided.
     """
     import os
     from src.batchdata_sync import BatchDataSyncClient
@@ -318,6 +326,19 @@ def _run_sync_enrichment(
     # Run enrichment pipeline
     print(f"\nRunning enrichment pipeline with stages: {stage_config}")
     result_df = client.run_enrichment_pipeline(input_df, stage_config)
+
+    # Apply Ecorp-to-Batchdata name matching if ecorp_file provided
+    if ecorp_file and apply_name_matching is not None:
+        ecorp_path = Path(ecorp_file)
+        if ecorp_path.exists():
+            print(f"\nComputing Ecorp-to-Batchdata name matching...")
+            ecorp_complete_df = pd.read_excel(ecorp_path)
+            result_df = apply_name_matching(result_df, ecorp_complete_df)
+            print(f"  Added ECORP_TO_BATCH_MATCH_% and MISSING_1-8_FULL_NAME columns")
+        else:
+            print(f"\nWarning: Ecorp file not found for name matching: {ecorp_file}")
+    elif ecorp_file and apply_name_matching is None:
+        print(f"\nWarning: name_matching module not available, skipping name matching")
 
     # Save results
     print(f"\nSaving results to: {expected_output}")

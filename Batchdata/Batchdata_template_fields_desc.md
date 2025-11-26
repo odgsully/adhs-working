@@ -1,6 +1,6 @@
 # BatchData Complete Template - Field Descriptions
 
-This document describes all **165 columns (A-FI)** in the BatchData Complete output file and explains in plain English exactly where each field's data comes from.
+This document describes all **173 columns (A-FQ)** in the BatchData Complete output file and explains in plain English exactly where each field's data comes from.
 
 **File Pattern**: `M.YY_BatchData_Complete_{timestamp}.xlsx`
 
@@ -13,7 +13,7 @@ This document describes all **165 columns (A-FI)** in the BatchData Complete out
 | CONFIG | Pipeline configuration settings | 15 key-value pairs |
 | INPUT_MASTER | Records to process via skip-trace API | 20 BD_* input columns |
 | BLACKLIST_NAMES | Names to exclude from processing | 1 column |
-| OUTPUT_MASTER | Enriched results with phones/emails | 165 columns |
+| OUTPUT_MASTER | Enriched results with phones/emails | 173 columns |
 
 ---
 
@@ -101,8 +101,9 @@ The BLACKLIST_NAMES sheet contains names to exclude from processing (professiona
 | BD Phone Blocks | 38-117 | 80 | Skip-trace phone results (10 phones x 8 fields) |
 | BD Email Blocks | 118-157 | 40 | Skip-trace email results (10 emails x 4 fields) |
 | BD Metadata | 158-165 | 8 | API and pipeline tracking fields |
+| Name Matching | 166-173 | 8 | Ecorp-to-Batchdata name verification |
 
-**Total: 165 columns**
+**Total: 173 columns**
 
 ---
 
@@ -897,3 +898,96 @@ complete_path = run_batchdata_enrichment(
 - **Confidence scores**: Range 0.0 (low) to 1.0 (high) - higher is more reliable
 - **API costs**: ~$0.07 per skip-trace record + optional scrub fees
 - **Processing rate**: Varies by batch size and API response time
+
+---
+
+## Section 6: Name Matching Columns (166-173)
+
+These 8 columns verify that contacts from BatchData correspond to principals from Ecorp records.
+
+### Column 166: ECORP_TO_BATCH_MATCH_%
+
+**Where it comes from**: Calculated by `name_matching.py:calculate_match_percentage()`.
+
+**What it contains**: Percentage of Ecorp principal names found in BatchData results using 85% fuzzy matching threshold.
+
+**Values**:
+- `0` to `100` - Percentage of Ecorp names matched in BatchData results
+- `100+` - All Ecorp names matched AND BatchData returned additional names not in Ecorp
+
+**Formula**: `(Ecorp names matched at 85%+ confidence) / (Total Ecorp principal names) × 100`
+
+**Example**:
+- Ecorp has: John Smith, Jane Smith, Bob Jones (3 names)
+- BatchData returns: John Smith, Jane Smith (2 names)
+- Result: `67` (2/3 × 100 = 67%)
+
+**Why this matters**: Helps verify that BatchData contacts are associated with the correct entity principals, not random people at the property address.
+
+---
+
+### Columns 167-173: MISSING_1-8_FULL_NAME
+
+**Where it comes from**: Populated by `name_matching.py:apply_name_matching()`.
+
+**What it contains**: Ecorp principal names NOT found in BatchData results (up to 8 names).
+
+**When populated**: Whenever `ECORP_TO_BATCH_MATCH_%` < 100
+
+**When blank**:
+- `ECORP_TO_BATCH_MATCH_%` = 100 (all names matched)
+- `ECORP_TO_BATCH_MATCH_%` = 100+ (all names matched, extras found)
+
+**Example**:
+```
+ECORP principals: John Smith, Jane Smith, Bob Jones
+BatchData results: John Smith, Jane Smith
+
+ECORP_TO_BATCH_MATCH_% = 67
+MISSING_1_FULL_NAME = Bob Jones
+MISSING_2_FULL_NAME = (blank)
+...
+MISSING_8_FULL_NAME = (blank)
+```
+
+**Why this matters**: Identifies which principals need manual contact lookup since BatchData didn't return their information.
+
+---
+
+### Name Matching Algorithm
+
+1. **Extract Ecorp Names**: Collect all 22 principal name fields from Ecorp_Complete:
+   - StatutoryAgent1-3_Name (3 fields)
+   - Manager1-5_Name (5 fields)
+   - Member1-5_Name (5 fields)
+   - Manager/Member1-5_Name (5 fields)
+   - IndividualName1-4 (4 fields)
+
+2. **Extract BatchData Names**: Collect all person names from API results:
+   - BD_PHONE_1-10_FIRST + BD_PHONE_1-10_LAST
+   - BD_EMAIL_1-10_FIRST + BD_EMAIL_1-10_LAST
+
+3. **Fuzzy Match**: Compare each Ecorp name against BatchData names using `rapidfuzz.token_sort_ratio()`:
+   - Threshold: 85% similarity
+   - Case insensitive
+   - Order invariant ("John Smith" matches "Smith John")
+
+4. **Calculate Percentage**: `matched_count / total_ecorp_names × 100`
+
+5. **Store Missing**: First 8 unmatched Ecorp names go into MISSING_1-8_FULL_NAME
+
+---
+
+### Code Reference
+
+**File**: `Batchdata/src/name_matching.py`
+
+| Function | Purpose |
+|----------|---------|
+| `fuzzy_name_match()` | Compare two names with 85% threshold |
+| `extract_ecorp_names_from_complete()` | Get all 22 principal names from Ecorp row |
+| `extract_batch_names()` | Get all person names from BatchData row |
+| `calculate_match_percentage()` | Compute match % and missing names |
+| `apply_name_matching()` | Main integration function for DataFrame |
+
+**Integration**: Called by `batchdata_bridge.py:_run_sync_enrichment()` after API enrichment completes.

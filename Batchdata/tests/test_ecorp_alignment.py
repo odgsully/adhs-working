@@ -172,7 +172,7 @@ def test_batchdata_record_creation():
     record = records_new[0]
     assert record['BD_ENTITY_NAME'] == 'TEST LLC', f"Entity name mismatch: {record['BD_ENTITY_NAME']}"
     assert record['BD_SOURCE_ENTITY_ID'] == 'L123456', f"Entity ID mismatch: {record['BD_SOURCE_ENTITY_ID']}"
-    assert 'Manager' in record.get('BD_TITLE_ROLE', ''), f"Title role incorrect: {record.get('BD_TITLE_ROLE', '')}"
+    assert record.get('BD_TARGET_FIRST_NAME') or record.get('BD_OWNER_NAME_FULL'), "No name field populated"
 
     # Test with legacy format
     df_legacy = create_legacy_format_ecorp()

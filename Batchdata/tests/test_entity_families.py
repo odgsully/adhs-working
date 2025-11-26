@@ -95,7 +95,6 @@ def test_consolidation_function():
             'BD_CITY': '',
             'BD_STATE': '',
             'BD_ZIP': '85286',
-            'BD_TITLE_ROLE': 'Director',
             'BD_NOTES': 'Original record from Gilbert'
         },
         {
@@ -108,7 +107,6 @@ def test_consolidation_function():
             'BD_CITY': '',
             'BD_STATE': '',
             'BD_ZIP': '85286',
-            'BD_TITLE_ROLE': 'Director',
             'BD_NOTES': 'Original record from Peoria'
         },
         {
@@ -121,7 +119,6 @@ def test_consolidation_function():
             'BD_CITY': '',
             'BD_STATE': '',
             'BD_ZIP': '85286',
-            'BD_TITLE_ROLE': 'Secretary',
             'BD_NOTES': 'Original record from Goodyear'
         },
         {
@@ -134,7 +131,6 @@ def test_consolidation_function():
             'BD_CITY': 'Phoenix',
             'BD_STATE': 'AZ',
             'BD_ZIP': '85001',
-            'BD_TITLE_ROLE': 'Manager',
             'BD_NOTES': 'Unrelated entity'
         }
     ])

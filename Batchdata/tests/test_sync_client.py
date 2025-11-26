@@ -42,7 +42,6 @@ class TestBatchDataSyncClient(unittest.TestCase):
             'BD_SOURCE_TYPE': ['Entity', 'Entity', 'Entity'],
             'BD_ENTITY_NAME': ['Test Corp 1', 'Test Corp 2', 'Test Corp 3'],
             'BD_SOURCE_ENTITY_ID': ['123', '124', '125'],
-            'BD_TITLE_ROLE': ['Manager', 'Member', 'Manager/Member'],
             'BD_TARGET_FIRST_NAME': ['John', 'Jane', 'Bob'],
             'BD_TARGET_LAST_NAME': ['Smith', 'Doe', 'Johnson'],
             'BD_OWNER_NAME_FULL': ['John Smith', 'Jane Doe', 'Bob Johnson'],

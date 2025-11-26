@@ -28,7 +28,6 @@ def test_deduplication_function():
             'BD_STATE': 'AZ',
             'BD_ZIP': '85001',
             'BD_ENTITY_NAME': 'Test LLC',
-            'BD_TITLE_ROLE': 'Member',
             'BD_NOTES': 'Original record'
         },
         {
@@ -41,7 +40,6 @@ def test_deduplication_function():
             'BD_STATE': 'AZ',
             'BD_ZIP': '85001',
             'BD_ENTITY_NAME': 'Test LLC',
-            'BD_TITLE_ROLE': 'Member',
             'BD_NOTES': 'Duplicate record with phone data'
         },
         {
@@ -54,7 +52,6 @@ def test_deduplication_function():
             'BD_STATE': 'AZ',
             'BD_ZIP': '85282',
             'BD_ENTITY_NAME': 'Another LLC',
-            'BD_TITLE_ROLE': 'Manager',
             'BD_NOTES': 'Unique record'
         }
     ])
