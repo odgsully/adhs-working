@@ -102,3 +102,4 @@ Batchdata/Complete/**/*.xlsx
 Batchdata/Complete/**/*.xls
 
 test-outputs/
+.git.nosync/

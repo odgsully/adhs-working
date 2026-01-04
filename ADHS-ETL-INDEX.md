@@ -42,6 +42,14 @@
 - **Automated**: `scripts/batch_auto.py` → unattended batch runs
 - **Fast Batch**: `scripts/fast_batch.py` → optimized for speed
 
+## Automated Data Acquisition Scripts
+- **AZDHS Monitor**: `scripts/azdhs_monitor.py` → auto-downloads new monthly provider data
+- **Notifications**: `scripts/azdhs_notify.py` → Slack + Gmail notifications
+- **Supabase Sync**: `scripts/azdhs_supabase.py` → sync downloaded data to cloud
+- **Setup Script**: `scripts/setup_azdhs_monitor.sh` → one-command setup
+- **LaunchAgent**: `scripts/com.azdhs.monitor.plist` → macOS daily scheduler
+- **GitHub Actions**: `.github/workflows/azdhs-monitor.yml` → CI/CD scheduling
+
 ## Testing Infrastructure
 - **Config Tests**: `src/tests/test_config.py`
 - **Transform Tests**: `src/tests/test_transform.py`
@@ -103,6 +111,7 @@
 - **Black**: `pyproject.toml:44` → formatting configuration
 
 ## Data Flow Summary
+0. **Acquire**: AZDHS Monitor auto-downloads new monthly data → ALL-MONTHS/Raw M.YY/
 1. **Input**: Excel files from Raw-New-Month/ or ALL-MONTHS/Raw M.YY/
 2. **Transform**: Field mapping → uppercase → provider grouping
 3. **Analyze**: Historical comparison → lead identification

@@ -4,8 +4,14 @@
 
 ```mermaid
 flowchart TD
+    %% Stage 0: Automated Data Acquisition
+    AZDHSMonitor["🤖 AZDHS Monitor<br/>scripts/azdhs_monitor.py<br/>• Daily check at 6 AM<br/>• Auto-downloads 12 provider types<br/>• Slack + Gmail notifications"]
+
     %% Input Stage
     RawInput["📁 ALL-MONTHS/Raw M.YY/<br/>Raw ADHS Excel Files<br/>(Monthly Provider Data)"]
+
+    %% AZDHS Monitor Flow
+    AZDHSMonitor -->|"New month detected"| RawInput
 
     %% Configuration
     FieldMap["⚙️ field_map.yml<br/>Column Mappings"]
@@ -102,6 +108,9 @@ flowchart TD
     classDef optionalStyle fill:#fce4ec,stroke:#c2185b,stroke-width:2px,stroke-dasharray: 5 5
     classDef warningStyle fill:#fff9c4,stroke:#f57f17,stroke-width:2px
 
+    classDef monitorStyle fill:#e3f2fd,stroke:#1976d2,stroke-width:2px
+
+    class AZDHSMonitor monitorStyle
     class RawInput inputStyle
     class FieldMap,EnvConfig configStyle
     class MainETL,APNLookup,MCAOClient,EcorpProcessor processStyle
@@ -112,6 +121,17 @@ flowchart TD
 ```
 
 ## Pipeline Stages Summary
+
+### Stage 0: Automated Data Acquisition (Optional)
+**Script**: `scripts/azdhs_monitor.py`
+**Process**: Daily monitoring of AZDHS website for new monthly data
+**Features**:
+- Checks https://www.azdhs.gov/licensing/index.php#databases daily at 6 AM
+- Auto-downloads all 12 provider types when new month is detected
+- Sends Slack + Gmail notifications
+- Saves to `ALL-MONTHS/Raw M.YY/` directory
+- Optional Supabase sync via `scripts/azdhs_supabase.py`
+- Setup: `./scripts/setup_azdhs_monitor.sh`
 
 ### Stage 1: Main ETL (Required)
 **Input**: Raw ADHS Excel files from `ALL-MONTHS/Raw M.YY/`

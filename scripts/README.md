@@ -141,3 +141,79 @@ After processing all 11 months:
   - 🔵 Blue = Information
 
 Happy analyzing! 📊
+
+---
+
+## Automated Data Monitoring
+
+The AZDHS Monitor automatically downloads new provider data when it becomes available.
+
+### Setup
+
+```bash
+# One-time setup (installs Playwright, configures scheduler)
+./scripts/setup_azdhs_monitor.sh
+```
+
+### Scripts
+
+| Script | Purpose |
+|--------|---------|
+| `azdhs_monitor.py` | Main monitor - checks for and downloads new monthly data |
+| `azdhs_notify.py` | Sends Slack + Gmail notifications |
+| `azdhs_supabase.py` | Syncs downloaded data to Supabase |
+| `setup_azdhs_monitor.sh` | One-command setup script |
+| `com.azdhs.monitor.plist` | macOS LaunchAgent (daily 6 AM) |
+
+### Commands
+
+```bash
+# Check for new month data
+poetry run python scripts/azdhs_monitor.py --check-only
+
+# Download specific month
+poetry run python scripts/azdhs_monitor.py --month 1.26 --force
+
+# Auto-check + download + notify
+poetry run python scripts/azdhs_monitor.py --notify
+
+# Dry run (no actual downloads)
+poetry run python scripts/azdhs_monitor.py --dry-run
+
+# Sync to Supabase
+poetry run python scripts/azdhs_supabase.py --month 1.26
+
+# Test notifications
+poetry run python scripts/azdhs_notify.py --all
+```
+
+### Environment Variables
+
+Add to `.env`:
+```bash
+AZDHS_SLACK_WEBHOOK_URL=https://hooks.slack.com/services/...
+AZDHS_GMAIL_USER=your-email@gmail.com
+AZDHS_GMAIL_APP_PASSWORD=xxxx-xxxx-xxxx-xxxx
+AZDHS_NOTIFY_EMAIL=notify@example.com
+
+# Optional Supabase sync
+SUPABASE_URL=https://xxx.supabase.co
+SUPABASE_KEY=your-service-key
+```
+
+### Scheduling
+
+**macOS (LaunchAgent)**:
+```bash
+# Install (done by setup script)
+cp scripts/com.azdhs.monitor.plist ~/Library/LaunchAgents/
+launchctl load ~/Library/LaunchAgents/com.azdhs.monitor.plist
+
+# Run manually
+launchctl start com.azdhs.monitor
+
+# View logs
+tail -f /tmp/azdhs-monitor.stdout.log
+```
+
+**GitHub Actions**: See `.github/workflows/azdhs-monitor.yml` (runs daily at 6 AM UTC)
