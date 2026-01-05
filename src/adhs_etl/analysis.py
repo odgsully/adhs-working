@@ -326,16 +326,20 @@ class ProviderAnalyzer:
         return df
 
     def _calculate_movement(self, prev_count: int, curr_count: int) -> str:
-        """Calculate movement between two counts."""
+        """Calculate movement between two counts.
+
+        Returns Title Case values per v300Track_this.md spec:
+        - 'Increased', 'Decreased', 'No movement'
+        """
         if pd.isna(prev_count) or pd.isna(curr_count):
             return ''
 
         if curr_count > prev_count:
-            return 'INCREASED'
+            return 'Increased'
         elif curr_count < prev_count:
-            return 'DECREASED'
+            return 'Decreased'
         else:
-            return 'NO MOVEMENT'
+            return 'No movement'
 
     def create_summary_columns(self, df: pd.DataFrame) -> pd.DataFrame:
         """Add summary columns for each month."""

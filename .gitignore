@@ -1,105 +1,95 @@
+
+# BatchData enrichment files (contact discovery data)
+# Ecorp enrichment files (ACC entity data)
 # Environment
+# Excel data files - exclude from Git
+# IDE
+# Jupyter
+# MCAO enrichment files (property data from Maricopa County Assessor)
+# Poetry
+# Project specific
+# Python
+# Testing
+# Virtual environments
+*$py.class
+*.cover
+*.egg
+*.egg-info/
+*.ipynb
+*.log
+*.py[cod]
+*.so
+*.swo
+*.swp
+*~
+.DS_Store
+.Python
 .aider*
+.coverage
+.coverage.*
+.eggs/
 .env
 .env.local
-
-# Python
+.git.nosync/
+.hypothesis/
+.idea/
+.installed.cfg
+.ipynb_checkpoints/
+.pytest_cache/
+.tox/
+.venv
+.vscode/
+ALL MONTHS/**/*.xls
+ALL MONTHS/**/*.xlsx
+ALL-MONTHS/**/*.xls
+ALL-MONTHS/**/*.xlsx
+APN/
+All-to-Date/**/*.xls
+All-to-Date/**/*.xlsx
+Analysis/**/*.xls
+Analysis/**/*.xlsx
+Batchdata/Complete/**/*.xls
+Batchdata/Complete/**/*.xlsx
+Batchdata/Upload/**/*.xls
+Batchdata/Upload/**/*.xlsx
+ENV/
+Ecorp/Complete/**/*.xls
+Ecorp/Complete/**/*.xlsx
+Ecorp/Upload/**/*.xls
+Ecorp/Upload/**/*.xlsx
+MANIFEST
+MCAO/Complete/**/*.xls
+MCAO/Complete/**/*.xlsx
+MCAO/Upload/**/*.xls
+MCAO/Upload/**/*.xlsx
+Raw-New-Month/**/*.xls
+Raw-New-Month/**/*.xlsx
+Reformat/**/*.xls
+Reformat/**/*.xlsx
 __pycache__/
-*.py[cod]
-*$py.class
-*.so
-.Python
 build/
+coverage.xml
+data/
 develop-eggs/
 dist/
 downloads/
 eggs/
-.eggs/
+env/
+field_map.TODO.yml
+git-nov/
+htmlcov/
 lib/
 lib64/
-parts/
-sdist/
-var/
-wheels/
-*.egg-info/
-.installed.cfg
-*.egg
-MANIFEST
-
-# Virtual environments
-venv/
-ENV/
-env/
-.venv
-
-# Poetry
-poetry.lock
-
-# Testing
-.coverage
-.pytest_cache/
-htmlcov/
-.tox/
-.coverage.*
-coverage.xml
-*.cover
-.hypothesis/
-
-# IDE
-.vscode/
-.idea/
-*.swp
-*.swo
-*~
-.DS_Store
-
-# Project specific
-output/
-data/
-*.log
-field_map.TODO.yml
-
-# Jupyter
-.ipynb_checkpoints/
-*.ipynb
-
-# Excel data files - exclude from Git
-v200Track_this_shit.xlsx
-~$*.xlsx
-~$*.xls
-ALL-MONTHS/**/*.xlsx
-ALL-MONTHS/**/*.xls
-ALL MONTHS/**/*.xlsx
-ALL MONTHS/**/*.xls
-Reformat/**/*.xlsx
-Reformat/**/*.xls
-All-to-Date/**/*.xlsx
-All-to-Date/**/*.xls
-Raw-New-Month/**/*.xlsx
-Raw-New-Month/**/*.xls
-Analysis/**/*.xlsx
-Analysis/**/*.xls
-old/**/*.xlsx
 old/**/*.xls
-APN/
-
-# MCAO enrichment files (property data from Maricopa County Assessor)
-MCAO/Upload/**/*.xlsx
-MCAO/Upload/**/*.xls
-MCAO/Complete/**/*.xlsx
-MCAO/Complete/**/*.xls
-
-# Ecorp enrichment files (ACC entity data)
-Ecorp/Upload/**/*.xlsx
-Ecorp/Upload/**/*.xls
-Ecorp/Complete/**/*.xlsx
-Ecorp/Complete/**/*.xls
-
-# BatchData enrichment files (contact discovery data)
-Batchdata/Upload/**/*.xlsx
-Batchdata/Upload/**/*.xls
-Batchdata/Complete/**/*.xlsx
-Batchdata/Complete/**/*.xls
-
+old/**/*.xlsx
+output/
+parts/
+poetry.lock
+sdist/
 test-outputs/
-.git.nosync/
+v200Track_this_shit.xlsx
+var/
+venv/
+wheels/
+~$*.xls
+~$*.xlsx
