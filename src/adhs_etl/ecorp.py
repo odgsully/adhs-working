@@ -60,6 +60,347 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from webdriver_manager.chrome import ChromeDriverManager
 
+# Import monitoring and configuration
+import random
+import logging
+
+try:
+    from .config import get_ecorp_settings, EcorpSettings
+    from .ecorp_monitoring import (
+        send_alert,
+        alert_captcha_detected,
+        alert_rate_limited,
+        alert_consecutive_failures,
+    )
+except ImportError:
+    # Fallback for standalone execution
+    get_ecorp_settings = None
+    EcorpSettings = None
+    send_alert = None
+    alert_captcha_detected = None
+    alert_rate_limited = None
+    alert_consecutive_failures = None
+
+logger = logging.getLogger(__name__)
+
+# ============================================================================
+# SELECTOR CONFIGURATION - Angular Material Fallback Chains
+# ============================================================================
+# Each selector has multiple fallback options for the new Arizona Business Connect
+# platform (arizonabusinesscenter.azcc.gov). The first match wins.
+# This handles variations in Angular Material component rendering.
+
+SELECTORS = {
+    # Search input field - Arizona Business Connect (Jan 2026+)
+    "search_input": [
+        # New Arizona Business Connect selectors
+        (By.CSS_SELECTOR, "input[placeholder='Enter Business Name']"),
+        (By.CSS_SELECTOR, "input[placeholder*='Business Name']"),
+        (By.CSS_SELECTOR, "input[formcontrolname='businessName']"),
+        (By.CSS_SELECTOR, "input[formcontrolname='entityName']"),
+        # Generic Material selectors
+        (By.CSS_SELECTOR, ".mat-mdc-form-field-infix input"),
+        (By.CSS_SELECTOR, "mat-form-field input[type='text']"),
+        (By.CSS_SELECTOR, "input.mat-mdc-input-element"),
+        # Legacy fallbacks
+        (By.CSS_SELECTOR, "input[placeholder*='Entity']"),
+        (By.CSS_SELECTOR, "input[placeholder*='Search for an Entity Name']"),
+    ],
+
+    # Results table rows - Arizona Business Connect uses standard HTML table
+    "results_rows": [
+        # New platform - standard HTML table
+        (By.CSS_SELECTOR, "table tbody tr"),
+        (By.CSS_SELECTOR, "tbody tr"),
+        # Angular Material fallbacks
+        (By.CSS_SELECTOR, "mat-row"),
+        (By.CSS_SELECTOR, ".mat-mdc-row"),
+        (By.CSS_SELECTOR, "tr.mat-row"),
+        (By.CSS_SELECTOR, "[role='row']:not([aria-rowindex='1'])"),
+    ],
+
+    # Table cells
+    "table_cells": [
+        # Standard HTML table cells
+        (By.TAG_NAME, "td"),
+        (By.CSS_SELECTOR, "td"),
+        # Angular Material fallbacks
+        (By.CSS_SELECTOR, "mat-cell"),
+        (By.CSS_SELECTOR, ".mat-mdc-cell"),
+    ],
+
+    # Entity link in results - business name is a clickable link
+    "entity_link": [
+        (By.CSS_SELECTOR, "a"),
+        (By.CSS_SELECTOR, "a[href*='business']"),
+        (By.CSS_SELECTOR, "a[href*='entity']"),
+        (By.CSS_SELECTOR, "a[routerlink]"),
+    ],
+
+    # No results indicator (mat-dialog or mat-snackbar)
+    "no_results": [
+        (By.XPATH, "//*[contains(text(), 'No') and contains(text(), 'found')]"),
+        (By.XPATH, "//*[contains(text(), 'no results')]"),
+        (By.XPATH, "//*[contains(text(), 'No search results')]"),
+        (By.CSS_SELECTOR, "mat-dialog-content"),
+        (By.CSS_SELECTOR, ".mat-mdc-snack-bar-container"),
+        (By.CSS_SELECTOR, "snack-bar-container"),
+        # Legacy fallback
+        (By.XPATH, "//div[contains(text(), 'No search results were found')]"),
+    ],
+
+    # Dialog dismiss button
+    "dialog_dismiss": [
+        (By.CSS_SELECTOR, "mat-dialog-actions button"),
+        (By.CSS_SELECTOR, ".mat-mdc-dialog-actions button"),
+        (By.XPATH, "//mat-dialog-actions//button"),
+        (By.CSS_SELECTOR, "button.mat-mdc-button"),
+        (By.XPATH, "//button[normalize-space()='OK']"),
+        (By.XPATH, "//button[normalize-space()='Close']"),
+        (By.XPATH, "//button[contains(@class, 'close')]"),
+    ],
+
+    # Entity detail page load indicator
+    "detail_loaded": [
+        (By.XPATH, "//*[contains(text(),'Entity Information')]"),
+        (By.XPATH, "//*[contains(text(),'Entity Details')]"),
+        (By.CSS_SELECTOR, "mat-card"),
+        (By.CSS_SELECTOR, ".entity-details"),
+        (By.CSS_SELECTOR, "[class*='entity']"),
+        (By.CSS_SELECTOR, "mat-expansion-panel"),
+        # Legacy fallback
+        (By.XPATH, "//h2[contains(text(),'Entity Information')]"),
+    ],
+
+    # Principal table (for manager/member extraction)
+    "principal_table": [
+        (By.CSS_SELECTOR, "mat-table#grid_principalList"),
+        (By.ID, "grid_principalList"),
+        (By.CSS_SELECTOR, "[id*='principal']"),
+        (By.CSS_SELECTOR, "mat-table"),
+        # Legacy fallback
+        (By.CSS_SELECTOR, "table#grid_principalList"),
+    ],
+
+    # Statutory agent section
+    "statutory_agent": [
+        (By.XPATH, "//*[contains(text(),'Statutory Agent')]"),
+        (By.CSS_SELECTOR, "[class*='statutory']"),
+        (By.CSS_SELECTOR, "mat-expansion-panel:has(mat-panel-title:contains('Statutory'))"),
+    ],
+}
+
+# CAPTCHA detection indicators (future-proofing)
+CAPTCHA_INDICATORS = [
+    "captcha",
+    "verify you're human",
+    "security check",
+    "recaptcha",
+    "hcaptcha",
+    "prove you're not a robot",
+    "challenge",
+    "i'm not a robot",
+]
+
+# Rate limit / blocking indicators - context-aware patterns
+# These should appear in visible error messages, not just anywhere in page source
+RATE_LIMIT_INDICATORS = [
+    "too many requests",
+    "rate limit exceeded",
+    "you have been temporarily blocked",
+    "access denied",
+    "request blocked",
+    "please try again later",
+    "http error 429",
+    "http error 503",
+    "service unavailable",
+    "temporarily unavailable",
+]
+
+
+# ============================================================================
+# HELPER FUNCTIONS - Selector Fallback and Safety Detection
+# ============================================================================
+
+def find_element_with_fallback(
+    driver: webdriver.Chrome,
+    selector_key: str,
+    timeout: int = 5,
+    raise_on_failure: bool = True,
+    parent=None,
+) -> Optional[any]:
+    """Find element using fallback selector chain.
+
+    Tries each selector in SELECTORS[selector_key] until one succeeds.
+
+    Parameters
+    ----------
+    driver : webdriver.Chrome
+        Selenium WebDriver instance
+    selector_key : str
+        Key in SELECTORS dict (e.g., "search_input", "results_rows")
+    timeout : int
+        Timeout per selector attempt (seconds)
+    raise_on_failure : bool
+        If True, raise exception when all selectors fail
+    parent : WebElement, optional
+        Parent element to search within (uses driver if None)
+
+    Returns
+    -------
+    Optional[WebElement]
+        Found element, or None if raise_on_failure=False and not found
+
+    Raises
+    ------
+    Exception
+        If raise_on_failure=True and no selector succeeds
+    """
+    selectors = SELECTORS.get(selector_key, [])
+    if not selectors:
+        raise ValueError(f"Unknown selector key: {selector_key}")
+
+    search_context = parent if parent else driver
+    last_error = None
+
+    for idx, (by_type, selector) in enumerate(selectors):
+        try:
+            if parent:
+                # Direct find from parent element
+                element = parent.find_element(by_type, selector)
+            else:
+                # Use WebDriverWait for driver-level search
+                element = WebDriverWait(driver, timeout).until(
+                    EC.presence_of_element_located((by_type, selector))
+                )
+            logger.debug(
+                f"Found '{selector_key}' using selector {idx + 1}/{len(selectors)}: {selector}"
+            )
+            return element
+        except Exception as e:
+            last_error = e
+            continue
+
+    if raise_on_failure:
+        raise Exception(
+            f"Could not locate element with key '{selector_key}'. "
+            f"Tried {len(selectors)} selectors. Last error: {last_error}"
+        )
+    return None
+
+
+def find_elements_with_fallback(
+    driver: webdriver.Chrome,
+    selector_key: str,
+    parent=None,
+) -> List[any]:
+    """Find multiple elements using fallback selector chain.
+
+    Parameters
+    ----------
+    driver : webdriver.Chrome
+        Selenium WebDriver instance
+    selector_key : str
+        Key in SELECTORS dict
+    parent : WebElement, optional
+        Parent element to search within (uses driver if None)
+
+    Returns
+    -------
+    List[WebElement]
+        List of found elements (may be empty)
+    """
+    selectors = SELECTORS.get(selector_key, [])
+    search_context = parent if parent else driver
+
+    for idx, (by_type, selector) in enumerate(selectors):
+        try:
+            elements = search_context.find_elements(by_type, selector)
+            if elements:
+                logger.debug(
+                    f"Found {len(elements)} '{selector_key}' elements using "
+                    f"selector {idx + 1}/{len(selectors)}: {selector}"
+                )
+                return elements
+        except Exception:
+            continue
+
+    return []
+
+
+def detect_captcha(driver: webdriver.Chrome) -> bool:
+    """Detect if CAPTCHA challenge is present.
+
+    Checks page source for common CAPTCHA indicators.
+
+    Parameters
+    ----------
+    driver : webdriver.Chrome
+        Selenium WebDriver instance
+
+    Returns
+    -------
+    bool
+        True if CAPTCHA detected, False otherwise
+    """
+    try:
+        page_source = driver.page_source.lower()
+        return any(indicator in page_source for indicator in CAPTCHA_INDICATORS)
+    except Exception:
+        return False
+
+
+def detect_rate_limit(driver: webdriver.Chrome) -> bool:
+    """Detect if rate limiting or blocking is active.
+
+    Checks visible page text (not scripts/CSS) for rate limit indicators.
+    Also checks for HTTP error status in title or body.
+
+    Parameters
+    ----------
+    driver : webdriver.Chrome
+        Selenium WebDriver instance
+
+    Returns
+    -------
+    bool
+        True if rate limit/block detected, False otherwise
+    """
+    try:
+        # Check page title for error indicators
+        title = driver.title.lower() if driver.title else ""
+        if any(x in title for x in ["error", "blocked", "denied", "unavailable"]):
+            return True
+
+        # Get visible body text (excludes scripts and styles)
+        body_element = driver.find_element(By.TAG_NAME, "body")
+        visible_text = body_element.text.lower() if body_element else ""
+
+        # Check visible text for rate limit indicators
+        return any(indicator in visible_text for indicator in RATE_LIMIT_INDICATORS)
+    except Exception:
+        return False
+
+
+def get_random_delay(min_delay: float = 2.0, max_delay: float = 5.0) -> float:
+    """Get randomized delay to avoid detection patterns.
+
+    Uses uniform distribution between min and max.
+
+    Parameters
+    ----------
+    min_delay : float
+        Minimum delay in seconds
+    max_delay : float
+        Maximum delay in seconds
+
+    Returns
+    -------
+    float
+        Random delay value
+    """
+    return random.uniform(min_delay, max_delay)
+
 
 def classify_name_type(name: str) -> str:
     """Classify a name as Entity or Individual(s) based on keywords and patterns.
@@ -249,7 +590,13 @@ def parse_individual_names(name_str: str) -> List[str]:
 
 
 def setup_driver(headless: bool = True) -> webdriver.Chrome:
-    """Configure and return a Selenium Chrome WebDriver.
+    """Configure and return a Selenium Chrome WebDriver with anti-detection.
+
+    Includes measures to avoid bot detection:
+    - Hides navigator.webdriver flag
+    - Sets realistic user-agent
+    - Excludes automation-related Chrome switches
+    - Disables automation extensions
 
     Parameters
     ----------
@@ -262,27 +609,512 @@ def setup_driver(headless: bool = True) -> webdriver.Chrome:
         An instance of the Chrome WebDriver.
     """
     chrome_options = Options()
+
+    # Headless mode configuration
     if headless:
-        chrome_options.add_argument("--headless")
+        chrome_options.add_argument("--headless=new")  # New headless mode (more realistic)
         chrome_options.add_argument("--disable-gpu")
+
+    # Standard stability options
     chrome_options.add_argument("--no-sandbox")
     chrome_options.add_argument("--disable-dev-shm-usage")
     chrome_options.add_argument("--disable-web-security")
     chrome_options.add_argument("--disable-features=VizDisplayCompositor")
     chrome_options.add_argument("--disable-backgrounding-occluded-windows")
     chrome_options.add_argument("--window-size=1920,1080")
+
+    # Anti-detection measures
+    chrome_options.add_argument("--disable-blink-features=AutomationControlled")
+    chrome_options.add_experimental_option("excludeSwitches", ["enable-automation"])
+    chrome_options.add_experimental_option("useAutomationExtension", False)
+
+    # Realistic user-agent (Chrome 120 on macOS)
+    user_agent = (
+        "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) "
+        "AppleWebKit/537.36 (KHTML, like Gecko) "
+        "Chrome/120.0.0.0 Safari/537.36"
+    )
+    chrome_options.add_argument(f"--user-agent={user_agent}")
+
     service = Service(ChromeDriverManager().install())
     driver = webdriver.Chrome(service=service, options=chrome_options)
+
+    # Execute CDP command to hide webdriver flag
+    driver.execute_cdp_cmd("Page.addScriptToEvaluateOnNewDocument", {
+        "source": """
+            Object.defineProperty(navigator, 'webdriver', {
+                get: () => undefined
+            });
+        """
+    })
+
     return driver
 
 
-def search_entities(driver: webdriver.Chrome, name: str) -> List[Dict[str, str]]:
+def detect_login_page(driver: webdriver.Chrome) -> bool:
+    """Detect if the browser is on a login/authentication page.
+
+    Parameters
+    ----------
+    driver : webdriver.Chrome
+        Selenium WebDriver instance
+
+    Returns
+    -------
+    bool
+        True if on login page, False if on search page
+    """
+    try:
+        body = driver.find_element(By.TAG_NAME, "body")
+        body_text = body.text.lower() if body else ""
+
+        # Login page indicators
+        login_indicators = [
+            "online services login",
+            "email address",
+            "password",
+            "register here",
+            "don't have an account",
+            "sign in",
+            "log in to your account",
+        ]
+
+        # Search page indicators (if present, we're NOT on login)
+        search_indicators = [
+            "entity search",
+            "search for",
+            "entity name",
+            "business search",
+            "corporation search",
+        ]
+
+        # Check for login indicators
+        has_login_indicators = any(indicator in body_text for indicator in login_indicators)
+
+        # Check for search indicators
+        has_search_indicators = any(indicator in body_text for indicator in search_indicators)
+
+        # If we have search indicators, we're good
+        if has_search_indicators and not has_login_indicators:
+            return False
+
+        # If we have login indicators but no search, we're on login page
+        if has_login_indicators:
+            return True
+
+        return False
+    except Exception:
+        return False
+
+
+def perform_login(driver: webdriver.Chrome, settings) -> bool:
+    """Perform login to Arizona Business Connect.
+
+    The new platform (launched January 2026) requires authentication for
+    entity searches. This function handles the login process.
+
+    Parameters
+    ----------
+    driver : webdriver.Chrome
+        Selenium WebDriver instance
+    settings : EcorpSettings
+        Configuration settings containing email and password
+
+    Returns
+    -------
+    bool
+        True if login successful, False otherwise
+    """
+    if not settings or not settings.email or not settings.password:
+        logger.warning(
+            "Authentication credentials not configured. "
+            "Set ADHS_ECORP_EMAIL and ADHS_ECORP_PASSWORD environment variables."
+        )
+        return False
+
+    login_url = getattr(settings, 'login_url', 'https://arizonabusinesscenter.azcc.gov/login')
+
+    try:
+        logger.info(f"Navigating to login page: {login_url}")
+        driver.get(login_url)
+        time.sleep(3)  # Wait for Angular
+
+        # Find and fill email field
+        email_selectors = [
+            (By.CSS_SELECTOR, "input[type='email']"),
+            (By.CSS_SELECTOR, "input[formcontrolname='email']"),
+            (By.CSS_SELECTOR, "input[name='email']"),
+            (By.CSS_SELECTOR, "input[placeholder*='Email']"),
+            (By.CSS_SELECTOR, ".mat-mdc-form-field-infix input"),
+        ]
+
+        email_input = None
+        for by_type, selector in email_selectors:
+            try:
+                email_input = driver.find_element(by_type, selector)
+                if email_input:
+                    break
+            except Exception:
+                continue
+
+        if not email_input:
+            logger.error("Could not find email input field on login page")
+            return False
+
+        email_input.clear()
+        email_input.send_keys(settings.email)
+        time.sleep(1)
+
+        # Click Next/Continue button - this is a two-step login
+        next_button_selectors = [
+            (By.XPATH, "//button[normalize-space()='Next']"),
+            (By.XPATH, "//button[contains(text(), 'Next')]"),
+            (By.XPATH, "//button[contains(text(), 'Continue')]"),
+            (By.CSS_SELECTOR, "button.mat-mdc-raised-button"),
+            (By.CSS_SELECTOR, "button[type='submit']"),
+            (By.CSS_SELECTOR, "button[color='primary']"),
+        ]
+
+        next_button = None
+        for by_type, selector in next_button_selectors:
+            try:
+                buttons = driver.find_elements(by_type, selector)
+                for btn in buttons:
+                    if btn.is_displayed() and btn.is_enabled():
+                        next_button = btn
+                        logger.debug(f"Found Next button with selector: {selector}")
+                        break
+                if next_button:
+                    break
+            except Exception:
+                continue
+
+        if next_button:
+            logger.info("Clicking Next button...")
+            next_button.click()
+            time.sleep(3)  # Wait for password field to load
+        else:
+            logger.warning("Could not find Next button, trying Enter key...")
+            email_input.send_keys(Keys.RETURN)
+            time.sleep(3)
+
+        # Find and fill password field
+        password_selectors = [
+            (By.CSS_SELECTOR, "input[type='password']"),
+            (By.CSS_SELECTOR, "input[formcontrolname='password']"),
+            (By.CSS_SELECTOR, "input[name='password']"),
+        ]
+
+        password_input = None
+        for by_type, selector in password_selectors:
+            try:
+                password_input = driver.find_element(by_type, selector)
+                if password_input:
+                    break
+            except Exception:
+                continue
+
+        if password_input:
+            password_input.clear()
+            password_input.send_keys(settings.password)
+            time.sleep(0.5)
+
+            # Submit login
+            password_input.send_keys(Keys.RETURN)
+            time.sleep(3)  # Wait for login to process
+
+        # Check if we hit 2FA page
+        if detect_2fa_page(driver):
+            logger.info("Two-Factor Authentication required")
+            if not handle_2fa_prompt(driver):
+                logger.error("2FA authentication failed")
+                return False
+
+        # Verify login success by checking we're not on login page
+        if not detect_login_page(driver) and not detect_2fa_page(driver):
+            logger.info("Login successful!")
+            return True
+        else:
+            logger.warning("Login may have failed - still on login/2FA page")
+            return False
+
+    except Exception as e:
+        logger.error(f"Login failed with error: {e}")
+        return False
+
+
+def detect_2fa_page(driver: webdriver.Chrome) -> bool:
+    """Detect if we're on the Two-Factor Authentication page.
+
+    Parameters
+    ----------
+    driver : webdriver.Chrome
+        Selenium WebDriver instance
+
+    Returns
+    -------
+    bool
+        True if on 2FA page, False otherwise
+    """
+    try:
+        body = driver.find_element(By.TAG_NAME, "body")
+        body_text = body.text.lower() if body else ""
+
+        tfa_indicators = [
+            "two-factor authentication",
+            "verification code",
+            "code has been sent",
+            "enter the code",
+            "authenticate",
+            "otp",
+        ]
+
+        return any(indicator in body_text for indicator in tfa_indicators)
+    except Exception:
+        return False
+
+
+def handle_2fa_prompt(driver: webdriver.Chrome, timeout: int = 300) -> bool:
+    """Handle Two-Factor Authentication by prompting user for code.
+
+    Pauses execution and asks the user to enter the 2FA code sent to their email.
+    The code is then entered into the form and submitted.
+
+    Parameters
+    ----------
+    driver : webdriver.Chrome
+        Selenium WebDriver instance
+    timeout : int
+        Maximum seconds to wait for user input (default 5 minutes)
+
+    Returns
+    -------
+    bool
+        True if 2FA completed successfully, False otherwise
+    """
+    print("\n" + "=" * 60)
+    print("🔐 TWO-FACTOR AUTHENTICATION REQUIRED")
+    print("=" * 60)
+    print("A verification code has been sent to your email.")
+    print("Check your inbox and enter the 6-digit code below.")
+    print("(Code typically expires in 5 minutes)")
+    print("=" * 60)
+
+    try:
+        # Get user input
+        code = input("\nEnter 2FA code: ").strip()
+
+        if not code:
+            print("No code entered. Aborting.")
+            return False
+
+        if len(code) != 6 or not code.isdigit():
+            print(f"Warning: Code '{code}' doesn't look like a 6-digit code, but trying anyway...")
+
+        # Find the OTP input fields - Arizona Business Connect uses 6 separate input boxes
+        otp_input = None
+        is_split_input = False
+
+        # First, try to find 6 separate OTP input boxes (most common for this site)
+        all_inputs = driver.find_elements(By.TAG_NAME, "input")
+        visible_text_inputs = [
+            inp for inp in all_inputs
+            if inp.is_displayed() and inp.get_attribute("type") in ["text", "number", "tel", None, ""]
+        ]
+
+        # Check if we have exactly 6 single-character inputs (split OTP)
+        if len(visible_text_inputs) >= 6:
+            # Check if first 6 look like OTP boxes
+            potential_otp = visible_text_inputs[:6]
+            is_split_input = True
+            otp_input = potential_otp
+            print(f"Found {len(potential_otp)} OTP input boxes")
+
+        # Fallback: try specific selectors
+        if not otp_input:
+            otp_selectors = [
+                (By.CSS_SELECTOR, "input[maxlength='1']"),
+                (By.CSS_SELECTOR, "input[type='text'][maxlength='6']"),
+                (By.CSS_SELECTOR, "input[formcontrolname*='otp']"),
+                (By.CSS_SELECTOR, "input[formcontrolname*='code']"),
+            ]
+
+            for by_type, selector in otp_selectors:
+                try:
+                    inputs = driver.find_elements(by_type, selector)
+                    visible_inputs = [i for i in inputs if i.is_displayed()]
+                    if len(visible_inputs) >= 6:
+                        is_split_input = True
+                        otp_input = visible_inputs[:6]
+                        print(f"Found OTP inputs with selector: {selector}")
+                        break
+                    elif len(visible_inputs) == 1:
+                        otp_input = visible_inputs[0]
+                        is_split_input = False
+                        break
+                except Exception:
+                    continue
+
+        if not otp_input:
+            print("Could not find OTP input fields. Trying first visible input...")
+            if visible_text_inputs:
+                otp_input = visible_text_inputs[0]
+                is_split_input = False
+
+        if otp_input:
+            if is_split_input:
+                # Enter one digit per input
+                print("Entering code into split input fields...")
+                for i, digit in enumerate(code[:6]):
+                    otp_input[i].clear()
+                    otp_input[i].send_keys(digit)
+                    time.sleep(0.1)
+            else:
+                # Single input field
+                print("Entering code...")
+                otp_input.clear()
+                otp_input.send_keys(code)
+
+            time.sleep(0.5)
+
+            # Click Authenticate/Submit button
+            auth_button_selectors = [
+                (By.XPATH, "//button[normalize-space()='Authenticate']"),
+                (By.XPATH, "//button[contains(text(), 'Authenticate')]"),
+                (By.XPATH, "//button[contains(text(), 'Verify')]"),
+                (By.XPATH, "//button[contains(text(), 'Submit')]"),
+                (By.CSS_SELECTOR, "button[type='submit']"),
+                (By.CSS_SELECTOR, "button.mat-mdc-raised-button"),
+            ]
+
+            auth_button = None
+            for by_type, selector in auth_button_selectors:
+                try:
+                    buttons = driver.find_elements(by_type, selector)
+                    for btn in buttons:
+                        if btn.is_displayed() and btn.is_enabled():
+                            btn_text = btn.text.lower()
+                            if "cancel" not in btn_text:
+                                auth_button = btn
+                                break
+                    if auth_button:
+                        break
+                except Exception:
+                    continue
+
+            if auth_button:
+                print("Clicking Authenticate button...")
+                auth_button.click()
+            else:
+                print("No Authenticate button found, pressing Enter...")
+                if is_split_input:
+                    otp_input[-1].send_keys(Keys.RETURN)
+                else:
+                    otp_input.send_keys(Keys.RETURN)
+
+            time.sleep(3)  # Wait for authentication to process
+
+            # Check if we're past 2FA
+            if not detect_2fa_page(driver):
+                print("✅ 2FA authentication successful!")
+                return True
+            else:
+                print("❌ Still on 2FA page - code may be incorrect")
+                return False
+
+        else:
+            print("ERROR: Could not find any input field for OTP code")
+            return False
+
+    except KeyboardInterrupt:
+        print("\nCancelled by user.")
+        return False
+    except Exception as e:
+        print(f"ERROR during 2FA: {e}")
+        return False
+
+
+def find_working_search_url(driver: webdriver.Chrome, settings=None) -> str:
+    """Try multiple URLs to find a working public search page.
+
+    The new Arizona Business Connect platform has multiple potential endpoints.
+    This function tries each until it finds one that works without authentication.
+
+    Parameters
+    ----------
+    driver : webdriver.Chrome
+        Selenium WebDriver instance
+    settings : EcorpSettings, optional
+        Configuration settings
+
+    Returns
+    -------
+    str
+        The URL of a working public search page
+
+    Raises
+    ------
+    Exception
+        If no working public search URL is found
+    """
+    # URLs to try in order of preference
+    candidate_urls = [
+        # Primary: public business search (no login required)
+        "https://arizonabusinesscenter.azcc.gov/businesssearch",
+        # Alternative paths that may work
+        "https://arizonabusinesscenter.azcc.gov/PublicSearch/EntitySearch",
+        "https://arizonabusinesscenter.azcc.gov/search",
+        "https://arizonabusinesscenter.azcc.gov/entity-search",
+        "https://arizonabusinesscenter.azcc.gov/entitysearch/index",
+        # Old URLs (for reference/fallback)
+        "https://ecorp.azcc.gov/EntitySearch/Index",
+    ]
+
+    page_timeout = settings.page_load_timeout if settings else 10
+
+    for url in candidate_urls:
+        try:
+            logger.debug(f"Trying URL: {url}")
+            driver.get(url)
+            time.sleep(3)  # Wait for Angular SPA to initialize
+
+            # Check if we landed on a login page
+            if detect_login_page(driver):
+                logger.debug(f"  → Login page detected at {url}")
+                continue
+
+            # Check if we can find a search input
+            search_input = find_element_with_fallback(
+                driver, "search_input", timeout=5, raise_on_failure=False
+            )
+            if search_input:
+                logger.info(f"Found working search page at: {url}")
+                return url
+
+            logger.debug(f"  → No search input found at {url}")
+
+        except Exception as e:
+            logger.debug(f"  → Error at {url}: {e}")
+            continue
+
+    raise Exception(
+        "Could not find a working public search URL. "
+        "The Arizona Business Connect site may require authentication for all searches. "
+        "Consider using Form M027 for official database extraction."
+    )
+
+
+def search_entities(driver: webdriver.Chrome, name: str, settings=None) -> List[Dict[str, str]]:
     """Search the ACC site for a company name and return entity details.
 
-    This function navigates to the ACC public search page, enters
-    ``name`` into the search bar, parses any results table that
-    appears, and retrieves detailed fields for each entity by opening
-    the detail page in a new tab.
+    This function navigates to the Arizona Business Connect search page
+    (formerly eCorp), enters ``name`` into the search bar, parses any
+    results table that appears, and retrieves detailed fields for each
+    entity by opening the detail page in a new tab.
+
+    The function automatically discovers the working public search URL,
+    handling the transition from the old eCorp site to the new Arizona
+    Business Connect platform (launched January 12, 2026).
 
     Parameters
     ----------
@@ -290,6 +1122,8 @@ def search_entities(driver: webdriver.Chrome, name: str) -> List[Dict[str, str]]
         The active Selenium driver.
     name : str
         The company name to search for.
+    settings : EcorpSettings, optional
+        Configuration settings. If None, defaults are used.
 
     Returns
     -------
@@ -298,51 +1132,199 @@ def search_entities(driver: webdriver.Chrome, name: str) -> List[Dict[str, str]]
         about an entity.  If no results are found, a single
         dictionary with ``Status`` set to ``Not found`` is returned.
     """
-    base_url = "https://ecorp.azcc.gov/EntitySearch/Index"
+    # Get settings (use defaults if not provided)
+    if settings is None and get_ecorp_settings is not None:
+        settings = get_ecorp_settings()
+
+    # Use configured URL or default to new Arizona Business Connect
+    if settings:
+        base_url = settings.base_url
+        min_delay = settings.min_delay
+        max_delay = settings.max_delay
+        page_timeout = settings.page_load_timeout
+    else:
+        # Fallback defaults
+        base_url = "https://arizonabusinesscenter.azcc.gov/businesssearch"
+        min_delay = 2.0
+        max_delay = 5.0
+        page_timeout = 10
+
     driver.get(base_url)
+    time.sleep(3)  # Wait for Angular SPA to initialize
+
+    # Check if we landed on a login page
+    if detect_login_page(driver):
+        logger.warning(f"Login page detected at {base_url}")
+
+        # Try to authenticate if credentials are available
+        if settings and settings.email and settings.password:
+            logger.info("Attempting authentication with configured credentials...")
+            if perform_login(driver, settings):
+                # Navigate to search page after successful login
+                driver.get(base_url)
+                time.sleep(3)
+            else:
+                blank = get_blank_acc_record()
+                blank["ECORP_COMMENTS"] = "Authentication failed - check credentials"
+                return [blank]
+        else:
+            # No credentials - cannot proceed
+            logger.error(
+                "Arizona Business Connect requires authentication for entity searches. "
+                "Configure ADHS_ECORP_EMAIL and ADHS_ECORP_PASSWORD, "
+                "or use Form M027 for official database extraction."
+            )
+            blank = get_blank_acc_record()
+            blank["ECORP_COMMENTS"] = (
+                "Login required - set ADHS_ECORP_EMAIL and ADHS_ECORP_PASSWORD "
+                "or use Form M027 (https://www.azcc.gov/docs/default-source/corps-files/forms/m027-database-extraction-request.pdf)"
+            )
+            return [blank]
+
+    # Verify we're now on a search page
+    if detect_login_page(driver):
+        blank = get_blank_acc_record()
+        blank["ECORP_COMMENTS"] = "Still on login page after authentication attempt"
+        return [blank]
 
     try:
-        # Wait for search bar
-        search_input = WebDriverWait(driver, 10).until(
-            EC.presence_of_element_located((By.CSS_SELECTOR, "input[placeholder*='Search for an Entity Name']"))
+        # Wait for search bar using fallback selectors
+        search_input = find_element_with_fallback(
+            driver, "search_input", timeout=page_timeout
         )
         # Clear and enter search term
         search_input.clear()
         search_input.send_keys(name)
-        search_input.send_keys(Keys.RETURN)
 
-        # Wait for results table or no results message
-        time.sleep(1.5)  # short wait for results to load
+        # Click "Business Search" button instead of pressing Enter
+        search_button_selectors = [
+            (By.XPATH, "//button[normalize-space()='Business Search']"),
+            (By.XPATH, "//button[contains(text(), 'Business Search')]"),
+            (By.XPATH, "//button[contains(text(), 'Search')]"),
+            (By.CSS_SELECTOR, "button[type='submit']"),
+            (By.CSS_SELECTOR, "button.mat-mdc-raised-button"),
+        ]
 
-        # Check for no results modal
+        search_clicked = False
+        for by_type, selector in search_button_selectors:
+            try:
+                buttons = driver.find_elements(by_type, selector)
+                for btn in buttons:
+                    if btn.is_displayed() and btn.is_enabled():
+                        btn_text = btn.text.lower()
+                        if "clear" not in btn_text and "cancel" not in btn_text:
+                            logger.debug(f"Clicking search button: {btn.text}")
+                            btn.click()
+                            search_clicked = True
+                            break
+                if search_clicked:
+                    break
+            except Exception:
+                continue
+
+        if not search_clicked:
+            logger.debug("No search button found, pressing Enter")
+            search_input.send_keys(Keys.RETURN)
+
+        # Wait for results with randomized delay (anti-detection)
+        time.sleep(get_random_delay(min_delay, max_delay))
+
+        # Safety checks: CAPTCHA and rate limit detection
+        if settings and settings.enable_captcha_detection and detect_captcha(driver):
+            logger.warning(f"CAPTCHA detected while searching for: {name}")
+            if alert_captcha_detected:
+                alert_captcha_detected({"owner_name": name, "url": base_url}, settings)
+            blank = get_blank_acc_record()
+            blank["ECORP_COMMENTS"] = "CAPTCHA detected - manual intervention required"
+            return [blank]
+
+        if settings and settings.enable_rate_limit_detection and detect_rate_limit(driver):
+            logger.warning(f"Rate limit detected while searching for: {name}")
+            if alert_rate_limited:
+                alert_rate_limited({"owner_name": name, "url": base_url}, settings)
+            blank = get_blank_acc_record()
+            blank["ECORP_COMMENTS"] = "Rate limited - try again later"
+            return [blank]
+
+        # Check for no results modal using fallback selectors
         try:
-            no_results_modal = driver.find_element(By.XPATH, "//div[contains(text(), 'No search results were found')]")
-            # Click OK button to close modal
-            ok_button = driver.find_element(By.XPATH, "//button[normalize-space()='OK']")
-            ok_button.click()
-            return [get_blank_acc_record()]
+            no_results = find_element_with_fallback(
+                driver, "no_results", timeout=2, raise_on_failure=False
+            )
+            if no_results:
+                # Try to dismiss the dialog
+                dismiss_btn = find_element_with_fallback(
+                    driver, "dialog_dismiss", timeout=2, raise_on_failure=False
+                )
+                if dismiss_btn:
+                    dismiss_btn.click()
+                    time.sleep(0.5)
+                return [get_blank_acc_record()]
         except Exception:
             pass
 
-        # Parse results table rows
+        # Parse results table rows using fallback selectors
+        # New Arizona Business Connect table columns:
+        # 0: Business Name (link), 1: Former Name, 2: Business ID, 3: Business Type,
+        # 4: Statutory Agent, 5: Physical Address, 6: Status
         entities = []
-        rows = driver.find_elements(By.CSS_SELECTOR, "table tbody tr")
+        rows = find_elements_with_fallback(driver, "results_rows")
+        logger.debug(f"Found {len(rows)} result rows")
+
         for row in rows:
-            cols = row.find_elements(By.TAG_NAME, "td")
-            if not cols or len(cols) < 2:
+            cols = find_elements_with_fallback(driver, "table_cells", parent=row)
+            if not cols or len(cols) < 3:
+                logger.debug(f"Skipping row with {len(cols) if cols else 0} columns")
                 continue
-            entity_id = cols[0].text.strip()
-            entity_name = cols[1].text.strip()
-            # Open detail page in new tab
-            link = cols[1].find_element(By.TAG_NAME, "a")
-            detail_url = link.get_attribute("href")
-            # Open in same driver (new tab)
-            driver.execute_script("window.open(arguments[0]);", detail_url)
-            driver.switch_to.window(driver.window_handles[-1])
-            # Wait for entity info to load
-            WebDriverWait(driver, 10).until(
-                EC.presence_of_element_located((By.XPATH, "//h2[contains(text(),'Entity Information')]") )
+
+            # Extract data from columns (new Arizona Business Connect format)
+            entity_name = cols[0].text.strip() if len(cols) > 0 else ""
+            entity_id = cols[2].text.strip() if len(cols) > 2 else ""
+            business_type = cols[3].text.strip() if len(cols) > 3 else ""
+            statutory_agent = cols[4].text.strip() if len(cols) > 4 else ""
+            physical_address = cols[5].text.strip() if len(cols) > 5 else ""
+            status = cols[6].text.strip() if len(cols) > 6 else ""
+
+            logger.debug(f"Found entity: {entity_name} (ID: {entity_id})")
+
+            # Find link in the first column (Business Name)
+            link = find_element_with_fallback(
+                driver, "entity_link", parent=cols[0], timeout=2, raise_on_failure=False
             )
+            if not link:
+                # Try finding link in the entire row
+                link = find_element_with_fallback(
+                    driver, "entity_link", parent=row, timeout=2, raise_on_failure=False
+                )
+            if not link:
+                logger.debug(f"No link found for {entity_name}, skipping")
+                continue
+
+            # Arizona Business Connect uses Angular routing - links may not have href
+            # We need to click the link directly instead of opening URL in new tab
+            detail_url = link.get_attribute("href") or link.get_attribute("routerlink")
+
+            # Store current window handle
+            main_window = driver.current_window_handle
+            original_url = driver.current_url
+
+            if detail_url and detail_url.startswith("http"):
+                # Traditional link - open in new tab
+                logger.debug(f"Opening detail page via URL: {detail_url}")
+                driver.execute_script("window.open(arguments[0]);", detail_url)
+                driver.switch_to.window(driver.window_handles[-1])
+            else:
+                # Angular routing - click the link directly
+                logger.debug(f"Clicking link for: {entity_name}")
+                try:
+                    link.click()
+                    time.sleep(2)  # Wait for Angular navigation
+                except Exception as click_err:
+                    logger.debug(f"Click failed, trying JS click: {click_err}")
+                    driver.execute_script("arguments[0].click();", link)
+                    time.sleep(2)
+            # Wait for entity info to load using fallback selectors
+            find_element_with_fallback(driver, "detail_loaded", timeout=page_timeout)
             # Parse the page with BeautifulSoup
             soup = BeautifulSoup(driver.page_source, "html.parser")
             # Extract fields
@@ -569,13 +1551,20 @@ def search_entities(driver: webdriver.Chrome, name: str) -> List[Dict[str, str]]
             for i in range(1, 5):
                 record[f"IndividualName{i}"] = ''
 
-            # Add ECORP_URL
-            record["ECORP_URL"] = detail_url if detail_url else ''
+            # Add ECORP_URL - use current URL if we navigated via click
+            record["ECORP_URL"] = driver.current_url if not detail_url else detail_url
 
             entities.append(record)
-            # Close tab and switch back
-            driver.close()
-            driver.switch_to.window(driver.window_handles[0])
+
+            # Navigate back to search results
+            if len(driver.window_handles) > 1:
+                # We opened a new tab - close it and switch back
+                driver.close()
+                driver.switch_to.window(main_window)
+            else:
+                # We used Angular routing - navigate back
+                driver.back()
+                time.sleep(2)  # Wait for search results to reload
 
         # If no entities were found, return a blank record
         if not entities:
@@ -690,7 +1679,12 @@ def extract_timestamp_from_path(path: Path) -> str:
     return datetime.now().strftime("%m.%d.%I-%M-%S")
 
 
-def get_cached_or_lookup(cache: dict, owner_name: str, driver: webdriver.Chrome) -> List[Dict[str, str]]:
+def get_cached_or_lookup(
+    cache: dict,
+    owner_name: str,
+    driver: webdriver.Chrome,
+    settings=None
+) -> List[Dict[str, str]]:
     """Check cache before performing ACC lookup to avoid duplicates.
 
     Parameters
@@ -701,6 +1695,8 @@ def get_cached_or_lookup(cache: dict, owner_name: str, driver: webdriver.Chrome)
         Owner name to lookup
     driver : webdriver.Chrome
         Selenium driver instance
+    settings : EcorpSettings, optional
+        Configuration settings for the scraper
 
     Returns
     -------
@@ -710,7 +1706,7 @@ def get_cached_or_lookup(cache: dict, owner_name: str, driver: webdriver.Chrome)
     if owner_name in cache:
         return cache[owner_name]
 
-    results = search_entities(driver, owner_name)
+    results = search_entities(driver, owner_name, settings)
     cache[owner_name] = results
     return results
 
@@ -1025,6 +2021,15 @@ def generate_ecorp_complete(month_code: str, upload_path: Path, headless: bool =
         start_idx = 0
         cache = {}  # In-memory cache
 
+        # Initialize Ecorp settings
+        settings = None
+        if get_ecorp_settings is not None:
+            settings = get_ecorp_settings(headless=headless)
+            print(f"🔧 Using base URL: {settings.base_url}")
+            print(f"   Delays: {settings.min_delay}-{settings.max_delay}s | "
+                  f"CAPTCHA detection: {settings.enable_captcha_detection} | "
+                  f"Rate limit detection: {settings.enable_rate_limit_detection}")
+
         # Load checkpoint if exists and validate it
         if checkpoint_file.exists():
             try:
@@ -1095,7 +2100,7 @@ def generate_ecorp_complete(month_code: str, upload_path: Path, headless: bool =
                         acc_data[f'IndividualName{i}'] = parsed_name
                 else:
                     # BUSINESS type - do ACC lookup with caching
-                    acc_results = get_cached_or_lookup(cache, str(owner_name), driver)
+                    acc_results = get_cached_or_lookup(cache, str(owner_name), driver, settings)
                     acc_data = acc_results[0] if acc_results else get_blank_acc_record()
 
                 # Build complete record in correct column order (93 columns: A-CO)
