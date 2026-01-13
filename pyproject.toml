@@ -44,3 +44,11 @@ build-backend = "poetry.core.masonry.api"
 
 [tool.poetry.scripts]
 adhs-etl = "adhs_etl.cli:app"
+
+[tool.pytest.ini_options]
+testpaths = ["src/tests"]
+python_files = ["test_*.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]
+# Ignore Batchdata directory - contains manual debug scripts, not pytest tests
+norecursedirs = ["Batchdata", ".git", "__pycache__", "*.egg-info"]
