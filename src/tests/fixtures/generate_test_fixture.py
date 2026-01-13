@@ -4,8 +4,16 @@ from pathlib import Path
 
 # Create sample data
 data = {
-    "Provider Name": ["Phoenix Health Center", "Tempe Medical Group", "Scottsdale Clinic"],
-    "Provider Address": ["100 N Central Ave", "200 E University Dr", "300 N Scottsdale Rd"],
+    "Provider Name": [
+        "Phoenix Health Center",
+        "Tempe Medical Group",
+        "Scottsdale Clinic",
+    ],
+    "Provider Address": [
+        "100 N Central Ave",
+        "200 E University Dr",
+        "300 N Scottsdale Rd",
+    ],
     "Provider City": ["Phoenix", "Tempe", "Scottsdale"],
     "Provider State": ["AZ", "AZ", "AZ"],
     "Provider Zip": ["85004", "85281", "85251"],

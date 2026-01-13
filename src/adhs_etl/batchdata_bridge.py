@@ -7,7 +7,7 @@ and orchestrate the BatchData enrichment process with standardized naming.
 
 import sys
 from pathlib import Path
-from typing import Optional, Dict, Any
+from typing import Optional, Dict
 import pandas as pd
 import shutil
 
@@ -18,14 +18,16 @@ sys.path.insert(0, str(batchdata_path))
 try:
     from src.transform import transform_ecorp_to_batchdata
     from src.run import run_pipeline
-    from src.io import load_workbook_sheets, load_config_dict, load_blacklist_set
+    # fmt: off
+    from src.io import load_workbook_sheets, load_config_dict, load_blacklist_set  # noqa: F401
+    # fmt: on
     from src.name_matching import apply_name_matching
 except ImportError as e:
     print(f"Warning: Could not import BatchData modules: {e}")
     print(f"BatchData path: {batchdata_path}")
     apply_name_matching = None  # Fallback if import fails
 
-from .utils import get_standard_timestamp, format_output_filename
+from .utils import get_standard_timestamp, format_output_filename  # noqa: E402
 
 
 # Canonical template path for output validation
@@ -35,7 +37,7 @@ BATCHDATA_COMPLETE_TEMPLATE = "Batchdata_Template.xlsx"
 def validate_output_against_template(
     df: pd.DataFrame,
     template_path: str = BATCHDATA_COMPLETE_TEMPLATE,
-    strict: bool = True
+    strict: bool = True,
 ) -> bool:
     """Validate DataFrame columns against canonical template.
 
@@ -83,7 +85,7 @@ def validate_output_against_template(
 
     # Check order if sets match
     if not missing and not extra:
-        msg += f"  Note: Column sets match but ORDER differs from template\n"
+        msg += "  Note: Column sets match but ORDER differs from template\n"
 
     if strict:
         raise ValueError(msg)
@@ -97,7 +99,7 @@ def create_batchdata_upload(
     month_code: str,
     output_dir: str = "Batchdata/Upload",
     timestamp: Optional[str] = None,
-    config_template_path: str = "Batchdata/template_config.xlsx"
+    config_template_path: str = "Batchdata/template_config.xlsx",
 ) -> Path:
     """Create BatchData Upload file from Ecorp Complete data.
 
@@ -131,37 +133,41 @@ def create_batchdata_upload(
     if not ecorp_path.exists():
         raise FileNotFoundError(f"Ecorp Complete file not found: {ecorp_complete_path}")
     if not template_path.exists():
-        raise FileNotFoundError(f"Template config file not found: {config_template_path}")
+        raise FileNotFoundError(
+            f"Template config file not found: {config_template_path}"
+        )
 
     print(f"\n{'='*60}")
-    print(f"Creating BatchData Upload from Ecorp Complete")
+    print("Creating BatchData Upload from Ecorp Complete")
     print(f"{'='*60}")
     print(f"Ecorp file: {ecorp_path.name}")
     print(f"Month: {month_code}")
     print(f"Timestamp: {timestamp}")
 
     # Load Ecorp Complete data
-    print(f"\nLoading Ecorp Complete data...")
+    print("\nLoading Ecorp Complete data...")
     ecorp_df = pd.read_excel(ecorp_path)
     print(f"  Loaded {len(ecorp_df)} records")
 
     # Transform to BatchData format (with ECORP passthrough for traceability)
-    print(f"\nTransforming to BatchData format...")
+    print("\nTransforming to BatchData format...")
     batchdata_df = transform_ecorp_to_batchdata(ecorp_df, preserve_ecorp_context=True)
-    print(f"  Transformed to {len(batchdata_df)} BatchData records ({len(batchdata_df.columns)} columns)")
+    print(
+        f"  Transformed to {len(batchdata_df)} BatchData records ({len(batchdata_df.columns)} columns)"
+    )
 
     # Load template sheets (CONFIG, BLACKLIST_NAMES)
-    print(f"\nLoading template configuration...")
+    print("\nLoading template configuration...")
     template_sheets = pd.read_excel(template_path, sheet_name=None)
 
-    required_sheets = ['CONFIG', 'BLACKLIST_NAMES']
+    required_sheets = ["CONFIG", "BLACKLIST_NAMES"]
     for sheet in required_sheets:
         if sheet not in template_sheets:
             raise ValueError(f"Required sheet '{sheet}' not found in template")
 
-    config_df = template_sheets['CONFIG']
-    blacklist_df = template_sheets['BLACKLIST_NAMES']
-    print(f"  Loaded CONFIG and BLACKLIST_NAMES")
+    config_df = template_sheets["CONFIG"]
+    blacklist_df = template_sheets["BLACKLIST_NAMES"]
+    print("  Loaded CONFIG and BLACKLIST_NAMES")
 
     # Create output directory if needed
     output_path = Path(output_dir)
@@ -173,14 +179,16 @@ def create_batchdata_upload(
 
     # Write Excel file with all sheets
     print(f"\nWriting Upload file: {filename}")
-    with pd.ExcelWriter(output_file, engine='openpyxl') as writer:
-        config_df.to_excel(writer, sheet_name='CONFIG', index=False)
-        batchdata_df.to_excel(writer, sheet_name='INPUT_MASTER', index=False)
-        blacklist_df.to_excel(writer, sheet_name='BLACKLIST_NAMES', index=False)
+    with pd.ExcelWriter(output_file, engine="openpyxl") as writer:
+        config_df.to_excel(writer, sheet_name="CONFIG", index=False)
+        batchdata_df.to_excel(writer, sheet_name="INPUT_MASTER", index=False)
+        blacklist_df.to_excel(writer, sheet_name="BLACKLIST_NAMES", index=False)
 
     print(f"✓ Created BatchData Upload: {output_file}")
     print(f"  - CONFIG: {len(config_df)} settings")
-    print(f"  - INPUT_MASTER: {len(batchdata_df)} records x {len(batchdata_df.columns)} columns (17 ECORP + 16 BD)")
+    print(
+        f"  - INPUT_MASTER: {len(batchdata_df)} records x {len(batchdata_df.columns)} columns (17 ECORP + 16 BD)"
+    )
     print(f"  - BLACKLIST_NAMES: {len(blacklist_df)} entries")
 
     return output_file
@@ -197,7 +205,7 @@ def run_batchdata_enrichment(
     filter_entities: bool = True,
     use_sync: bool = True,  # NEW: Default to sync
     stage_config: Optional[Dict] = None,  # NEW: Stage selection
-    ecorp_file: Optional[str] = None  # Ecorp Complete file for name matching
+    ecorp_file: Optional[str] = None,  # Ecorp Complete file for name matching
 ) -> Optional[Path]:
     """Run BatchData enrichment pipeline on Upload file.
 
@@ -236,14 +244,14 @@ def run_batchdata_enrichment(
     if timestamp is None:
         # Parse from filename like "1.25_BatchData_Upload_01.15.03-45-30.xlsx"
         filename = upload_file.stem
-        parts = filename.split('_')
+        parts = filename.split("_")
         if len(parts) >= 4:
             timestamp = parts[-1]  # Last part is timestamp
         else:
             timestamp = get_standard_timestamp()
 
     print(f"\n{'='*60}")
-    print(f"Running BatchData Enrichment Pipeline")
+    print("Running BatchData Enrichment Pipeline")
     print(f"{'='*60}")
     print(f"Upload file: {upload_file.name}")
     print(f"Month: {month_code}")
@@ -261,7 +269,9 @@ def run_batchdata_enrichment(
     output_path.mkdir(parents=True, exist_ok=True)
 
     # Generate expected output filename
-    complete_filename = format_output_filename(month_code, "BatchData_Complete", timestamp)
+    complete_filename = format_output_filename(
+        month_code, "BatchData_Complete", timestamp
+    )
     expected_output = output_path / complete_filename
 
     print(f"\nExpected output: {complete_filename}")
@@ -269,7 +279,7 @@ def run_batchdata_enrichment(
     # Choose between sync and async implementation
     if use_sync:
         # Use the new synchronous client
-        print(f"\nUsing synchronous API client...")
+        print("\nUsing synchronous API client...")
         return _run_sync_enrichment(
             upload_file,
             expected_output,
@@ -277,18 +287,18 @@ def run_batchdata_enrichment(
             timestamp,
             dry_run,
             stage_config,
-            ecorp_file
+            ecorp_file,
         )
     else:
         # Use the legacy async client (may still have 404 issues)
-        print(f"\nUsing async API client (legacy)...")
+        print("\nUsing async API client (legacy)...")
         return _run_async_enrichment(
             upload_file,
             expected_output,
             dry_run,
             dedupe,
             consolidate_families,
-            filter_entities
+            filter_entities,
         )
 
 
@@ -299,7 +309,7 @@ def _run_sync_enrichment(
     timestamp: str,
     dry_run: bool,
     stage_config: Optional[Dict],
-    ecorp_file: Optional[str] = None
+    ecorp_file: Optional[str] = None,
 ) -> Optional[Path]:
     """Run synchronous BatchData enrichment using JSON API.
 
@@ -313,24 +323,24 @@ def _run_sync_enrichment(
     # Default stage configuration
     if stage_config is None:
         stage_config = {
-            'skip_trace': True,
-            'phone_verify': True,
-            'dnc': True,
-            'tcpa': True
+            "skip_trace": True,
+            "phone_verify": True,
+            "dnc": True,
+            "tcpa": True,
         }
 
-    print(f"\nLoading input data from Upload file...")
+    print("\nLoading input data from Upload file...")
     sheets = load_workbook_sheets(str(upload_file))
 
     # Validate required sheets
-    required_sheets = ['CONFIG', 'INPUT_MASTER', 'BLACKLIST_NAMES']
+    required_sheets = ["CONFIG", "INPUT_MASTER", "BLACKLIST_NAMES"]
     for sheet in required_sheets:
         if sheet not in sheets:
             raise ValueError(f"Required sheet '{sheet}' not found in upload file")
 
-    config_df = sheets['CONFIG']
-    input_df = sheets['INPUT_MASTER']
-    blacklist_df = sheets['BLACKLIST_NAMES']
+    config_df = sheets["CONFIG"]
+    input_df = sheets["INPUT_MASTER"]
+    blacklist_df = sheets["BLACKLIST_NAMES"]
 
     print(f"  - INPUT_MASTER: {len(input_df)} records")
     print(f"  - CONFIG: {len(config_df)} settings")
@@ -339,21 +349,26 @@ def _run_sync_enrichment(
     # Extract API keys from CONFIG sheet
     api_keys = {}
     for _, row in config_df.iterrows():
-        key = row.get('key', '')
-        value = row.get('value', '')
-        if 'api.key' in key:
+        key = row.get("key", "")
+        value = row.get("value", "")
+        if "api.key" in key:
             # Map config keys to expected format
-            if 'skiptrace' in key:
-                api_keys['BD_SKIPTRACE_KEY'] = value
-            elif 'address' in key:
-                api_keys['BD_ADDRESS_KEY'] = value
-            elif 'property' in key:
-                api_keys['BD_PROPERTY_KEY'] = value
-            elif 'phone' in key:
-                api_keys['BD_PHONE_KEY'] = value
+            if "skiptrace" in key:
+                api_keys["BD_SKIPTRACE_KEY"] = value
+            elif "address" in key:
+                api_keys["BD_ADDRESS_KEY"] = value
+            elif "property" in key:
+                api_keys["BD_PROPERTY_KEY"] = value
+            elif "phone" in key:
+                api_keys["BD_PHONE_KEY"] = value
 
     # Check for environment variable overrides
-    for key in ['BD_SKIPTRACE_KEY', 'BD_ADDRESS_KEY', 'BD_PROPERTY_KEY', 'BD_PHONE_KEY']:
+    for key in [
+        "BD_SKIPTRACE_KEY",
+        "BD_ADDRESS_KEY",
+        "BD_PROPERTY_KEY",
+        "BD_PHONE_KEY",
+    ]:
         env_value = os.getenv(key)
         if env_value:
             api_keys[key] = env_value
@@ -361,23 +376,25 @@ def _run_sync_enrichment(
     if dry_run:
         # Calculate cost estimates
         record_count = len(input_df)
-        skip_trace_cost = record_count * 0.07 if stage_config.get('skip_trace') else 0
-        phone_verify_cost = record_count * 2 * 0.007 if stage_config.get('phone_verify') else 0
-        dnc_cost = record_count * 2 * 0.002 if stage_config.get('dnc') else 0
-        tcpa_cost = record_count * 2 * 0.002 if stage_config.get('tcpa') else 0
+        skip_trace_cost = record_count * 0.07 if stage_config.get("skip_trace") else 0
+        phone_verify_cost = (
+            record_count * 2 * 0.007 if stage_config.get("phone_verify") else 0
+        )
+        dnc_cost = record_count * 2 * 0.002 if stage_config.get("dnc") else 0
+        tcpa_cost = record_count * 2 * 0.002 if stage_config.get("tcpa") else 0
         total_cost = skip_trace_cost + phone_verify_cost + dnc_cost + tcpa_cost
 
         print(f"\n{'='*40}")
-        print(f"DRY RUN - Cost Estimate")
+        print("DRY RUN - Cost Estimate")
         print(f"{'='*40}")
         print(f"Records to process: {record_count}")
-        if stage_config.get('skip_trace'):
+        if stage_config.get("skip_trace"):
             print(f"Skip-trace: ${skip_trace_cost:.2f}")
-        if stage_config.get('phone_verify'):
+        if stage_config.get("phone_verify"):
             print(f"Phone verification: ${phone_verify_cost:.2f}")
-        if stage_config.get('dnc'):
+        if stage_config.get("dnc"):
             print(f"DNC screening: ${dnc_cost:.2f}")
-        if stage_config.get('tcpa'):
+        if stage_config.get("tcpa"):
             print(f"TCPA screening: ${tcpa_cost:.2f}")
         print(f"{'='*40}")
         print(f"TOTAL ESTIMATED COST: ${total_cost:.2f}")
@@ -394,41 +411,49 @@ def _run_sync_enrichment(
     # Apply Ecorp-to-Batchdata name matching
     # NOTE: ecorp_file is REQUIRED - BD_OWNER_NAME_FULL fallback has been removed
     if apply_name_matching is not None:
-        print(f"\nComputing Ecorp-to-Batchdata name matching...")
+        print("\nComputing Ecorp-to-Batchdata name matching...")
         ecorp_complete_df = None
         if ecorp_file:
             ecorp_path = Path(ecorp_file)
             if ecorp_path.exists():
                 ecorp_complete_df = pd.read_excel(ecorp_path)
-                print(f"  Using full Ecorp Complete for 22-field matching")
+                print("  Using full Ecorp Complete for 22-field matching")
             else:
                 print(f"  WARNING: Ecorp file not found: {ecorp_file}")
-                print(f"  Name matching will set ECORP_TO_BATCH_MATCH_% to 'N/A' for all records")
+                print(
+                    "  Name matching will set ECORP_TO_BATCH_MATCH_% to 'N/A' for all records"
+                )
         else:
-            print(f"  WARNING: No Ecorp_Complete file provided")
-            print(f"  Name matching will set ECORP_TO_BATCH_MATCH_% to 'N/A' for all records")
+            print("  WARNING: No Ecorp_Complete file provided")
+            print(
+                "  Name matching will set ECORP_TO_BATCH_MATCH_% to 'N/A' for all records"
+            )
         result_df = apply_name_matching(result_df, ecorp_complete_df)
-        print(f"  Added ECORP_TO_BATCH_MATCH_% and MISSING_1-8_FULL_NAME columns")
+        print("  Added ECORP_TO_BATCH_MATCH_% and MISSING_1-8_FULL_NAME columns")
     else:
-        print(f"\nWarning: name_matching module not available, skipping name matching")
+        print("\nWarning: name_matching module not available, skipping name matching")
 
     # Validate output against canonical template before saving
-    print(f"\nValidating output schema against template...")
+    print("\nValidating output schema against template...")
     try:
-        validate_output_against_template(result_df, BATCHDATA_COMPLETE_TEMPLATE, strict=True)
+        validate_output_against_template(
+            result_df, BATCHDATA_COMPLETE_TEMPLATE, strict=True
+        )
     except (ValueError, FileNotFoundError) as e:
         print(f"⚠️ Schema validation error: {e}")
-        print(f"  Proceeding with save despite mismatch (set strict=False to suppress)")
+        print("  Proceeding with save despite mismatch (set strict=False to suppress)")
 
     # Save results
     print(f"\nSaving results to: {expected_output}")
-    with pd.ExcelWriter(expected_output, engine='openpyxl') as writer:
-        config_df.to_excel(writer, sheet_name='CONFIG', index=False)
-        result_df.to_excel(writer, sheet_name='OUTPUT_MASTER', index=False)
-        blacklist_df.to_excel(writer, sheet_name='BLACKLIST_NAMES', index=False)
+    with pd.ExcelWriter(expected_output, engine="openpyxl") as writer:
+        config_df.to_excel(writer, sheet_name="CONFIG", index=False)
+        result_df.to_excel(writer, sheet_name="OUTPUT_MASTER", index=False)
+        blacklist_df.to_excel(writer, sheet_name="BLACKLIST_NAMES", index=False)
 
     print(f"✓ Created BatchData Complete: {expected_output}")
-    print(f"  - OUTPUT_MASTER: {len(result_df)} records x {len(result_df.columns)} columns")
+    print(
+        f"  - OUTPUT_MASTER: {len(result_df)} records x {len(result_df.columns)} columns"
+    )
 
     return expected_output
 
@@ -439,7 +464,7 @@ def _run_async_enrichment(
     dry_run: bool,
     dedupe: bool,
     consolidate_families: bool,
-    filter_entities: bool
+    filter_entities: bool,
 ) -> Optional[Path]:
     """Run legacy async BatchData enrichment (may have 404 issues).
 
@@ -447,7 +472,7 @@ def _run_async_enrichment(
     """
     # Create a temporary results directory for the pipeline
     output_path = expected_output.parent
-    timestamp = expected_output.stem.split('_')[-1]
+    timestamp = expected_output.stem.split("_")[-1]
     temp_results_dir = output_path / f"temp_results_{timestamp}"
     temp_results_dir.mkdir(exist_ok=True)
 
@@ -456,18 +481,18 @@ def _run_async_enrichment(
         # Note: The pipeline will create its own output files in results/
         # We'll need to move/rename them after completion
 
-        print(f"\nStarting BatchData pipeline...")
+        print("\nStarting BatchData pipeline...")
         run_pipeline(
             input_path=str(upload_file),
             dry_run=dry_run,
             template_output=True,  # Use template format
             dedupe=dedupe,
             consolidate_families=consolidate_families,
-            filter_entities=filter_entities
+            filter_entities=filter_entities,
         )
 
         if dry_run:
-            print(f"\n✓ Dry run completed - no files created")
+            print("\n✓ Dry run completed - no files created")
             return None
 
         # The pipeline creates output in results/ directory
@@ -477,7 +502,7 @@ def _run_async_enrichment(
             complete_files = sorted(
                 results_dir.glob("*complete*.xlsx"),
                 key=lambda p: p.stat().st_mtime,
-                reverse=True
+                reverse=True,
             )
 
             if complete_files:
@@ -504,7 +529,7 @@ def _run_async_enrichment(
 
 def create_template_config(
     source_input_path: str = "Batchdata/tests/batchdata_local_input.xlsx",
-    output_path: str = "Batchdata/template_config.xlsx"
+    output_path: str = "Batchdata/template_config.xlsx",
 ) -> Path:
     """Create template config file from existing batchdata_local_input.xlsx.
 
@@ -531,28 +556,28 @@ def create_template_config(
     # Load sheets
     sheets = pd.read_excel(source_file, sheet_name=None)
 
-    required_sheets = ['CONFIG', 'BLACKLIST_NAMES', 'INPUT_MASTER']
+    required_sheets = ["CONFIG", "BLACKLIST_NAMES", "INPUT_MASTER"]
     for sheet in required_sheets:
         if sheet not in sheets:
             raise ValueError(f"Required sheet '{sheet}' not found in source")
 
-    config_df = sheets['CONFIG']
-    blacklist_df = sheets['BLACKLIST_NAMES']
-    input_master_df = sheets['INPUT_MASTER']
+    config_df = sheets["CONFIG"]
+    blacklist_df = sheets["BLACKLIST_NAMES"]
+    input_master_df = sheets["INPUT_MASTER"]
 
     # Create empty INPUT_MASTER with same structure (just headers)
     empty_input = pd.DataFrame(columns=input_master_df.columns)
 
     # Write template file
     output_file = Path(output_path)
-    with pd.ExcelWriter(output_file, engine='openpyxl') as writer:
-        config_df.to_excel(writer, sheet_name='CONFIG', index=False)
-        empty_input.to_excel(writer, sheet_name='INPUT_MASTER', index=False)
-        blacklist_df.to_excel(writer, sheet_name='BLACKLIST_NAMES', index=False)
+    with pd.ExcelWriter(output_file, engine="openpyxl") as writer:
+        config_df.to_excel(writer, sheet_name="CONFIG", index=False)
+        empty_input.to_excel(writer, sheet_name="INPUT_MASTER", index=False)
+        blacklist_df.to_excel(writer, sheet_name="BLACKLIST_NAMES", index=False)
 
     print(f"✓ Created template: {output_file}")
     print(f"  - CONFIG: {len(config_df)} settings")
-    print(f"  - INPUT_MASTER: Empty (template structure)")
+    print("  - INPUT_MASTER: Empty (template structure)")
     print(f"  - BLACKLIST_NAMES: {len(blacklist_df)} entries")
 
     return output_file

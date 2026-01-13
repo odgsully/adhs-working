@@ -13,7 +13,7 @@ class MCAPGeocoder:
         """Initialize with API credentials."""
         self.api_key = api_key
         self.api_url = api_url
-        
+
         if not api_key:
             logger.warning("MCAO API key not provided - geocoding disabled")
 
@@ -21,12 +21,14 @@ class MCAPGeocoder:
         """Geocode an address to latitude/longitude."""
         if not self.api_key:
             return None
-        
+
         # Stub implementation - would call actual API
         logger.debug(f"Geocoding address: {address} (stub)")
         return None
 
-    def batch_geocode(self, addresses: List[str]) -> Dict[str, Optional[Tuple[float, float]]]:
+    def batch_geocode(
+        self, addresses: List[str]
+    ) -> Dict[str, Optional[Tuple[float, float]]]:
         """Geocode multiple addresses in batch."""
         results = {}
         for address in addresses:
@@ -37,7 +39,7 @@ class MCAPGeocoder:
         """Get parcel information from MCAO."""
         if not self.api_key:
             return None
-        
+
         # Stub implementation
         logger.debug(f"Fetching parcel info: {parcel_id} (stub)")
         return None

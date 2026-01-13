@@ -25,7 +25,7 @@ import time
 import pickle
 from pathlib import Path
 from datetime import datetime
-from typing import List, Dict, Optional, Tuple
+from typing import List, Dict, Optional
 
 import pandas as pd
 from bs4 import BeautifulSoup
@@ -37,19 +37,20 @@ try:
         format_output_filename,
         get_legacy_filename,
         save_excel_with_legacy_copy,
-        extract_timestamp_from_filename
+        extract_timestamp_from_filename,
     )
 except ImportError:
     # For standalone script execution
     import sys
     from pathlib import Path
+
     sys.path.insert(0, str(Path(__file__).parent))
     from utils import (
         get_standard_timestamp,
         format_output_filename,
         get_legacy_filename,
         save_excel_with_legacy_copy,
-        extract_timestamp_from_filename
+        extract_timestamp_from_filename,
     )
 from selenium import webdriver
 from selenium.webdriver.common.by import By
@@ -106,7 +107,6 @@ SELECTORS = {
         (By.CSS_SELECTOR, "input[placeholder*='Entity']"),
         (By.CSS_SELECTOR, "input[placeholder*='Search for an Entity Name']"),
     ],
-
     # Results table rows - Arizona Business Connect uses standard HTML table
     "results_rows": [
         # New platform - standard HTML table
@@ -118,7 +118,6 @@ SELECTORS = {
         (By.CSS_SELECTOR, "tr.mat-row"),
         (By.CSS_SELECTOR, "[role='row']:not([aria-rowindex='1'])"),
     ],
-
     # Table cells
     "table_cells": [
         # Standard HTML table cells
@@ -128,7 +127,6 @@ SELECTORS = {
         (By.CSS_SELECTOR, "mat-cell"),
         (By.CSS_SELECTOR, ".mat-mdc-cell"),
     ],
-
     # Entity link in results - business name is a clickable link
     "entity_link": [
         (By.CSS_SELECTOR, "a"),
@@ -136,7 +134,6 @@ SELECTORS = {
         (By.CSS_SELECTOR, "a[href*='entity']"),
         (By.CSS_SELECTOR, "a[routerlink]"),
     ],
-
     # No results indicator (mat-dialog or mat-snackbar)
     "no_results": [
         (By.XPATH, "//*[contains(text(), 'No') and contains(text(), 'found')]"),
@@ -148,7 +145,6 @@ SELECTORS = {
         # Legacy fallback
         (By.XPATH, "//div[contains(text(), 'No search results were found')]"),
     ],
-
     # Dialog dismiss button
     "dialog_dismiss": [
         (By.CSS_SELECTOR, "mat-dialog-actions button"),
@@ -159,7 +155,6 @@ SELECTORS = {
         (By.XPATH, "//button[normalize-space()='Close']"),
         (By.XPATH, "//button[contains(@class, 'close')]"),
     ],
-
     # Entity detail page load indicator
     "detail_loaded": [
         (By.XPATH, "//*[contains(text(),'Entity Information')]"),
@@ -171,7 +166,6 @@ SELECTORS = {
         # Legacy fallback
         (By.XPATH, "//h2[contains(text(),'Entity Information')]"),
     ],
-
     # Principal table (for manager/member extraction)
     "principal_table": [
         (By.CSS_SELECTOR, "mat-table#grid_principalList"),
@@ -181,12 +175,14 @@ SELECTORS = {
         # Legacy fallback
         (By.CSS_SELECTOR, "table#grid_principalList"),
     ],
-
     # Statutory agent section
     "statutory_agent": [
         (By.XPATH, "//*[contains(text(),'Statutory Agent')]"),
         (By.CSS_SELECTOR, "[class*='statutory']"),
-        (By.CSS_SELECTOR, "mat-expansion-panel:has(mat-panel-title:contains('Statutory'))"),
+        (
+            By.CSS_SELECTOR,
+            "mat-expansion-panel:has(mat-panel-title:contains('Statutory'))",
+        ),
     ],
 }
 
@@ -221,6 +217,7 @@ RATE_LIMIT_INDICATORS = [
 # ============================================================================
 # HELPER FUNCTIONS - Selector Fallback and Safety Detection
 # ============================================================================
+
 
 def find_element_with_fallback(
     driver: webdriver.Chrome,
@@ -260,7 +257,7 @@ def find_element_with_fallback(
     if not selectors:
         raise ValueError(f"Unknown selector key: {selector_key}")
 
-    search_context = parent if parent else driver
+    _search_context = parent if parent else driver  # noqa: F841 - kept for debugging
     last_error = None
 
     for idx, (by_type, selector) in enumerate(selectors):
@@ -422,22 +419,84 @@ def classify_name_type(name: str) -> str:
 
     # Entity keywords
     entity_keywords = [
-        'LLC', 'CORP', 'INC', 'SCHOOL', 'DISTRICT', 'TRUST', 'FOUNDATION',
-        'COMPANY', 'CO.', 'ASSOCIATION', 'CHURCH', 'PROPERTIES', 'LP',
-        'LTD', 'PARTNERSHIP', 'FUND', 'HOLDINGS', 'INVESTMENTS', 'VENTURES',
-        'GROUP', 'ENTERPRISE', 'BORROWER', 'ACADEMY', 'COLLEGE', 'UNIVERSITY',
-        'MEDICAL', 'HEALTH', 'CARE', 'SOBER', 'LEARNING', 'PRESCHOOL',
+        "LLC",
+        "CORP",
+        "INC",
+        "SCHOOL",
+        "DISTRICT",
+        "TRUST",
+        "FOUNDATION",
+        "COMPANY",
+        "CO.",
+        "ASSOCIATION",
+        "CHURCH",
+        "PROPERTIES",
+        "LP",
+        "LTD",
+        "PARTNERSHIP",
+        "FUND",
+        "HOLDINGS",
+        "INVESTMENTS",
+        "VENTURES",
+        "GROUP",
+        "ENTERPRISE",
+        "BORROWER",
+        "ACADEMY",
+        "COLLEGE",
+        "UNIVERSITY",
+        "MEDICAL",
+        "HEALTH",
+        "CARE",
+        "SOBER",
+        "LEARNING",
+        "PRESCHOOL",
         # Additional business/organization keywords
-        'CENTERS', 'CENTER', 'HOSPICE', 'HOSPITAL', 'CLINIC',
-        'STATE OF', 'CITY OF', 'COUNTY OF', 'TOWN OF',
-        'UNITED STATES', 'GOVERNMENT', 'FEDERAL', 'MUNICIPAL',
-        'ARMY', 'NAVY', 'AIR FORCE', 'MILITARY', 'SALVATION',
-        'ARC', 'HOUSE', 'HOME', 'HOMES', 'LIVING', 'SENIOR',
-        'FACILITY', 'FACILITIES', 'SERVICES', 'SERVICE',
-        'UNITED', 'METHODIST', 'LUTHERAN', 'EVANGELICAL', 'BAPTIST',
-        'CATHOLIC', 'CHRISTIAN', 'CONGREGATION', 'PRESBYTERY',
-        'ASSEMBLY', 'LEAGUE', 'ASSOCIATES', 'JOINT VENTURE',
-        'DST', 'LIMITED', 'PARTNERS', 'SETTLEMENT', 'HABILITATION'
+        "CENTERS",
+        "CENTER",
+        "HOSPICE",
+        "HOSPITAL",
+        "CLINIC",
+        "STATE OF",
+        "CITY OF",
+        "COUNTY OF",
+        "TOWN OF",
+        "UNITED STATES",
+        "GOVERNMENT",
+        "FEDERAL",
+        "MUNICIPAL",
+        "ARMY",
+        "NAVY",
+        "AIR FORCE",
+        "MILITARY",
+        "SALVATION",
+        "ARC",
+        "HOUSE",
+        "HOME",
+        "HOMES",
+        "LIVING",
+        "SENIOR",
+        "FACILITY",
+        "FACILITIES",
+        "SERVICES",
+        "SERVICE",
+        "UNITED",
+        "METHODIST",
+        "LUTHERAN",
+        "EVANGELICAL",
+        "BAPTIST",
+        "CATHOLIC",
+        "CHRISTIAN",
+        "CONGREGATION",
+        "PRESBYTERY",
+        "ASSEMBLY",
+        "LEAGUE",
+        "ASSOCIATES",
+        "JOINT VENTURE",
+        "DST",
+        "LIMITED",
+        "PARTNERS",
+        "SETTLEMENT",
+        "HABILITATION",
     ]
 
     # Check for entity keywords
@@ -450,8 +509,10 @@ def classify_name_type(name: str) -> str:
     words = name.strip().split()
     if len(words) >= 2 and len(words) <= 4:
         # Additional check: if it doesn't contain entity-like words
-        if not any(word.upper() in ['PROPERTY', 'REAL', 'ESTATE', 'DEVELOPMENT', 'RENTAL']
-                   for word in words):
+        if not any(
+            word.upper() in ["PROPERTY", "REAL", "ESTATE", "DEVELOPMENT", "RENTAL"]
+            for word in words
+        ):
             return "Individual(s)"
 
     # Default to Entity for unclear cases
@@ -471,7 +532,7 @@ def classify_owner_type(name: str) -> str:
     str
         "BUSINESS" or "INDIVIDUAL"
     """
-    if pd.isna(name) or str(name).strip() == '':
+    if pd.isna(name) or str(name).strip() == "":
         return ""
 
     result = classify_name_type(name)
@@ -497,20 +558,30 @@ def parse_individual_names(name_str: str) -> List[str]:
     List[str]
         List of up to 4 parsed individual names
     """
-    if pd.isna(name_str) or str(name_str).strip() == '':
+    if pd.isna(name_str) or str(name_str).strip() == "":
         return []
 
     names = []
     name_str = str(name_str).strip()
 
     # Remove common suffixes that aren't part of the name
-    suffixes_to_remove = ['TR', 'TRUST', 'TRUSTEE', 'ET AL', 'JT TEN', 'JTRS', 'JT', 'EST', 'ESTATE']
+    suffixes_to_remove = [
+        "TR",
+        "TRUST",
+        "TRUSTEE",
+        "ET AL",
+        "JT TEN",
+        "JTRS",
+        "JT",
+        "EST",
+        "ESTATE",
+    ]
     for suffix in suffixes_to_remove:
-        if name_str.endswith(' ' + suffix):
-            name_str = name_str[:-(len(suffix) + 1)].strip()
+        if name_str.endswith(" " + suffix):
+            name_str = name_str[: -(len(suffix) + 1)].strip()
 
     # Split by forward slash to get individual components
-    parts = [p.strip() for p in name_str.split('/') if p.strip()]
+    parts = [p.strip() for p in name_str.split("/") if p.strip()]
 
     if len(parts) == 1:
         # Single name - check if it needs reordering (LASTNAME FIRSTNAME MIDDLE)
@@ -523,7 +594,7 @@ def parse_individual_names(name_str: str) -> List[str]:
             if len(words[0]) > 2:
                 # Assume format is LASTNAME FIRSTNAME [MIDDLE]
                 # Reorder to FIRSTNAME [MIDDLE] LASTNAME
-                reordered = ' '.join(words[1:]) + ' ' + words[0]
+                reordered = " ".join(words[1:]) + " " + words[0]
                 names.append(reordered)
             else:
                 names.append(single_name)
@@ -538,7 +609,7 @@ def parse_individual_names(name_str: str) -> List[str]:
         if len(first_part_words) >= 2:
             # Likely format: "LASTNAME FIRSTNAME1/FIRSTNAME2"
             potential_lastname = first_part_words[0]
-            first_firstname = ' '.join(first_part_words[1:])
+            first_firstname = " ".join(first_part_words[1:])
 
             # Check if second part is just a first name (no spaces or one middle initial)
             if len(second_part.split()) <= 2:
@@ -551,7 +622,7 @@ def parse_individual_names(name_str: str) -> List[str]:
                 for part in parts:
                     part_words = part.split()
                     if len(part_words) >= 2:
-                        reordered = ' '.join(part_words[1:]) + ' ' + part_words[0]
+                        reordered = " ".join(part_words[1:]) + " " + part_words[0]
                         names.append(reordered)
                     else:
                         names.append(part)
@@ -570,7 +641,7 @@ def parse_individual_names(name_str: str) -> List[str]:
             for part in parts:
                 part_words = part.split()
                 if len(part_words) >= 2:
-                    reordered = ' '.join(part_words[1:]) + ' ' + part_words[0]
+                    reordered = " ".join(part_words[1:]) + " " + part_words[0]
                     names.append(reordered)
                 else:
                     names.append(part)
@@ -582,7 +653,7 @@ def parse_individual_names(name_str: str) -> List[str]:
     cleaned_names = []
     for name in names[:4]:  # Limit to 4 names
         # Remove extra spaces
-        name = ' '.join(name.split())
+        name = " ".join(name.split())
         # Keep uppercase as provided (these are typically already uppercase)
         cleaned_names.append(name)
 
@@ -612,7 +683,9 @@ def setup_driver(headless: bool = True) -> webdriver.Chrome:
 
     # Headless mode configuration
     if headless:
-        chrome_options.add_argument("--headless=new")  # New headless mode (more realistic)
+        chrome_options.add_argument(
+            "--headless=new"
+        )  # New headless mode (more realistic)
         chrome_options.add_argument("--disable-gpu")
 
     # Standard stability options
@@ -640,13 +713,16 @@ def setup_driver(headless: bool = True) -> webdriver.Chrome:
     driver = webdriver.Chrome(service=service, options=chrome_options)
 
     # Execute CDP command to hide webdriver flag
-    driver.execute_cdp_cmd("Page.addScriptToEvaluateOnNewDocument", {
-        "source": """
+    driver.execute_cdp_cmd(
+        "Page.addScriptToEvaluateOnNewDocument",
+        {
+            "source": """
             Object.defineProperty(navigator, 'webdriver', {
                 get: () => undefined
             });
         """
-    })
+        },
+    )
 
     return driver
 
@@ -689,10 +765,14 @@ def detect_login_page(driver: webdriver.Chrome) -> bool:
         ]
 
         # Check for login indicators
-        has_login_indicators = any(indicator in body_text for indicator in login_indicators)
+        has_login_indicators = any(
+            indicator in body_text for indicator in login_indicators
+        )
 
         # Check for search indicators
-        has_search_indicators = any(indicator in body_text for indicator in search_indicators)
+        has_search_indicators = any(
+            indicator in body_text for indicator in search_indicators
+        )
 
         # If we have search indicators, we're good
         if has_search_indicators and not has_login_indicators:
@@ -732,7 +812,9 @@ def perform_login(driver: webdriver.Chrome, settings) -> bool:
         )
         return False
 
-    login_url = getattr(settings, 'login_url', 'https://arizonabusinesscenter.azcc.gov/login')
+    login_url = getattr(
+        settings, "login_url", "https://arizonabusinesscenter.azcc.gov/login"
+    )
 
     try:
         logger.info(f"Navigating to login page: {login_url}")
@@ -909,7 +991,9 @@ def handle_2fa_prompt(driver: webdriver.Chrome, timeout: int = 300) -> bool:
             return False
 
         if len(code) != 6 or not code.isdigit():
-            print(f"Warning: Code '{code}' doesn't look like a 6-digit code, but trying anyway...")
+            print(
+                f"Warning: Code '{code}' doesn't look like a 6-digit code, but trying anyway..."
+            )
 
         # Find the OTP input fields - Arizona Business Connect uses 6 separate input boxes
         otp_input = None
@@ -918,8 +1002,10 @@ def handle_2fa_prompt(driver: webdriver.Chrome, timeout: int = 300) -> bool:
         # First, try to find 6 separate OTP input boxes (most common for this site)
         all_inputs = driver.find_elements(By.TAG_NAME, "input")
         visible_text_inputs = [
-            inp for inp in all_inputs
-            if inp.is_displayed() and inp.get_attribute("type") in ["text", "number", "tel", None, ""]
+            inp
+            for inp in all_inputs
+            if inp.is_displayed()
+            and inp.get_attribute("type") in ["text", "number", "tel", None, ""]
         ]
 
         # Check if we have exactly 6 single-character inputs (split OTP)
@@ -1070,7 +1156,9 @@ def find_working_search_url(driver: webdriver.Chrome, settings=None) -> str:
         "https://ecorp.azcc.gov/EntitySearch/Index",
     ]
 
-    page_timeout = settings.page_load_timeout if settings else 10
+    _page_timeout = (
+        settings.page_load_timeout if settings else 10
+    )  # noqa: F841 - reserved for future use
 
     for url in candidate_urls:
         try:
@@ -1104,7 +1192,9 @@ def find_working_search_url(driver: webdriver.Chrome, settings=None) -> str:
     )
 
 
-def search_entities(driver: webdriver.Chrome, name: str, settings=None) -> List[Dict[str, str]]:
+def search_entities(
+    driver: webdriver.Chrome, name: str, settings=None
+) -> List[Dict[str, str]]:
     """Search the ACC site for a company name and return entity details.
 
     This function navigates to the Arizona Business Connect search page
@@ -1238,7 +1328,11 @@ def search_entities(driver: webdriver.Chrome, name: str, settings=None) -> List[
             blank["ECORP_COMMENTS"] = "CAPTCHA detected - manual intervention required"
             return [blank]
 
-        if settings and settings.enable_rate_limit_detection and detect_rate_limit(driver):
+        if (
+            settings
+            and settings.enable_rate_limit_detection
+            and detect_rate_limit(driver)
+        ):
             logger.warning(f"Rate limit detected while searching for: {name}")
             if alert_rate_limited:
                 alert_rate_limited({"owner_name": name, "url": base_url}, settings)
@@ -1281,8 +1375,12 @@ def search_entities(driver: webdriver.Chrome, name: str, settings=None) -> List[
             entity_name = cols[0].text.strip() if len(cols) > 0 else ""
             entity_id = cols[2].text.strip() if len(cols) > 2 else ""
             business_type = cols[3].text.strip() if len(cols) > 3 else ""
-            statutory_agent = cols[4].text.strip() if len(cols) > 4 else ""
-            physical_address = cols[5].text.strip() if len(cols) > 5 else ""
+            _statutory_agent = (
+                cols[4].text.strip() if len(cols) > 4 else ""
+            )  # noqa: F841
+            _physical_address = (
+                cols[5].text.strip() if len(cols) > 5 else ""
+            )  # noqa: F841
             status = cols[6].text.strip() if len(cols) > 6 else ""
 
             logger.debug(f"Found entity: {entity_name} (ID: {entity_id})")
@@ -1306,7 +1404,7 @@ def search_entities(driver: webdriver.Chrome, name: str, settings=None) -> List[
 
             # Store current window handle
             main_window = driver.current_window_handle
-            original_url = driver.current_url
+            _original_url = driver.current_url  # noqa: F841 - kept for debugging
 
             if detail_url and detail_url.startswith("http"):
                 # Traditional link - open in new tab
@@ -1327,6 +1425,7 @@ def search_entities(driver: webdriver.Chrome, name: str, settings=None) -> List[
             find_element_with_fallback(driver, "detail_loaded", timeout=page_timeout)
             # Parse the page with BeautifulSoup
             soup = BeautifulSoup(driver.page_source, "html.parser")
+
             # Extract fields
             def get_field(label: str) -> str:
                 el = soup.find(text=lambda t: t and label in t)
@@ -1350,9 +1449,9 @@ def search_entities(driver: webdriver.Chrome, name: str, settings=None) -> List[
                     # Look for the statutory agent section and extract Name
                     # Pattern: Find "Name:" then capture the next non-empty line
                     stat_agent_section = re.search(
-                        r'Statutory Agent Information.*?Name:\s*\n\s*([^\n\r]+?)(?:\s*\n|\s*Appointed)',
+                        r"Statutory Agent Information.*?Name:\s*\n\s*([^\n\r]+?)(?:\s*\n|\s*Appointed)",
                         page_text,
-                        re.DOTALL | re.IGNORECASE
+                        re.DOTALL | re.IGNORECASE,
                     )
 
                     agent_name = ""
@@ -1361,37 +1460,39 @@ def search_entities(driver: webdriver.Chrome, name: str, settings=None) -> List[
                     if stat_agent_section:
                         agent_name = stat_agent_section.group(1).strip()
                         # Clean up - remove extra spaces
-                        agent_name = ' '.join(agent_name.split())
+                        agent_name = " ".join(agent_name.split())
                     else:
                         # Try alternative pattern where name might be on same line
                         alt_pattern = re.search(
-                            r'Statutory Agent Information.*?Name:\s*([^\n\r]+?)(?:\s+Attention:|Appointed|$)',
+                            r"Statutory Agent Information.*?Name:\s*([^\n\r]+?)(?:\s+Attention:|Appointed|$)",
                             page_text,
-                            re.DOTALL | re.IGNORECASE
+                            re.DOTALL | re.IGNORECASE,
                         )
                         if alt_pattern:
                             agent_name = alt_pattern.group(1).strip()
-                            agent_name = ' '.join(agent_name.split())
+                            agent_name = " ".join(agent_name.split())
 
                     # Look for Address in the same section
                     addr_section = re.search(
-                        r'Statutory Agent Information.*?Address:\s*\n?\s*([^\n\r]+?)(?:\s*\n|\s*Agent Last|E-mail:|County:|Mailing)',
+                        r"Statutory Agent Information.*?Address:\s*\n?\s*([^\n\r]+?)(?:\s*\n|\s*Agent Last|E-mail:|County:|Mailing)",
                         page_text,
-                        re.DOTALL | re.IGNORECASE
+                        re.DOTALL | re.IGNORECASE,
                     )
 
                     if addr_section:
                         agent_addr = addr_section.group(1).strip()
-                        agent_addr = ' '.join(agent_addr.split())
+                        agent_addr = " ".join(agent_addr.split())
 
                     # If we found name or address, add to agents list
                     if agent_name or agent_addr:
-                        agents.append({
-                            'Name': agent_name,
-                            'Address': agent_addr,
-                            'Phone': "",
-                            'Mail': ""
-                        })
+                        agents.append(
+                            {
+                                "Name": agent_name,
+                                "Address": agent_addr,
+                                "Phone": "",
+                                "Mail": "",
+                            }
+                        )
 
                 except Exception:
                     # Silent fail - return empty list
@@ -1402,27 +1503,39 @@ def search_entities(driver: webdriver.Chrome, name: str, settings=None) -> List[
             def extract_principal_info():
                 """Extract Principal Information from the table/grid section and categorize by role."""
                 categorized_principals = {
-                    'Manager': [],
-                    'Member': [],
-                    'Manager/Member': []
+                    "Manager": [],
+                    "Member": [],
+                    "Manager/Member": [],
                 }
 
                 try:
                     # Look for the principal information table by id
-                    principal_table = soup.find('table', id='grid_principalList')
+                    principal_table = soup.find("table", id="grid_principalList")
                     if principal_table:
                         # Find all data rows (skip header)
-                        tbody = principal_table.find('tbody')
+                        tbody = principal_table.find("tbody")
                         if tbody:
-                            rows = tbody.find_all('tr')
+                            rows = tbody.find_all("tr")
 
                             for row in rows:
-                                cells = row.find_all('td')
+                                cells = row.find_all("td")
                                 if len(cells) >= 4:  # Title, Name, Attention, Address
-                                    title_text = cells[0].get_text(strip=True) if cells[0] else ""
-                                    name_text = cells[1].get_text(strip=True) if cells[1] else ""
+                                    title_text = (
+                                        cells[0].get_text(strip=True)
+                                        if cells[0]
+                                        else ""
+                                    )
+                                    name_text = (
+                                        cells[1].get_text(strip=True)
+                                        if cells[1]
+                                        else ""
+                                    )
                                     # Skip attention field (cells[2])
-                                    addr_text = cells[3].get_text(strip=True) if cells[3] else ""
+                                    addr_text = (
+                                        cells[3].get_text(strip=True)
+                                        if cells[3]
+                                        else ""
+                                    )
 
                                     # Look for phone/email if present (conservative approach)
                                     phone_text = ""
@@ -1431,33 +1544,54 @@ def search_entities(driver: webdriver.Chrome, name: str, settings=None) -> List[
                                         # Check if additional cells might contain phone/email
                                         for cell in cells[4:]:
                                             cell_text = cell.get_text(strip=True)
-                                            if '@' in cell_text:
+                                            if "@" in cell_text:
                                                 mail_text = cell_text
-                                            elif any(char.isdigit() for char in cell_text) and len(cell_text) >= 7:
+                                            elif (
+                                                any(
+                                                    char.isdigit() for char in cell_text
+                                                )
+                                                and len(cell_text) >= 7
+                                            ):
                                                 phone_text = cell_text
 
                                     # Categorize based on title
                                     title_upper = title_text.upper()
                                     principal_data = {
-                                        'Name': name_text,
-                                        'Address': addr_text,
-                                        'Phone': phone_text,
-                                        'Mail': mail_text
+                                        "Name": name_text,
+                                        "Address": addr_text,
+                                        "Phone": phone_text,
+                                        "Mail": mail_text,
                                     }
 
-                                    if 'MANAGER' in title_upper and 'MEMBER' in title_upper:
-                                        if len(categorized_principals['Manager/Member']) < 5:
-                                            categorized_principals['Manager/Member'].append(principal_data)
-                                    elif 'MANAGER' in title_upper:
-                                        if len(categorized_principals['Manager']) < 5:
-                                            categorized_principals['Manager'].append(principal_data)
-                                    elif 'MEMBER' in title_upper:
-                                        if len(categorized_principals['Member']) < 5:
-                                            categorized_principals['Member'].append(principal_data)
+                                    if (
+                                        "MANAGER" in title_upper
+                                        and "MEMBER" in title_upper
+                                    ):
+                                        if (
+                                            len(
+                                                categorized_principals["Manager/Member"]
+                                            )
+                                            < 5
+                                        ):
+                                            categorized_principals[
+                                                "Manager/Member"
+                                            ].append(principal_data)
+                                    elif "MANAGER" in title_upper:
+                                        if len(categorized_principals["Manager"]) < 5:
+                                            categorized_principals["Manager"].append(
+                                                principal_data
+                                            )
+                                    elif "MEMBER" in title_upper:
+                                        if len(categorized_principals["Member"]) < 5:
+                                            categorized_principals["Member"].append(
+                                                principal_data
+                                            )
                                     else:
                                         # Default to Manager if title unclear
-                                        if len(categorized_principals['Manager']) < 5:
-                                            categorized_principals['Manager'].append(principal_data)
+                                        if len(categorized_principals["Manager"]) < 5:
+                                            categorized_principals["Manager"].append(
+                                                principal_data
+                                            )
 
                 except Exception:
                     pass
@@ -1485,71 +1619,71 @@ def search_entities(driver: webdriver.Chrome, name: str, settings=None) -> List[
                 "ECORP_BUSINESS_TYPE": business_type if business_type else "",
                 "ECORP_STATE": domicile_state if domicile_state else "",
                 "ECORP_COUNTY": county if county else "",
-                "ECORP_COMMENTS": ""
+                "ECORP_COMMENTS": "",
             }
 
             # Add statutory agent fields (up to 3)
             for i in range(1, 4):
                 if i <= len(statutory_agents):
-                    agent = statutory_agents[i-1]
-                    record[f"StatutoryAgent{i}_Name"] = agent.get('Name', '')
-                    record[f"StatutoryAgent{i}_Address"] = agent.get('Address', '')
-                    record[f"StatutoryAgent{i}_Phone"] = agent.get('Phone', '')
-                    record[f"StatutoryAgent{i}_Mail"] = agent.get('Mail', '')
+                    agent = statutory_agents[i - 1]
+                    record[f"StatutoryAgent{i}_Name"] = agent.get("Name", "")
+                    record[f"StatutoryAgent{i}_Address"] = agent.get("Address", "")
+                    record[f"StatutoryAgent{i}_Phone"] = agent.get("Phone", "")
+                    record[f"StatutoryAgent{i}_Mail"] = agent.get("Mail", "")
                 else:
-                    record[f"StatutoryAgent{i}_Name"] = ''
-                    record[f"StatutoryAgent{i}_Address"] = ''
-                    record[f"StatutoryAgent{i}_Phone"] = ''
-                    record[f"StatutoryAgent{i}_Mail"] = ''
+                    record[f"StatutoryAgent{i}_Name"] = ""
+                    record[f"StatutoryAgent{i}_Address"] = ""
+                    record[f"StatutoryAgent{i}_Phone"] = ""
+                    record[f"StatutoryAgent{i}_Mail"] = ""
 
             # Add Manager fields (up to 5)
-            managers = principal_info.get('Manager', [])
+            managers = principal_info.get("Manager", [])
             for i in range(1, 6):
                 if i <= len(managers):
-                    mgr = managers[i-1]
-                    record[f"Manager{i}_Name"] = mgr.get('Name', '')
-                    record[f"Manager{i}_Address"] = mgr.get('Address', '')
-                    record[f"Manager{i}_Phone"] = mgr.get('Phone', '')
-                    record[f"Manager{i}_Mail"] = mgr.get('Mail', '')
+                    mgr = managers[i - 1]
+                    record[f"Manager{i}_Name"] = mgr.get("Name", "")
+                    record[f"Manager{i}_Address"] = mgr.get("Address", "")
+                    record[f"Manager{i}_Phone"] = mgr.get("Phone", "")
+                    record[f"Manager{i}_Mail"] = mgr.get("Mail", "")
                 else:
-                    record[f"Manager{i}_Name"] = ''
-                    record[f"Manager{i}_Address"] = ''
-                    record[f"Manager{i}_Phone"] = ''
-                    record[f"Manager{i}_Mail"] = ''
+                    record[f"Manager{i}_Name"] = ""
+                    record[f"Manager{i}_Address"] = ""
+                    record[f"Manager{i}_Phone"] = ""
+                    record[f"Manager{i}_Mail"] = ""
 
             # Add Manager/Member fields (up to 5)
-            mgr_members = principal_info.get('Manager/Member', [])
+            mgr_members = principal_info.get("Manager/Member", [])
             for i in range(1, 6):
                 if i <= len(mgr_members):
-                    mm = mgr_members[i-1]
-                    record[f"Manager/Member{i}_Name"] = mm.get('Name', '')
-                    record[f"Manager/Member{i}_Address"] = mm.get('Address', '')
-                    record[f"Manager/Member{i}_Phone"] = mm.get('Phone', '')
-                    record[f"Manager/Member{i}_Mail"] = mm.get('Mail', '')
+                    mm = mgr_members[i - 1]
+                    record[f"Manager/Member{i}_Name"] = mm.get("Name", "")
+                    record[f"Manager/Member{i}_Address"] = mm.get("Address", "")
+                    record[f"Manager/Member{i}_Phone"] = mm.get("Phone", "")
+                    record[f"Manager/Member{i}_Mail"] = mm.get("Mail", "")
                 else:
-                    record[f"Manager/Member{i}_Name"] = ''
-                    record[f"Manager/Member{i}_Address"] = ''
-                    record[f"Manager/Member{i}_Phone"] = ''
-                    record[f"Manager/Member{i}_Mail"] = ''
+                    record[f"Manager/Member{i}_Name"] = ""
+                    record[f"Manager/Member{i}_Address"] = ""
+                    record[f"Manager/Member{i}_Phone"] = ""
+                    record[f"Manager/Member{i}_Mail"] = ""
 
             # Add Member fields (up to 5)
-            members = principal_info.get('Member', [])
+            members = principal_info.get("Member", [])
             for i in range(1, 6):
                 if i <= len(members):
-                    mbr = members[i-1]
-                    record[f"Member{i}_Name"] = mbr.get('Name', '')
-                    record[f"Member{i}_Address"] = mbr.get('Address', '')
-                    record[f"Member{i}_Phone"] = mbr.get('Phone', '')
-                    record[f"Member{i}_Mail"] = mbr.get('Mail', '')
+                    mbr = members[i - 1]
+                    record[f"Member{i}_Name"] = mbr.get("Name", "")
+                    record[f"Member{i}_Address"] = mbr.get("Address", "")
+                    record[f"Member{i}_Phone"] = mbr.get("Phone", "")
+                    record[f"Member{i}_Mail"] = mbr.get("Mail", "")
                 else:
-                    record[f"Member{i}_Name"] = ''
-                    record[f"Member{i}_Address"] = ''
-                    record[f"Member{i}_Phone"] = ''
-                    record[f"Member{i}_Mail"] = ''
+                    record[f"Member{i}_Name"] = ""
+                    record[f"Member{i}_Address"] = ""
+                    record[f"Member{i}_Phone"] = ""
+                    record[f"Member{i}_Mail"] = ""
 
             # Add Individual name fields (empty for now - will be populated for INDIVIDUAL types)
             for i in range(1, 5):
-                record[f"IndividualName{i}"] = ''
+                record[f"IndividualName{i}"] = ""
 
             # Add ECORP_URL - use current URL if we navigated via click
             record["ECORP_URL"] = driver.current_url if not detail_url else detail_url
@@ -1587,58 +1721,60 @@ def get_blank_acc_record() -> dict:
         Dictionary with all ACC field keys set to empty strings
     """
     record = {
-        'ECORP_SEARCH_NAME': '',
-        'ECORP_TYPE': '',
-        'ECORP_NAME_S': '',
-        'ECORP_ENTITY_ID_S': '',
-        'ECORP_ENTITY_TYPE': '',
-        'ECORP_STATUS': '',
-        'ECORP_FORMATION_DATE': '',
-        'ECORP_BUSINESS_TYPE': '',
-        'ECORP_STATE': '',
-        'ECORP_COUNTY': '',
-        'ECORP_COMMENTS': ''
+        "ECORP_SEARCH_NAME": "",
+        "ECORP_TYPE": "",
+        "ECORP_NAME_S": "",
+        "ECORP_ENTITY_ID_S": "",
+        "ECORP_ENTITY_TYPE": "",
+        "ECORP_STATUS": "",
+        "ECORP_FORMATION_DATE": "",
+        "ECORP_BUSINESS_TYPE": "",
+        "ECORP_STATE": "",
+        "ECORP_COUNTY": "",
+        "ECORP_COMMENTS": "",
     }
 
     # Add StatutoryAgent fields (3 agents)
     for i in range(1, 4):
-        record[f'StatutoryAgent{i}_Name'] = ''
-        record[f'StatutoryAgent{i}_Address'] = ''
-        record[f'StatutoryAgent{i}_Phone'] = ''
-        record[f'StatutoryAgent{i}_Mail'] = ''
+        record[f"StatutoryAgent{i}_Name"] = ""
+        record[f"StatutoryAgent{i}_Address"] = ""
+        record[f"StatutoryAgent{i}_Phone"] = ""
+        record[f"StatutoryAgent{i}_Mail"] = ""
 
     # Add Manager fields (5 managers)
     for i in range(1, 6):
-        record[f'Manager{i}_Name'] = ''
-        record[f'Manager{i}_Address'] = ''
-        record[f'Manager{i}_Phone'] = ''
-        record[f'Manager{i}_Mail'] = ''
+        record[f"Manager{i}_Name"] = ""
+        record[f"Manager{i}_Address"] = ""
+        record[f"Manager{i}_Phone"] = ""
+        record[f"Manager{i}_Mail"] = ""
 
     # Add Manager/Member fields (5 entries)
     for i in range(1, 6):
-        record[f'Manager/Member{i}_Name'] = ''
-        record[f'Manager/Member{i}_Address'] = ''
-        record[f'Manager/Member{i}_Phone'] = ''
-        record[f'Manager/Member{i}_Mail'] = ''
+        record[f"Manager/Member{i}_Name"] = ""
+        record[f"Manager/Member{i}_Address"] = ""
+        record[f"Manager/Member{i}_Phone"] = ""
+        record[f"Manager/Member{i}_Mail"] = ""
 
     # Add Member fields (5 members)
     for i in range(1, 6):
-        record[f'Member{i}_Name'] = ''
-        record[f'Member{i}_Address'] = ''
-        record[f'Member{i}_Phone'] = ''
-        record[f'Member{i}_Mail'] = ''
+        record[f"Member{i}_Name"] = ""
+        record[f"Member{i}_Address"] = ""
+        record[f"Member{i}_Phone"] = ""
+        record[f"Member{i}_Mail"] = ""
 
     # Add Individual name fields (4 individuals)
     for i in range(1, 5):
-        record[f'IndividualName{i}'] = ''
+        record[f"IndividualName{i}"] = ""
 
     # Add ECORP_URL field
-    record['ECORP_URL'] = ''
+    record["ECORP_URL"] = ""
 
     return record
 
 
-def save_checkpoint(path: Path, results: list, idx: int, total_records: int = None) -> None:
+def save_checkpoint(
+    path: Path, results: list, idx: int, total_records: int = None
+) -> None:
     """Save progress checkpoint to disk for resume capability.
 
     Parameters
@@ -1653,7 +1789,7 @@ def save_checkpoint(path: Path, results: list, idx: int, total_records: int = No
         Total number of records in current upload file (for validation)
     """
     path.parent.mkdir(parents=True, exist_ok=True)
-    with open(path, 'wb') as f:
+    with open(path, "wb") as f:
         pickle.dump((results, idx, total_records), f)
 
 
@@ -1680,10 +1816,7 @@ def extract_timestamp_from_path(path: Path) -> str:
 
 
 def get_cached_or_lookup(
-    cache: dict,
-    owner_name: str,
-    driver: webdriver.Chrome,
-    settings=None
+    cache: dict, owner_name: str, driver: webdriver.Chrome, settings=None
 ) -> List[Dict[str, str]]:
     """Check cache before performing ACC lookup to avoid duplicates.
 
@@ -1735,38 +1868,40 @@ def extract_individual_names(record: dict) -> set:
 
     # Extract Manager names (5)
     for i in range(1, 6):
-        name = record.get(f'Manager{i}_Name', '')
+        name = record.get(f"Manager{i}_Name", "")
         if name and str(name).strip():
             names.add(str(name).strip().upper())
 
     # Extract Member names (5)
     for i in range(1, 6):
-        name = record.get(f'Member{i}_Name', '')
+        name = record.get(f"Member{i}_Name", "")
         if name and str(name).strip():
             names.add(str(name).strip().upper())
 
     # Extract Manager/Member names (5)
     for i in range(1, 6):
-        name = record.get(f'Manager/Member{i}_Name', '')
+        name = record.get(f"Manager/Member{i}_Name", "")
         if name and str(name).strip():
             names.add(str(name).strip().upper())
 
     # Extract Statutory Agent names (3)
     for i in range(1, 4):
-        name = record.get(f'StatutoryAgent{i}_Name', '')
+        name = record.get(f"StatutoryAgent{i}_Name", "")
         if name and str(name).strip():
             names.add(str(name).strip().upper())
 
     # Extract Individual names (4)
     for i in range(1, 5):
-        name = record.get(f'IndividualName{i}', '')
+        name = record.get(f"IndividualName{i}", "")
         if name and str(name).strip():
             names.add(str(name).strip().upper())
 
     return names
 
 
-def calculate_person_overlap(names1: set, names2: set, threshold: float = 85.0) -> float:
+def calculate_person_overlap(
+    names1: set, names2: set, threshold: float = 85.0
+) -> float:
     """Calculate similarity between two sets of individual names using fuzzy matching.
 
     Uses a bidirectional similarity metric that checks both directions:
@@ -1825,8 +1960,7 @@ def calculate_person_overlap(names1: set, names2: set, threshold: float = 85.0) 
 
 
 def assign_grouped_indexes_by_individuals(
-    results: List[dict],
-    threshold: float = 85.0
+    results: List[dict], threshold: float = 85.0
 ) -> List[int]:
     """Assign ECORP_INDEX_# based on overlap of individual names.
 
@@ -1877,9 +2011,7 @@ def assign_grouped_indexes_by_individuals(
 
         for group_names, group_idx in groups:
             similarity = calculate_person_overlap(
-                individual_names,
-                group_names,
-                threshold=threshold
+                individual_names, group_names, threshold=threshold
             )
 
             if similarity >= threshold and similarity > best_similarity:
@@ -1926,21 +2058,28 @@ def generate_ecorp_upload(month_code: str, mcao_complete_path: Path) -> Optional
 
         # Validate columns exist
         if len(df.columns) < 5:
-            print(f"❌ MCAO_Complete must have at least 5 columns, found {len(df.columns)}")
+            print(
+                f"❌ MCAO_Complete must have at least 5 columns, found {len(df.columns)}"
+            )
             return None
 
         # Extract columns (0-indexed)
-        upload_df = pd.DataFrame({
-            'FULL_ADDRESS': df.iloc[:, 0],           # Column A
-            'COUNTY': df.iloc[:, 1],                 # Column B
-            'Owner_Ownership': df.iloc[:, 4],        # Column E (0-indexed = 4)
-            'OWNER_TYPE': df.iloc[:, 4].apply(classify_owner_type)  # Classify
-        })
+        upload_df = pd.DataFrame(
+            {
+                "FULL_ADDRESS": df.iloc[:, 0],  # Column A
+                "COUNTY": df.iloc[:, 1],  # Column B
+                "Owner_Ownership": df.iloc[:, 4],  # Column E (0-indexed = 4)
+                "OWNER_TYPE": df.iloc[:, 4].apply(classify_owner_type),  # Classify
+            }
+        )
 
         print(f"📊 Extracted {len(upload_df)} records for Ecorp Upload")
 
         # Count blanks
-        blank_count = upload_df['Owner_Ownership'].isna().sum() + (upload_df['Owner_Ownership'] == '').sum()
+        blank_count = (
+            upload_df["Owner_Ownership"].isna().sum()
+            + (upload_df["Owner_Ownership"] == "").sum()
+        )
         if blank_count > 0:
             print(f"   ⚠️  {blank_count} records have blank Owner_Ownership")
 
@@ -1960,7 +2099,7 @@ def generate_ecorp_upload(month_code: str, mcao_complete_path: Path) -> Optional
         new_path = output_dir / new_filename
         legacy_path = output_dir / legacy_filename
 
-        upload_df.to_excel(new_path, index=False, engine='xlsxwriter')
+        upload_df.to_excel(new_path, index=False, engine="xlsxwriter")
 
         # Create legacy copy for backward compatibility
         save_excel_with_legacy_copy(new_path, legacy_path)
@@ -1973,11 +2112,14 @@ def generate_ecorp_upload(month_code: str, mcao_complete_path: Path) -> Optional
     except Exception as e:
         print(f"❌ Error creating Ecorp Upload: {e}")
         import traceback
+
         traceback.print_exc()
         return None
 
 
-def generate_ecorp_complete(month_code: str, upload_path: Path, headless: bool = True) -> bool:
+def generate_ecorp_complete(
+    month_code: str, upload_path: Path, headless: bool = True
+) -> bool:
     """Enrich Upload file with ACC entity data to create Complete file.
 
     Features:
@@ -2026,14 +2168,16 @@ def generate_ecorp_complete(month_code: str, upload_path: Path, headless: bool =
         if get_ecorp_settings is not None:
             settings = get_ecorp_settings(headless=headless)
             print(f"🔧 Using base URL: {settings.base_url}")
-            print(f"   Delays: {settings.min_delay}-{settings.max_delay}s | "
-                  f"CAPTCHA detection: {settings.enable_captcha_detection} | "
-                  f"Rate limit detection: {settings.enable_rate_limit_detection}")
+            print(
+                f"   Delays: {settings.min_delay}-{settings.max_delay}s | "
+                f"CAPTCHA detection: {settings.enable_captcha_detection} | "
+                f"Rate limit detection: {settings.enable_rate_limit_detection}"
+            )
 
         # Load checkpoint if exists and validate it
         if checkpoint_file.exists():
             try:
-                with open(checkpoint_file, 'rb') as f:
+                with open(checkpoint_file, "rb") as f:
                     checkpoint_data = pickle.load(f)
 
                 # Handle old format (results, idx) or new format (results, idx, total)
@@ -2042,32 +2186,38 @@ def generate_ecorp_complete(month_code: str, upload_path: Path, headless: bool =
 
                     # Validate checkpoint matches current upload file
                     if checkpoint_total != total_records:
-                        print(f"⚠️  Checkpoint mismatch: checkpoint has {checkpoint_total} records, "
-                              f"but upload has {total_records} records")
-                        print(f"   Deleting stale checkpoint and starting fresh...")
+                        print(
+                            f"⚠️  Checkpoint mismatch: checkpoint has {checkpoint_total} records, "
+                            f"but upload has {total_records} records"
+                        )
+                        print("   Deleting stale checkpoint and starting fresh...")
                         checkpoint_file.unlink()
                         results = []
                         start_idx = 0
                     else:
-                        print(f"📂 Resuming from checkpoint: record {start_idx + 1}/{total_records}")
+                        print(
+                            f"📂 Resuming from checkpoint: record {start_idx + 1}/{total_records}"
+                        )
                 else:
                     # Old format checkpoint - assume it's stale, start fresh
                     results, start_idx = checkpoint_data
-                    print(f"⚠️  Old checkpoint format detected (no record count validation)")
-                    print(f"   Deleting old checkpoint and starting fresh...")
+                    print(
+                        "⚠️  Old checkpoint format detected (no record count validation)"
+                    )
+                    print("   Deleting old checkpoint and starting fresh...")
                     checkpoint_file.unlink()
                     results = []
                     start_idx = 0
 
             except Exception as e:
                 print(f"⚠️  Error loading checkpoint: {e}")
-                print(f"   Deleting corrupted checkpoint and starting fresh...")
+                print("   Deleting corrupted checkpoint and starting fresh...")
                 checkpoint_file.unlink()
                 results = []
                 start_idx = 0
 
         # Initialize driver
-        print(f"🌐 Initializing Chrome WebDriver...")
+        print("🌐 Initializing Chrome WebDriver...")
         driver = setup_driver(headless)
 
         try:
@@ -2079,39 +2229,44 @@ def generate_ecorp_complete(month_code: str, upload_path: Path, headless: bool =
                     elapsed = time.time() - start_time
                     rate = idx / elapsed if elapsed > 0 else 0
                     remaining = (total_records - idx) / rate if rate > 0 else 0
-                    print(f"   Progress: {idx}/{total_records} ({idx*100//total_records}%) | "
-                          f"Rate: {rate:.1f} rec/sec | ETA: {remaining/60:.1f} min", flush=True)
+                    print(
+                        f"   Progress: {idx}/{total_records} ({idx*100//total_records}%) | "
+                        f"Rate: {rate:.1f} rec/sec | ETA: {remaining/60:.1f} min",
+                        flush=True,
+                    )
 
                 # Get Upload data
-                owner_name = row['Owner_Ownership']
-                owner_type = row['OWNER_TYPE']
+                owner_name = row["Owner_Ownership"]
+                owner_type = row["OWNER_TYPE"]
 
                 # ACC lookup (columns F-CO)
-                if pd.isna(owner_name) or str(owner_name).strip() == '':
+                if pd.isna(owner_name) or str(owner_name).strip() == "":
                     # Blank owner - use empty ACC record
                     acc_data = get_blank_acc_record()
-                elif owner_type == 'INDIVIDUAL':
+                elif owner_type == "INDIVIDUAL":
                     # For INDIVIDUAL type, skip ACC lookup and parse names instead
                     acc_data = get_blank_acc_record()
                     # Parse individual names
                     parsed_names = parse_individual_names(owner_name)
                     # Populate IndividualName fields
                     for i, parsed_name in enumerate(parsed_names[:4], 1):
-                        acc_data[f'IndividualName{i}'] = parsed_name
+                        acc_data[f"IndividualName{i}"] = parsed_name
                 else:
                     # BUSINESS type - do ACC lookup with caching
-                    acc_results = get_cached_or_lookup(cache, str(owner_name), driver, settings)
+                    acc_results = get_cached_or_lookup(
+                        cache, str(owner_name), driver, settings
+                    )
                     acc_data = acc_results[0] if acc_results else get_blank_acc_record()
 
                 # Build complete record in correct column order (93 columns: A-CO)
                 # A-C: Upload columns, D: Index, E: Owner Type, F-CO: ACC fields
                 complete_record = {
-                    'FULL_ADDRESS': row['FULL_ADDRESS'],        # A
-                    'COUNTY': row['COUNTY'],                     # B
-                    'Owner_Ownership': row['Owner_Ownership'],   # C
-                    'ECORP_INDEX_#': idx + 1,                    # D (sequential number)
-                    'OWNER_TYPE': row['OWNER_TYPE'],             # E
-                    **acc_data                                   # F-CO (ACC fields including ECORP_URL)
+                    "FULL_ADDRESS": row["FULL_ADDRESS"],  # A
+                    "COUNTY": row["COUNTY"],  # B
+                    "Owner_Ownership": row["Owner_Ownership"],  # C
+                    "ECORP_INDEX_#": idx + 1,  # D (sequential number)
+                    "OWNER_TYPE": row["OWNER_TYPE"],  # E
+                    **acc_data,  # F-CO (ACC fields including ECORP_URL)
                 }
                 results.append(complete_record)
 
@@ -2121,16 +2276,22 @@ def generate_ecorp_complete(month_code: str, upload_path: Path, headless: bool =
                     print(f"   💾 Checkpoint saved at {idx + 1} records")
 
             # Group records by individual overlap and reassign ECORP_INDEX_#
-            print(f"\n🔍 Grouping records by individual overlap (threshold: 85%)...")
-            index_assignments = assign_grouped_indexes_by_individuals(results, threshold=85.0)
+            print("\n🔍 Grouping records by individual overlap (threshold: 85%)...")
+            index_assignments = assign_grouped_indexes_by_individuals(
+                results, threshold=85.0
+            )
 
             # Update ECORP_INDEX_# in all records
             for idx, record in enumerate(results):
-                record['ECORP_INDEX_#'] = index_assignments[idx]
+                record["ECORP_INDEX_#"] = index_assignments[idx]
 
             unique_groups = len(set(index_assignments))
-            print(f"   ✅ Grouped {len(results)} records into {unique_groups} unique groups")
-            print(f"   📊 Average group size: {len(results)/unique_groups:.1f} records per group")
+            print(
+                f"   ✅ Grouped {len(results)} records into {unique_groups} unique groups"
+            )
+            print(
+                f"   📊 Average group size: {len(results)/unique_groups:.1f} records per group"
+            )
 
             # Save final Complete file with new naming
             # Extract timestamp from Upload file (or use current if not found)
@@ -2139,10 +2300,14 @@ def generate_ecorp_complete(month_code: str, upload_path: Path, headless: bool =
                 timestamp = get_standard_timestamp()
 
             # Generate new format filename
-            new_filename = format_output_filename(month_code, "Ecorp_Complete", timestamp)
+            new_filename = format_output_filename(
+                month_code, "Ecorp_Complete", timestamp
+            )
 
             # Generate legacy format filename
-            legacy_filename = get_legacy_filename(month_code, "Ecorp_Complete", timestamp)
+            legacy_filename = get_legacy_filename(
+                month_code, "Ecorp_Complete", timestamp
+            )
 
             output_dir = Path("Ecorp/Complete")
             output_dir.mkdir(parents=True, exist_ok=True)
@@ -2151,7 +2316,7 @@ def generate_ecorp_complete(month_code: str, upload_path: Path, headless: bool =
             legacy_path = output_dir / legacy_filename
 
             df_complete = pd.DataFrame(results)
-            df_complete.to_excel(new_path, index=False, engine='xlsxwriter')
+            df_complete.to_excel(new_path, index=False, engine="xlsxwriter")
 
             # Create legacy copy for backward compatibility
             save_excel_with_legacy_copy(new_path, legacy_path)
@@ -2169,9 +2334,11 @@ def generate_ecorp_complete(month_code: str, upload_path: Path, headless: bool =
             return True
 
         except KeyboardInterrupt:
-            print(f"\n⚠️  Interrupted by user - saving progress...")
+            print("\n⚠️  Interrupted by user - saving progress...")
             save_checkpoint(checkpoint_file, results, idx, total_records)
-            print(f"💾 Progress saved to checkpoint. Run again to resume from record {idx + 1}")
+            print(
+                f"💾 Progress saved to checkpoint. Run again to resume from record {idx + 1}"
+            )
             return False
 
         finally:
@@ -2180,5 +2347,6 @@ def generate_ecorp_complete(month_code: str, upload_path: Path, headless: bool =
     except Exception as e:
         print(f"❌ Error processing Ecorp Complete: {e}")
         import traceback
+
         traceback.print_exc()
         return False

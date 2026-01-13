@@ -26,7 +26,9 @@ def get_standard_timestamp() -> str:
     return datetime.now().strftime("%m.%d.%I-%M-%S")
 
 
-def format_output_filename(month_code: str, stage: str, timestamp: str, extension: str = "xlsx") -> str:
+def format_output_filename(
+    month_code: str, stage: str, timestamp: str, extension: str = "xlsx"
+) -> str:
     """Format output filename with standardized naming convention.
 
     Args:
@@ -42,7 +44,9 @@ def format_output_filename(month_code: str, stage: str, timestamp: str, extensio
     return f"{month_code}_{stage}_{timestamp}.{extension}"
 
 
-def get_legacy_filename(month_code: str, stage: str, timestamp: Optional[str] = None) -> str:
+def get_legacy_filename(
+    month_code: str, stage: str, timestamp: Optional[str] = None
+) -> str:
     """Get legacy format filename for backward compatibility.
 
     Args:
@@ -67,8 +71,14 @@ def get_legacy_filename(month_code: str, stage: str, timestamp: Optional[str] = 
     }
 
     # Stages that had timestamps with space before timestamp
-    if stage in ["APN_Upload", "APN_Complete", "MCAO_Upload", "MCAO_Complete",
-                  "Ecorp_Upload", "Ecorp_Complete"]:
+    if stage in [
+        "APN_Upload",
+        "APN_Complete",
+        "MCAO_Upload",
+        "MCAO_Complete",
+        "Ecorp_Upload",
+        "Ecorp_Complete",
+    ]:
         if timestamp:
             return f"{month_code}_{stage} {timestamp}.xlsx"
         else:
@@ -129,7 +139,7 @@ def save_excel_with_legacy_copy(writer_or_path, legacy_path: Path) -> None:
         >>> save_excel_with_legacy_copy(new_path, legacy_path)
     """
     # If writer_or_path is an ExcelWriter, get its path
-    if hasattr(writer_or_path, 'path'):
+    if hasattr(writer_or_path, "path"):
         source_path = Path(writer_or_path.path)
     else:
         source_path = Path(writer_or_path)
@@ -161,7 +171,7 @@ def extract_timestamp_from_filename(filename: str) -> Optional[str]:
     import re
 
     # Pattern for timestamp: MM.DD.HH-MM-SS
-    timestamp_pattern = r'(\d{2}\.\d{2}\.\d{2}-\d{2}-\d{2})'
+    timestamp_pattern = r"(\d{2}\.\d{2}\.\d{2}-\d{2}-\d{2})"
 
     match = re.search(timestamp_pattern, filename)
     if match:
@@ -188,7 +198,7 @@ def extract_month_code_from_filename(filename: str) -> Optional[str]:
     import re
 
     # Pattern for month code at start: M.YY or MM.YY
-    month_pattern = r'^(\d{1,2}\.\d{2})'
+    month_pattern = r"^(\d{1,2}\.\d{2})"
 
     match = re.match(month_pattern, filename)
     if match:
