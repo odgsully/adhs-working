@@ -57,6 +57,7 @@ Ecorp/Complete/**/*.xls
 Ecorp/Complete/**/*.xlsx
 Ecorp/Upload/**/*.xls
 Ecorp/Upload/**/*.xlsx
+Ecorp/backup_*/
 MANIFEST
 MCAO/Complete/**/*.xls
 MCAO/Complete/**/*.xlsx
