@@ -39,9 +39,9 @@ if agent_address:
         elif 'MARICOPA' in str(ecorp_row.get('ECORP_COUNTY', '')).upper():
             address_parts['state'] = 'AZ'
 
+    # Note: BD_ADDRESS_2 removed (Nov 2025) - API uses address-only for skip-trace
     base_info.update({
         'BD_ADDRESS': address_parts['line1'],
-        'BD_ADDRESS_2': address_parts['line2'],
         'BD_CITY': address_parts['city'],
         'BD_STATE': address_parts['state'],  # Now will be populated!
         'BD_ZIP': address_parts['zip'],

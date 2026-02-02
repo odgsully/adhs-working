@@ -1,8 +1,10 @@
 # BatchData Complete Template - Field Descriptions
 
-This document describes all **165 columns (A-FI)** in the BatchData Complete output file and explains in plain English exactly where each field's data comes from.
+This document describes all **169 columns** in the BatchData Complete output file and explains in plain English exactly where each field's data comes from.
 
 **File Pattern**: `M.YY_BatchData_Complete_{timestamp}.xlsx`
+
+**Note**: As of November 2025, name input fields (BD_TARGET_FIRST_NAME, BD_TARGET_LAST_NAME, BD_OWNER_NAME_FULL, BD_ADDRESS_2) have been removed. The BatchData API uses ADDRESS ONLY for skip-trace lookups. Names are returned in the API response (BD_PHONE_X_FIRST/LAST, BD_EMAIL_X_FIRST/LAST).
 
 ---
 
@@ -11,9 +13,9 @@ This document describes all **165 columns (A-FI)** in the BatchData Complete out
 | Sheet | Purpose | Columns |
 |-------|---------|---------|
 | CONFIG | Pipeline configuration settings | 15 key-value pairs |
-| INPUT_MASTER | Records to process via skip-trace API | 20 BD_* input columns |
+| INPUT_MASTER | Records to process via skip-trace API | 16 BD_* input columns |
 | BLACKLIST_NAMES | Names to exclude from processing | 1 column |
-| OUTPUT_MASTER | Enriched results with phones/emails | 165 columns |
+| OUTPUT_MASTER | Enriched results with phones/emails | 169 columns |
 
 ---
 
@@ -45,7 +47,9 @@ The CONFIG sheet contains pipeline configuration as key-value pairs. These setti
 
 ## INPUT_MASTER Sheet
 
-The INPUT_MASTER sheet contains records to process through the BatchData skip-trace API. These 20 columns are populated by `transform.py:ecorp_to_batchdata_records()` from Ecorp_Complete data.
+The INPUT_MASTER sheet contains records to process through the BatchData skip-trace API. These **16 columns** are populated by `transform.py:ecorp_to_batchdata_records()` from Ecorp_Complete data.
+
+**Note**: API uses ADDRESS ONLY for lookups. Name fields (BD_TARGET_FIRST_NAME, BD_TARGET_LAST_NAME, BD_OWNER_NAME_FULL) and BD_ADDRESS_2 have been **REMOVED**.
 
 | Column | Field | Type | Description |
 |--------|-------|------|-------------|
@@ -54,21 +58,19 @@ The INPUT_MASTER sheet contains records to process through the BatchData skip-tr
 | C | BD_ENTITY_NAME | String | Registered entity name from ACC |
 | D | BD_SOURCE_ENTITY_ID | String | ACC file number (e.g., L12345678) |
 | E | BD_TITLE_ROLE | String | Principal's role (Manager, Member, Statutory Agent, etc.) |
-| F | BD_TARGET_FIRST_NAME | String | Parsed first name of target person |
-| G | BD_TARGET_LAST_NAME | String | Parsed last name of target person |
-| H | BD_OWNER_NAME_FULL | String | Full name as originally captured |
-| I | BD_ADDRESS | String | Street address line 1 |
-| J | BD_ADDRESS_2 | String | Street address line 2 (suite, unit, etc.) |
-| K | BD_CITY | String | City name |
-| L | BD_STATE | String | 2-letter state abbreviation |
-| M | BD_ZIP | String | 5-digit ZIP code |
-| N | BD_COUNTY | String | County name |
-| O | BD_APN | String | Assessor Parcel Number (if available) |
-| P | BD_MAILING_LINE1 | String | Mailing address line 1 |
-| Q | BD_MAILING_CITY | String | Mailing city |
-| R | BD_MAILING_STATE | String | Mailing state |
-| S | BD_MAILING_ZIP | String | Mailing ZIP |
-| T | BD_NOTES | String | Processing notes and derivation info |
+| F | BD_ADDRESS | String | Street address line 1 |
+| G | BD_CITY | String | City name |
+| H | BD_STATE | String | 2-letter state abbreviation |
+| I | BD_ZIP | String | 5-digit ZIP code |
+| J | BD_COUNTY | String | County name |
+| K | BD_APN | String | Assessor Parcel Number (if available) |
+| L | BD_MAILING_LINE1 | String | Mailing address line 1 |
+| M | BD_MAILING_CITY | String | Mailing city |
+| N | BD_MAILING_STATE | String | Mailing state |
+| O | BD_MAILING_ZIP | String | Mailing ZIP |
+| P | BD_NOTES | String | Processing notes and derivation info |
+
+**Removed columns**: BD_TARGET_FIRST_NAME, BD_TARGET_LAST_NAME, BD_OWNER_NAME_FULL, BD_ADDRESS_2
 
 ---
 
@@ -97,12 +99,13 @@ The BLACKLIST_NAMES sheet contains names to exclude from processing (professiona
 | Section | Columns | Count | Description |
 |---------|---------|-------|-------------|
 | ECORP Passthrough | 1-17 | 17 | Copied from Ecorp_Complete for context |
-| BD Input | 18-37 | 20 | Transformed from Ecorp data for API |
-| BD Phone Blocks | 38-117 | 80 | Skip-trace phone results (10 phones x 8 fields) |
-| BD Email Blocks | 118-157 | 40 | Skip-trace email results (10 emails x 4 fields) |
-| BD Metadata | 158-165 | 8 | API and pipeline tracking fields |
+| BD Input | 18-33 | 16 | Transformed from Ecorp data for API (4 name columns removed) |
+| BD Phone Blocks | 34-113 | 80 | Skip-trace phone results (10 phones x 8 fields) |
+| BD Email Blocks | 114-153 | 40 | Skip-trace email results (10 emails x 4 fields) |
+| BD Metadata | 154-161 | 8 | API and pipeline tracking fields |
+| Name Matching | 162-169 | 8 | Ecorp-to-Batchdata name verification |
 
-**Total: 165 columns**
+**Total: 169 columns**
 
 ---
 
@@ -296,9 +299,11 @@ These columns are copied directly from Ecorp_Complete to maintain context and tr
 
 ---
 
-## Section 2: BD Input Columns (18-37)
+## Section 2: BD Input Columns (18-33)
 
-These 20 columns are populated by `transform.py:ecorp_to_batchdata_records()` and represent the data sent to the BatchData skip-trace API.
+These **16 columns** are populated by `transform.py:ecorp_to_batchdata_records()` and represent the data sent to the BatchData skip-trace API.
+
+**Note**: BD_TARGET_FIRST_NAME, BD_TARGET_LAST_NAME, BD_OWNER_NAME_FULL, and BD_ADDRESS_2 have been **REMOVED**. The API uses address-only for skip-trace lookups.
 
 ### Column 18: BD_RECORD_ID
 
@@ -348,37 +353,7 @@ These 20 columns are populated by `transform.py:ecorp_to_batchdata_records()` an
 
 ---
 
-### Column 23: BD_TARGET_FIRST_NAME
-
-**Where it comes from**: Parsed from principal name by `normalize.py:split_full_name()`.
-
-**What it contains**: First name of the target person.
-
-**Example**: `John`
-
----
-
-### Column 24: BD_TARGET_LAST_NAME
-
-**Where it comes from**: Parsed from principal name by `normalize.py:split_full_name()`.
-
-**What it contains**: Last name of the target person.
-
-**Example**: `Smith`
-
----
-
-### Column 25: BD_OWNER_NAME_FULL
-
-**Where it comes from**: Full principal name as captured.
-
-**What it contains**: Complete name string before parsing.
-
-**Example**: `JOHN D SMITH`
-
----
-
-### Column 26: BD_ADDRESS
+### Column 23: BD_ADDRESS
 
 **Where it comes from**: Parsed from principal address by `transform.py:parse_address()`.
 
@@ -388,17 +363,7 @@ These 20 columns are populated by `transform.py:ecorp_to_batchdata_records()` an
 
 ---
 
-### Column 27: BD_ADDRESS_2
-
-**Where it comes from**: Parsed from principal address.
-
-**What it contains**: Suite, unit, or additional address info.
-
-**Example**: `STE 500`
-
----
-
-### Column 28: BD_CITY
+### Column 24: BD_CITY
 
 **Where it comes from**: Parsed from principal address.
 
@@ -408,7 +373,7 @@ These 20 columns are populated by `transform.py:ecorp_to_batchdata_records()` an
 
 ---
 
-### Column 29: BD_STATE
+### Column 25: BD_STATE
 
 **Where it comes from**: Parsed from address, normalized by `normalize.py:normalize_state()`.
 
@@ -418,7 +383,7 @@ These 20 columns are populated by `transform.py:ecorp_to_batchdata_records()` an
 
 ---
 
-### Column 30: BD_ZIP
+### Column 26: BD_ZIP
 
 **Where it comes from**: Parsed from address, normalized by `normalize.py:normalize_zip_code()`.
 
@@ -428,7 +393,7 @@ These 20 columns are populated by `transform.py:ecorp_to_batchdata_records()` an
 
 ---
 
-### Column 31: BD_COUNTY
+### Column 27: BD_COUNTY
 
 **Where it comes from**: From ECORP_COUNTY or fallback to COUNTY field.
 
@@ -438,7 +403,7 @@ These 20 columns are populated by `transform.py:ecorp_to_batchdata_records()` an
 
 ---
 
-### Column 32: BD_APN
+### Column 28: BD_APN
 
 **Where it comes from**: Not available from Ecorp data.
 
@@ -446,7 +411,7 @@ These 20 columns are populated by `transform.py:ecorp_to_batchdata_records()` an
 
 ---
 
-### Columns 33-36: BD_MAILING_*
+### Columns 29-32: BD_MAILING_*
 
 **Where it comes from**: Could be populated if mailing address differs from property address.
 
@@ -456,7 +421,7 @@ These 20 columns are populated by `transform.py:ecorp_to_batchdata_records()` an
 
 ---
 
-### Column 37: BD_NOTES
+### Column 33: BD_NOTES
 
 **Where it comes from**: Generated by `transform.py:ecorp_to_batchdata_records()`.
 
@@ -466,7 +431,7 @@ These 20 columns are populated by `transform.py:ecorp_to_batchdata_records()` an
 
 ---
 
-## Section 3: BD Phone Block Columns (38-117)
+## Section 3: BD Phone Block Columns (34-113)
 
 These 80 columns store skip-trace phone results. There are 10 phone blocks, each with 8 fields.
 
@@ -485,7 +450,7 @@ Each phone block contains:
 | BD_PHONE_X_TCPA | Boolean | TCPA litigator flag |
 | BD_PHONE_X_CONFIDENCE | Float | Match confidence score (0.0-1.0) |
 
-### Phone 1 Fields (Columns 38-45)
+### Phone 1 Fields (Columns 34-41)
 
 #### Column 38: BD_PHONE_1
 
@@ -604,7 +569,7 @@ Follow the same 8-field pattern as Phone 1:
 
 ---
 
-## Section 4: BD Email Block Columns (118-157)
+## Section 4: BD Email Block Columns (114-153)
 
 These 40 columns store skip-trace email results. There are 10 email blocks, each with 4 fields.
 
@@ -684,7 +649,7 @@ Follow the same 4-field pattern as Email 1:
 
 ---
 
-## Section 5: BD Metadata Columns (158-165)
+## Section 5: BD Metadata Columns (154-161)
 
 These 8 columns track API status and pipeline processing.
 
@@ -897,3 +862,96 @@ complete_path = run_batchdata_enrichment(
 - **Confidence scores**: Range 0.0 (low) to 1.0 (high) - higher is more reliable
 - **API costs**: ~$0.07 per skip-trace record + optional scrub fees
 - **Processing rate**: Varies by batch size and API response time
+
+---
+
+## Section 6: Name Matching Columns (162-169)
+
+These 8 columns verify that contacts from BatchData correspond to principals from Ecorp records.
+
+### Column 166: ECORP_TO_BATCH_MATCH_%
+
+**Where it comes from**: Calculated by `name_matching.py:calculate_match_percentage()`.
+
+**What it contains**: Percentage of Ecorp principal names found in BatchData results using 85% fuzzy matching threshold.
+
+**Values**:
+- `0` to `100` - Percentage of Ecorp names matched in BatchData results
+- `100+` - All Ecorp names matched AND BatchData returned additional names not in Ecorp
+
+**Formula**: `(Ecorp names matched at 85%+ confidence) / (Total Ecorp principal names) × 100`
+
+**Example**:
+- Ecorp has: John Smith, Jane Smith, Bob Jones (3 names)
+- BatchData returns: John Smith, Jane Smith (2 names)
+- Result: `67` (2/3 × 100 = 67%)
+
+**Why this matters**: Helps verify that BatchData contacts are associated with the correct entity principals, not random people at the property address.
+
+---
+
+### Columns 167-173: MISSING_1-8_FULL_NAME
+
+**Where it comes from**: Populated by `name_matching.py:apply_name_matching()`.
+
+**What it contains**: Ecorp principal names NOT found in BatchData results (up to 8 names).
+
+**When populated**: Whenever `ECORP_TO_BATCH_MATCH_%` < 100
+
+**When blank**:
+- `ECORP_TO_BATCH_MATCH_%` = 100 (all names matched)
+- `ECORP_TO_BATCH_MATCH_%` = 100+ (all names matched, extras found)
+
+**Example**:
+```
+ECORP principals: John Smith, Jane Smith, Bob Jones
+BatchData results: John Smith, Jane Smith
+
+ECORP_TO_BATCH_MATCH_% = 67
+MISSING_1_FULL_NAME = Bob Jones
+MISSING_2_FULL_NAME = (blank)
+...
+MISSING_8_FULL_NAME = (blank)
+```
+
+**Why this matters**: Identifies which principals need manual contact lookup since BatchData didn't return their information.
+
+---
+
+### Name Matching Algorithm
+
+1. **Extract Ecorp Names**: Collect all 22 principal name fields from Ecorp_Complete:
+   - StatutoryAgent1-3_Name (3 fields)
+   - Manager1-5_Name (5 fields)
+   - Member1-5_Name (5 fields)
+   - Manager/Member1-5_Name (5 fields)
+   - IndividualName1-4 (4 fields)
+
+2. **Extract BatchData Names**: Collect all person names from API results:
+   - BD_PHONE_1-10_FIRST + BD_PHONE_1-10_LAST
+   - BD_EMAIL_1-10_FIRST + BD_EMAIL_1-10_LAST
+
+3. **Fuzzy Match**: Compare each Ecorp name against BatchData names using `rapidfuzz.token_sort_ratio()`:
+   - Threshold: 85% similarity
+   - Case insensitive
+   - Order invariant ("John Smith" matches "Smith John")
+
+4. **Calculate Percentage**: `matched_count / total_ecorp_names × 100`
+
+5. **Store Missing**: First 8 unmatched Ecorp names go into MISSING_1-8_FULL_NAME
+
+---
+
+### Code Reference
+
+**File**: `Batchdata/src/name_matching.py`
+
+| Function | Purpose |
+|----------|---------|
+| `fuzzy_name_match()` | Compare two names with 85% threshold |
+| `extract_ecorp_names_from_complete()` | Get all 22 principal names from Ecorp row |
+| `extract_batch_names()` | Get all person names from BatchData row |
+| `calculate_match_percentage()` | Compute match % and missing names |
+| `apply_name_matching()` | Main integration function for DataFrame |
+
+**Integration**: Called by `batchdata_bridge.py:_run_sync_enrichment()` after API enrichment completes.

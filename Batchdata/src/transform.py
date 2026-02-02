@@ -22,12 +22,12 @@ except ImportError:
 try:
     from .normalize import (
         split_full_name, normalize_state, clean_address_line,
-        normalize_zip_code, extract_title_role, normalize_phone_e164
+        normalize_zip_code, normalize_phone_e164
     )
 except ImportError:
     from normalize import (
         split_full_name, normalize_state, clean_address_line,
-        normalize_zip_code, extract_title_role, normalize_phone_e164
+        normalize_zip_code, normalize_phone_e164
     )
 
 
@@ -152,16 +152,40 @@ def prepare_ecorp_for_batchdata(ecorp_df: pd.DataFrame) -> pd.DataFrame:
     return df
 
 
-def ecorp_to_batchdata_records(ecorp_row: pd.Series) -> List[Dict[str, Any]]:
+def ecorp_to_batchdata_records(ecorp_row: pd.Series, preserve_ecorp_context: bool = True) -> List[Dict[str, Any]]:
     """Transform single eCorp row into BatchData records (explode principals).
 
     Args:
         ecorp_row: Single row from eCorp DataFrame
+        preserve_ecorp_context: If True, include 17 ECORP passthrough columns for traceability
 
     Returns:
         List of BatchData record dictionaries
     """
     records = []
+
+    # ECORP passthrough columns (17 columns for traceability)
+    ecorp_passthrough = {}
+    if preserve_ecorp_context:
+        ecorp_passthrough = {
+            'FULL_ADDRESS': ecorp_row.get('FULL_ADDRESS', ''),
+            'COUNTY': ecorp_row.get('COUNTY', ''),
+            'Owner_Ownership': ecorp_row.get('Owner_Ownership', ''),
+            'ECORP_INDEX_#': ecorp_row.get('ECORP_INDEX_#', ''),
+            'OWNER_TYPE': ecorp_row.get('OWNER_TYPE', ''),
+            'ECORP_SEARCH_NAME': ecorp_row.get('ECORP_SEARCH_NAME', ''),
+            'ECORP_TYPE': ecorp_row.get('ECORP_TYPE', ''),
+            'ECORP_NAME_S': ecorp_row.get('ECORP_NAME_S', ''),
+            'ECORP_ENTITY_ID_S': ecorp_row.get('ECORP_ENTITY_ID_S', ''),
+            'ECORP_ENTITY_TYPE': ecorp_row.get('ECORP_ENTITY_TYPE', ''),
+            'ECORP_STATUS': ecorp_row.get('ECORP_STATUS', ''),
+            'ECORP_FORMATION_DATE': ecorp_row.get('ECORP_FORMATION_DATE', ''),
+            'ECORP_BUSINESS_TYPE': ecorp_row.get('ECORP_BUSINESS_TYPE', ''),
+            'ECORP_STATE': ecorp_row.get('ECORP_STATE', ''),
+            'ECORP_COUNTY': ecorp_row.get('ECORP_COUNTY', ''),
+            'ECORP_COMMENTS': ecorp_row.get('ECORP_COMMENTS', ''),
+            'ECORP_URL': ecorp_row.get('ECORP_URL', ''),
+        }
 
     # Base information from eCorp record
     base_info = {
@@ -201,7 +225,6 @@ def ecorp_to_batchdata_records(ecorp_row: pd.Series) -> List[Dict[str, Any]]:
             state = ''
         base_info.update({
             'BD_ADDRESS': address_parts['line1'],
-            'BD_ADDRESS_2': address_parts['line2'],
             'BD_CITY': address_parts['city'],
             'BD_STATE': state,
             'BD_ZIP': address_parts['zip'],
@@ -221,20 +244,16 @@ def ecorp_to_batchdata_records(ecorp_row: pd.Series) -> List[Dict[str, Any]]:
         # Skip if no name provided
         if not name or pd.isna(name) or str(name).strip() == '':
             continue
-        
+
         # Generate unique record ID
         record_id = f"ecorp_{ecorp_row.get('ECORP_ENTITY_ID_S', 'unknown')}_{i}_{str(uuid.uuid4())[:8]}"
-        
-        # Split name into first/last
-        first_name, last_name = split_full_name(name)
-        
+
         # Parse address if provided, otherwise use base address
         if address and not pd.isna(address) and str(address).strip():
             addr_parts = parse_address(address)
         else:
             addr_parts = {
                 'line1': base_info.get('BD_ADDRESS', ''),
-                'line2': base_info.get('BD_ADDRESS_2', ''),
                 'city': base_info.get('BD_CITY', ''),
                 'state': base_info.get('BD_STATE', ''),
                 'zip': base_info.get('BD_ZIP', '')
@@ -265,17 +284,22 @@ def ecorp_to_batchdata_records(ecorp_row: pd.Series) -> List[Dict[str, Any]]:
         else:
             state = ''
 
-        record = {
+        # Build record with ECORP passthrough first (for correct column order)
+        record = {}
+
+        # Add ECORP passthrough columns first (positions 1-17)
+        record.update(ecorp_passthrough)
+
+        # Add BD input columns (positions 18-33, 16 columns total)
+        # NOTE: BD_TARGET_FIRST_NAME, BD_TARGET_LAST_NAME, BD_OWNER_NAME_FULL, BD_ADDRESS_2 removed
+        # API uses address-only for skip-trace; names come from API results
+        record.update({
             'BD_RECORD_ID': record_id,
             'BD_SOURCE_TYPE': base_info['BD_SOURCE_TYPE'],
             'BD_ENTITY_NAME': base_info['BD_ENTITY_NAME'],
             'BD_SOURCE_ENTITY_ID': base_info['BD_SOURCE_ENTITY_ID'],
-            'BD_TITLE_ROLE': extract_title_role(title),
-            'BD_TARGET_FIRST_NAME': first_name,
-            'BD_TARGET_LAST_NAME': last_name,
-            'BD_OWNER_NAME_FULL': str(name).strip(),
+            'BD_TITLE_ROLE': str(title).strip() if title and pd.notna(title) else '',
             'BD_ADDRESS': addr_parts['line1'],
-            'BD_ADDRESS_2': addr_parts['line2'],
             'BD_CITY': addr_parts['city'],
             'BD_STATE': normalize_state(state) if state else '',
             'BD_ZIP': normalize_zip_code(addr_parts['zip']),
@@ -286,8 +310,8 @@ def ecorp_to_batchdata_records(ecorp_row: pd.Series) -> List[Dict[str, Any]]:
             'BD_MAILING_STATE': '',
             'BD_MAILING_ZIP': '',
             'BD_NOTES': base_info['BD_NOTES']
-        }
-        
+        })
+
         records.append(record)
     
     # If no principals were found, create record for the entity itself
@@ -301,28 +325,25 @@ def ecorp_to_batchdata_records(ecorp_row: pd.Series) -> List[Dict[str, Any]]:
             # Check if statutory agent is an entity (contains business keywords)
             agent_upper = str(statutory_agent).upper()
             entity_keywords = [
-                'LLC', 'L.L.C.', 'CORP', 'CORPORATION', 'INC', 'INCORPORATED', 
+                'LLC', 'L.L.C.', 'CORP', 'CORPORATION', 'INC', 'INCORPORATED',
                 'LTD', 'LIMITED', 'LP', 'L.P.', 'COMPANY', 'CO.', 'SERVICES',
                 'SYSTEM', 'SOLUTIONS', 'GROUP', 'ASSOCIATES'
             ]
-            
+
             is_entity_agent = any(keyword in agent_upper for keyword in entity_keywords)
-            
+
             if is_entity_agent:
                 # Statutory agent is an entity, don't split name
                 first_name, last_name = '', ''
                 owner_name = statutory_agent
-                title_role = 'Statutory Agent (Entity)'
             else:
                 # Statutory agent appears to be an individual
                 first_name, last_name = split_full_name(statutory_agent)
                 owner_name = statutory_agent
-                title_role = 'Statutory Agent'
         else:
             # Fall back to entity name
             first_name, last_name = '', ''
             owner_name = base_info['BD_ENTITY_NAME']
-            title_role = 'Entity'
 
         record_id = f"ecorp_{ecorp_row.get('ECORP_ENTITY_ID_S', 'unknown')}_entity_{str(uuid.uuid4())[:8]}"
 
@@ -347,17 +368,21 @@ def ecorp_to_batchdata_records(ecorp_row: pd.Series) -> List[Dict[str, Any]]:
         else:
             state = ''
 
-        record = {
+        # Build record with ECORP passthrough first (for correct column order)
+        record = {}
+
+        # Add ECORP passthrough columns first (positions 1-17)
+        record.update(ecorp_passthrough)
+
+        # Add BD input columns (positions 18-33, 16 columns total)
+        # NOTE: BD_TARGET_FIRST_NAME, BD_TARGET_LAST_NAME, BD_OWNER_NAME_FULL, BD_ADDRESS_2 removed
+        record.update({
             'BD_RECORD_ID': record_id,
             'BD_SOURCE_TYPE': base_info['BD_SOURCE_TYPE'],
             'BD_ENTITY_NAME': base_info['BD_ENTITY_NAME'],
             'BD_SOURCE_ENTITY_ID': base_info['BD_SOURCE_ENTITY_ID'],
-            'BD_TITLE_ROLE': title_role,
-            'BD_TARGET_FIRST_NAME': first_name,
-            'BD_TARGET_LAST_NAME': last_name,
-            'BD_OWNER_NAME_FULL': owner_name,
+            'BD_TITLE_ROLE': 'Statutory Agent' if statutory_agent else 'Entity',  # Entity-level record
             'BD_ADDRESS': base_info.get('BD_ADDRESS', ''),
-            'BD_ADDRESS_2': base_info.get('BD_ADDRESS_2', ''),
             'BD_CITY': base_info.get('BD_CITY', ''),
             'BD_STATE': state,
             'BD_ZIP': base_info.get('BD_ZIP', ''),
@@ -368,10 +393,10 @@ def ecorp_to_batchdata_records(ecorp_row: pd.Series) -> List[Dict[str, Any]]:
             'BD_MAILING_STATE': '',
             'BD_MAILING_ZIP': '',
             'BD_NOTES': base_info['BD_NOTES']
-        }
-        
+        })
+
         records.append(record)
-    
+
     return records
 
 
@@ -486,7 +511,7 @@ def parse_address(address_str: str) -> Dict[str, str]:
     }
 
 
-def transform_ecorp_to_batchdata(ecorp_df: pd.DataFrame) -> pd.DataFrame:
+def transform_ecorp_to_batchdata(ecorp_df: pd.DataFrame, preserve_ecorp_context: bool = True) -> pd.DataFrame:
     """Transform entire eCorp DataFrame to BatchData format.
 
     This function now includes a preprocessing step to handle the new
@@ -494,9 +519,12 @@ def transform_ecorp_to_batchdata(ecorp_df: pd.DataFrame) -> pd.DataFrame:
 
     Args:
         ecorp_df: eCorp DataFrame
+        preserve_ecorp_context: If True, include 17 ECORP passthrough columns for traceability.
+                               Default True for ETL pipeline, set False for standalone mode.
 
     Returns:
-        BatchData formatted DataFrame
+        BatchData formatted DataFrame with 37 columns (17 ECORP + 20 BD) if preserve_ecorp_context=True,
+        or 20 BD columns only if preserve_ecorp_context=False.
     """
     # Preprocess the DataFrame to ensure compatibility
     ecorp_df = prepare_ecorp_for_batchdata(ecorp_df)
@@ -509,7 +537,7 @@ def transform_ecorp_to_batchdata(ecorp_df: pd.DataFrame) -> pd.DataFrame:
         if pd.notna(status) and str(status).strip().lower() in ['not found', 'error']:
             continue
 
-        records = ecorp_to_batchdata_records(row)
+        records = ecorp_to_batchdata_records(row, preserve_ecorp_context=preserve_ecorp_context)
         all_records.extend(records)
 
     return pd.DataFrame(all_records)
@@ -658,10 +686,11 @@ def deduplicate_batchdata_records(df: pd.DataFrame) -> pd.DataFrame:
     
     original_count = len(df)
     
-    # Define fields to compare for identifying duplicates (focus on person, not entity)
+    # Define fields to compare for identifying duplicates
+    # CRITICAL: Include BD_TITLE_ROLE and BD_SOURCE_ENTITY_ID to distinguish principals at same address
     comparison_fields = [
-        'BD_TARGET_FIRST_NAME', 'BD_TARGET_LAST_NAME', 'BD_OWNER_NAME_FULL',
-        'BD_ADDRESS', 'BD_CITY', 'BD_STATE', 'BD_ZIP'
+        'BD_ADDRESS', 'BD_CITY', 'BD_STATE', 'BD_ZIP',
+        'BD_TITLE_ROLE', 'BD_SOURCE_ENTITY_ID'
     ]
     
     # Ensure all comparison fields exist
@@ -839,74 +868,21 @@ def detect_entity_families(entities: list, similarity_threshold: float = 0.6) ->
     return families
 
 
-def filter_entity_only_records(df: pd.DataFrame, filter_enabled: bool = False) -> pd.DataFrame:
-    """Filter out entity-only records with no individual names for API cost savings.
-    
-    Args:
-        df: BatchData DataFrame
-        filter_enabled: If True, removes entity-only records
-        
-    Returns:
-        Filtered DataFrame with entity-only records removed
-    """
-    if not filter_enabled or len(df) <= 1:
-        return df
-    
-    original_count = len(df)
-    
-    # Identify entity-only records (no individual names)
-    entity_only_mask = (
-        (df['BD_TARGET_FIRST_NAME'].isna() | (df['BD_TARGET_FIRST_NAME'] == '')) &
-        (df['BD_TARGET_LAST_NAME'].isna() | (df['BD_TARGET_LAST_NAME'] == ''))
-    )
-    
-    entity_only_records = df[entity_only_mask]
-    individual_records = df[~entity_only_mask]
-    
-    entity_only_count = len(entity_only_records)
-    individual_count = len(individual_records)
-    
-    print(f"📊 Entity-Only Record Filter:")
-    print(f"   Total records: {original_count}")
-    print(f"   Entity-only records: {entity_only_count}")
-    print(f"   Individual records: {individual_count}")
-    
-    if entity_only_count > 0:
-        # Calculate potential savings
-        cost_per_record = 0.07  # Typical API cost per record
-        potential_savings = entity_only_count * cost_per_record
-        
-        print(f"   Potential cost savings: ${potential_savings:.2f}")
-        print(f"   Records removed: {entity_only_count} ({(entity_only_count/original_count)*100:.1f}%)")
-        
-        # Show what types of records are being filtered
-        if not entity_only_records.empty:
-            role_counts = entity_only_records['BD_TITLE_ROLE'].value_counts()
-            print(f"   Record types being filtered:")
-            for role, count in role_counts.head(3).items():
-                print(f"     - {role}: {count} records")
-    
-    return individual_records.reset_index(drop=True)
-
-
 def validate_input_fields(df: pd.DataFrame) -> pd.DataFrame:
     """Validate and report on input field completeness for API optimization.
-    
+
+    Note: Name fields (BD_TARGET_FIRST_NAME, BD_TARGET_LAST_NAME, BD_OWNER_NAME_FULL) removed.
+    API now uses address-only for skip-trace lookups.
+
     Args:
         df: Input DataFrame to validate
-        
+
     Returns:
         DataFrame with validation flags added
     """
     df_validated = df.copy()
-    
-    # Add validation flags
-    df_validated['has_valid_name'] = (
-        (df_validated['BD_TARGET_FIRST_NAME'].notna() & (df_validated['BD_TARGET_FIRST_NAME'] != '')) |
-        (df_validated['BD_TARGET_LAST_NAME'].notna() & (df_validated['BD_TARGET_LAST_NAME'] != '')) |
-        (df_validated['BD_OWNER_NAME_FULL'].notna() & (df_validated['BD_OWNER_NAME_FULL'] != ''))
-    )
 
+    # Validate address fields only (name fields no longer used)
     df_validated['has_valid_address'] = (
         df_validated['BD_ADDRESS'].notna() &
         (df_validated['BD_ADDRESS'] != '') &
@@ -917,105 +893,28 @@ def validate_input_fields(df: pd.DataFrame) -> pd.DataFrame:
         df_validated['BD_ZIP'].notna() &
         (df_validated['BD_ZIP'] != '')
     )
-    
+
     # Report statistics
     total_records = len(df_validated)
-    valid_names = df_validated['has_valid_name'].sum()
     valid_addresses = df_validated['has_valid_address'].sum()
-    fully_valid = (df_validated['has_valid_name'] & df_validated['has_valid_address']).sum()
-    
+
     print("📊 Input Data Quality Report:")
     print(f"   Total records: {total_records}")
-    print(f"   Records with valid names: {valid_names} ({valid_names/total_records*100:.1f}%)")
     print(f"   Records with complete addresses: {valid_addresses} ({valid_addresses/total_records*100:.1f}%)")
-    print(f"   Fully valid records: {fully_valid} ({fully_valid/total_records*100:.1f}%)")
-    
-    # Report missing fields
+
+    # Report missing address fields
     missing_fields = []
-    for field in ['BD_TARGET_FIRST_NAME', 'BD_TARGET_LAST_NAME', 'BD_ADDRESS', 'BD_CITY', 'BD_STATE', 'BD_ZIP']:
+    for field in ['BD_ADDRESS', 'BD_CITY', 'BD_STATE', 'BD_ZIP']:
         missing_count = df_validated[field].isna().sum() + (df_validated[field] == '').sum()
         if missing_count > 0:
             missing_fields.append(f"{field}: {missing_count} records")
-    
+
     if missing_fields:
         print("   Missing fields:")
-        for field_info in missing_fields[:5]:  # Show top 5
+        for field_info in missing_fields:
             print(f"     - {field_info}")
     
     return df_validated
-
-
-def optimize_for_api(df: pd.DataFrame) -> pd.DataFrame:
-    """Optimize input fields for better API results.
-    
-    Args:
-        df: Input DataFrame
-        
-    Returns:
-        Optimized DataFrame with filled and formatted fields
-    """
-    df_optimized = df.copy()
-    
-    # Fill missing first/last names from full name if available
-    for idx, row in df_optimized.iterrows():
-        if pd.isna(row.get('BD_TARGET_FIRST_NAME')) or row.get('BD_TARGET_FIRST_NAME') == '':
-            if pd.notna(row.get('BD_OWNER_NAME_FULL')) and row.get('BD_OWNER_NAME_FULL') != '':
-                first_name, last_name = split_full_name(row['BD_OWNER_NAME_FULL'])
-                df_optimized.at[idx, 'BD_TARGET_FIRST_NAME'] = first_name
-                df_optimized.at[idx, 'BD_TARGET_LAST_NAME'] = last_name
-
-    # Normalize and clean address fields
-    df_optimized['BD_ADDRESS'] = df_optimized['BD_ADDRESS'].apply(
-        lambda x: clean_address_line(x) if pd.notna(x) else ''
-    )
-
-    df_optimized['BD_CITY'] = df_optimized['BD_CITY'].apply(
-        lambda x: str(x).strip().title() if pd.notna(x) and x != '' else ''
-    )
-
-    df_optimized['BD_STATE'] = df_optimized['BD_STATE'].apply(
-        lambda x: normalize_state(x) if pd.notna(x) and x != '' else ''
-    )
-
-    df_optimized['BD_ZIP'] = df_optimized['BD_ZIP'].apply(
-        lambda x: normalize_zip_code(x) if pd.notna(x) and x != '' else ''
-    )
-
-    # Try to fill missing city/state from other records with same address
-    address_groups = df_optimized.groupby('BD_ADDRESS')
-    improvements = 0
-
-    for address, group in address_groups:
-        if len(group) > 1 and address and str(address).strip():
-            # Find the most complete record in this group
-            non_empty_cities = group['BD_CITY'][group['BD_CITY'] != ''].dropna()
-            non_empty_states = group['BD_STATE'][group['BD_STATE'] != ''].dropna()
-            non_empty_zips = group['BD_ZIP'][group['BD_ZIP'] != ''].dropna()
-
-            best_city = non_empty_cities.mode().iloc[0] if not non_empty_cities.empty else ''
-            best_state = non_empty_states.mode().iloc[0] if not non_empty_states.empty else ''
-            best_zip = non_empty_zips.mode().iloc[0] if not non_empty_zips.empty else ''
-
-            # Fill missing values in group
-            for idx in group.index:
-                if df_optimized.at[idx, 'BD_CITY'] == '' and best_city:
-                    df_optimized.at[idx, 'BD_CITY'] = best_city
-                    improvements += 1
-                if df_optimized.at[idx, 'BD_STATE'] == '' and best_state:
-                    df_optimized.at[idx, 'BD_STATE'] = best_state
-                    improvements += 1
-                if df_optimized.at[idx, 'BD_ZIP'] == '' and best_zip:
-                    df_optimized.at[idx, 'BD_ZIP'] = best_zip
-                    improvements += 1
-
-    # Report improvements
-    original_complete = ((df['BD_CITY'] != '') & (df['BD_STATE'] != '') & (df['BD_ZIP'] != '')).sum()
-    optimized_complete = ((df_optimized['BD_CITY'] != '') & (df_optimized['BD_STATE'] != '') & (df_optimized['BD_ZIP'] != '')).sum()
-    
-    if optimized_complete > original_complete:
-        print(f"✅ Field optimization improved {optimized_complete - original_complete} records")
-    
-    return df_optimized
 
 
 def consolidate_entity_families(df: pd.DataFrame, similarity_threshold: float = 0.6) -> pd.DataFrame:
@@ -1062,9 +961,10 @@ def consolidate_entity_families(df: pd.DataFrame, similarity_threshold: float = 
     df_work['_entity_family'] = df_work['BD_ENTITY_NAME'].map(entity_to_family).fillna('SINGLETON')
 
     # Group by person identity within families
+    # CRITICAL: Include BD_TITLE_ROLE and BD_SOURCE_ENTITY_ID to distinguish principals
     consolidation_fields = [
-        'BD_TARGET_FIRST_NAME', 'BD_TARGET_LAST_NAME', 'BD_OWNER_NAME_FULL',
-        'BD_ADDRESS', 'BD_CITY', 'BD_STATE', 'BD_ZIP', '_entity_family'
+        'BD_ADDRESS', 'BD_CITY', 'BD_STATE', 'BD_ZIP',
+        'BD_TITLE_ROLE', 'BD_SOURCE_ENTITY_ID', '_entity_family'
     ]
     
     # Fill NaN values for comparison
@@ -1094,7 +994,7 @@ def consolidate_entity_families(df: pd.DataFrame, similarity_threshold: float = 
             # Score and select best record
             def score_record(row):
                 score = 0
-                fields_to_check = ['BD_TARGET_FIRST_NAME', 'BD_TARGET_LAST_NAME', 'BD_ADDRESS', 'BD_CITY', 'BD_STATE', 'BD_ZIP']
+                fields_to_check = ['BD_ADDRESS', 'BD_CITY', 'BD_STATE', 'BD_ZIP', 'BD_TITLE_ROLE', 'BD_SOURCE_ENTITY_ID']
                 for field in fields_to_check:
                     if field in row and row[field] and str(row[field]).strip() and str(row[field]).lower() != 'nan':
                         score += 1
@@ -1108,10 +1008,7 @@ def consolidate_entity_families(df: pd.DataFrame, similarity_threshold: float = 
             entities_info = []
             for _, row in group.iterrows():
                 entity = row['BD_ENTITY_NAME']
-                role = row.get('BD_TITLE_ROLE', '')
-                if entity and role:
-                    entities_info.append(f"{entity} ({role})")
-                elif entity:
+                if entity:
                     entities_info.append(entity)
 
             # Create consolidated notes

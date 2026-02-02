@@ -32,6 +32,35 @@ pip3 install usaddress
 
 ## Usage
 
+### Automated Data Acquisition (Recommended)
+
+The pipeline includes automatic monitoring and downloading of AZDHS provider data:
+
+```bash
+# One-time setup
+./scripts/setup_azdhs_monitor.sh
+
+# Check for new month data
+poetry run python scripts/azdhs_monitor.py --check-only
+
+# Download specific month
+poetry run python scripts/azdhs_monitor.py --month 1.26 --force
+
+# Auto-check + download + notify (runs daily via scheduler)
+poetry run python scripts/azdhs_monitor.py --notify
+```
+
+**Features:**
+- Monitors https://www.azdhs.gov/licensing/index.php#databases daily
+- Auto-downloads all 12 provider types when new month appears
+- Sends Slack + Gmail notifications
+- Saves to `ALL-MONTHS/Raw M.YY/` directory
+- Optional Supabase sync
+
+**Scheduling Options:**
+- macOS: LaunchAgent runs daily at 6 AM (`scripts/com.azdhs.monitor.plist`)
+- CI/CD: GitHub Actions workflow (`.github/workflows/azdhs-monitor.yml`)
+
 ### Primary Method: Interactive Month Processor
 
 The main entry point for processing ADHS data is the interactive script:

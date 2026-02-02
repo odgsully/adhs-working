@@ -202,13 +202,15 @@ def run_batchdata_enrichment(
 
 **Must maintain these columns in BatchData Complete file**:
 
-**INPUT_MASTER (20 columns)** - ALL must be preserved:
+**INPUT_MASTER (16 columns)** - ALL must be preserved:
 ```
 BD_RECORD_ID, BD_SOURCE_TYPE, BD_ENTITY_NAME, BD_SOURCE_ENTITY_ID,
-BD_TITLE_ROLE, BD_TARGET_FIRST_NAME, BD_TARGET_LAST_NAME, BD_OWNER_NAME_FULL,
-BD_ADDRESS, BD_ADDRESS_2, BD_CITY, BD_STATE, BD_ZIP, BD_COUNTY, BD_APN,
+BD_TITLE_ROLE, BD_ADDRESS, BD_CITY, BD_STATE, BD_ZIP, BD_COUNTY, BD_APN,
 BD_MAILING_LINE1, BD_MAILING_CITY, BD_MAILING_STATE, BD_MAILING_ZIP, BD_NOTES
 ```
+
+**REMOVED (November 2025)**: BD_TARGET_FIRST_NAME, BD_TARGET_LAST_NAME, BD_OWNER_NAME_FULL, BD_ADDRESS_2
+(API uses address-only for skip-trace lookups)
 
 **Enrichment fields (wide format)**:
 ```

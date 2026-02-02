@@ -184,14 +184,23 @@ def normalize_zip_code(zip_code: str) -> str:
 
 
 def extract_title_role(title: str) -> str:
-    """Normalize title/role field.
-    
+    """[DEPRECATED] Normalize title/role field.
+
+    This function is deprecated. BD_TITLE_ROLE has been removed from the template.
+    Kept for backward compatibility only.
+
     Args:
         title: Title string
-        
+
     Returns:
         Normalized title
     """
+    import warnings
+    warnings.warn(
+        "extract_title_role() is deprecated - BD_TITLE_ROLE removed from template",
+        DeprecationWarning,
+        stacklevel=2
+    )
     if not title or pd.isna(title):
         return ""
     

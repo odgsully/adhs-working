@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<!--
+    AZDHS Monitor - macOS LaunchAgent
+
+    Runs daily at 6:00 AM to check for new AZDHS provider data.
+
+    Installation:
+    1. Update the paths below to match your system
+    2. Copy to ~/Library/LaunchAgents/:
+       cp scripts/com.azdhs.monitor.plist ~/Library/LaunchAgents/
+    3. Load the agent:
+       launchctl load ~/Library/LaunchAgents/com.azdhs.monitor.plist
+    4. To unload:
+       launchctl unload ~/Library/LaunchAgents/com.azdhs.monitor.plist
+    5. To run manually:
+       launchctl start com.azdhs.monitor
+
+    Logs are written to:
+    - stdout: /tmp/azdhs-monitor.stdout.log
+    - stderr: /tmp/azdhs-monitor.stderr.log
+-->
+<dict>
+    <key>Label</key>
+    <string>com.azdhs.monitor</string>
+
+    <key>ProgramArguments</key>
+    <array>
+        <!-- Update this path to your Poetry installation -->
+        <string>/Users/garrettsullivan/.local/bin/poetry</string>
+        <string>run</string>
+        <string>python</string>
+        <string>scripts/azdhs_monitor.py</string>
+        <string>--notify</string>
+    </array>
+
+    <key>WorkingDirectory</key>
+    <!-- Update this path to your project directory -->
+    <string>/Users/garrettsullivan/Desktop/BHRF/Data_Recourses/LANDSCRAPE/adhs-working</string>
+
+    <key>StartCalendarInterval</key>
+    <dict>
+        <!-- Run daily at 6:00 AM -->
+        <key>Hour</key>
+        <integer>6</integer>
+        <key>Minute</key>
+        <integer>0</integer>
+    </dict>
+
+    <key>StandardOutPath</key>
+    <string>/tmp/azdhs-monitor.stdout.log</string>
+
+    <key>StandardErrorPath</key>
+    <string>/tmp/azdhs-monitor.stderr.log</string>
+
+    <key>EnvironmentVariables</key>
+    <dict>
+        <!-- Load .env file - Poetry should handle this but adding PATH for safety -->
+        <key>PATH</key>
+        <string>/usr/local/bin:/usr/bin:/bin:/Users/garrettsullivan/.local/bin</string>
+    </dict>
+
+    <key>RunAtLoad</key>
+    <false/>
+
+    <key>KeepAlive</key>
+    <false/>
+</dict>
+</plist>

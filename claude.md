@@ -10,19 +10,31 @@
    * Provides interactive menu for selecting month ranges
    * Processes from `ALL-MONTHS/Raw M.YY/` directories
    * Generates outputs in `Reformat/`, `All-to-Date/`, and `Analysis/`
-4. **Alternative CLI** — For single months or automation:
+4. **Automated data acquisition** — AZDHS monitor for auto-downloading provider data:
+   ```bash
+   poetry run python scripts/azdhs_monitor.py --notify
+   ```
+   * Monitors https://www.azdhs.gov/licensing/index.php#databases
+   * Auto-downloads all 12 provider types when new month is detected
+   * Runs daily at 6 AM via macOS LaunchAgent or GitHub Actions
+   * Sends Slack + Gmail notifications on new data
+   * Saves to `ALL-MONTHS/Raw M.YY/` directories
+   * Optional Supabase sync via `scripts/azdhs_supabase.py`
+   * Setup: `./scripts/setup_azdhs_monitor.sh`
+   * Env vars: `AZDHS_SLACK_WEBHOOK_URL`, `AZDHS_GMAIL_USER`, `AZDHS_GMAIL_APP_PASSWORD`, `AZDHS_NOTIFY_EMAIL`
+5. **Alternative CLI** — For single months or automation:
    ```bash
    poetry run adhs-etl run --month 1.25 --raw-dir ./ALL-MONTHS/Raw\ 1.25 --dry-run
    ```
    * `--dry-run` must be honoured in all write operations
    * Month format is `M.YY` or `MM.YY` (e.g., `1.25` for January 2025)
-5. **Unknown columns workflow** — The first time an unseen header appears, add it (with null mapping) to `field_map.TODO.yml`, log a `WARNING`, and keep the run going.
-6. **Testing & lint** — `pytest -q` + `pytest-cov` for coverage; `ruff` & `black` via `pre‑commit`.  
+6. **Unknown columns workflow** — The first time an unseen header appears, add it (with null mapping) to `field_map.TODO.yml`, log a `WARNING`, and keep the run going.
+7. **Testing & lint** — `pytest -q` + `pytest-cov` for coverage; `ruff` & `black` via `pre‑commit`.  
    * Keep tests in `src/tests/`; aim for ≥ 80 % coverage.
-7. **Commit messages** — Conventional Commits (`feat:`, `fix:`, `chore:` …).  
-8. **File naming** — Python in `snake_case.py`, Markdown in `kebab-case.md`.  
-9. **Large artefacts** — Place any file > 5 MB in `/data`, git‑ignored; DVC if history needed.  
-10. **Folder structure** — Updated to use hyphens:
+8. **Commit messages** — Conventional Commits (`feat:`, `fix:`, `chore:` …).  
+9. **File naming** — Python in `snake_case.py`, Markdown in `kebab-case.md`.  
+10. **Large artefacts** — Place any file > 5 MB in `/data`, git‑ignored; DVC if history needed.  
+11. **Folder structure** — Updated to use hyphens:
    * `Raw-New-Month/` — Input files for current month processing
    * `ALL-MONTHS/` — Historical data organized by month folders
    * `Reformat/` — `M.YY_Reformat_{timestamp}.xlsx` output files
@@ -36,12 +48,12 @@
    * `Ecorp/Complete/` — `M.YY_Ecorp_Complete_{timestamp}.xlsx` with full entity data
    * `Batchdata/Upload/` — `M.YY_BatchData_Upload_{timestamp}.xlsx` prepared for contact discovery APIs
    * `Batchdata/Complete/` — `M.YY_BatchData_Complete_{timestamp}.xlsx` enriched with phone/email data
-11. **Output Files** — Pipeline generates multiple types with standardized naming `M.YY_{Stage}_{timestamp}.xlsx`:
+12. **Output Files** — Pipeline generates multiple types with standardized naming `M.YY_{Stage}_{timestamp}.xlsx`:
     * **Naming format**: `{timestamp}` is `MM.DD.HH-MM-SS` (12-hour, no AM/PM). Example: `1.25_Reformat_01.15.03-45-30.xlsx`
     * **Reformat**: Standardized data with MONTH, YEAR, PROVIDER_TYPE, PROVIDER, ADDRESS, CITY, ZIP, FULL_ADDRESS, CAPACITY, LONGITUDE, LATITUDE, COUNTY, PROVIDER_GROUP_INDEX_#
     * **All-to-Date**: Cumulative data across all months processed
     * **Analysis**: Full business analysis with 3 sheets (Summary, Blanks Count, Analysis) including lost license detection, MCAO property data, and extended tracking per v300Track_this.md
-12. **v300 Template Compliance** — Analysis output MUST match `v300Track_this.xlsx` template exactly:
+13. **v300 Template Compliance** — Analysis output MUST match `v300Track_this.xlsx` template exactly:
     * **Column naming**: Use underscores (`PROVIDER_TYPE`, `9.24_COUNT`, `10.24_TO_PREV`, `9.24_SUMMARY`)
     * **Lead types**: Use Title Case (`Survey Lead`, `Seller Lead`, `Seller/Survey Lead`)
     * **SUMMARY format**: Concatenate only columns M and N (`{ADDRESS_COUNT}, {DBA_Concat}`)
@@ -56,3 +68,7 @@
       - Full entity details, principals, statutory agents, and registration data
     * **BatchData Enrichment** (optional, 5th stage): Contact discovery via `src/adhs_etl/batchdata_bridge.py` for skip-trace, phone/email enrichment, and DNC/TCPA compliance
     * **Backward compatibility**: During transition, both new format (underscores + timestamp) and legacy format (spaces, no timestamp) are created
+14. **Command abbreviations** — Shorthand instructions for Claude responses:
+    * `ric` = Reply in chat (no files should be modified)
+    * `aacqin` = Ask any clarifying questions if needed
+    * `susin` = Spin up subagents if needed

@@ -477,16 +477,22 @@ def process_single_month(month_code: str, folder_name: str, test_mode: str = 'fu
     # This is critical - we need historical data that doesn't include current month
     historical_df = pd.DataFrame()
     if existing_files and relevant_files:
-        # Find the most recent All-to-Date file BEFORE current month
-        for f, file_year, file_month in relevant_files:
-            # Only use files from before current month
-            if (file_year < year_num % 100) or (file_year == year_num % 100 and file_month < month_num):
-                try:
-                    historical_df = pd.read_excel(f)
-                    log_step(f"Using historical data from {f.name}")
-                    break
-                except:
-                    continue
+        # Find the most recent month, then pick the LARGEST file for that month
+        # (larger files have more complete data vs tiny test/failed runs)
+        most_recent_month = max(relevant_files, key=lambda x: (x[1], x[2]))
+        target_year, target_month = most_recent_month[1], most_recent_month[2]
+
+        # Get all files for the most recent month
+        same_month_files = [f for f in relevant_files if f[1] == target_year and f[2] == target_month]
+
+        # Pick the largest file (most complete data)
+        best_file = max(same_month_files, key=lambda x: x[0].stat().st_size)[0]
+
+        try:
+            historical_df = pd.read_excel(best_file)
+            log_step(f"Using historical data from {best_file.name} ({best_file.stat().st_size:,} bytes)")
+        except Exception as e:
+            log_step(f"Warning: Could not load historical data: {e}")
 
     # If no previous All-to-Date exists, use previous month as historical
     if historical_df.empty and not previous_month_df.empty:

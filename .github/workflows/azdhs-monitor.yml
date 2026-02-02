@@ -1,0 +1,123 @@
+# AZDHS Provider Database Monitor
+#
+# Runs daily at 6:00 AM UTC to check for new AZDHS provider data.
+# Downloads new data and sends notifications via Slack/Gmail.
+#
+# Required Secrets:
+#   AZDHS_SLACK_WEBHOOK_URL - Slack incoming webhook
+#   AZDHS_GMAIL_USER - Gmail address
+#   AZDHS_GMAIL_APP_PASSWORD - Gmail app password
+#   AZDHS_NOTIFY_EMAIL - Email to notify
+#   SUPABASE_URL - Supabase project URL (optional)
+#   SUPABASE_KEY - Supabase service key (optional)
+
+name: AZDHS Monitor
+
+on:
+  schedule:
+    # Run daily at 6:00 AM UTC (11:00 PM MST, midnight EST)
+    - cron: '0 6 * * *'
+
+  workflow_dispatch:
+    # Allow manual trigger
+    inputs:
+      month:
+        description: 'Specific month to download (M.YY format, e.g., 1.25)'
+        required: false
+        type: string
+      force:
+        description: 'Force re-download even if files exist'
+        required: false
+        type: boolean
+        default: false
+      dry_run:
+        description: 'Dry run (check only, no download)'
+        required: false
+        type: boolean
+        default: false
+
+env:
+  PYTHON_VERSION: '3.11'
+
+jobs:
+  monitor:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+
+      - name: Install Poetry
+        uses: snok/install-poetry@v1
+        with:
+          version: 1.7.1
+          virtualenvs-create: true
+          virtualenvs-in-project: true
+
+      - name: Load cached venv
+        id: cached-poetry-dependencies
+        uses: actions/cache@v4
+        with:
+          path: .venv
+          key: venv-${{ runner.os }}-${{ env.PYTHON_VERSION }}-${{ hashFiles('**/poetry.lock') }}
+
+      - name: Install dependencies
+        if: steps.cached-poetry-dependencies.outputs.cache-hit != 'true'
+        run: poetry install --no-interaction --no-root
+
+      - name: Install Playwright browsers
+        run: poetry run playwright install chromium
+
+      - name: Run AZDHS Monitor
+        env:
+          AZDHS_SLACK_WEBHOOK_URL: ${{ secrets.AZDHS_SLACK_WEBHOOK_URL }}
+          AZDHS_GMAIL_USER: ${{ secrets.AZDHS_GMAIL_USER }}
+          AZDHS_GMAIL_APP_PASSWORD: ${{ secrets.AZDHS_GMAIL_APP_PASSWORD }}
+          AZDHS_NOTIFY_EMAIL: ${{ secrets.AZDHS_NOTIFY_EMAIL }}
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_KEY: ${{ secrets.SUPABASE_KEY }}
+        run: |
+          ARGS="--notify"
+
+          if [ -n "${{ github.event.inputs.month }}" ]; then
+            ARGS="$ARGS --month ${{ github.event.inputs.month }}"
+          fi
+
+          if [ "${{ github.event.inputs.force }}" == "true" ]; then
+            ARGS="$ARGS --force"
+          fi
+
+          if [ "${{ github.event.inputs.dry_run }}" == "true" ]; then
+            ARGS="$ARGS --dry-run"
+          fi
+
+          poetry run python scripts/azdhs_monitor.py $ARGS
+
+      - name: Upload downloaded files
+        uses: actions/upload-artifact@v4
+        if: success()
+        with:
+          name: azdhs-data-${{ github.run_number }}
+          path: ALL-MONTHS/Raw */
+          retention-days: 30
+          if-no-files-found: ignore
+
+      - name: Commit new data to repository
+        if: success() && github.event.inputs.dry_run != 'true'
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+
+          # Check if there are new files to commit
+          if git status --porcelain | grep -q "ALL-MONTHS/"; then
+            git add ALL-MONTHS/
+            git commit -m "chore: auto-download AZDHS data $(date +%Y-%m-%d)"
+            git push
+          else
+            echo "No new AZDHS data to commit"
+          fi

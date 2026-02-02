@@ -18,14 +18,16 @@ Build a deterministic local script that ingests one workbook (`template_batchdat
 Read `CONFIG` sheet (key-value). Environment variables for API tokens (in project root `.env` file):
 - `BD_SKIPTRACE_KEY`, `BD_ADDRESS_KEY`, `BD_PROPERTY_KEY`, `BD_PHONE_KEY`.
 
-## Input Contract (INPUT_MASTER)
+## Input Contract (INPUT_MASTER) - 16 columns
 Columns (minimum subset bold):
-**BD_RECORD_ID**, BD_SOURCE_TYPE, BD_ENTITY_NAME, BD_SOURCE_ENTITY_ID, BD_TITLE_ROLE, BD_TARGET_FIRST_NAME, BD_TARGET_LAST_NAME, BD_OWNER_NAME_FULL, **BD_ADDRESS**, BD_ADDRESS_2, **BD_CITY**, **BD_STATE**, **BD_ZIP**, BD_COUNTY, BD_APN, BD_MAILING_LINE1, BD_MAILING_CITY, BD_MAILING_STATE, BD_MAILING_ZIP, BD_NOTES.
+**BD_RECORD_ID**, BD_SOURCE_TYPE, BD_ENTITY_NAME, BD_SOURCE_ENTITY_ID, BD_TITLE_ROLE, **BD_ADDRESS**, **BD_CITY**, **BD_STATE**, **BD_ZIP**, BD_COUNTY, BD_APN, BD_MAILING_LINE1, BD_MAILING_CITY, BD_MAILING_STATE, BD_MAILING_ZIP, BD_NOTES.
+
+**REMOVED (Nov 2025)**: BD_TARGET_FIRST_NAME, BD_TARGET_LAST_NAME, BD_OWNER_NAME_FULL, BD_ADDRESS_2
 
 Rules:
 - Explode upstream corporate filings so each person/address is its own row.
-- Drop rows where `BD_OWNER_NAME_FULL` matches entries in `BLACKLIST_NAMES`.
-- If both name and address exist, pass both to skip-trace. Otherwise address-only is allowed.
+- Filter using `BLACKLIST_NAMES` sheet for registered agent filtering.
+- API uses address-only for skip-trace lookups; names returned in API response.
 
 ## Outputs
 - `results/skiptrace/skiptrace_complete_{timestamp}.xlsx` (processed skip-trace results)

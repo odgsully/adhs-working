@@ -140,6 +140,9 @@ class BatchDataSyncClient:
     def _df_to_sync_request(self, df: pd.DataFrame) -> Dict[str, Any]:
         """Convert DataFrame to V3 JSON request format.
 
+        NOTE: Name fields removed - API uses ADDRESS ONLY for skip-trace lookups.
+        Names are returned by the API in the response (BD_PHONE_X_FIRST/LAST, etc.)
+
         Args:
             df: DataFrame chunk to convert
 
@@ -149,7 +152,7 @@ class BatchDataSyncClient:
         requests_list = []
 
         for _, row in df.iterrows():
-            # Build individual request
+            # Build individual request - address only (no name fields)
             request_item = {
                 "requestId": str(row.get('BD_RECORD_ID', '')),  # CRITICAL: enables merging
                 "propertyAddress": {
@@ -159,30 +162,6 @@ class BatchDataSyncClient:
                     "zip": str(row.get('BD_ZIP', ''))
                 }
             }
-
-            # Add name if available (improves match rate)
-            first_name = row.get('BD_TARGET_FIRST_NAME', '')
-            last_name = row.get('BD_TARGET_LAST_NAME', '')
-            full_name = row.get('BD_OWNER_NAME_FULL', '')
-
-            if first_name or last_name:
-                request_item["name"] = {
-                    "first": str(first_name) if first_name else "",
-                    "last": str(last_name) if last_name else ""
-                }
-            elif full_name:
-                # Parse full name if we don't have separate first/last
-                name_parts = str(full_name).strip().split(' ', 1)
-                if len(name_parts) == 2:
-                    request_item["name"] = {
-                        "first": name_parts[0],
-                        "last": name_parts[1]
-                    }
-                elif len(name_parts) == 1:
-                    request_item["name"] = {
-                        "first": "",
-                        "last": name_parts[0]
-                    }
 
             requests_list.append(request_item)
 
@@ -224,14 +203,22 @@ class BatchDataSyncClient:
     def _parse_sync_response_to_schema(self, response: Dict[str, Any], input_df: pd.DataFrame) -> pd.DataFrame:
         """Convert nested JSON response to wide-format DataFrame.
 
+        Output column structure (must match Batchdata_Template.xlsx):
+        - Columns 1-17: ECORP passthrough (preserved from input)
+        - Columns 18-37: BD input columns (preserved from input)
+        - Columns 38-117: BD_PHONE_1 through BD_PHONE_10 (80 cols, 8 fields each)
+        - Columns 118-157: BD_EMAIL_1 through BD_EMAIL_10 (40 cols, 4 fields each)
+        - Columns 158-165: API metadata (8 cols)
+        - Columns 166-174: Name matching (added later by name_matching.py)
+
         Args:
             response: API response dictionary
-            input_df: Original input DataFrame chunk
+            input_df: Original input DataFrame chunk (37 columns: 17 ECORP + 20 BD)
 
         Returns:
-            DataFrame with input columns plus flattened enrichment fields
+            DataFrame with input columns plus flattened enrichment fields (165 columns before name matching)
         """
-        # Start with copy of input to preserve all columns
+        # Start with copy of input to preserve all columns (ECORP passthrough + BD input)
         result_df = input_df.copy()
 
         # Add default enrichment columns

@@ -8,29 +8,31 @@ All BatchData columns have been standardized to use the `BD_` prefix for clear n
 
 ## Column Naming Changes
 
-### Core Input/Output Columns
-| Old Name | New Name |
-|----------|----------|
-| `record_id` | `BD_RECORD_ID` |
-| `source_type` | `BD_SOURCE_TYPE` |
-| `source_entity_name` | `BD_ENTITY_NAME` |
-| `source_entity_id` | `BD_SOURCE_ENTITY_ID` |
-| `title_role` | `BD_TITLE_ROLE` |
-| `target_first_name` | `BD_TARGET_FIRST_NAME` |
-| `target_last_name` | `BD_TARGET_LAST_NAME` |
-| `owner_name_full` | `BD_OWNER_NAME_FULL` |
-| `address_line1` | `BD_ADDRESS` |
-| `address_line2` | `BD_ADDRESS_2` |
-| `city` | `BD_CITY` |
-| `state` | `BD_STATE` |
-| `zip` | `BD_ZIP` |
-| `county` | `BD_COUNTY` |
-| `apn` | `BD_APN` |
-| `mailing_line1` | `BD_MAILING_LINE1` |
-| `mailing_city` | `BD_MAILING_CITY` |
-| `mailing_state` | `BD_MAILING_STATE` |
-| `mailing_zip` | `BD_MAILING_ZIP` |
-| `notes` | `BD_NOTES` |
+### Core Input/Output Columns (16 columns)
+| Old Name | New Name | Status |
+|----------|----------|--------|
+| `record_id` | `BD_RECORD_ID` | Active |
+| `source_type` | `BD_SOURCE_TYPE` | Active |
+| `source_entity_name` | `BD_ENTITY_NAME` | Active |
+| `source_entity_id` | `BD_SOURCE_ENTITY_ID` | Active |
+| `title_role` | `BD_TITLE_ROLE` | Active |
+| `target_first_name` | `BD_TARGET_FIRST_NAME` | **REMOVED (Nov 2025)** |
+| `target_last_name` | `BD_TARGET_LAST_NAME` | **REMOVED (Nov 2025)** |
+| `owner_name_full` | `BD_OWNER_NAME_FULL` | **REMOVED (Nov 2025)** |
+| `address_line1` | `BD_ADDRESS` | Active |
+| `address_line2` | `BD_ADDRESS_2` | **REMOVED (Nov 2025)** |
+| `city` | `BD_CITY` | Active |
+| `state` | `BD_STATE` | Active |
+| `zip` | `BD_ZIP` | Active |
+| `county` | `BD_COUNTY` | Active |
+| `apn` | `BD_APN` | Active |
+| `mailing_line1` | `BD_MAILING_LINE1` | Active |
+| `mailing_city` | `BD_MAILING_CITY` | Active |
+| `mailing_state` | `BD_MAILING_STATE` | Active |
+| `mailing_zip` | `BD_MAILING_ZIP` | Active |
+| `notes` | `BD_NOTES` | Active |
+
+**Note**: 4 columns removed in November 2025. API uses address-only for skip-trace lookups.
 
 ### Enrichment Columns
 | Old Pattern | New Pattern |
