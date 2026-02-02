@@ -1,6 +1,54 @@
 # Field mapping configuration for ADHS ETL pipeline
 # Based on track_files_ii.py mappings
 
+# Ignored columns - known AZDHS fields we don't need (suppresses warnings)
+# These are intentionally not mapped; add new entries here as needed
+ignored_columns:
+  - RUN_DATE
+  - rundate
+  - BUREAU
+  - Bureau
+  - SUBTYPE
+  - SubType
+  - Subtype
+  - FACILITY_TYPE_ID
+  - FACILITY_ID
+  - LICENSE_NUMBER
+  - LicenseNumber
+  - LICENSE_EFFECTIVE_DATE
+  - LICENSE_EXPIRE_DATE
+  - LICENSE_ISSUE_DATE
+  - TELEPHONE
+  - Phone
+  - mcaid_cert
+  - N_BLOCK
+  - SUPP_SERVICE_PROVIDED
+  - Type
+  - Status
+  - Status__c
+  - Capacity-Infants
+  - Capacity-One-Year-Olds
+  - School Aged
+  - License Tier
+  - Approved To
+  - Id
+  - BillingState
+  - STATE
+  - State
+  - CCN
+  - HCI Bureau
+  - External Facility Id
+  - Issue Date
+  - IssueDate
+  - Effective Date
+  - EffectiveDate
+  - Expiration Date
+  - ExpirationDate
+  - Certificate Name
+  - Original Effective Date
+  - hospital_sgl
+  - TodaysDate
+
 # Month mappings
 "Month": "MONTH"
 "MONTH": "MONTH"

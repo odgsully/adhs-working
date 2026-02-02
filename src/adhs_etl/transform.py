@@ -17,17 +17,23 @@ class FieldMapper:
         """Initialize with field mapping configuration."""
         self.field_map_path = field_map_path
         self.field_map_todo_path = field_map_todo_path
-        self.field_map = self._load_field_map()
+        self._raw_config = self._load_field_map_config()
+        self.field_map = self._extract_mappings(self._raw_config)
+        self.ignored_columns: Set[str] = set(self._raw_config.get("ignored_columns", []))
         self.unknown_columns: Set[str] = set()
 
-    def _load_field_map(self) -> Dict[str, str]:
-        """Load field mapping from YAML file."""
+    def _load_field_map_config(self) -> Dict:
+        """Load field mapping config from YAML file."""
         if not self.field_map_path.exists():
             logger.warning(f"Field map not found at {self.field_map_path}")
             return {}
 
         with open(self.field_map_path, "r") as f:
             return yaml.safe_load(f) or {}
+
+    def _extract_mappings(self, config: Dict) -> Dict[str, str]:
+        """Extract column mappings from config (excludes ignored_columns list)."""
+        return {k: v for k, v in config.items() if k != "ignored_columns" and isinstance(v, str)}
 
     def map_columns(self, df: pd.DataFrame) -> pd.DataFrame:
         """Apply field mapping to dataframe columns."""
@@ -76,12 +82,17 @@ class FieldMapper:
                 new_columns[source_cols[0]] = target
 
         # Add unmapped columns
+        ignored_count = 0
         for col in df.columns:
             if col in columns_to_keep and col not in new_columns:
                 if col not in self.field_map:
-                    # Track unknown columns
-                    self.unknown_columns.add(col)
-                    logger.warning(f"Unknown column encountered: {col}")
+                    if col in self.ignored_columns:
+                        # Known column we intentionally skip
+                        ignored_count += 1
+                    else:
+                        # Truly unknown column - track and warn
+                        self.unknown_columns.add(col)
+                        logger.warning(f"Unknown column encountered: {col}")
                 new_columns[col] = col  # Keep original name
 
         # Drop columns we don't want to keep
@@ -89,6 +100,15 @@ class FieldMapper:
 
         # Rename columns
         mapped_df.rename(columns=new_columns, inplace=True)
+
+        # Summary log
+        mapped_count = len([c for c in df.columns if c in self.field_map])
+        if mapped_count > 0 or ignored_count > 0:
+            logger.info(
+                f"Columns: {mapped_count} mapped, {ignored_count} ignored, "
+                f"{len(self.unknown_columns)} unknown"
+            )
+
         return mapped_df
 
     def save_unknown_columns(self, dry_run: bool = False) -> None:
