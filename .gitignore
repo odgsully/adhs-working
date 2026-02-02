@@ -43,7 +43,11 @@ ALL MONTHS/**/*.xls
 ALL MONTHS/**/*.xlsx
 ALL-MONTHS/**/*.xls
 ALL-MONTHS/**/*.xlsx
-APN/
+# APN - track script, ignore generated data
+APN/Cache/
+APN/Complete/
+APN/Upload/
+APN/__pycache__/
 All-to-Date/**/*.xls
 All-to-Date/**/*.xlsx
 Analysis/**/*.xls
