@@ -16,6 +16,7 @@ import subprocess
 from pathlib import Path
 import pandas as pd
 from datetime import datetime
+import pyfiglet
 
 # Add src to path for imports
 sys.path.insert(0, 'src')
@@ -959,8 +960,12 @@ def run_apn_lookup(upload_path: Path):
 
 def main():
     """Main function with interactive menu."""
+    # Display pyfiglet banner
+    banner = pyfiglet.figlet_format("ADHS ETL", font="slant")
     print_colored("\n" + "="*60, Colors.BOLD + Colors.CYAN)
-    print_colored("🚀 ADHS ETL Interactive Month Processor", Colors.BOLD + Colors.CYAN)
+    for line in banner.split('\n'):
+        print_colored(line, Colors.BOLD + Colors.CYAN)
+    print_colored("Interactive Month Processor", Colors.BOLD + Colors.CYAN)
     print_colored("="*60, Colors.BOLD + Colors.CYAN)
 
     # Scan available months
