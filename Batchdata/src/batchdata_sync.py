@@ -218,32 +218,38 @@ class BatchDataSyncClient:
         Returns:
             DataFrame with input columns plus flattened enrichment fields (165 columns before name matching)
         """
-        # Start with copy of input to preserve all columns (ECORP passthrough + BD input)
-        result_df = input_df.copy()
+        # Build all enrichment columns as a dict first to avoid DataFrame fragmentation
+        num_rows = len(input_df)
+        enrichment_cols = {}
 
-        # Add default enrichment columns
-        for i in range(1, 11):  # BD_PHONE_1 through BD_PHONE_10
-            result_df[f'BD_PHONE_{i}'] = ''
-            result_df[f'BD_PHONE_{i}_FIRST'] = ''  # Person first name
-            result_df[f'BD_PHONE_{i}_LAST'] = ''   # Person last name
-            result_df[f'BD_PHONE_{i}_TYPE'] = ''
-            result_df[f'BD_PHONE_{i}_CARRIER'] = ''
-            result_df[f'BD_PHONE_{i}_DNC'] = False
-            result_df[f'BD_PHONE_{i}_TCPA'] = False
-            result_df[f'BD_PHONE_{i}_CONFIDENCE'] = 0.0
+        # Phone columns: BD_PHONE_1 through BD_PHONE_10 (8 fields each)
+        for i in range(1, 11):
+            enrichment_cols[f'BD_PHONE_{i}'] = [''] * num_rows
+            enrichment_cols[f'BD_PHONE_{i}_FIRST'] = [''] * num_rows  # Person first name
+            enrichment_cols[f'BD_PHONE_{i}_LAST'] = [''] * num_rows   # Person last name
+            enrichment_cols[f'BD_PHONE_{i}_TYPE'] = [''] * num_rows
+            enrichment_cols[f'BD_PHONE_{i}_CARRIER'] = [''] * num_rows
+            enrichment_cols[f'BD_PHONE_{i}_DNC'] = [False] * num_rows
+            enrichment_cols[f'BD_PHONE_{i}_TCPA'] = [False] * num_rows
+            enrichment_cols[f'BD_PHONE_{i}_CONFIDENCE'] = [0.0] * num_rows
 
-        for i in range(1, 11):  # BD_EMAIL_1 through BD_EMAIL_10
-            result_df[f'BD_EMAIL_{i}'] = ''
-            result_df[f'BD_EMAIL_{i}_FIRST'] = ''  # Person first name
-            result_df[f'BD_EMAIL_{i}_LAST'] = ''   # Person last name
-            result_df[f'BD_EMAIL_{i}_TESTED'] = False
+        # Email columns: BD_EMAIL_1 through BD_EMAIL_10 (4 fields each)
+        for i in range(1, 11):
+            enrichment_cols[f'BD_EMAIL_{i}'] = [''] * num_rows
+            enrichment_cols[f'BD_EMAIL_{i}_FIRST'] = [''] * num_rows  # Person first name
+            enrichment_cols[f'BD_EMAIL_{i}_LAST'] = [''] * num_rows   # Person last name
+            enrichment_cols[f'BD_EMAIL_{i}_TESTED'] = [False] * num_rows
 
-        # Add API status columns
-        result_df['BD_API_STATUS'] = 'success'
-        result_df['BD_API_RESPONSE_TIME'] = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-        result_df['BD_PERSONS_FOUND'] = 0
-        result_df['BD_PHONES_FOUND'] = 0
-        result_df['BD_EMAILS_FOUND'] = 0
+        # API status columns
+        enrichment_cols['BD_API_STATUS'] = ['success'] * num_rows
+        enrichment_cols['BD_API_RESPONSE_TIME'] = [datetime.now().strftime('%Y-%m-%d %H:%M:%S')] * num_rows
+        enrichment_cols['BD_PERSONS_FOUND'] = [0] * num_rows
+        enrichment_cols['BD_PHONES_FOUND'] = [0] * num_rows
+        enrichment_cols['BD_EMAILS_FOUND'] = [0] * num_rows
+
+        # Create enrichment DataFrame and concatenate once (avoids fragmentation)
+        enrichment_df = pd.DataFrame(enrichment_cols, index=input_df.index)
+        result_df = pd.concat([input_df, enrichment_df], axis=1)
 
         # Check for valid response - V1 uses 'results' not 'result'
         if not response:
@@ -587,10 +593,13 @@ class BatchDataSyncClient:
             logger.info("⚖️ Stage 4: TCPA litigator screening")
             current_df = self.phone_tcpa_sync(current_df)
 
-        # Add pipeline metadata
-        current_df['BD_PIPELINE_VERSION'] = 'sync_v1'
-        current_df['BD_PIPELINE_TIMESTAMP'] = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-        current_df['BD_STAGES_APPLIED'] = json.dumps(stage_config)
+        # Add pipeline metadata (build all at once to avoid fragmentation)
+        metadata_df = pd.DataFrame({
+            'BD_PIPELINE_VERSION': ['sync_v1'] * len(current_df),
+            'BD_PIPELINE_TIMESTAMP': [datetime.now().strftime('%Y-%m-%d %H:%M:%S')] * len(current_df),
+            'BD_STAGES_APPLIED': [json.dumps(stage_config)] * len(current_df)
+        }, index=current_df.index)
+        current_df = pd.concat([current_df, metadata_df], axis=1)
 
         return current_df
 

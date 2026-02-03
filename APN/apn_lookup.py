@@ -732,10 +732,7 @@ def main() -> None:
 
         # Create output path in APN/Complete directory
         complete_dir = Path("APN/Complete")
-        if not complete_dir.exists():
-            complete_dir = Path("Complete")  # If running from within APN directory
-        if not complete_dir.exists():
-            complete_dir.mkdir(parents=True, exist_ok=True)
+        complete_dir.mkdir(parents=True, exist_ok=True)
 
         # Use new naming convention with underscore (not space)
         new_filename = format_output_filename(month_year, "APN_Complete", timestamp)
